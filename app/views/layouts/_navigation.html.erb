@@ -1,12 +1,19 @@
 <%# navigation styled for Zurb Foundation 5 %>
-<nav class="top-bar" data-topbar>
+<nav class="top-bar" data-topbar role="navigation">
   <ul class="title-area">
-    <li class="name"><%= link_to 'Home', root_path %></li>
-    <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+    <li class="name">
+      <h1><%= link_to 'POSEIDON', root_path %></h1>
+    </li>
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
   </ul>
-  <div class="top-bar-section">
-    <ul>
-      <%= render 'layouts/navigation_links' %>
+
+  <section class="top-bar-section">
+    <ul class="right" >
+      <%= render 'layouts/nav_links_for_auth' %>
     </ul>
-  </div>
+
+    <ul class="left">
+      <li><%= link_to 'About', page_path('about') %></li>
+    </ul>
+  </section>
 </nav>
