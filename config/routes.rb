@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :regions
   resources :spots
   root to: 'visitors#index'
   devise_for :users
