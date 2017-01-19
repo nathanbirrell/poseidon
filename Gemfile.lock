@@ -243,7 +243,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   foundation-rails (~> 5.5)
-  geocoder (~> 1.4.1)
+  geocoder
   high_voltage
   hub
   jbuilder (~> 2.5)
