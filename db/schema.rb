@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119001354) do
+ActiveRecord::Schema.define(version: 20170119022354) do
+
+  create_table "places", force: :cascade do |t|
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.decimal  "lat",        precision: 10, scale: 6
+    t.decimal  "lng",        precision: 10, scale: 6
+  end
 
   create_table "spots", force: :cascade do |t|
     t.string   "name"
@@ -18,8 +25,10 @@ ActiveRecord::Schema.define(version: 20170119001354) do
     t.string   "optimal_wind_direction"
     t.string   "optimal_swell_direction"
     t.string   "season"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.decimal  "lat",                     precision: 10, scale: 6
+    t.decimal  "lng",                     precision: 10, scale: 6
   end
 
   create_table "users", force: :cascade do |t|
