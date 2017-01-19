@@ -4,32 +4,42 @@
   <%= @spot.name %>
 </h2>
 
-<p><img src="<%= @spot.image %>" alt="<%= @spot.name %>" width="300px"></p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @spot.description %>
-</p>
-
-<p>
-  <strong>Optimal wind direction:</strong>
-  <%= @spot.optimal_wind_direction %>
-</p>
-
-<p>
-  <strong>Optimal swell direction:</strong>
-  <%= @spot.optimal_swell_direction %>
-</p>
-
-<p>
-  <strong>Season:</strong>
-  <%= @spot.season %>
-</p>
-
-<p>
-  <%= @spot.latitude %>
-  <%= @spot.longitude %>
-</p>
+<div class="row">
+  <div class="medium-6 columns">
+    <p><img src="<%= @spot.image %>" alt="<%= @spot.name %>" width="300px"></p>
+    <p>
+      <strong>Description:</strong>
+      <%= @spot.description %>
+    </p>
+    <p>
+      <strong>Optimal wind direction:</strong>
+      <%= @spot.optimal_wind_direction %>
+    </p>
+    <p>
+      <strong>Optimal swell direction:</strong>
+      <%= @spot.optimal_swell_direction %>
+    </p>
+    <p>
+      <strong>Season:</strong>
+      <%= @spot.season %>
+    </p>
+    <p>
+      <%= @spot.latitude %>
+      <%= @spot.longitude %>
+    </p>
+  </div>
+  <div class="medium-6 columns">
+    <p>
+      <iframe
+      width="100%"
+      height="300"
+      frameborder="0" style="border:0"
+      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDVFmco07GE43aqioYPI5Ccfl_DJlGkBJo
+        &q=loc:<%= @spot.latitude %>+<%= @spot.longitude %>&maptype=satellite&zoom=15" allowfullscreen>
+      </iframe>
+    </p>
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_spot_path(@spot), class: 'button' %> <br>
 <%= link_to 'Back', spots_path %>
