@@ -1,0 +1,42 @@
+<%= form_for(spot) do |f| %>
+  <% if spot.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(spot.errors.count, "error") %> prohibited this spot from being saved:</h2>
+
+      <ul>
+      <% spot.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :optimal_wind_direction %>
+    <%= f.text_field :optimal_wind_direction %>
+  </div>
+
+  <div class="field">
+    <%= f.label :optimal_swell_direction %>
+    <%= f.text_field :optimal_swell_direction %>
+  </div>
+
+  <div class="field">
+    <%= f.label :season %>
+    <%= f.text_field :season %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

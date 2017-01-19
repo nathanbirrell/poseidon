@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @spot.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @spot.description %>
+</p>
+
+<p>
+  <strong>Optimal wind direction:</strong>
+  <%= @spot.optimal_wind_direction %>
+</p>
+
+<p>
+  <strong>Optimal swell direction:</strong>
+  <%= @spot.optimal_swell_direction %>
+</p>
+
+<p>
+  <strong>Season:</strong>
+  <%= @spot.season %>
+</p>
+
+<%= link_to 'Edit', edit_spot_path(@spot) %> |
+<%= link_to 'Back', spots_path %>
