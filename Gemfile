@@ -12,9 +12,6 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-# gem 'geocoder'
-gem 'countries'
-gem 'country_select'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -29,6 +26,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'foundation-rails', '~> 5.5'
 gem 'high_voltage'
+
+# gem 'geocoder'
+gem 'countries'
+gem 'country_select'
+
 group :development do
   gem 'better_errors'
   gem 'hub', :require=>nil

@@ -42,17 +42,21 @@
       <%= f.text_field :image %>
     </div>
 
-    <div class="medium-6 columns">
+    <section class="small-12 columns">
       <strong>Location</strong> <br>
-      <div class="small-6 columns">
+      <div class="small-4 columns">
         <%= f.label :latitude %>
         <%= f.text_field :latitude %>
       </div>
-      <div class="small-6 columns">
+      <div class="small-4 columns">
         <%= f.label :longitude %>
         <%= f.text_field :longitude %>
       </div>
-    </div>
+      <div class="small-4 columns">
+        <%= f.label :region %><br />
+        <%= f.select :region_id, options_for_select(Region.all.map{|r|[r.name, r.id]}) %>
+      </div>
+    </section>
 
     <div class="medium-6 columns">
     </div>

@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= f.label :country %>
-    <%= f.text_field :country %>
+    <%= f.country_select :country, priority_countries: ["AU", "US"] %>
   </div>
 
   <div class="field">

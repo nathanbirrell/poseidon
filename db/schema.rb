@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119062443) do
+ActiveRecord::Schema.define(version: 20170119105910) do
+
+  create_table "regions", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "country"
+    t.string   "state"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "spots", force: :cascade do |t|
     t.string   "name"
@@ -23,6 +32,8 @@ ActiveRecord::Schema.define(version: 20170119062443) do
     t.decimal  "latitude",                precision: 10, scale: 6
     t.decimal  "longitude",               precision: 10, scale: 6
     t.string   "image"
+    t.integer  "region_id"
+    t.index ["region_id"], name: "index_spots_on_region_id"
   end
 
   create_table "users", force: :cascade do |t|

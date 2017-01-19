@@ -1,5 +1,6 @@
 class SpotsController < ApplicationController
   before_action :set_spot, only: [:show, :edit, :update, :destroy]
+  before_action :set_region, only: [:show]
 
   # GET /spots
   # GET /spots.json
@@ -67,8 +68,12 @@ class SpotsController < ApplicationController
       @spot = Spot.find(params[:id])
     end
 
+    def set_region
+      @region = Region.find(@spot.region_id)
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def spot_params
-      params.require(:spot).permit(:name, :description, :optimal_wind_direction, :optimal_swell_direction, :season, :latitude, :longitude, :image)
+      params.require(:spot).permit(:name, :description, :optimal_wind_direction, :optimal_swell_direction, :season, :latitude, :longitude, :image, :region_id)
     end
 end
