@@ -1,9 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h2>
   <%= @spot.name %>
-</p>
+</h2>
+
+<p><img src="<%= @spot.image %>" alt="<%= @spot.name %>" width="300px"></p>
 
 <p>
   <strong>Description:</strong>
@@ -25,5 +26,10 @@
   <%= @spot.season %>
 </p>
 
-<%= link_to 'Edit', edit_spot_path(@spot) %> |
+<p>
+  <%= @spot.lat %>
+  <%= @spot.lng %>
+</p>
+
+<%= link_to 'Edit', edit_spot_path(@spot), class: 'button' %> <br>
 <%= link_to 'Back', spots_path %>

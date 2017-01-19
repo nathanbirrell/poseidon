@@ -11,32 +11,54 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <div class="row">
+    <div class="small-12 columns">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="small-12 columns">
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </div>
+
+    <div class="medium-4 columns">
+      <%= f.label :optimal_wind_direction %>
+      <%= f.text_field :optimal_wind_direction %>
+    </div>
+
+    <div class="medium-4 columns">
+      <%= f.label :optimal_swell_direction %>
+      <%= f.text_field :optimal_swell_direction %>
+    </div>
+
+    <div class="medium-4 columns">
+      <%= f.label :season %>
+      <%= f.text_field :season %>
+    </div>
+
+    <div class="small-12 columns">
+      <%= f.label :image %>
+      <%= f.text_field :image %>
+    </div>
+
+    <div class="medium-6 columns">
+      <strong>Location</strong> <br>
+      <div class="small-6 columns">
+        <%= f.label :lat %>
+        <%= f.text_field :lat %>
+      </div>
+      <div class="small-6 columns">
+        <%= f.label :lng %>
+        <%= f.text_field :lng %>
+      </div>
+    </div>
+
+    <div class="medium-6 columns">
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
-
-  <div class="field">
-    <%= f.label :optimal_wind_direction %>
-    <%= f.text_field :optimal_wind_direction %>
-  </div>
-
-  <div class="field">
-    <%= f.label :optimal_swell_direction %>
-    <%= f.text_field :optimal_swell_direction %>
-  </div>
-
-  <div class="field">
-    <%= f.label :season %>
-    <%= f.text_field :season %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="row actions">
+    <%= f.submit 'Done', :class => 'button large' %>
   </div>
 <% end %>
