@@ -15,7 +15,7 @@ spot_bells.optimal_wind_direction = 'NNW'
 spot_bells.optimal_swell_direction = 'SW'
 spot_bells.season = 'March'
 spot_bells.image = 'http://www.surfcoast.vic.gov.au/files/assets/public/tourism/images/bellsbeachlandscape.jpg'
-spot_bells.lat = -38.3699279
-spot_bells.lng = 144.2779936
+spot_bells.latitude = -38.3699279
+spot_bells.longitude = 144.2779936
 spot_bells.save!
 puts 'CREATED SPOT: ' << spot_bells.name
