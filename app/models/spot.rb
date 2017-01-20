@@ -1,3 +1,7 @@
 class Spot < ApplicationRecord
-  has_one :region
+  include ActiveModel::Validations
+
+  links_to :region
+
+  validates :name, presence: true
 end
