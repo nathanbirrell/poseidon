@@ -1,8 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<h2>
-  <%= @spot.name %>, <small><%= @region.name %>, <%= @region.state %></small>
-</h2>
+<h2><%= @spot.name %></h2>
+<p><%= link_to @region.name, @region %>, <%= @region.state %></p>
 
 <div class="row">
   <div class="medium-6 columns">

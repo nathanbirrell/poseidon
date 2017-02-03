@@ -20,5 +20,11 @@
   <%= @region.state %>
 </p>
 
+<ul>
+  <% @spots.each do |spot| %>
+    <li><%= link_to spot.name, spot %></li>
+  <% end %>
+</ul>
+
 <%= link_to 'Edit', edit_region_path(@region) %> |
 <%= link_to 'Back', regions_path %>
