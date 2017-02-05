@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119105910) do
+ActiveRecord::Schema.define(version: 20170205111619) do
 
   create_table "regions", force: :cascade do |t|
     t.string   "name"
@@ -24,15 +24,18 @@ ActiveRecord::Schema.define(version: 20170119105910) do
   create_table "spots", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.string   "optimal_wind_direction"
-    t.string   "optimal_swell_direction"
+    t.integer  "optimal_wind_direction_degrees"
+    t.integer  "optimal_swell_direction_degrees"
     t.string   "season"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-    t.decimal  "latitude",                precision: 10, scale: 6
-    t.decimal  "longitude",               precision: 10, scale: 6
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.decimal  "latitude",                        precision: 10, scale: 6
+    t.decimal  "longitude",                       precision: 10, scale: 6
     t.string   "image"
     t.integer  "region_id"
+    t.decimal  "optimal_tide_height_metres"
+    t.decimal  "optimal_tide_height_low_metres"
+    t.decimal  "optimal_tide_height_high_metres"
     t.index ["region_id"], name: "index_spots_on_region_id"
   end
 

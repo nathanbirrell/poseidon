@@ -3,31 +3,46 @@
 <h2><%= @spot.name %></h2>
 <p><%= link_to @region.name, @region %>, <%= @region.state %></p>
 
-<div class="row">
-  <div class="medium-6 columns">
+<div class="row" style="max-width: none;">
+  <div class="medium-8 columns">
     <p><img src="<%= @spot.image %>" alt="<%= @spot.name %>" width="300px"></p>
+
+
+    <h2>tide details</h2>
+
+    <p class="lead">
+      <% tide_info = "
+        #{@spot.name} is prime on
+        #{@spot.optimal_tide_height_low_metres}m to #{@spot.optimal_tide_height_high_metres}m" %>
+      <%= tide_info %>
+    </p>
+
+    <hr><hr><hr>
+    <h1>TODO --- </h1>
+
     <p>
       <strong>Description:</strong>
       <%= @spot.description %>
     </p>
     <p>
       <strong>Optimal wind direction:</strong>
-      <%= @spot.optimal_wind_direction %>
+      <%= @spot.optimal_wind_direction_degrees %> degrees
     </p>
     <p>
       <strong>Optimal swell direction:</strong>
-      <%= @spot.optimal_swell_direction %>
+      <%= @spot.optimal_swell_direction_degrees %> degrees
     </p>
     <p>
       <strong>Season:</strong>
       <%= @spot.season %>
     </p>
     <p>
+      Lat/long:
       <%= @spot.latitude %> <br>
       <%= @spot.longitude %> <br>
     </p>
   </div>
-  <div class="medium-6 columns">
+  <div class="medium-4 columns">
     <p>
       <iframe
       width="100%"
