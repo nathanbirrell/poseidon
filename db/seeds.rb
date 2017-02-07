@@ -9,13 +9,14 @@
 user = CreateAdminService.new.call
 puts 'CREATED ADMIN USER: ' << user.email
 
-spot_bells = Spot.find_or_initialize_by(name: 'Bells Beach')
-spot_bells.description = 'Long right-hand point'
-spot_bells.optimal_wind_direction_degrees = '350'
-spot_bells.optimal_swell_direction_degrees = '180'
-spot_bells.season = 'March'
-spot_bells.image = 'http://www.surfcoast.vic.gov.au/files/assets/public/tourism/images/bellsbeachlandscape.jpg'
-spot_bells.latitude = -38.3699279
-spot_bells.longitude = 144.2779936
-spot_bells.save!
-puts 'CREATED SPOT: ' << spot_bells.name
+# spot_bells = Spot.find_or_initialize_by(name: 'Bells Beach')
+# spot_bells.description = 'Long right-hand point'
+# spot_bells.optimal_wind_direction_degrees = '350'
+# spot_bells.optimal_swell_direction_degrees = '180'
+# spot_bells.season = 'March'
+# spot_bells.image = 'http://www.surfcoast.vic.gov.au/files/assets/public/tourism/images/bellsbeachlandscape.jpg'
+# spot_bells.latitude = -38.3699279
+# spot_bells.longitude = 144.2779936
+# spot_bells.region = 144.2779936
+# spot_bells.save!
+# puts 'CREATED SPOT: ' << spot_bells.name
