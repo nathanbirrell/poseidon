@@ -11,8 +11,8 @@ puts 'CREATED ADMIN USER: ' << user.email
 
 spot_bells = Spot.find_or_initialize_by(name: 'Bells Beach')
 spot_bells.description = 'Long right-hand point'
-spot_bells.optimal_wind_direction = 'NNW'
-spot_bells.optimal_swell_direction = 'SW'
+spot_bells.optimal_wind_direction_degrees = '350'
+spot_bells.optimal_swell_direction_degrees = '180'
 spot_bells.season = 'March'
 spot_bells.image = 'http://www.surfcoast.vic.gov.au/files/assets/public/tourism/images/bellsbeachlandscape.jpg'
 spot_bells.latitude = -38.3699279
