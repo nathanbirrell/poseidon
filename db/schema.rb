@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314020434) do
+ActiveRecord::Schema.define(version: 20170314204416) do
+
+  create_table "current_conditions", force: :cascade do |t|
+    t.decimal "swell_size_metres"
+    t.decimal "swell_period_metres"
+    t.integer "swell_direction_degrees"
+    t.decimal "wind_strength_kmh"
+    t.integer "wind_direction_degrees"
+    t.decimal "tide_height_metres"
+    t.integer "spot_id"
+    t.index ["spot_id"], name: "index_current_conditions_on_spot_id"
+  end
 
   create_table "regions", force: :cascade do |t|
     t.string   "name"
