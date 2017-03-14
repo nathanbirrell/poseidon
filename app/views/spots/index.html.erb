@@ -24,8 +24,8 @@
           <%= link_to 'Destroy', spot, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
         <td><%= spot.description %></td>
-        <td><%= spot.optimal_wind_direction_degrees %></td>
-        <td><%= spot.optimal_swell_direction_degrees %></td>
+        <td><%= spot.wind_optimal_direction_min_degrees %></td>
+        <td><%= spot.swell_optimal_direction_min_degrees %></td>
         <td><%= spot.season %></td>
       </tr>
     <% end %>

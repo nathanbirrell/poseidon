@@ -12,7 +12,7 @@ class Spot < ApplicationRecord
   def tide_rating
     rating = 0
 
-    if forecasted_tide.between?(optimal_tide_height_low_metres, optimal_tide_height_high_metres)
+    if forecasted_tide.between?(tide_optimal_min_metres, tide_optimal_max_metres)
       rating = 10;
     else
       rating = 1;

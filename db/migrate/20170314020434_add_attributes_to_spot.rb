@@ -5,8 +5,8 @@ class AddAttributesToSpot < ActiveRecord::Migration[5.0]
     t.remove :optimal_swell_direction_degrees
     t.remove :optimal_tide_height_metres
 
-    t.rename :optimal_tide_height_low_metres, :tide_optimal_min_metres
-    t.rename :optimal_tide_height_high_metres, :tide_optimal_max_metres
+    t.rename :tide_optimal_min_metres, :tide_optimal_min_metres
+    t.rename :tide_optimal_max_metres, :tide_optimal_max_metres
 
     t.decimal :swell_optimal_size_min_metres
     t.decimal :swell_optimal_size_max_metres
