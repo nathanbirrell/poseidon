@@ -1,5 +1,6 @@
 class RegionsController < ApplicationController
   before_action :set_region, only: [:show, :edit, :update, :destroy]
+  before_action :set_spots, only: [:show]
 
   # GET /regions
   # GET /regions.json
@@ -70,5 +71,9 @@ class RegionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def region_params
       params.require(:region).permit(:name, :description, :country, :state)
+    end
+
+    def set_spots
+      @spots = Spot.where(region_id: @region.id)
     end
 end

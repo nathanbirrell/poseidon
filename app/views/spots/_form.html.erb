@@ -22,17 +22,26 @@
       <%= f.text_area :description %>
     </div>
 
-    <div class="medium-4 columns">
-      <%= f.label :optimal_wind_direction %>
-      <%= f.text_field :optimal_wind_direction %>
+    <div class="medium-3 columns">
+      <%= f.label :wind_optimal_direction_min_degrees %>
+      <%= f.text_field :wind_optimal_direction_min_degrees %>
     </div>
 
-    <div class="medium-4 columns">
-      <%= f.label :optimal_swell_direction %>
-      <%= f.text_field :optimal_swell_direction %>
+    <div class="medium-3 columns">
+      <%= f.label :swell_optimal_direction_min_degrees %>
+      <%= f.text_field :swell_optimal_direction_min_degrees %>
     </div>
 
-    <div class="medium-4 columns">
+    <div class="medium-1 columns">
+      <%= f.label :tide_optimal_min_metres %>
+      <%= f.text_field :tide_optimal_min_metres %>
+    </div>
+    <div class="medium-1 columns">
+      <%= f.label :tide_optimal_max_metres %>
+      <%= f.text_field :tide_optimal_max_metres %>
+    </div>
+
+    <div class="medium-3 columns">
       <%= f.label :season %>
       <%= f.text_field :season %>
     </div>

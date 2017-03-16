@@ -7,15 +7,34 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 user = CreateAdminService.new.call
-puts 'CREATED ADMIN USER: ' << user.email
+puts 'Created Admin: ' << user.email
 
-spot_bells = Spot.find_or_initialize_by(name: 'Bells Beach')
-spot_bells.description = 'Long right-hand point'
-spot_bells.optimal_wind_direction = 'NNW'
-spot_bells.optimal_swell_direction = 'SW'
-spot_bells.season = 'March'
-spot_bells.image = 'http://www.surfcoast.vic.gov.au/files/assets/public/tourism/images/bellsbeachlandscape.jpg'
-spot_bells.latitude = -38.3699279
-spot_bells.longitude = 144.2779936
-spot_bells.save!
-puts 'CREATED SPOT: ' << spot_bells.name
+region = Region.create(
+  name: 'Mornington Peninsula',
+  description: 'East of Melbourne.',
+  country: 'Australia',
+  state: 'Victoria'
+)
+puts "Created Region #{region.name}"
+
+spot = Spot.create(
+  name: 'Cape Schanck',
+  description: 'Long left-hand point',
+  season: 'March',
+  image: 'http://www.surfcoast.vic.gov.au/files/assets/public/tourism/images/bellsbeachlandscape.jpg',
+  latitude: -38.489189,
+  longitude: 144.884256,
+  region_id: region.id,
+  tide_optimal_min_metres: 0.6,
+  tide_optimal_max_metres: 1.3,
+  swell_optimal_size_min_metres: 1.5,
+  swell_optimal_size_max_metres: 4,
+  swell_optimal_period_seconds: 18,
+  swell_optimal_direction_min_degrees: 70,
+  swell_optimal_direction_max_degrees: 120,
+  wind_optimal_strength_min_kmh: 0,
+  wind_optimal_strength_max_kmh: 30,
+  wind_optimal_direction_min_degrees: 0,
+  wind_optimal_direction_max_degrees: 120
+)
+puts "Created Spot #{spot.name}"

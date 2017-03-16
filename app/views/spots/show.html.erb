@@ -1,38 +1,57 @@
 <p id="notice"><%= notice %></p>
 
-<h2>
-  <%= @spot.name %>, <small><%= @region.name %>, <%= @region.state %></small>
-</h2>
+<h2><%= @spot.name %></h2>
+<p><%= link_to @region.name, @region %>, <%= @region.state %></p>
 
-<div class="row">
-  <div class="medium-6 columns">
+<div class="row" style="max-width: none;">
+  <div class="medium-8 columns">
     <p><img src="<%= @spot.image %>" alt="<%= @spot.name %>" width="300px"></p>
+
     <p>
       <strong>Description:</strong>
       <%= @spot.description %>
     </p>
     <p>
       <strong>Optimal wind direction:</strong>
-      <%= @spot.optimal_wind_direction %>
+      <%= @spot.wind_optimal_direction_min_degrees %> - <%= @spot.wind_optimal_direction_max_degrees %> degrees
+      <br>
+      <strong>Optimal wind strength:</strong>
+      <%= @spot.wind_optimal_strength_min_kmh %> - <%= @spot.wind_optimal_strength_max_kmh %> kmh
     </p>
     <p>
       <strong>Optimal swell direction:</strong>
-      <%= @spot.optimal_swell_direction %>
+      <%= @spot.swell_optimal_direction_min_degrees %> - <%= @spot.swell_optimal_direction_max_degrees %> degrees
+      <br>
+      <strong>Optimal swell size:</strong>
+      <%= @spot.swell_optimal_size_min_metres %> - <%= @spot.swell_optimal_size_max_metres %> metres
+      <br>
+      <strong>Optimal swell period:</strong>
+      <%= @spot.swell_optimal_period_seconds %> secs
+    </p>
+    <p>
+      <strong>Tide rating: <%= @spot.tide_rating %> </strong><br>
+      <strong>Optimal tides:</strong>
+
+      <% tide_info = "
+        #{@spot.name}'s tide is prime on
+        #{@spot.tide_optimal_min_metres}m to #{@spot.tide_optimal_max_metres}m" %>
+      <%= tide_info %>
+    </p>
+    <p>
     </p>
     <p>
       <strong>Season:</strong>
       <%= @spot.season %>
     </p>
     <p>
-      <%= @spot.latitude %> <br>
-      <%= @spot.longitude %> <br>
+      <strong>Lat/long: </strong>
+      <%= @spot.latitude %>, <%= @spot.longitude %> 
     </p>
-  </div>
-  <div class="medium-6 columns">
+
     <p>
       <iframe
-      width="100%"
-      height="300"
+      width="380"
+      height="250"
       frameborder="0" style="border:0"
       src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDVFmco07GE43aqioYPI5Ccfl_DJlGkBJo
         &q=loc:<%= @spot.latitude %>+<%= @spot.longitude %>&maptype=satellite&zoom=15" allowfullscreen>

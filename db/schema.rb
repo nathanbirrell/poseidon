@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119105910) do
+ActiveRecord::Schema.define(version: 20170314204416) do
+
+  create_table "current_conditions", force: :cascade do |t|
+    t.decimal "swell_size_metres"
+    t.decimal "swell_period_metres"
+    t.integer "swell_direction_degrees"
+    t.decimal "wind_strength_kmh"
+    t.integer "wind_direction_degrees"
+    t.decimal "tide_height_metres"
+    t.integer "spot_id"
+    t.index ["spot_id"], name: "index_current_conditions_on_spot_id"
+  end
 
   create_table "regions", force: :cascade do |t|
     t.string   "name"
@@ -24,15 +35,24 @@ ActiveRecord::Schema.define(version: 20170119105910) do
   create_table "spots", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.string   "optimal_wind_direction"
-    t.string   "optimal_swell_direction"
     t.string   "season"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-    t.decimal  "latitude",                precision: 10, scale: 6
-    t.decimal  "longitude",               precision: 10, scale: 6
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
+    t.decimal  "latitude",                            precision: 10, scale: 6
+    t.decimal  "longitude",                           precision: 10, scale: 6
     t.string   "image"
     t.integer  "region_id"
+    t.decimal  "tide_optimal_min_metres"
+    t.decimal  "tide_optimal_max_metres"
+    t.decimal  "swell_optimal_size_min_metres"
+    t.decimal  "swell_optimal_size_max_metres"
+    t.decimal  "swell_optimal_period_seconds"
+    t.integer  "swell_optimal_direction_min_degrees"
+    t.integer  "swell_optimal_direction_max_degrees"
+    t.decimal  "wind_optimal_strength_min_kmh"
+    t.decimal  "wind_optimal_strength_max_kmh"
+    t.integer  "wind_optimal_direction_min_degrees"
+    t.integer  "wind_optimal_direction_max_degrees"
     t.index ["region_id"], name: "index_spots_on_region_id"
   end
 
