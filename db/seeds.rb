@@ -9,7 +9,7 @@
 user = CreateAdminService.new.call
 puts 'Created Admin: ' << user.email
 
-region = Region.create(
+region = Region.first_or_create(
   name: 'Mornington Peninsula',
   description: 'East of Melbourne.',
   country: 'Australia',
@@ -17,7 +17,7 @@ region = Region.create(
 )
 puts "Created Region #{region.name}"
 
-spot = Spot.create(
+spot = Spot.first_or_create(
   name: 'Cape Schanck',
   description: 'Long left-hand point',
   season: 'March',
