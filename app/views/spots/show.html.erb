@@ -9,6 +9,8 @@
 
     <h2>CURRENT POTENTIAL: <%= @spot.current_potential %>%</h2>
 
+    <p>Observed: <%= @spot.latest_observation.updated_at %></p>
+
     <p>
       <strong>Description:</strong>
       <%= @spot.description %>
