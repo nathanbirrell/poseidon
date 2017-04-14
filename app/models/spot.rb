@@ -37,6 +37,7 @@ class Spot < ApplicationRecord
     is_optimal_wind_speed = is_inside_optimal_params(latest_observation.wind_strength_kmh, wind_optimal_strength_min_kmh, wind_optimal_strength_max_kmh)
     rating += weight_of_optimal_wind_speed if is_optimal_wind_speed
 
+    # TODO: Given that direction is given in degrees, we need to calc `is_optimal_wind_direction` based on directional proximity
     is_optimal_wind_direction = is_inside_optimal_params(latest_observation.wind_direction_degrees, wind_optimal_direction_min_degrees, wind_optimal_direction_max_degrees)
     rating += weight_of_optimal_wind_direction if is_optimal_wind_direction
 
@@ -45,8 +46,22 @@ class Spot < ApplicationRecord
   end
 
   def swell_rating
-    # calculate a swell rating
-    1
+    return 0 unless latest_observation
+
+    weight_of_optimal_swell_height = 0.2
+    weight_of_optimal_swell_direction = 0.8
+
+    rating = 0.0
+
+    is_optimal_swell_height = is_inside_optimal_params(latest_observation.swell_size_metres, swell_optimal_size_min_metres, swell_optimal_size_max_metres)
+    rating += weight_of_optimal_swell_height if is_optimal_swell_height
+
+    # TODO: Given that direction is given in degrees, we need to calc `is_optimal_swell_direction` based on directional proximity
+    is_optimal_swell_direction = is_inside_optimal_params(latest_observation.swell_direction_degrees, swell_optimal_direction_min_degrees, swell_optimal_direction_max_degrees)
+    rating += weight_of_optimal_swell_direction if is_optimal_swell_direction
+
+    puts("swell_rating: #{rating.to_s}")
+    rating
   end
 
   def current_potential
@@ -63,6 +78,6 @@ class Spot < ApplicationRecord
   private
 
   def is_inside_optimal_params(observation, param_min, param_max)
-    (observation > param_min) || (observation < param_max)
+    (observation > param_min) && (observation < param_max)
   end
 end
