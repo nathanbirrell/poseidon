@@ -38,3 +38,14 @@ spot = Spot.first_or_create(
   wind_optimal_direction_max_degrees: 120
 )
 puts "Created Spot #{spot.name}"
+
+condition = Observation.first_or_create(
+  swell_size_metres: 1.3,
+  swell_period_seconds: 12,
+  swell_direction_degrees: 210,
+  wind_strength_kmh: 5.3,
+  wind_direction_degrees: 355,
+  tide_height_metres: 1.2,
+  spot_id: spot.id
+)
+puts "Created Observation for Spot #{spot.name} (swell: #{condition.swell_size_metres}m)"
