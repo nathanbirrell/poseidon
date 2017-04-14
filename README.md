@@ -12,7 +12,7 @@ Getting Started
 1. Install [Bundler](http://bundler.io) for the current Ruby version - `gem install bundler`
 1. Install [Rails](http://railsapps.github.io/installing-rails.html)
 1. Clone this repo - `git clone git@github.com:nathanbirrell/poseidon.git poseidon`
-1. Install project dependencies - `cd poseidon; bundle install`
+1. Install project dependencies - `cd poseidon; bundle install`. [Note if you have an issue with the `pg` gem, make sure you run `brew install postgresql` and `bundle` again.]
 1. Create, set-up and seed database with `rails db:create db:schema:load db:seed`
 1. Start the Rails server to confirm all is working `rails server`
 
