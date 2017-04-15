@@ -7,8 +7,19 @@
   <div class="medium-8 columns">
     <p><img src="<%= @spot.image %>" alt="<%= @spot.name %>" width="300px"></p>
 
+    <h2>CURRENT POTENTIAL: <%= number_to_percentage(@spot.current_potential, precision: 1) %></h2>
+
     <p>
-      <strong>Description:</strong>
+      Observed at: <%= @spot.latest_observation.updated_at %> <br>
+      Swell: <%= @spot.latest_observation.swell_size_metres %>m
+      at <%= @spot.latest_observation.swell_period_seconds %>s
+      from <%= @spot.latest_observation.swell_direction_degrees %> degrees <br>
+      Wind: <%= @spot.latest_observation.wind_strength_kmh %> km/h
+      <%= @spot.latest_observation.wind_direction_degrees %> degrees <br>
+      Tide height: <%= @spot.latest_observation.tide_height_metres %>m above sea level
+    </p>
+
+    <p>
       <%= @spot.description %>
     </p>
     <p>
@@ -17,8 +28,6 @@
       <br>
       <strong>Optimal wind strength:</strong>
       <%= @spot.wind_optimal_strength_min_kmh %> - <%= @spot.wind_optimal_strength_max_kmh %> kmh
-    </p>
-    <p>
       <strong>Optimal swell direction:</strong>
       <%= @spot.swell_optimal_direction_min_degrees %> - <%= @spot.swell_optimal_direction_max_degrees %> degrees
       <br>
@@ -27,14 +36,10 @@
       <br>
       <strong>Optimal swell period:</strong>
       <%= @spot.swell_optimal_period_seconds %> secs
-    </p>
-    <p>
       <strong>Optimal tides:</strong>
 
-      <% tide_info = "
-        #{@spot.name}'s tide is prime on
+      <%= "#{@spot.name}'s tide is prime between
         #{@spot.tide_optimal_min_metres}m to #{@spot.tide_optimal_max_metres}m" %>
-      <%= tide_info %>
     </p>
     <p>
     </p>
