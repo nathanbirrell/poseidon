@@ -9,6 +9,8 @@
 
     <h2>CURRENT POTENTIAL: <%= number_to_percentage(@spot.current_potential, precision: 1) %></h2>
 
+    <p>Tide rating <%= @spot.tide_rating * 100.0 %>% Wind rating: <%= @spot.wind_rating * 100.0 %>% Swell rating: <%= @spot.swell_rating * 100.0 %>%</p>
+
     <p>
       Observed at: <%= @spot.latest_observation.updated_at %> <br>
       Swell: <%= @spot.latest_observation.swell_size_metres %>m
