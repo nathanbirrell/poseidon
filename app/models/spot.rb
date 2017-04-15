@@ -50,8 +50,8 @@ class Spot < ApplicationRecord
   def swell_rating
     return 0 unless latest_observation
 
-    weight_of_optimal_swell_height = 0.2
-    weight_of_optimal_swell_direction = 0.8
+    weight_of_optimal_swell_height = 0.7
+    weight_of_optimal_swell_direction = 0.3
 
     rating = 0.0
 
