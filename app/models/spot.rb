@@ -18,7 +18,7 @@ class Spot < ApplicationRecord
 
     rating = 0.0
 
-    is_optimal_tide = is_inside_optimal_params(latest_observation.tide_height_metres, tide_optimal_min_metres, tide_optimal_max_metres)
+    is_optimal_tide = is_between(latest_observation.tide_height_metres, tide_optimal_min_metres, tide_optimal_max_metres)
     rating += 1 if is_optimal_tide
 
     puts("tide_rating: #{rating.to_s}")
@@ -34,12 +34,14 @@ class Spot < ApplicationRecord
 
     rating = 0.0
 
-    is_optimal_wind_speed = is_inside_optimal_params(latest_observation.wind_strength_kmh, wind_optimal_strength_min_kmh, wind_optimal_strength_max_kmh)
+    is_optimal_wind_speed = is_between(latest_observation.wind_strength_kmh, wind_optimal_strength_min_kmh, wind_optimal_strength_max_kmh)
     rating += weight_of_optimal_wind_speed if is_optimal_wind_speed
 
-    # TODO: Given that direction is given in degrees, we need to calc `is_optimal_wind_direction` based on directional proximity
-    is_optimal_wind_direction = is_inside_optimal_params(latest_observation.wind_direction_degrees, wind_optimal_direction_min_degrees, wind_optimal_direction_max_degrees)
+    is_optimal_wind_direction = is_angle_inside_range(latest_observation.wind_direction_degrees, wind_optimal_direction_min_degrees, wind_optimal_direction_max_degrees)
     rating += weight_of_optimal_wind_direction if is_optimal_wind_direction
+
+    puts("is_angle_inside_range target=#{latest_observation.wind_direction_degrees} + min=#{wind_optimal_direction_min_degrees} + max=#{wind_optimal_direction_max_degrees} ?")
+    puts("is_optimal_wind_direction= #{is_optimal_wind_direction}")
 
     puts("wind_rating: #{rating.to_s}")
     rating
@@ -53,11 +55,10 @@ class Spot < ApplicationRecord
 
     rating = 0.0
 
-    is_optimal_swell_height = is_inside_optimal_params(latest_observation.swell_size_metres, swell_optimal_size_min_metres, swell_optimal_size_max_metres)
+    is_optimal_swell_height = is_between(latest_observation.swell_size_metres, swell_optimal_size_min_metres, swell_optimal_size_max_metres)
     rating += weight_of_optimal_swell_height if is_optimal_swell_height
 
-    # TODO: Given that direction is given in degrees, we need to calc `is_optimal_swell_direction` based on directional proximity
-    is_optimal_swell_direction = is_inside_optimal_params(latest_observation.swell_direction_degrees, swell_optimal_direction_min_degrees, swell_optimal_direction_max_degrees)
+    is_optimal_swell_direction = is_angle_inside_range(latest_observation.swell_direction_degrees, swell_optimal_direction_min_degrees, swell_optimal_direction_max_degrees)
     rating += weight_of_optimal_swell_direction if is_optimal_swell_direction
 
     puts("swell_rating: #{rating.to_s}")
@@ -77,7 +78,32 @@ class Spot < ApplicationRecord
 
   private
 
-  def is_inside_optimal_params(observation, param_min, param_max)
-    (observation > param_min) && (observation < param_max)
+  # Need to calculate whether the observed angle is between optimal range.
+  #   This is not as simple as the is_between() function, because of the 360°
+  #   threshold of measuring angles, for example, given observed wind at 3° and
+  #   an optimal range of 350° - 10°, 3 >= 350 = false, which is incorrect.
+  #   Read more: http://stackoverflow.com/questions/11406189/determine-if-angle-lies-between-2-other-angles
+  #
+  #   TODO: Explain the logic inside this function better via comments
+  def is_angle_inside_range(angle, range_min, range_max)
+    if (!is_between(angle, 1, 360) || !is_between(range_min, 1, 360) || !is_between(range_max, 1, 360))
+      puts('Angles must be provided inside 1 - 360 degrees')
+      return
+    end
+
+    # Make the angle from range_min to range_max to be <= 180 degrees
+    real_angle = ((range_max - range_min) % 360 + 360) % 360
+    # Swap the min/max range if it's > 180
+    range_min, range_max = range_max, range_min if (real_angle >= 180)
+
+    if range_min <= range_max
+      return angle >= range_min && angle <= range_max
+    else
+      return angle >= range_min || angle <= range_max
+    end
+  end
+
+  def is_between(observation, param_min, param_max)
+    (observation >= param_min) && (observation <= param_max)
   end
 end

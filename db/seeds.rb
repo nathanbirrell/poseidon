@@ -30,12 +30,12 @@ spot = Spot.first_or_create(
   swell_optimal_size_min_metres: 1.5,
   swell_optimal_size_max_metres: 4,
   swell_optimal_period_seconds: 18,
-  swell_optimal_direction_min_degrees: 70,
-  swell_optimal_direction_max_degrees: 120,
+  swell_optimal_direction_min_degrees: 120,
+  swell_optimal_direction_max_degrees: 290,
   wind_optimal_strength_min_kmh: 0,
   wind_optimal_strength_max_kmh: 30,
-  wind_optimal_direction_min_degrees: 0,
-  wind_optimal_direction_max_degrees: 120
+  wind_optimal_direction_min_degrees: 320,
+  wind_optimal_direction_max_degrees: 40
 )
 puts "Created Spot #{spot.name}"
 
@@ -44,7 +44,7 @@ condition = Observation.first_or_create(
   swell_period_seconds: 12,
   swell_direction_degrees: 210,
   wind_strength_kmh: 5.3,
-  wind_direction_degrees: 355,
+  wind_direction_degrees: 3,
   tide_height_metres: 1.2,
   spot_id: spot.id
 )
