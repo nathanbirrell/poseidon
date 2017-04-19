@@ -67,6 +67,10 @@ class Spot < ApplicationRecord
     is_optimal_wind_direction = is_angle_inside_range(latest_observation.wind_direction_degrees, wind_optimal_direction_min_degrees, wind_optimal_direction_max_degrees)
     rating += weight_of_optimal_wind_direction if is_optimal_wind_direction
 
+    x = wind_optimal_direction_min_degrees
+    y = latest_observation.wind_direction_degrees
+    puts("Calculating angle between x=#{x} and y=#{y} = #{calculate_angle_between(x, y)}")
+
     puts("is_angle_inside_range target=#{latest_observation.wind_direction_degrees} + min=#{wind_optimal_direction_min_degrees} + max=#{wind_optimal_direction_max_degrees} ?")
     puts("is_optimal_wind_direction= #{is_optimal_wind_direction}")
 
@@ -105,6 +109,14 @@ class Spot < ApplicationRecord
 
   private
 
+  def calculate_angle_between(x, y)
+    # Math.atan2(Math.sin(x-y), Math.cos(x-y))
+    a = x - y
+    a -= 360 if a > 180
+    a += 360 if a < -180
+    a
+  end
+
   # Need to calculate whether the observed angle is between optimal range.
   #   This is not as simple as the is_between() function, because of the 360°
   #   threshold of measuring angles, for example, given observed wind at 3° and
@@ -113,6 +125,7 @@ class Spot < ApplicationRecord
   #
   #   TODO: Explain the logic inside this function better via comments
   def is_angle_inside_range(angle, range_min, range_max)
+    # FIXME: Do NOT validate these values here, validate them on the ActiveRecord model attributes
     if (!is_between(angle, 1, 360) || !is_between(range_min, 1, 360) || !is_between(range_max, 1, 360))
       puts('Angles must be provided inside 1 - 360 degrees')
       return
@@ -130,6 +143,7 @@ class Spot < ApplicationRecord
     end
   end
 
+  # Convenience function to check if `observation` is between the two params
   def is_between(observation, param_min, param_max)
     (observation >= param_min) && (observation <= param_max)
   end
