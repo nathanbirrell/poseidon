@@ -15,9 +15,9 @@
       Observed at: <%= @spot.latest_observation.updated_at %> <br>
       Swell: <%= @spot.latest_observation.swell_size_metres %>m
       at <%= @spot.latest_observation.swell_period_seconds %>s
-      from <%= @spot.latest_observation.swell_direction_degrees %> degrees <br>
-      Wind: <%= @spot.latest_observation.wind_strength_kmh %> km/h
-      <%= @spot.latest_observation.wind_direction_degrees %> degrees <br>
+      from <%= @spot.latest_observation.swell_direction_degrees %> degrees OR <%= @spot.latest_observation.swell_direction_degrees.degrees %> radians <br>
+      Wind: <%= @spot.latest_observation.wind_strength_kmh %> km/h from
+      <%= @spot.latest_observation.wind_direction_degrees %> degrees OR <%= @spot.latest_observation.wind_direction_degrees.degrees %> radians <br>
       Tide height: <%= @spot.latest_observation.tide_height_metres %>m above sea level
     </p>
 
