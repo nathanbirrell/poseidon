@@ -1,7 +1,7 @@
 Poseidon
 ================
 
-The Ruby on Rails application behind [Poseidon](https://surfposeidon.nathanbirrell.me).
+The Ruby on Rails application behind [Poseidon](https://surfposeidon.io).
 
 Getting Started
 ---------------
