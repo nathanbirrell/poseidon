@@ -1,4 +1,5 @@
 require 'rest-client'
+require 'pp'
 
 # See example below for a task with access to ActiveRecord model :D
 namespace :observations do
@@ -12,17 +13,29 @@ namespace :observations do
       {
         params: {
           'apikey' => '36cbaff072be400096158d9f71100c61',
-          'lat' => '-38.489189',
-          'lon' => '144.884256'
+          'lat' => '-38.608',
+          'lon' => '144.501',
+          'count' => '5',
+          'context' => 'reftime_time_lat_lon'
         }
       }
     )
 
     observation_result = JSON.parse(response)
 
-    size = observation_result["entries"][0]["data"]["Significant_height_of_combined_wind_waves_and_swell_surface"]
+    entries = observation_result["entries"]
+    time = DateTime.parse(observation_result["stats"]["timeMin"])
 
-    puts("SIZE = #{size}m")
-    puts(observation_result)
+    puts("Ref TIME (utc)= #{time}")
+    puts("Ref TIME (local)= #{time.localtime}")
+
+    entries.each do |entry|
+      size = entry["data"]["Significant_height_of_combined_wind_waves_and_swell_surface"]
+      time = DateTime.parse(entry["axes"]["time"]).localtime
+      puts("At #{time}, the Significant_height_of_combined_wind_waves_and_swell_surface is #{size}m")
+    end
+
+    # Pretty-print the hash if you want to inspect it
+    # pp observation_result
   end
 end
