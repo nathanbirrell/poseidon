@@ -19,7 +19,7 @@ puts "Created Region #{region.name}"
 
 spot = Spot.first_or_create(
   name: 'Cape Schanck',
-  description: 'Long left-hand point',
+  description: "Cape Schanck in Mornington Peninsula is a fairly exposed reef break that has reliable surf, although summer tends to be mostly flat. Offshore winds are from the northeast. Waves just as likely from local windswells as from distant groundswells and the optimum swell angle is from the southeast. A reef breaks left. Best around low tide. It's often crowded here. Watch out for dangerous rips.",
   season: 'March',
   image: 'http://www.surfcoast.vic.gov.au/files/assets/public/tourism/images/bellsbeachlandscape.jpg',
   latitude: -38.489189,
