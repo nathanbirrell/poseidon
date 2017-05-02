@@ -1,70 +1,154 @@
 <p id="notice"><%= notice %></p>
 
-<h2><%= @spot.name %></h2>
-<p><%= link_to @region.name, @region %>, <%= @region.state %></p>
+<div class="row">
+  <div class="large-12 columns">
 
-<div class="row" style="max-width: none;">
-  <div class="medium-8 columns">
-    <p><img src="<%= @spot.image %>" alt="<%= @spot.name %>" width="300px"></p>
+    <div class="hide-for-small">
+      <div id="featured"><img alt="slide image" src="<%= @spot.image %>"></div>
+    </div>
 
-    <h2>CURRENT POTENTIAL: <%= number_to_percentage(@spot.current_potential, precision: 1) %></h2>
+    <div class="row">
+      <div class="small-12 show-for-small"><br>
+        <img src="<%= @spot.image %>"></div>
+    </div>
+  </div>
+</div><br>
 
-    <p>Tide rating <%= @spot.tide_rating * 100.0 %>% Wind rating: <%= @spot.wind_rating * 100.0 %>% Swell rating: <%= @spot.swell_rating * 100.0 %>%</p>
-
+<div class="row">
+  <div class="small-6 columns">
+    <h2><%= @spot.name %>, <br>
+      <small><%= link_to @region.name, @region %>, <%= @region.state %></small></h2>
+  </div>
+  <div class="small-6 columns text-right">
     <p>
-      Observed at: <%= @spot.latest_observation.updated_at %> <br>
-      Swell: <%= @spot.latest_observation.swell_size_metres %>m
-      at <%= @spot.latest_observation.swell_period_seconds %>s
-      from <%= @spot.latest_observation.swell_direction_degrees %> degrees OR <%= @spot.latest_observation.swell_direction_degrees.degrees %> radians <br>
-      Wind: <%= @spot.latest_observation.wind_strength_kmh %> km/h from
-      <%= @spot.latest_observation.wind_direction_degrees %> degrees OR <%= @spot.latest_observation.wind_direction_degrees.degrees %> radians <br>
-      Tide height: <%= @spot.latest_observation.tide_height_metres %>m above sea level
-    </p>
-
-    <p>
-      <%= @spot.description %>
-    </p>
-    <p>
-      <strong>Optimal wind direction:</strong>
-      <%= @spot.wind_optimal_direction_min_degrees %> - <%= @spot.wind_optimal_direction_max_degrees %> degrees
-      <br>
-      <strong>Optimal wind strength:</strong>
-      <%= @spot.wind_optimal_strength_min_kmh %> - <%= @spot.wind_optimal_strength_max_kmh %> kmh
-      <strong>Optimal swell direction:</strong>
-      <%= @spot.swell_optimal_direction_min_degrees %> - <%= @spot.swell_optimal_direction_max_degrees %> degrees
-      <br>
-      <strong>Optimal swell size:</strong>
-      <%= @spot.swell_optimal_size_min_metres %> - <%= @spot.swell_optimal_size_max_metres %> metres
-      <br>
-      <strong>Optimal swell period:</strong>
-      <%= @spot.swell_optimal_period_seconds %> secs
-      <strong>Optimal tides:</strong>
-
-      <%= "#{@spot.name}'s tide is prime between
-        #{@spot.tide_optimal_min_metres}m to #{@spot.tide_optimal_max_metres}m" %>
-    </p>
-    <p>
-    </p>
-    <p>
-      <strong>Season:</strong>
-      <%= @spot.season %>
-    </p>
-    <p>
-      <strong>Lat/long: </strong>
-      <%= @spot.latitude %>, <%= @spot.longitude %>
-    </p>
-
-    <p>
-      <iframe
-      width="380"
-      height="250"
-      frameborder="0" style="border:0"
-      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDVFmco07GE43aqioYPI5Ccfl_DJlGkBJo
-        &q=loc:<%= @spot.latitude %>+<%= @spot.longitude %>&maptype=satellite&zoom=15" allowfullscreen>
-      </iframe>
+      <small>Updated <%= @spot.latest_observation.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
+      <% if user_signed_in? %> <%= link_to 'Edit Spot', edit_spot_path(@spot) %> <br> <% end %>
     </p>
   </div>
 </div>
 
-<%= link_to 'Edit', edit_spot_path(@spot), class: 'button' %> <br>
-<%= link_to 'Back', spots_path %>
+<div class="row">
+  <div class="large-12 columns">
+    <div class="row">
+
+      <div class="large-3 small-6 columns panel">
+        <h6>Overall Potential</h6>
+        <p><strong><%= number_to_percentage(@spot.current_potential, precision: 1) %></strong></p>
+      </div>
+      <div class="large-3 small-6 columns panel">
+        <h6>Swell</h6>
+        <p><%= @spot.swell_rating * 100.0 %>%</p>
+        <p>
+          <ul>
+            <li><%= @spot.latest_observation.swell_size_metres %>m</li>
+            <li>at <%= @spot.latest_observation.swell_period_seconds %>s</li>
+            <li>from <%= @spot.latest_observation.swell_direction_degrees %> degrees OR <%= @spot.latest_observation.swell_direction_degrees.degrees %> radians <br></li>
+          </ul>
+        </p>
+      </div>
+      <div class="large-3 small-6 columns panel">
+        <h6>Wind</h6>
+        <p><%= @spot.wind_rating * 100.0 %>%</p>
+        <p>
+          <ul>
+            <li><%= @spot.latest_observation.wind_strength_kmh %> km/h from</li>
+            <li><%= @spot.latest_observation.wind_direction_degrees %> degrees OR <%= @spot.latest_observation.wind_direction_degrees.degrees if @spot.latest_observation.wind_direction_degrees %> radians <br></li>
+          </ul>
+        </p>
+      </div>
+      <div class="large-3 small-6 columns panel">
+        <h6>Tide</h6>
+        <p><%= @spot.tide_rating * 100.0 %>%</p>
+        <p>
+          <ul>
+            <li><%= @spot.latest_observation.tide_height_metres %>m above sea level</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="panel radius">
+          <div class="row">
+            <div class="small-12 columns">
+              <h4>About</h4>
+              <hr>
+            </div>
+
+            <div class="large-6 small-6 columns">
+              <h5 class="subheader"><%= @spot.description %></h5>
+            </div>
+            <div class="large-6 small-6 columns">
+              <p>
+                <strong>Optimal wind direction:</strong>
+                <%= @spot.wind_optimal_direction_min_degrees %> - <%= @spot.wind_optimal_direction_max_degrees %> degrees
+                <br>
+                <strong>Optimal wind strength:</strong>
+                <%= @spot.wind_optimal_strength_min_kmh %> - <%= @spot.wind_optimal_strength_max_kmh %> kmh
+                <strong>Optimal swell direction:</strong>
+                <%= @spot.swell_optimal_direction_min_degrees %> - <%= @spot.swell_optimal_direction_max_degrees %> degrees
+                <br>
+                <strong>Optimal swell size:</strong>
+                <%= @spot.swell_optimal_size_min_metres %> - <%= @spot.swell_optimal_size_max_metres %> metres
+                <br>
+                <strong>Optimal swell period:</strong>
+                <%= @spot.swell_optimal_period_seconds %> secs
+                <br>
+                <strong>Optimal tides:</strong>
+                <%= "#{@spot.tide_optimal_min_metres}m to #{@spot.tide_optimal_max_metres}m" %>
+
+                <strong>Season:</strong> <%= @spot.season %> <br>
+                <strong>Lat/long: </strong> <%= @spot.latitude %>, <%= @spot.longitude %>
+
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns">
+    <iframe
+    width="100%"
+    height="250"
+    frameborder="0" style="border:0"
+    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDVFmco07GE43aqioYPI5Ccfl_DJlGkBJo
+      &q=loc:<%= @spot.latitude %>+<%= @spot.longitude %>&zoom=15" allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="large-12 columns">
+    <h3><%= "Models for #{@spot.name}" %></h3>
+    <table>
+      <thead>
+        <tr>
+          <% @spot.observations.columns.map do |column| %>
+            <td><%= column.name %></td>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @spot.observations.each do |observation| %>
+          <tr>
+            <% date_attrs = ['created_at', 'updated_at', 'axes_reftime', 'axes_time'] %>
+            <% observation.attributes.each do |attr_name, attr_value| %>
+              <% attr_value = attr_value.localtime.strftime("%a, %e %b %Y %H:%M") if date_attrs.include? attr_name %>
+              <td><%= attr_value %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

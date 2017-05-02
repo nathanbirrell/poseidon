@@ -54,3 +54,5 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
+
+gem 'rest-client', '2.0.1'
