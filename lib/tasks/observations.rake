@@ -33,16 +33,7 @@ def update_swell
     }
   )
 
-  observation_result = JSON.parse(response)
-
-  entries = observation_result["entries"]
-
-  time = DateTime.parse(entries[0]["axes"]["reftime"])
-
-  lat_long_display = "Lat: " + entries[0]["axes"]["latitude"].to_s + " Lon: " + entries[0]["axes"]["longitude"].to_s
-
-  puts("Reference Time (local)= #{time.localtime}")
-  puts("Model Axes Location: #{lat_long_display}")
+  entries = JSON.parse(response)["entries"]
 
   entries.each do |entry|
     datetime = DateTime.parse(entry["axes"]["time"])
