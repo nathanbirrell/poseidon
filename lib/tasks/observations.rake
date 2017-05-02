@@ -27,7 +27,7 @@ def update_swell
         'apikey' => planetos_api_key,
         'lat' => lat,
         'lon' => lon,
-        'count' => '10',
+        'count' => '25',
         'context' => 'reftime_time_lat_lon'
       }
     }
@@ -66,14 +66,14 @@ def update_swell
     datetime = DateTime.parse(entry["axes"]["time"])
 
     observation = Observation.where(
-      axes_time: datetime.to_s,
+      axes_time: datetime,
       spot_id: id
     ).first_or_initialize
 
     observation.spot_id = id
     observation.axes_time = datetime
     observation.axes_lat = entry["axes"]["latitude"]
-    observation.axes_lon = entry["axes"]["latitude"]
+    observation.axes_lon = entry["axes"]["longitude"]
     observation.swell_size_metres = entry["data"]["Significant_height_of_combined_wind_waves_and_swell_surface"]
     observation.swell_period_seconds = entry["data"]["Primary_wave_mean_period_surface"]
     observation.swell_direction_degrees = entry["data"]["Primary_wave_direction_surface"]
