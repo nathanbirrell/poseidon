@@ -39,6 +39,26 @@ class Spot < ApplicationRecord
     Observation.where(spot_id: id).first
   end
 
+  # calculate current tide
+  def current_tide
+    # get tide max and min at location
+    # get tide range at location
+    # get baseline (minimum) time for tide at location
+
+
+    # calculate difference from baseline time to current time (or target time) in multiples of 12, get modulus
+    # if modulus < 6, it is rising (add to min), if > 6, subtract from max
+    # use rule of 12ths to calc value to add/subtract. (no of 12ths x Maximum)
+
+    # SINE CURVE
+    # y = a.sin((1/b)(x + l)) + v
+    # where a = amplitude, b = period, l = left shift, v = vertical shift
+
+    # tide_height = (tide_range/2)sin(1/b(x + l) + (tide_range/2) where x is current time in hours (decimal) from a known minimum
+    # 2pi.b = 12 --> solve for b to get the coefficient value to use for x in the above formula
+    # unfinished, need to figure out relationship between b and l
+  end
+
   # caclulate a tide rating
   def tide_rating
     return 0 unless latest_observation.tide_height_metres
