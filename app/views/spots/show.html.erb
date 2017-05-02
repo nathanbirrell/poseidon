@@ -7,7 +7,7 @@
   <div class="medium-8 columns">
     <p><img src="<%= @spot.image %>" alt="<%= @spot.name %>" width="300px"></p>
 
-    <h2>CURRENT POTENTIAL: <%= number_to_percentage(@spot.current_potential, precision: 1) %></h2>
+    <p><strong>CURRENT POTENTIAL: <%= number_to_percentage(@spot.current_potential, precision: 1) %></p></strong>
 
     <p>Tide rating <%= @spot.tide_rating * 100.0 %>% Wind rating: <%= @spot.wind_rating * 100.0 %>% Swell rating: <%= @spot.swell_rating * 100.0 %>%</p>
 
@@ -17,7 +17,7 @@
       at <%= @spot.latest_observation.swell_period_seconds %>s
       from <%= @spot.latest_observation.swell_direction_degrees %> degrees OR <%= @spot.latest_observation.swell_direction_degrees.degrees %> radians <br>
       Wind: <%= @spot.latest_observation.wind_strength_kmh %> km/h from
-      <%= @spot.latest_observation.wind_direction_degrees %> degrees OR <%= @spot.latest_observation.wind_direction_degrees.degrees %> radians <br>
+      <%= @spot.latest_observation.wind_direction_degrees %> degrees OR <%= @spot.latest_observation.wind_direction_degrees.degrees if @spot.latest_observation.wind_direction_degrees %> radians <br>
       Tide height: <%= @spot.latest_observation.tide_height_metres %>m above sea level
     </p>
 
