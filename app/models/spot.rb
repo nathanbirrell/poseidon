@@ -133,6 +133,7 @@ class Spot < ApplicationRecord
     aggregate += swell_rating / 3.0
 
     aggregate * 100.0
+    aggregate.round(3) * 100
   end
 
   private
