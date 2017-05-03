@@ -130,25 +130,6 @@
 <div class="row">
   <div class="large-12 columns">
     <h3><%= "Models for #{@spot.name}" %></h3>
-    <table>
-      <thead>
-        <tr>
-          <% @spot.observations.columns.map do |column| %>
-            <td><%= column.name %></td>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% @spot.observations.each do |observation| %>
-          <tr>
-            <% date_attrs = ['created_at', 'updated_at', 'axes_reftime', 'axes_time'] %>
-            <% observation.attributes.each do |attr_name, attr_value| %>
-              <% attr_value = attr_value.localtime.strftime("%a, %e %b %Y %H:%M") if date_attrs.include? attr_name %>
-              <td><%= attr_value %></td>
-            <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= spot_observations_table(@spot) %>
   </div>
 </div>
