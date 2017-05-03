@@ -8,6 +8,7 @@ Getting Started
 
 1. Install [RVM](https://rvm.io/rvm/install)
 1. Install [RubyGems](https://rubygems.org/pages/download)
+1. Install Postgres `brew install postgresql`
 1. Install the correct version of Ruby on your machine - `rvm install ruby-2.3.3 && rvm use ruby-2.3.3`
 1. Install [Bundler](http://bundler.io) for the current Ruby version - `gem install bundler`
 1. Install [Rails](http://railsapps.github.io/installing-rails.html)
@@ -32,9 +33,13 @@ Documentation and Support
 Features & Issues
 -------------
 
-[Github Issues](https://github.com/nathanbirrell/poseidon/issues)
+[Trello Team](https://trello.com/surfposeidon) (for build/feature work)
+
+[Github Issues](https://github.com/nathanbirrell/poseidon/issues) (for bugs)
 
 Contributing
 ------------
 
 Use [Gitflow](http://nvie.com/posts/a-successful-git-branching-model/), branch a `feature/your_feature` off `develop`, create a Pull Request back to `develop` for approval and merge by team.
+
+Pull request process?
