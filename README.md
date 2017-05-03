@@ -33,11 +33,13 @@ Documentation and Support
 Features & Issues
 -------------
 
-[Trello Team](https://trello.com/surfposeidon)
+[Trello Team](https://trello.com/surfposeidon) (for build/feature work)
 
-[Github Issues](https://github.com/nathanbirrell/poseidon/issues)
+[Github Issues](https://github.com/nathanbirrell/poseidon/issues) (for bugs)
 
 Contributing
 ------------
 
 Use [Gitflow](http://nvie.com/posts/a-successful-git-branching-model/), branch a `feature/your_feature` off `develop`, create a Pull Request back to `develop` for approval and merge by team.
+
+Pull request process?
