@@ -1,0 +1,51 @@
+.spot-tile {
+  background-color: #fff;
+  border-radius: 5px;
+  margin-bottom: 15px;
+
+  &__image {
+    background-size: cover;
+    width: 100%;
+    padding-bottom: 60%;
+    border-radius: 5px 5px 0 0;
+  }
+
+  &__summary {
+    padding: 10px 10px 10px 10px;
+
+    h3 {
+      display: inline-block;
+      margin: 0 10px 0 0;
+      font-size: 1.2rem;
+    }
+  }
+
+  .stats {
+  display: inline-block;
+  float: right;
+  width: 60%;
+
+    .stat-item {
+      position: relative;
+      font-size: 1.2rem;
+      display: inline-block;
+      color: #606060;
+      padding-left: 30px;
+      float: right;
+      &::before {
+        height: 22px;
+        width: 22px;
+        content: " ";
+        position: absolute;
+        background-image: url('http://www.interfaceit.com.br/wp-content/uploads/2016/09/Target.png');
+        background-size: cover;
+        top: 3px;
+        left: 5px;
+      }
+
+      &.primary {
+        color: #000;
+      }
+    }
+  }
+}
