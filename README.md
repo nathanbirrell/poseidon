@@ -33,6 +33,8 @@ Documentation and Support
 Features & Issues
 -------------
 
+[Trello Team](https://trello.com/surfposeidon)
+
 [Github Issues](https://github.com/nathanbirrell/poseidon/issues)
 
 Contributing
