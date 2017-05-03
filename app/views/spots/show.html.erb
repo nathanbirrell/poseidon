@@ -59,6 +59,7 @@
       <div class="large-3 small-6 columns panel">
         <h6>Tide</h6>
         <p><%= @spot.tide_rating * 100.0 %>%</p>
+        <p>Current_tide: <%= @spot.current_tide %>m</p>
         <p>
           <ul>
             <li><%= @spot.latest_observation.tide_height_metres %>m above sea level</li>

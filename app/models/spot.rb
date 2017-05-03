@@ -27,6 +27,7 @@
 
 class Spot < ApplicationRecord
   include ActiveModel::Validations
+  include Math
 
   belongs_to :region
 
@@ -45,7 +46,6 @@ class Spot < ApplicationRecord
     # get tide range at location
     # get baseline (minimum) time for tide at location
 
-
     # calculate difference from baseline time to current time (or target time) in multiples of 12, get modulus
     # if modulus < 6, it is rising (add to min), if > 6, subtract from max
     # use rule of 12ths to calc value to add/subtract. (no of 12ths x Maximum)
@@ -54,16 +54,9 @@ class Spot < ApplicationRecord
     # y = a.sin(b(x + l)) + v
     # where a = amplitude, b = period, l = left shift, v = vertical shift
 
-    # tide_height = (tide_range/2)sin(1/b(x + 9b)) + (tide_range/2) where x is current time in hours (decimal) from a known minimum
-    # --> y = r.sin((x/b) + 9) + r   where r = half tide range
-    # 2pi.b = 12 --> solve for b to get the coefficient value to use for x in the above formula
-    # (1/b).l = 9 --> l/b = 9 --> l = 9b --> have fed this back into formula above
-
-    # From notepad
-    # y = sin(bx) --> period = (1/b)2pi --> p = (2pi)/b --> b = 2pi/p --> where p = 12 --> b = pi/6
-    # bl = 9 --> pi.l/6 = 9 --> 54 = pi.l --> l = 54/pi
-
-
+    rating = 0.0
+    rating = sin(PI*1/6 - PI/2) + 1
+    rating.round(2)
 
   end
 
