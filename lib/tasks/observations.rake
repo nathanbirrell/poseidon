@@ -37,7 +37,7 @@ def update_swell_data(spot)
   entries = JSON.parse(response)["entries"]
 
   entries.each do |entry|
-    map_swell_entry_to_observation(spot.id, entry)
+    save_swell_forecast_entry(spot.id, entry)
   end
 
   # Pretty-print the hash if you want to inspect it
@@ -122,7 +122,7 @@ end
 
 # TODO: make spot_id first here for convention
 # TODO: rename to underscore convention, this shit aint Javascript brah
-def map_swell_entry_to_observation(spot_id, entry)
+def save_swell_forecast_entry(spot_id, entry)
   datetime = DateTime.parse(entry["axes"]["time"])
 
   observation = Observation.where(
