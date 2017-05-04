@@ -15,6 +15,12 @@ namespace :observations do
       update_tide_data(spot)
     end
   end
+
+  task :reset => :environment do
+    Observation.delete_all
+    Wind.delete_all
+    Tide.delete_all
+  end
 end
 
 # TODO Move ALL these methods into their respective controllers OR into ActiveJobs
@@ -44,58 +50,6 @@ def update_swell_data(spot)
   # pp observation_result
 end
 
-def update_wind_data(spot)
-  # Get wind data from https://api.willyweather.com.au/v2/MTA5MTU5MWU3NThiZjg4ZjgxMDI2Nm/locations/13813/weather.json?forecasts=wind&days=1
-  set_willyweather_location_id_if_needed(spot)
-
-  response = RestClient.get(
-    "https://api.willyweather.com.au/v2/#{WW_API_KEY}/locations/#{spot.willyweather_location_id}/weather.json",
-    {
-      params: {
-        'forecasts' => 'wind',
-        'days' => 5
-      }
-    }
-  )
-
-  response = JSON.parse(response)
-  # location_info = response['location']
-  days = response['forecasts']['wind']['days']
-
-  days.each do |day|
-    forecasts = day['entries']
-    forecasts.each do |forecast|
-      save_wind_forecast_entry(spot.id, forecast)
-    end
-  end
-end
-
-def save_wind_forecast_entry(spot_id, forecast)
-    forecast_datetime = DateTime.parse(forecast['dateTime'])
-
-    wind_record = Wind.where(
-      date_time: forecast_datetime.utc,
-      spot_id: spot_id
-    ).first_or_initialize
-
-    wind_record.speed = forecast['speed']
-    wind_record.direction = forecast['direction']
-    wind_record.direction_text = forecast['directionText']
-    wind_record.date_time = forecast_datetime
-
-    wind_record.save
-
-    # FIXME: I'm not sure these dates are being stored correctly, probably needs investigation
-    # puts "wind_record.date_time zone=#{Time.zone}"
-    # puts "wind_record.date_time fc=#{forecast_datetime}"
-    # puts "wind_record.date_time db=#{wind_record.date_time}"
-    # puts "wind_record.date_time lo=#{wind_record.date_time.in_time_zone('Melbourne')}"
-end
-
-def update_tide_data(spot)
-  # TODO: this method
-end
-
 private
 
 # TODO: Move this out of this rake task and bring it into the ActiveRecord model or the controller so that every time we create a Spot, we fetch this ID immediately.
@@ -120,6 +74,60 @@ def set_willyweather_location_id_if_needed((spot))
   spot.save
 end
 
+def update_wind_data(spot)
+  # Get wind data from https://api.willyweather.com.au/v2/MTA5MTU5MWU3NThiZjg4ZjgxMDI2Nm/locations/13813/weather.json?forecasts=wind&days=1
+  set_willyweather_location_id_if_needed(spot)
+
+  response = RestClient.get(
+    "https://api.willyweather.com.au/v2/#{WW_API_KEY}/locations/#{spot.willyweather_location_id}/weather.json",
+    {
+      params: {
+        'forecasts' => 'wind',
+        'days' => 5
+      }
+    }
+  )
+
+  response = JSON.parse(response)
+  location_info = response['location']
+  days = response['forecasts']['wind']['days']
+
+  days.each do |day|
+    forecasts = day['entries']
+    forecasts.each do |forecast|
+      save_wind_forecast_entry(spot.id, forecast, location_info)
+    end
+  end
+end
+
+def save_wind_forecast_entry(spot_id, forecast, location_info)
+  Time.zone = location_info['timeZone'] # Willyweather provides datetimes in the timezone of the location, we need to parse it into UTC
+  forecast_datetime = Time.zone.parse(forecast['dateTime'])
+  Time.zone = Rails.application.config.time_zone # Reset back to config setting
+
+  wind_record = Wind.where(
+    date_time: forecast_datetime.utc,
+    spot_id: spot_id
+  ).first_or_initialize
+
+  wind_record.speed = forecast['speed']
+  wind_record.direction = forecast['direction']
+  wind_record.direction_text = forecast['directionText']
+  wind_record.date_time = forecast_datetime
+
+  wind_record.save
+
+  # FIXME: I'm not sure these dates are being stored correctly, probably needs investigation
+  # puts "wind_record.date_time zone=#{Time.zone}"
+  # puts "wind_record.date_time fc=#{forecast_datetime}"
+  # puts "wind_record.date_time db=#{wind_record.date_time}"
+  # puts "wind_record.date_time lo=#{wind_record.date_time.in_time_zone('Melbourne')}"
+end
+
+def update_tide_data(spot)
+  # TODO: this method
+end
+
 # TODO: make spot_id first here for convention
 # TODO: rename to underscore convention, this shit aint Javascript brah
 def save_swell_forecast_entry(spot_id, entry)
@@ -141,7 +149,7 @@ def save_swell_forecast_entry(spot_id, entry)
   observation.save
 end
 
-# TODO: migrate this into a utility file with whatever else should be from this file
+# TODO: migrate this into a utility file with whatever else should be from this file. Maybe to custom_classes.rb for now?
 def degToCompass(num)
   val = (num / 22.5) + 0.5
   arr = ["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"]
