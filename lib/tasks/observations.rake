@@ -12,10 +12,12 @@ namespace :observations do
     spots.each do |spot|
       update_swell_data(spot)
       update_wind_data(spot)
-      # update_tide_data(spot)
+      update_tide_data(spot)
     end
   end
 end
+
+# TODO Move ALL these methods into their respective controllers OR into ActiveJobs
 
 def update_swell_data(spot)
   # example response: https://goo.gl/yyL27S
@@ -35,7 +37,7 @@ def update_swell_data(spot)
   entries = JSON.parse(response)["entries"]
 
   entries.each do |entry|
-    mapSwellEntryToObservation(entry, spot.id)
+    map_swell_entry_to_observation(spot.id, entry)
   end
 
   # Pretty-print the hash if you want to inspect it
@@ -120,7 +122,7 @@ end
 
 # TODO: make spot_id first here for convention
 # TODO: rename to underscore convention, this shit aint Javascript brah
-def mapSwellEntryToObservation(entry, spot_id)
+def map_swell_entry_to_observation(spot_id, entry)
   datetime = DateTime.parse(entry["axes"]["time"])
 
   observation = Observation.where(
