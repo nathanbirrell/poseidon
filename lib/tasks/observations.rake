@@ -18,8 +18,6 @@ namespace :observations do
 end
 
 def update_swell_data(spot)
-  # puts Spot.all.inspect # testing ActiveRecord integration
-
   # example response: https://goo.gl/yyL27S
   response = RestClient.get(
     'https://api.planetos.com/v1/datasets/noaa_ww3_global_1.25x1d/point',
@@ -45,9 +43,25 @@ def update_swell_data(spot)
 end
 
 def update_wind_data(spot)
-  # TODO: this method
-  ww_location_id = retrieve_willyweather_location_id(spot) unless spot.willyweather_location_id
   # Get wind data from https://api.willyweather.com.au/v2/MTA5MTU5MWU3NThiZjg4ZjgxMDI2Nm/locations/13813/weather.json?forecasts=wind&days=1
+  set_willyweather_location_id_if_needed(spot)
+
+  response = RestClient.get(
+    "https://api.willyweather.com.au/v2/#{WW_API_KEY}/locations/#{spot.willyweather_location_id}/weather.json",
+    {
+      params: {
+        'forecasts' => 'wind',
+        'days' => 1
+      }
+    }
+  )
+
+  response = JSON.parse(response)
+
+  location_info = response['location']
+  forecasts = response['forecasts']
+
+  pp forecasts
 end
 
 def update_tide_data(spot)
@@ -56,8 +70,26 @@ end
 
 private
 
-def retrieve_willyweather_location_id(spot)
-  # TODO - retrieve from https://api.willyweather.com.au/v2/MTA5MTU5MWU3NThiZjg4ZjgxMDI2Nm/search.json?lat=-38.489189&lng=144.884256&units=distance:km
+# TODO: Move this out of this rake task and bring it into the ActiveRecord model or the controller so that every time we create a Spot, we fetch this ID immediately.
+def set_willyweather_location_id_if_needed((spot))
+  return if spot.willyweather_location_id
+
+  # For example: https://api.willyweather.com.au/v2/xxx/search.json?lat=-38.489189&lng=144.884256&units=distance:km
+  response = RestClient.get(
+    "https://api.willyweather.com.au/v2/#{WW_API_KEY}/search.json",
+    {
+      params: {
+        'lat' => spot.latitude,
+        'lng' => spot.longitude,
+        'units' => 'distance:km'
+      }
+    }
+  )
+
+  location = JSON.parse(response)['location']
+
+  spot.willyweather_location_id = location['id'].to_s
+  spot.save
 end
 
 def mapSwellEntryToObservation(entry, spot_id)
