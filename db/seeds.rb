@@ -21,7 +21,7 @@ spot = Spot.first_or_create(
   name: 'Cape Schanck',
   description: "Cape Schanck in Mornington Peninsula is a fairly exposed reef break that has reliable surf, although summer tends to be mostly flat. Offshore winds are from the northeast. Waves just as likely from local windswells as from distant groundswells and the optimum swell angle is from the southeast. A reef breaks left. Best around low tide. It's often crowded here. Watch out for dangerous rips.",
   season: 'March',
-  image: 'http://www.surfcoast.vic.gov.au/files/assets/public/tourism/images/bellsbeachlandscape.jpg',
+  image: 'https://www.wannasurf.com/spot/Australia_Pacific/Australia/VIC/Melbourne_East/cape_schanck/photo/photo_surf_Australia_VIC_Melbourne_East_cape_schanck_43b65780e5afc.jpg',
   latitude: -38.489189,
   longitude: 144.884256,
   region_id: region.id,
