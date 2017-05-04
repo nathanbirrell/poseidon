@@ -95,13 +95,13 @@ def update_wind_data(spot)
   days.each do |day|
     forecasts = day['entries']
     forecasts.each do |forecast|
-      save_wind_forecast_entry(spot.id, forecast, location_info)
+      save_wind_forecast_entry(spot.id, forecast, location_info['timeZone'])
     end
   end
 end
 
-def save_wind_forecast_entry(spot_id, forecast, location_info)
-  Time.zone = location_info['timeZone'] # Willyweather provides datetimes in the timezone of the location, we need to parse it into UTC
+def save_wind_forecast_entry(spot_id, forecast, spot_timezone)
+  Time.zone = spot_timezone # Willyweather provides datetimes in the timezone of the location, we need to parse it into UTC
   forecast_datetime = Time.zone.parse(forecast['dateTime'])
   Time.zone = Rails.application.config.time_zone # Reset back to config setting
 
@@ -116,12 +116,6 @@ def save_wind_forecast_entry(spot_id, forecast, location_info)
   wind_record.date_time = forecast_datetime
 
   wind_record.save
-
-  # FIXME: I'm not sure these dates are being stored correctly, probably needs investigation
-  # puts "wind_record.date_time zone=#{Time.zone}"
-  # puts "wind_record.date_time fc=#{forecast_datetime}"
-  # puts "wind_record.date_time db=#{wind_record.date_time}"
-  # puts "wind_record.date_time lo=#{wind_record.date_time.in_time_zone('Melbourne')}"
 end
 
 def update_tide_data(spot)
