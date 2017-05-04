@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504045503) do
+ActiveRecord::Schema.define(version: 20170504094302) do
 
   create_table "observations", force: :cascade do |t|
     t.decimal  "swell_size_metres"
@@ -91,6 +91,17 @@ ActiveRecord::Schema.define(version: 20170504045503) do
     t.string   "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "winds", force: :cascade do |t|
+    t.decimal  "speed"
+    t.integer  "direction"
+    t.string   "direction_text"
+    t.datetime "date_time"
+    t.integer  "spot_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["spot_id"], name: "index_winds_on_spot_id"
   end
 
 end
