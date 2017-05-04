@@ -57,11 +57,37 @@ def update_wind_data(spot)
   )
 
   response = JSON.parse(response)
+  # location_info = response['location']
+  days = response['forecasts']['wind']['days']
 
-  location_info = response['location']
-  forecasts = response['forecasts']
+  days.each do |day|
+    forecasts = day['entries']
+    forecasts.each do |forecast|
+      save_wind_forecast_entry(spot.id, forecast)
+    end
+  end
+end
 
-  pp forecasts
+def save_wind_forecast_entry(spot_id, forecast)
+    forecast_datetime = DateTime.zone.parse(forecast['dateTime'])
+
+    wind_record = Wind.where(
+      date_time: forecast_datetime.utc,
+      spot_id: spot_id
+    ).first_or_initialize
+
+    wind_record.speed = forecast['speed']
+    wind_record.direction = forecast['direction']
+    wind_record.direction_text = forecast['directionText']
+    wind_record.date_time = forecast_datetime
+
+    wind_record.save
+
+    # FIXME: I'm not sure these dates are being stored correctly, probably needs investigation
+    # puts "wind_record.date_time zone=#{Time.zone}"
+    # puts "wind_record.date_time fc=#{forecast_datetime}"
+    # puts "wind_record.date_time db=#{wind_record.date_time}"
+    # puts "wind_record.date_time lo=#{wind_record.date_time.in_time_zone('Melbourne')}"
 end
 
 def update_tide_data(spot)
@@ -92,6 +118,8 @@ def set_willyweather_location_id_if_needed((spot))
   spot.save
 end
 
+# TODO: make spot_id first here for convention
+# TODO: rename to underscore convention, this shit aint Javascript brah
 def mapSwellEntryToObservation(entry, spot_id)
   datetime = DateTime.parse(entry["axes"]["time"])
 
