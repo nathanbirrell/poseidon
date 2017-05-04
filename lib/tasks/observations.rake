@@ -51,7 +51,7 @@ def update_wind_data(spot)
     {
       params: {
         'forecasts' => 'wind',
-        'days' => 1
+        'days' => 5
       }
     }
   )
@@ -69,7 +69,7 @@ def update_wind_data(spot)
 end
 
 def save_wind_forecast_entry(spot_id, forecast)
-    forecast_datetime = DateTime.zone.parse(forecast['dateTime'])
+    forecast_datetime = DateTime.parse(forecast['dateTime'])
 
     wind_record = Wind.where(
       date_time: forecast_datetime.utc,
