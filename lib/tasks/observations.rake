@@ -1,6 +1,9 @@
 require 'rest-client'
 require 'pp'
 
+WW_API_KEY = 'MTA5MTU5MWU3NThiZjg4ZjgxMDI2Nm'
+PLANETOS_API_KEY = '36cbaff072be400096158d9f71100c61' # TODO: Move this to an environment variable, very insecure tsk tsk!
+
 # TODO: Abstract out PlanetOS API calls into an adapter OR lib? https://github.com/infinum/rails-handbook/blob/master/Design%20Patterns/Adapters.md
 namespace :observations do
   task :update => :environment do
@@ -8,7 +11,7 @@ namespace :observations do
 
     spots.each do |spot|
       update_swell_data(spot)
-      # update_wind_data(spot)
+      update_wind_data(spot)
       # update_tide_data(spot)
     end
   end
@@ -16,14 +19,13 @@ end
 
 def update_swell_data(spot)
   # puts Spot.all.inspect # testing ActiveRecord integration
-  planetos_api_key = '36cbaff072be400096158d9f71100c61' # TODO: Move this to an environment variable, very insecure tsk tsk!
 
   # example response: https://goo.gl/yyL27S
   response = RestClient.get(
     'https://api.planetos.com/v1/datasets/noaa_ww3_global_1.25x1d/point',
     {
       params: {
-        'apikey' => planetos_api_key,
+        'apikey' => PLANETOS_API_KEY,
         'lat' => spot.wave_model_lat,
         'lon' => spot.wave_model_lon,
         'count' => '25',
@@ -44,6 +46,8 @@ end
 
 def update_wind_data(spot)
   # TODO: this method
+  ww_location_id = retrieve_willyweather_location_id(spot) unless spot.willyweather_location_id
+  # Get wind data from https://api.willyweather.com.au/v2/MTA5MTU5MWU3NThiZjg4ZjgxMDI2Nm/locations/13813/weather.json?forecasts=wind&days=1
 end
 
 def update_tide_data(spot)
@@ -51,6 +55,10 @@ def update_tide_data(spot)
 end
 
 private
+
+def retrieve_willyweather_location_id(spot)
+  # TODO - retrieve from https://api.willyweather.com.au/v2/MTA5MTU5MWU3NThiZjg4ZjgxMDI2Nm/search.json?lat=-38.489189&lng=144.884256&units=distance:km
+end
 
 def mapSwellEntryToObservation(entry, spot_id)
   datetime = DateTime.parse(entry["axes"]["time"])
