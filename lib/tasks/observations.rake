@@ -143,12 +143,12 @@ def save_tide_forecast_entry(spot_id, forecast, spot_timezone)
   Time.zone = Rails.application.config.time_zone # Reset back to config setting
 
   tide_record = Tide.where(
-    tide_date_time: forecast_datetime.utc,
+    date_time: forecast_datetime.utc,
     spot_id: spot_id
   ).first_or_initialize
 
-  tide_record.tide_type = forecast['type']
-  tide_record.tide_height_above_sea_level_metres = forecast['height']
+  tide_record.type = forecast['type']
+  tide_record.height = forecast['height']
 
   tide_record.save
 end
