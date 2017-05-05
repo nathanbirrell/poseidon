@@ -25,24 +25,31 @@
 #  wind_optimal_direction_max_degrees  :integer
 #
 
-# FIXME: Remove all dependencies on Observation model: here (model), in the view and in the view helper!!
-
 class Spot < ApplicationRecord
   include ActiveModel::Validations
 
   belongs_to :region
 
-  has_many :observations
+  has_many :tides
+  has_many :winds
+  has_many :swells
 
   validates :name, presence: true
 
-  # get latest latest_observation data
-  def latest_observation
-    # Observation.where(spot_id: id).first
+  # get latest model readings
+  def current_swell
+    Swell.where("date_time <= ?", Time.current).where(spot_id: id).order("date_time").last
+  end
+  def current_wind
+    Wind.where("date_time <= ?", Time.current).where(spot_id: id).order("date_time").last
+  end
+  def last_tide
+    Tide.where("date_time <= ?", Time.current).where(spot_id: id).order("date_time").last
   end
 
   # calculate current tide
   def current_tide
+    return 0
     # get tide max and min at location
     # get tide range at location
     # get baseline (minimum) time for tide at location
@@ -64,44 +71,42 @@ class Spot < ApplicationRecord
     # From notepad
     # y = sin(bx) --> period = (1/b)2pi --> p = (2pi)/b --> b = 2pi/p --> where p = 12 --> b = pi/6
     # bl = 9 --> pi.l/6 = 9 --> 54 = pi.l --> l = 54/pi
-
-
-
   end
 
   # caclulate a tide rating
   def tide_rating
-    return 0 unless latest_observation && latest_observation.tide_height_metres
-
-    rating = 0.0
-
-    is_optimal_tide = is_between(latest_observation.tide_height_metres, tide_optimal_min_metres, tide_optimal_max_metres)
-    rating += 1 if is_optimal_tide
-
-    puts("tide_rating: #{rating.to_s}")
-    rating
+    return 0
+    # return 0 unless current_tide && current_tide.height
+    #
+    # rating = 0.0
+    #
+    # is_optimal_tide = is_between(current_tide.height, tide_optimal_min_metres, tide_optimal_max_metres)
+    # rating += 1 if is_optimal_tide
+    #
+    # puts("tide_rating: #{rating.to_s}")
+    # rating
   end
 
   # calculate a wind rating
   def wind_rating
-    return 0 unless latest_observation && latest_observation.wind_strength_kmh && latest_observation.wind_direction_degrees
+    return 0 unless current_wind && current_wind.speed && current_wind.direction
 
     weight_of_optimal_wind_speed = 0.2
     weight_of_optimal_wind_direction = 0.8
 
     rating = 0.0
 
-    is_optimal_wind_speed = is_between(latest_observation.wind_strength_kmh, wind_optimal_strength_min_kmh, wind_optimal_strength_max_kmh)
+    is_optimal_wind_speed = is_between(current_wind.speed, wind_optimal_strength_min_kmh, wind_optimal_strength_max_kmh)
     rating += weight_of_optimal_wind_speed if is_optimal_wind_speed
 
-    is_optimal_wind_direction = is_angle_inside_range(latest_observation.wind_direction_degrees, wind_optimal_direction_min_degrees, wind_optimal_direction_max_degrees)
+    is_optimal_wind_direction = is_angle_inside_range(current_wind.direction, wind_optimal_direction_min_degrees, wind_optimal_direction_max_degrees)
     rating += weight_of_optimal_wind_direction if is_optimal_wind_direction
 
     x = wind_optimal_direction_min_degrees
-    y = latest_observation.wind_direction_degrees
+    y = current_wind.direction
     puts("Calculating angle between x=#{x} and y=#{y} = #{calculate_angle_between(x, y)}")
 
-    puts("is_angle_inside_range target=#{latest_observation.wind_direction_degrees} + min=#{wind_optimal_direction_min_degrees} + max=#{wind_optimal_direction_max_degrees} ?")
+    puts("is_angle_inside_range target=#{current_wind.direction} + min=#{wind_optimal_direction_min_degrees} + max=#{wind_optimal_direction_max_degrees} ?")
     puts("is_optimal_wind_direction= #{is_optimal_wind_direction}")
 
     puts("wind_rating: #{rating.to_s}")
@@ -109,17 +114,17 @@ class Spot < ApplicationRecord
   end
 
   def swell_rating
-    return 0 unless latest_observation && latest_observation.swell_size_metres && latest_observation.swell_direction_degrees
+    return 0 unless current_swell && current_swell.size && current_swell.direction && current_swell.period
 
     weight_of_optimal_swell_height = 0.7
     weight_of_optimal_swell_direction = 0.3
 
     rating = 0.0
 
-    is_optimal_swell_height = is_between(latest_observation.swell_size_metres, swell_optimal_size_min_metres, swell_optimal_size_max_metres)
+    is_optimal_swell_height = is_between(current_swell.size, swell_optimal_size_min_metres, swell_optimal_size_max_metres)
     rating += weight_of_optimal_swell_height if is_optimal_swell_height
 
-    is_optimal_swell_direction = is_angle_inside_range(latest_observation.swell_direction_degrees, swell_optimal_direction_min_degrees, swell_optimal_direction_max_degrees)
+    is_optimal_swell_direction = is_angle_inside_range(current_swell.direction, swell_optimal_direction_min_degrees, swell_optimal_direction_max_degrees)
     rating += weight_of_optimal_swell_direction if is_optimal_swell_direction
 
     puts("swell_rating: #{rating.to_s}")
