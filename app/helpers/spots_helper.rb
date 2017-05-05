@@ -10,7 +10,7 @@ module SpotsHelper
   end
 
   def show_table(model)
-    date_attrs = ['created_at', 'updated_at', 'axes_reftime', 'axes_time']
+    date_attrs = ['created_at', 'updated_at', 'date_time']
 
     table = ''
     table += '<table>'
@@ -25,7 +25,9 @@ module SpotsHelper
 
     table += '<tbody>'
 
-    model.all.each do |observation|
+    rows_to_show = model.where("date_time >= ?", Date.current).where('date_time <= ?', 3.day.from_now).order("date_time")
+
+    rows_to_show.each do |observation|
       table += '<tr>'
       observation.attributes.each do |attr_name, attr_value|
         # next unless visible_attrs.include? attr_name

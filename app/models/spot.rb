@@ -46,7 +46,7 @@ class Spot < ApplicationRecord
   def last_tide
     Tide.where("date_time <= ?", Time.current).where(spot_id: id).order("date_time").last
   end
-
+  
   # calculate current tide
   def current_tide
     return 0
