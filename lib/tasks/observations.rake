@@ -76,20 +76,8 @@ def update_swell_data(spot)
 end
 
 def update_wind_data(spot)
-  set_willyweather_location_id_if_needed(spot)
+  response = get_willyweather_forecast(spot, 'wind')
 
-  # ie: https://goo.gl/xfJKpn
-  response = RestClient.get(
-    "https://api.willyweather.com.au/v2/#{WW_API_KEY}/locations/#{spot.willyweather_location_id}/weather.json",
-    {
-      params: {
-        'forecasts' => 'wind',
-        'days' => 5
-      }
-    }
-  )
-
-  response = JSON.parse(response)
   location_info = response['location']
   days = response['forecasts']['wind']['days']
 
@@ -140,6 +128,24 @@ def save_wind_forecast_entry(spot_id, forecast, spot_timezone)
   wind_record.date_time = forecast_datetime
 
   wind_record.save
+end
+
+def get_willyweather_forecast(spot, forecast)
+  set_willyweather_location_id_if_needed(spot)
+
+  # ie: https://goo.gl/xfJKpn
+  response = RestClient.get(
+    "https://api.willyweather.com.au/v2/#{WW_API_KEY}/locations/#{spot.willyweather_location_id}/weather.json",
+    {
+      params: {
+        'forecasts' => forecast,
+        'days' => 5
+      }
+    }
+  )
+
+  response = JSON.parse(response)
+  response
 end
 
 # TODO: migrate this into a utility file with whatever else should be from this file. Maybe to custom_classes.rb for now?
