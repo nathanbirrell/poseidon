@@ -25,6 +25,31 @@ end
 
 # TODO Move ALL these methods into their respective controllers OR into ActiveJobs
 
+# TODO: Move this out of this rake task and bring it into the ActiveRecord model or the controller so that every time we create a Spot, we fetch this ID immediately.
+def set_willyweather_location_id_if_needed((spot))
+  return if spot.willyweather_location_id
+
+  # For example: https://goo.gl/HkHDgF
+  response = RestClient.get(
+    "https://api.willyweather.com.au/v2/#{WW_API_KEY}/search.json",
+    {
+      params: {
+        'lat' => spot.latitude,
+        'lng' => spot.longitude,
+        'units' => 'distance:km'
+      }
+    }
+  )
+
+  location = JSON.parse(response)['location']
+
+  spot.willyweather_location_id = location['id'].to_s
+  spot.save
+end
+
+private
+
+# TODO Retrieve swell data via Willyweather as well for consistency? WW also uses NOAA.
 def update_swell_data(spot)
   # example response: https://goo.gl/yyL27S
   response = RestClient.get(
@@ -50,34 +75,10 @@ def update_swell_data(spot)
   # pp observation_result
 end
 
-private
-
-# TODO: Move this out of this rake task and bring it into the ActiveRecord model or the controller so that every time we create a Spot, we fetch this ID immediately.
-def set_willyweather_location_id_if_needed((spot))
-  return if spot.willyweather_location_id
-
-  # For example: https://api.willyweather.com.au/v2/xxx/search.json?lat=-38.489189&lng=144.884256&units=distance:km
-  response = RestClient.get(
-    "https://api.willyweather.com.au/v2/#{WW_API_KEY}/search.json",
-    {
-      params: {
-        'lat' => spot.latitude,
-        'lng' => spot.longitude,
-        'units' => 'distance:km'
-      }
-    }
-  )
-
-  location = JSON.parse(response)['location']
-
-  spot.willyweather_location_id = location['id'].to_s
-  spot.save
-end
-
 def update_wind_data(spot)
-  # Get wind data from https://api.willyweather.com.au/v2/MTA5MTU5MWU3NThiZjg4ZjgxMDI2Nm/locations/13813/weather.json?forecasts=wind&days=1
   set_willyweather_location_id_if_needed(spot)
 
+  # ie: https://goo.gl/xfJKpn
   response = RestClient.get(
     "https://api.willyweather.com.au/v2/#{WW_API_KEY}/locations/#{spot.willyweather_location_id}/weather.json",
     {
@@ -100,30 +101,10 @@ def update_wind_data(spot)
   end
 end
 
-def save_wind_forecast_entry(spot_id, forecast, spot_timezone)
-  Time.zone = spot_timezone # Willyweather provides datetimes in the timezone of the location, we need to parse it into UTC
-  forecast_datetime = Time.zone.parse(forecast['dateTime'])
-  Time.zone = Rails.application.config.time_zone # Reset back to config setting
-
-  wind_record = Wind.where(
-    date_time: forecast_datetime.utc,
-    spot_id: spot_id
-  ).first_or_initialize
-
-  wind_record.speed = forecast['speed']
-  wind_record.direction = forecast['direction']
-  wind_record.direction_text = forecast['directionText']
-  wind_record.date_time = forecast_datetime
-
-  wind_record.save
-end
-
 def update_tide_data(spot)
   # TODO: this method
 end
 
-# TODO: make spot_id first here for convention
-# TODO: rename to underscore convention, this shit aint Javascript brah
 def save_swell_forecast_entry(spot_id, entry)
   datetime = DateTime.parse(entry["axes"]["time"])
 
@@ -141,6 +122,24 @@ def save_swell_forecast_entry(spot_id, entry)
   observation.swell_period_seconds = entry["data"]["Primary_wave_mean_period_surface"]
   observation.swell_direction_degrees = entry["data"]["Primary_wave_direction_surface"]
   observation.save
+end
+
+def save_wind_forecast_entry(spot_id, forecast, spot_timezone)
+  Time.zone = spot_timezone # Willyweather provides datetimes in the timezone of the location, we need to parse it into UTC
+  forecast_datetime = Time.zone.parse(forecast['dateTime'])
+  Time.zone = Rails.application.config.time_zone # Reset back to config setting
+
+  wind_record = Wind.where(
+    date_time: forecast_datetime.utc,
+    spot_id: spot_id
+  ).first_or_initialize
+
+  wind_record.speed = forecast['speed']
+  wind_record.direction = forecast['direction']
+  wind_record.direction_text = forecast['directionText']
+  wind_record.date_time = forecast_datetime
+
+  wind_record.save
 end
 
 # TODO: migrate this into a utility file with whatever else should be from this file. Maybe to custom_classes.rb for now?
