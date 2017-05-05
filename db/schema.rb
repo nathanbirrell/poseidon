@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505020710) do
+ActiveRecord::Schema.define(version: 20170505043115) do
 
   create_table "regions", force: :cascade do |t|
     t.string   "name"
@@ -60,12 +60,12 @@ ActiveRecord::Schema.define(version: 20170505020710) do
   end
 
   create_table "tides", force: :cascade do |t|
-    t.string   "type"
+    t.string   "tide_type"
     t.decimal  "height"
-    t.string   "date_time"
     t.integer  "spot_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "date_time"
     t.index ["spot_id"], name: "index_tides_on_spot_id"
   end
 

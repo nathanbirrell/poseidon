@@ -131,7 +131,7 @@ def save_tide_forecast_entry(spot_id, forecast, spot_timezone)
     spot_id: spot_id
   ).first_or_initialize
 
-  tide_record.type = forecast['type']
+  tide_record.tide_type = forecast['type']
   tide_record.height = forecast['height']
 
   tide_record.save
