@@ -132,7 +132,11 @@
 
 <div class="row">
   <div class="large-12 columns">
-    <h3><%= "Models for #{@spot.name}" %></h3>
-    <%= spot_observations_table(@spot) %>
+    <h3><%= "Swell Models for #{@spot.name}" %></h3>
+    <%= swell_models_table(@spot) %>
+    <h3><%= "Wind Models for #{@spot.name}" %></h3>
+    <%= wind_models_table(@spot) %>
+    <h3><%= "Tide Models for #{@spot.name}" %></h3>
+    <%= tide_models_table(@spot) %>
   </div>
 </div>
