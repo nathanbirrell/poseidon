@@ -52,20 +52,8 @@ private
 # TODO Retrieve swell data via Willyweather as well for consistency? WW also uses NOAA.
 def update_swell_data(spot)
   # example response: https://goo.gl/yyL27S
-  response = RestClient.get(
-    'https://api.planetos.com/v1/datasets/noaa_ww3_global_1.25x1d/point',
-    {
-      params: {
-        'apikey' => PLANETOS_API_KEY,
-        'lat' => spot.wave_model_lat,
-        'lon' => spot.wave_model_lon,
-        'count' => '25',
-        'context' => 'reftime_time_lat_lon'
-      }
-    }
-  )
-
-  entries = JSON.parse(response)["entries"]
+  response = get_noaa_forecast(spot)
+  entries = response["entries"]
 
   entries.each do |entry|
     save_swell_forecast_entry(spot.id, entry)
@@ -153,7 +141,7 @@ def save_tide_forecast_entry(spot_id, forecast, spot_timezone)
   tide_record.save
 end
 
-def get_willyweather_forecast(spot, forecast)
+def get_willyweather_forecast(spot, forecast_type)
   set_willyweather_location_id_if_needed(spot)
 
   # ie: https://goo.gl/xfJKpn
@@ -161,8 +149,26 @@ def get_willyweather_forecast(spot, forecast)
     "https://api.willyweather.com.au/v2/#{WW_API_KEY}/locations/#{spot.willyweather_location_id}/weather.json",
     {
       params: {
-        'forecasts' => forecast,
+        'forecasts' => forecast_type,
         'days' => 5
+      }
+    }
+  )
+
+  response = JSON.parse(response)
+  response
+end
+
+def get_noaa_forecast(spot)
+  response = RestClient.get(
+    'https://api.planetos.com/v1/datasets/noaa_ww3_global_1.25x1d/point',
+    {
+      params: {
+        'apikey' => PLANETOS_API_KEY,
+        'lat' => spot.wave_model_lat,
+        'lon' => spot.wave_model_lon,
+        'count' => '25',
+        'context' => 'reftime_time_lat_lon'
       }
     }
   )
