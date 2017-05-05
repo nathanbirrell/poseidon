@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505003922) do
+ActiveRecord::Schema.define(version: 20170505005833) do
 
   create_table "observations", force: :cascade do |t|
     t.decimal  "swell_size_metres"
@@ -63,6 +63,15 @@ ActiveRecord::Schema.define(version: 20170505003922) do
     t.decimal  "wave_model_lon"
     t.integer  "willyweather_location_id"
     t.index ["region_id"], name: "index_spots_on_region_id"
+  end
+
+  create_table "swells", force: :cascade do |t|
+    t.decimal  "size"
+    t.decimal  "period"
+    t.integer  "direction"
+    t.datetime "date_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tides", force: :cascade do |t|
