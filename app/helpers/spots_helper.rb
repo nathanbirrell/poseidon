@@ -1,6 +1,6 @@
 module SpotsHelper
   def spot_observations_table(spot)
-    return '' unless spot.observations
+    return ''
 
     visible_attrs = ['swell_size_metres', 'swell_period_seconds', 'swell_direction_degrees', 'axes_time']
     date_attrs = ['created_at', 'updated_at', 'axes_reftime', 'axes_time']

@@ -25,6 +25,8 @@
 #  wind_optimal_direction_max_degrees  :integer
 #
 
+# FIXME: Remove all dependencies on Observation model: here (model), in the view and in the view helper!!
+
 class Spot < ApplicationRecord
   include ActiveModel::Validations
 
@@ -36,7 +38,7 @@ class Spot < ApplicationRecord
 
   # get latest latest_observation data
   def latest_observation
-    Observation.where(spot_id: id).first
+    # Observation.where(spot_id: id).first
   end
 
   # calculate current tide
@@ -69,7 +71,7 @@ class Spot < ApplicationRecord
 
   # caclulate a tide rating
   def tide_rating
-    return 0 unless latest_observation.tide_height_metres
+    return 0 unless latest_observation && latest_observation.tide_height_metres
 
     rating = 0.0
 
@@ -82,7 +84,7 @@ class Spot < ApplicationRecord
 
   # calculate a wind rating
   def wind_rating
-    return 0 unless latest_observation.wind_strength_kmh && latest_observation.wind_direction_degrees
+    return 0 unless latest_observation && latest_observation.wind_strength_kmh && latest_observation.wind_direction_degrees
 
     weight_of_optimal_wind_speed = 0.2
     weight_of_optimal_wind_direction = 0.8
@@ -107,7 +109,7 @@ class Spot < ApplicationRecord
   end
 
   def swell_rating
-    return 0 unless latest_observation.swell_size_metres && latest_observation.swell_direction_degrees
+    return 0 unless latest_observation && latest_observation.swell_size_metres && latest_observation.swell_direction_degrees
 
     weight_of_optimal_swell_height = 0.7
     weight_of_optimal_swell_direction = 0.3

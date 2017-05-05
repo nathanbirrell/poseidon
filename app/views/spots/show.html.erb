@@ -21,7 +21,7 @@
   </div>
   <div class="small-6 columns text-right">
     <p>
-      <small>Updated <%= @spot.latest_observation.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
+      <small>Updated <%#= @spot.latest_observation.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
       <% if user_signed_in? %> <%= link_to 'Edit Spot', edit_spot_path(@spot) %> <br> <% end %>
     </p>
   </div>
@@ -40,9 +40,9 @@
         <p><%= @spot.swell_rating * 100.0 %>%</p>
         <p>
           <ul>
-            <li><%= @spot.latest_observation.swell_size_metres %>m</li>
-            <li>at <%= @spot.latest_observation.swell_period_seconds %>s</li>
-            <li>from <%= @spot.latest_observation.swell_direction_degrees %> degrees OR <%= @spot.latest_observation.swell_direction_degrees.degrees %> radians <br></li>
+            <li><%#= @spot.latest_observation.swell_size_metres %>m</li>
+            <li>at <%#= @spot.latest_observation.swell_period_seconds %>s</li>
+            <li>from <%#= @spot.latest_observation.swell_direction_degrees %> degrees OR <%#= @spot.latest_observation.swell_direction_degrees.degrees %> radians <br></li>
           </ul>
         </p>
       </div>
@@ -51,8 +51,8 @@
         <p><%= @spot.wind_rating * 100.0 %>%</p>
         <p>
           <ul>
-            <li><%= @spot.latest_observation.wind_strength_kmh %> km/h from</li>
-            <li><%= @spot.latest_observation.wind_direction_degrees %> degrees OR <%= @spot.latest_observation.wind_direction_degrees.degrees if @spot.latest_observation.wind_direction_degrees %> radians <br></li>
+            <li><%#= @spot.latest_observation.wind_strength_kmh %> km/h from</li>
+            <li><%#= @spot.latest_observation.wind_direction_degrees %> degrees OR <%#= @spot.latest_observation.wind_direction_degrees.degrees if @spot.latest_observation.wind_direction_degrees %> radians <br></li>
           </ul>
         </p>
       </div>
@@ -61,7 +61,7 @@
         <p><%= @spot.tide_rating * 100.0 %>%</p>
         <p>
           <ul>
-            <li><%= @spot.latest_observation.tide_height_metres %>m above sea level</li>
+            <li><%#= @spot.latest_observation.tide_height_metres %>m above sea level</li>
           </ul>
         </p>
       </div>
