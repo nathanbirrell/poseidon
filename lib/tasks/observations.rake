@@ -77,7 +77,6 @@ end
 
 def update_wind_data(spot)
   response = get_willyweather_forecast(spot, 'wind')
-
   location_info = response['location']
   days = response['forecasts']['wind']['days']
 
@@ -90,7 +89,16 @@ def update_wind_data(spot)
 end
 
 def update_tide_data(spot)
-  # TODO: this method
+  response = get_willyweather_forecast(spot, 'tides')
+  location_info = response['location']
+  days = response['forecasts']['tides']['days']
+
+  days.each do |day|
+    forecasts = day['entries']
+    forecasts.each do |forecast|
+      save_tide_forecast_entry(spot.id, forecast, location_info['timeZone'])
+    end
+  end
 end
 
 def save_swell_forecast_entry(spot_id, entry)
@@ -125,9 +133,24 @@ def save_wind_forecast_entry(spot_id, forecast, spot_timezone)
   wind_record.speed = forecast['speed']
   wind_record.direction = forecast['direction']
   wind_record.direction_text = forecast['directionText']
-  wind_record.date_time = forecast_datetime
 
   wind_record.save
+end
+
+def save_tide_forecast_entry(spot_id, forecast, spot_timezone)
+  Time.zone = spot_timezone # Willyweather provides datetimes in the timezone of the location, we need to parse it into UTC
+  forecast_datetime = Time.zone.parse(forecast['dateTime'])
+  Time.zone = Rails.application.config.time_zone # Reset back to config setting
+
+  tide_record = Tide.where(
+    tide_date_time: forecast_datetime.utc,
+    spot_id: spot_id
+  ).first_or_initialize
+
+  tide_record.tide_type = forecast['type']
+  tide_record.tide_height_above_sea_level_metres = forecast['height']
+
+  tide_record.save
 end
 
 def get_willyweather_forecast(spot, forecast)
