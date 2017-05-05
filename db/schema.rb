@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505005833) do
+ActiveRecord::Schema.define(version: 20170505015701) do
 
   create_table "observations", force: :cascade do |t|
     t.decimal  "swell_size_metres"
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 20170505005833) do
     t.datetime "date_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "spot_id"
+    t.index ["spot_id"], name: "index_swells_on_spot_id"
   end
 
   create_table "tides", force: :cascade do |t|
