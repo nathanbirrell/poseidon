@@ -5,7 +5,7 @@ WW_API_KEY = 'MTA5MTU5MWU3NThiZjg4ZjgxMDI2Nm'
 PLANETOS_API_KEY = '36cbaff072be400096158d9f71100c61' # TODO: Move this to an environment variable, very insecure tsk tsk!
 
 # TODO: Abstract out PlanetOS API calls into an adapter OR lib? https://github.com/infinum/rails-handbook/blob/master/Design%20Patterns/Adapters.md
-namespace :observations do
+namespace :models do
   task :update => :environment do
     spots = Spot.all
 
@@ -17,7 +17,7 @@ namespace :observations do
   end
 
   task :reset => :environment do
-    Observation.delete_all
+    Swell.delete_all
     Wind.delete_all
     Tide.delete_all
   end
@@ -58,9 +58,6 @@ def update_swell_data(spot)
   entries.each do |entry|
     save_swell_forecast_entry(spot.id, entry)
   end
-
-  # Pretty-print the hash if you want to inspect it
-  # pp observation_result
 end
 
 def update_wind_data(spot)
@@ -90,22 +87,21 @@ def update_tide_data(spot)
 end
 
 def save_swell_forecast_entry(spot_id, entry)
-  datetime = DateTime.parse(entry["axes"]["time"])
+  datetime = DateTime.parse(entry["axes"]["time"]) # DateTime provided in UTC :)
 
-  observation = Observation.where(
-    axes_time: datetime,
+  swell_entry = Swell.where(
+    date_time: datetime,
     spot_id: spot_id
   ).first_or_initialize
 
-  observation.spot_id = spot_id
-  observation.axes_time = datetime
-  observation.axes_reftime = DateTime.parse(entry["axes"]["reftime"])
-  observation.axes_lat = entry["axes"]["latitude"]
-  observation.axes_lon = entry["axes"]["longitude"]
-  observation.swell_size_metres = entry["data"]["Significant_height_of_combined_wind_waves_and_swell_surface"]
-  observation.swell_period_seconds = entry["data"]["Primary_wave_mean_period_surface"]
-  observation.swell_direction_degrees = entry["data"]["Primary_wave_direction_surface"]
-  observation.save
+  swell_entry.size = entry["data"]["Significant_height_of_combined_wind_waves_and_swell_surface"]
+  swell_entry.period = entry["data"]["Primary_wave_mean_period_surface"]
+  swell_entry.direction = entry["data"]["Primary_wave_direction_surface"]
+  # TODO: we should probably store these fields, need to create the cols first though
+  # swell_entry.axes_reftime = DateTime.parse(entry["axes"]["reftime"])
+  # swell_entry.axes_lat = entry["axes"]["latitude"]
+  # swell_entry.axes_lon = entry["axes"]["longitude"]
+  swell_entry.save
 end
 
 def save_wind_forecast_entry(spot_id, forecast, spot_timezone)
