@@ -5,6 +5,10 @@
 #featured {
   max-height: 380px;
   overflow: hidden;
+
+  img {
+    width: 100%;
+  }
 }
 
 table {
