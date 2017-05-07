@@ -21,7 +21,7 @@
   </div>
   <div class="small-6 columns text-right">
     <p>
-      <small>Updated <%= @spot.latest_observation.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
+      <small>Updated <%= @spot.current_swell.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
       <% if user_signed_in? %> <%= link_to 'Edit Spot', edit_spot_path(@spot) %> <br> <% end %>
     </p>
   </div>
@@ -40,9 +40,10 @@
         <p><%= @spot.swell_rating * 100.0 %>%</p>
         <p>
           <ul>
-            <li><%= @spot.latest_observation.swell_size_metres %>m</li>
-            <li>at <%= @spot.latest_observation.swell_period_seconds %>s</li>
-            <li>from <%= @spot.latest_observation.swell_direction_degrees %> degrees OR <%= @spot.latest_observation.swell_direction_degrees.degrees %> radians <br></li>
+            <li><%= @spot.current_swell.size %>m</li>
+            <li>at <%= @spot.current_swell.period %>s</li>
+            <li>from <%= @spot.current_swell.direction %> degrees OR <%= @spot.current_swell.direction.degrees %> radians <br></li>
+            <li> at <%= @spot.current_swell.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
           </ul>
         </p>
       </div>
@@ -51,8 +52,9 @@
         <p><%= @spot.wind_rating * 100.0 %>%</p>
         <p>
           <ul>
-            <li><%= @spot.latest_observation.wind_strength_kmh %> km/h from</li>
-            <li><%= @spot.latest_observation.wind_direction_degrees %> degrees OR <%= @spot.latest_observation.wind_direction_degrees.degrees if @spot.latest_observation.wind_direction_degrees %> radians <br></li>
+            <li><%= @spot.current_wind.speed %> km/h from</li>
+            <li><%= @spot.current_wind.direction %> degrees OR <%= @spot.current_wind.direction.degrees if @spot.current_wind.direction %> radians <br></li>
+            <li> at <%= @spot.current_wind.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
           </ul>
         </p>
       </div>
@@ -61,7 +63,10 @@
         <p><%= @spot.tide_rating * 100.0 %>%</p>
         <p>
           <ul>
-            <li><%= @spot.latest_observation.tide_height_metres %>m above sea level</li>
+            <li><%= @spot.current_tide %>m above sea level</li>
+            Last tide:
+            <li><%= @spot.last_tide.height %>m above sea level at
+            <%= @spot.last_tide.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
           </ul>
         </p>
       </div>
@@ -129,26 +134,11 @@
 
 <div class="row">
   <div class="large-12 columns">
-    <h3><%= "Models for #{@spot.name}" %></h3>
-    <table>
-      <thead>
-        <tr>
-          <% @spot.observations.columns.map do |column| %>
-            <td><%= column.name %></td>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% @spot.observations.each do |observation| %>
-          <tr>
-            <% date_attrs = ['created_at', 'updated_at', 'axes_reftime', 'axes_time'] %>
-            <% observation.attributes.each do |attr_name, attr_value| %>
-              <% attr_value = attr_value.localtime.strftime("%a, %e %b %Y %H:%M") if date_attrs.include? attr_name %>
-              <td><%= attr_value %></td>
-            <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <h3><%= "Swell Models for #{@spot.name}" %></h3>
+    <%= swell_models_table(@forecasts_swells) %>
+    <h3><%= "Wind Models for #{@spot.name}" %></h3>
+    <%= wind_models_table(@forecasts_winds) %>
+    <h3><%= "Tide Models for #{@spot.name}" %></h3>
+    <%= tide_models_table(@forecasts_tides) %>
   </div>
 </div>

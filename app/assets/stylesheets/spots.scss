@@ -5,9 +5,14 @@
 #featured {
   max-height: 380px;
   overflow: hidden;
+
+  img {
+    width: 100%;
+  }
 }
 
 table {
   overflow: scroll;
   display: block;
+  max-height: 420px;
 }
