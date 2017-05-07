@@ -12,40 +12,22 @@
 
   &__summary {
     padding: 10px 10px 10px 10px;
+    position: relative;
 
     h3 {
       display: inline-block;
       margin: 0 10px 0 0;
       font-size: 1.2rem;
     }
-  }
 
-  .stats {
-  display: inline-block;
-  float: right;
-  width: 60%;
-
-    .stat-item {
-      position: relative;
-      font-size: 1.2rem;
+    .spot-sub-rating-group {
       display: inline-block;
-      color: #606060;
-      padding-left: 30px;
-      float: right;
-      &::before {
-        height: 22px;
-        width: 22px;
-        content: " ";
-        position: absolute;
-        background-image: url('http://www.interfaceit.com.br/wp-content/uploads/2016/09/Target.png');
-        background-size: cover;
-        top: 3px;
-        left: 5px;
-      }
-
-      &.primary {
-        color: #000;
-      }
+      position: absolute;
+      line-height: 40px;
+      top: 50%;
+      right: 16px;
+      height: 40px;
+      margin-top: -20px;
     }
   }
 }
