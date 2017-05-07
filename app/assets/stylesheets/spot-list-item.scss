@@ -58,10 +58,42 @@
       width: 20px;
       content: " ";
       position: absolute;
-      background-image: url('http://www.interfaceit.com.br/wp-content/uploads/2016/09/Target.png');
       background-size: cover;
       top: 10px;
       left: 1px;
+    }
+    &.--swell {
+      &.--positive::before {
+        background-image: url('http://www.interfaceit.com.br/wp-content/uploads/2016/09/Target.png');
+      }
+      &.--mixed::before {
+        background-image: url('http://www.interfaceit.com.br/wp-content/uploads/2016/09/Target.png');
+      }
+      &.--negative::before {
+        background-image: url('http://www.interfaceit.com.br/wp-content/uploads/2016/09/Target.png');
+      }
+    }
+    &.--wind {
+      &.--positive::before {
+        background-image: url('http://www.interfaceit.com.br/wp-content/uploads/2016/09/Target.png');
+      }
+      &.--mixed::before {
+        background-image: url('http://www.interfaceit.com.br/wp-content/uploads/2016/09/Target.png');
+      }
+      &.--negative::before {
+        background-image: url('http://www.interfaceit.com.br/wp-content/uploads/2016/09/Target.png');
+      }
+    }
+    &.--tide {
+      &.--positive::before {
+        background-image: url('http://www.interfaceit.com.br/wp-content/uploads/2016/09/Target.png');
+      }
+      &.--mixed::before {
+        background-image: url('http://www.interfaceit.com.br/wp-content/uploads/2016/09/Target.png');
+      }
+      &.--negative::before {
+        background-image: url('http://www.interfaceit.com.br/wp-content/uploads/2016/09/Target.png');
+      }
     }
   }
 }
