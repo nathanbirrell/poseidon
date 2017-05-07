@@ -15,6 +15,7 @@ Getting Started
 1. Clone this repo - `git clone git@github.com:nathanbirrell/poseidon.git poseidon`
 1. Install project dependencies - `cd poseidon; bundle install`. [Note if you have an issue with the `pg` gem, make sure you run `brew install postgresql` and `bundle` again.]
 1. Create, set-up and seed database with `rails db:create db:schema:load db:seed`
+1. If you like, load some model data for the seed spots with `rails models:update`
 1. Start the Rails server to confirm all is working `rails server`
 
 Optional: install and use [Pow](http://pow.cx) for nice local development server/tools/urls:
