@@ -51,7 +51,6 @@
     position: relative;
     color: #000;
     padding-left: 27px;
-    float: right;
     margin-left: 5px;
     &::before {
       height: 20px;
@@ -59,7 +58,7 @@
       content: " ";
       position: absolute;
       background-size: cover;
-      top: 10px;
+      top: -1px;
       left: 1px;
     }
     &.--swell {
