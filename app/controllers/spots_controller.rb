@@ -80,12 +80,8 @@ class SpotsController < ApplicationController
     end
 
     def set_forecasts
-      @forecasts_swells = get_5_day_forecast(@spot.swells)
-      @forecasts_winds = get_5_day_forecast(@spot.winds)
-      @forecasts_tides = get_5_day_forecast(@spot.tides)
-    end
-
-    def get_5_day_forecast(model)
-      model.where("date_time >= ?", Date.current).where('date_time <= ?', 5.day.from_now).order("date_time")
+      @forecasts_swells = @spot.swells.five_day_forecast(@spot.id)
+      @forecasts_winds = @spot.winds.five_day_forecast(@spot.id)
+      @forecasts_tides = @spot.tides.five_day_forecast(@spot.id)
     end
 end

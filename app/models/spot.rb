@@ -41,15 +41,15 @@ class Spot < ApplicationRecord
 
   # get latest model readings
   def current_swell
-    Swell.where("date_time <= ?", Time.current).where(spot_id: id).order("date_time").last
+    Swell.current(id)
   end
   def current_wind
-    Wind.where("date_time <= ?", Time.current).where(spot_id: id).order("date_time").last
+    Wind.current(id)
   end
   def last_tide
-    Tide.where("date_time <= ?", Time.current).where(spot_id: id).order("date_time").last
+    Tide.current(id)
   end
-  
+
   # calculate current tide
   def current_tide
     return 0
