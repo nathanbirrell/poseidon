@@ -23,6 +23,9 @@
 #  wind_optimal_strength_max_kmh       :decimal(, )
 #  wind_optimal_direction_min_degrees  :integer
 #  wind_optimal_direction_max_degrees  :integer
+#  wave_model_lat                      :decimal(, )
+#  wave_model_lon                      :decimal(, )
+#  willyweather_location_id            :integer
 #
 
 require 'rails_helper'

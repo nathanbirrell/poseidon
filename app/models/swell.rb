@@ -1,17 +1,17 @@
 # == Schema Information
 #
-# Table name: tides
+# Table name: swells
 #
 #  id         :integer          not null, primary key
-#  tide_type  :string
-#  height     :decimal(, )
-#  spot_id    :integer
+#  size       :decimal(, )
+#  period     :decimal(, )
+#  direction  :integer
+#  date_time  :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  date_time  :datetime
+#  spot_id    :integer
 #
 
-class Tide < WeatherModel
-  # default_scope { order(date_time: :desc) }
+class Swell < WeatherModel
   belongs_to :spot
 end
