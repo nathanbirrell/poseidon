@@ -12,7 +12,7 @@
 #  spot_id    :integer
 #
 
-class Swell < ApplicationRecord
+class Swell < WeatherModel
   # default_scope { order(date_time: :desc) }
   belongs_to :spot
 end

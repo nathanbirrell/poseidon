@@ -11,7 +11,7 @@
 #  date_time  :datetime
 #
 
-class Tide < ApplicationRecord
+class Tide < WeatherModel
   # default_scope { order(date_time: :desc) }
   belongs_to :spot
 end
