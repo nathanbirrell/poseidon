@@ -1,6 +1,7 @@
 class SpotsController < ApplicationController
   before_action :set_spot, only: [:show, :edit, :update, :destroy]
   before_action :set_region, only: [:show]
+  before_action :set_forecasts, only: [:show]
 
   # GET /spots
   # GET /spots.json
@@ -76,5 +77,15 @@ class SpotsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def spot_params
       params.require(:spot).permit(:name, :description, :wind_optimal_direction_min_degrees, :swell_optimal_direction_min_degrees, :tide_optimal_min_metres, :tide_optimal_max_metres, :season, :latitude, :longitude, :image, :region_id)
+    end
+
+    def set_forecasts
+      @forecasts_swells = get_5_day_forecast(@spot.swells)
+      @forecasts_winds = get_5_day_forecast(@spot.winds)
+      @forecasts_tides = get_5_day_forecast(@spot.tides)
+    end
+
+    def get_5_day_forecast(model)
+      model.where("date_time >= ?", Date.current).where('date_time <= ?', 5.day.from_now).order("date_time")
     end
 end

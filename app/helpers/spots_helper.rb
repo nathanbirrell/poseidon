@@ -1,23 +1,24 @@
 module SpotsHelper
-  def swell_models_table(spot)
-    show_table(spot.swells)
+  def swell_models_table(rows)
+    show_table(rows)
   end
-  def wind_models_table(spot)
-    show_table(spot.winds)
+  def wind_models_table(rows)
+    show_table(rows)
   end
-  def tide_models_table(spot)
-    show_table(spot.tides)
+  def tide_models_table(rows)
+    show_table(rows)
   end
 
-  def show_table(model)
+  private
+
+  def show_table(rows_to_show)
     date_attrs = ['created_at', 'updated_at', 'date_time']
 
     table = ''
     table += '<table>'
     table += '<thead><tr>'
 
-    model.columns.map do |column|
-      # next unless visible_attrs.include? column.name
+    rows_to_show.columns.map do |column|
       table += "<td>#{column.name}</td>"
     end
 
@@ -25,12 +26,9 @@ module SpotsHelper
 
     table += '<tbody>'
 
-    rows_to_show = model.where("date_time >= ?", Date.current).where('date_time <= ?', 3.day.from_now).order("date_time")
-
     rows_to_show.each do |observation|
       table += '<tr>'
       observation.attributes.each do |attr_name, attr_value|
-        # next unless visible_attrs.include? attr_name
         attr_value = attr_value.localtime.strftime("%a, %e %b %Y %H:%M") if date_attrs.include? attr_name
         table += "<td>#{attr_value}</td>"
       end
