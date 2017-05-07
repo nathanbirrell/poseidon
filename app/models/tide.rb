@@ -2,13 +2,13 @@
 #
 # Table name: tides
 #
-#  id                                 :integer          not null, primary key
-#  type                          :string
-#  height :decimal(, )
-#  date_time                     :string
-#  spot_id                            :integer
-#  created_at                         :datetime         not null
-#  updated_at                         :datetime         not null
+#  id         :integer          not null, primary key
+#  tide_type  :string
+#  height     :decimal(, )
+#  spot_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  date_time  :datetime
 #
 
 class Tide < ApplicationRecord
