@@ -23,10 +23,10 @@ class Swell < WeatherModel
 
     rating = 0.0
 
-    is_optimal_swell_height = WeatherUtil.is_between(size, spot.swell_optimal_size_min_metres, spot.swell_optimal_size_max_metres)
+    is_optimal_swell_height = is_between(size, spot.swell_optimal_size_min_metres, spot.swell_optimal_size_max_metres)
     rating += weight_of_optimal_swell_height if is_optimal_swell_height
 
-    is_optimal_swell_direction = WeatherUtil.is_angle_inside_range(direction, spot.swell_optimal_direction_min_degrees, spot.swell_optimal_direction_max_degrees)
+    is_optimal_swell_direction = is_angle_inside_range(direction, spot.swell_optimal_direction_min_degrees, spot.swell_optimal_direction_max_degrees)
     rating += weight_of_optimal_swell_direction if is_optimal_swell_direction
 
     puts("swell_rating: #{rating.to_s}")
