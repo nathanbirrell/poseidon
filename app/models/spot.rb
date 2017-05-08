@@ -28,7 +28,7 @@
 #  willyweather_location_id            :integer
 #
 
-require 'weather_utils'
+require 'weather_util'
 
 class Spot < ApplicationRecord
   include ActiveModel::Validations
@@ -85,7 +85,7 @@ class Spot < ApplicationRecord
     #
     # rating = 0.0
     #
-    # is_optimal_tide = is_between(current_tide.height, tide_optimal_min_metres, tide_optimal_max_metres)
+    # is_optimal_tide = WeatherUtil.is_between(current_tide.height, tide_optimal_min_metres, tide_optimal_max_metres)
     # rating += 1 if is_optimal_tide
     #
     # puts("tide_rating: #{rating.to_s}")
@@ -105,10 +105,10 @@ class Spot < ApplicationRecord
 
     rating = 0.0
 
-    is_optimal_swell_height = is_between(current_swell.size, swell_optimal_size_min_metres, swell_optimal_size_max_metres)
+    is_optimal_swell_height = WeatherUtil.is_between(current_swell.size, swell_optimal_size_min_metres, swell_optimal_size_max_metres)
     rating += weight_of_optimal_swell_height if is_optimal_swell_height
 
-    is_optimal_swell_direction = is_angle_inside_range(current_swell.direction, swell_optimal_direction_min_degrees, swell_optimal_direction_max_degrees)
+    is_optimal_swell_direction = WeatherUtil.is_angle_inside_range(current_swell.direction, swell_optimal_direction_min_degrees, swell_optimal_direction_max_degrees)
     rating += weight_of_optimal_swell_direction if is_optimal_swell_direction
 
     puts("swell_rating: #{rating.to_s}")
