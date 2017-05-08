@@ -15,25 +15,29 @@
 </div><br>
 
 <div class="row">
-  <div class="small-6 columns">
+  <div class="small-12 columns">
     <h2><%= @spot.name %>, <br>
-      <small><%= link_to @region.name, @region %>, <%= @region.state %></small></h2>
+      <small><%= link_to @region.name, @region %>, <%= @region.state %></small><br>
+      <small>Updated <%= @spot.current_swell.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
+    </h2>
   </div>
-  <div class="small-6 columns text-right">
+  <!-- <div class="small-6 columns text-right">
     <p>
       <small>Updated <%= @spot.current_swell.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
       <% if user_signed_in? %> <%= link_to 'Edit Spot', edit_spot_path(@spot) %> <br> <% end %>
     </p>
-  </div>
+  </div> -->
 </div>
 
 <div class="row">
   <div class="large-12 columns">
     <div class="row">
 
-      <div class="large-3 small-6 columns panel">
-        <h6>Overall Potential</h6>
-        <p><strong><%= number_to_percentage(@spot.current_potential, precision: 1) %></strong></p>
+      <div class="large-3 small-12 columns panel">
+        <span class="<%= 'success' if @spot.current_potential > 75.0 %>"><strong><%= @spot.current_potential %></strong></span>
+        <p class="<%= 'success' if @spot.swell_rating > 0.75 %>"><strong><%= @spot.swell_rating * 100 %></strong></span>
+        <p class="<%= 'success' if @spot.wind_rating > 0.75 %>"><strong><%= @spot.wind_rating * 100 %></strong></span>
+        <p class="<%= 'success' if @spot.tide_rating > 0.75 %>"><strong><%= @spot.tide_rating * 100 %></strong></span>
       </div>
       <div class="large-3 small-6 columns panel">
         <h6>Swell</h6>
