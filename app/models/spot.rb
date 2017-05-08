@@ -53,6 +53,7 @@ class Spot < ApplicationRecord
   end
 
   # calculate current tide
+  # TODO -- where do we put this code?
   def current_tide
     return 0
     # get tide max and min at location
