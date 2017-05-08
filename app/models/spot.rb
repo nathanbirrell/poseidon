@@ -48,13 +48,33 @@ class Spot < ApplicationRecord
     Wind.current(id)
   end
   def last_tide
-    Tide.current(id)
+    Tide.last_tide(id)
+  end
+  def next_tide
+    Tide.next_tide(id)
+  end
+
+  def tidal_range
+    if last_tide.tide_type == 'low'
+      low_tide = last_tide
+      high_tide = next_tide
+    elsif  last_tide.tide_type == 'high'
+      low_tide = next_tide
+      high_tide = last_tide
+    end
+    tide_range = high_tide.height - low_tide.height
   end
 
   # calculate current tide
   def current_tide
-    return 0
-    # get tide max and min at location
+    if last_tide.tide_type == 'low'
+      low_tide = last_tide
+      high_tide = next_tide
+    elsif  last_tide.tide_type == 'high'
+      low_tide = next_tide
+      high_tide = last_tide
+    end
+
     # get tide range at location
     # get baseline (minimum) time for tide at location
 
@@ -66,9 +86,14 @@ class Spot < ApplicationRecord
     # y = a.sin(b(x + l)) + v
     # where a = amplitude, b = period, l = left shift, v = vertical shift
 
-    rating = 0.0
-    rating = sin(PI*1/6 - PI/2) + 1
-    rating.round(2)
+    curr_tide = 0.0
+    if last_tide.tide_type == 'low'
+      curr_tide = tidal_range*sin(PI*1/6 - PI/2) + (tidal_range/2) + low_tide.height
+    elsif last_tide.tide_type == 'high'
+      curr_tide = tidal_range*sin(PI*1/6 + PI/2) + (tidal_range/2)
+      #need to add + (last_tide.height - tide_range) instead of just + last_tide.height
+    end
+    return curr_tide.round(2)
   end
 
   # caclulate a tide rating

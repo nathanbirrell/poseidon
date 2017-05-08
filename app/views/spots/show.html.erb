@@ -65,13 +65,17 @@
       <div class="large-3 small-6 columns panel">
         <h6>Tide</h6>
         <p><%= @spot.tide_rating * 100.0 %>%</p>
-        <p>Current_tide: <%= @spot.current_tide %>m</p>
         <p>
           <ul>
             <li><%= @spot.current_tide %>m above sea level</li>
+            Current tidal range:
+            <li><%= @spot.tidal_range %>m</li>
             Last tide:
             <li><%= @spot.last_tide.height %>m above sea level at
             <%= @spot.last_tide.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
+            Next tide:
+            <li><%= @spot.next_tide.height %>m above sea level at
+            <%= @spot.next_tide.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
           </ul>
         </p>
       </div>
