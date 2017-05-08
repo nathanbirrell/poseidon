@@ -28,8 +28,6 @@
 #  willyweather_location_id            :integer
 #
 
-require 'weather_util'
-
 class Spot < ApplicationRecord
   include ActiveModel::Validations
 
