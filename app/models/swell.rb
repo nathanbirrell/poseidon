@@ -12,7 +12,7 @@
 #  spot_id    :integer
 #
 
-class Swell < WeatherModel
+class Swell < WeatherForecast
   belongs_to :spot
 
   def rating

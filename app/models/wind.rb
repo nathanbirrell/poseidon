@@ -12,7 +12,7 @@
 #  updated_at     :datetime         not null
 #
 
-class Wind < WeatherModel
+class Wind < WeatherForecast
   # default_scope { order(date_time: :desc) }
   belongs_to :spot
 

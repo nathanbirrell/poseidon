@@ -1,4 +1,4 @@
-class WeatherModel < ApplicationRecord
+class WeatherForecast < ApplicationRecord
   self.abstract_class = true
 
   scope :current, -> (spot_id) {
