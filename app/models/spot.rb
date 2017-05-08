@@ -78,50 +78,13 @@ class Spot < ApplicationRecord
     # bl = 9 --> pi.l/6 = 9 --> 54 = pi.l --> l = 54/pi
   end
 
-  # caclulate a tide rating
-  def tide_rating
-    return 0
-    # return 0 unless current_tide && current_tide.height
-    #
-    # rating = 0.0
-    #
-    # is_optimal_tide = WeatherUtil.is_between(current_tide.height, tide_optimal_min_metres, tide_optimal_max_metres)
-    # rating += 1 if is_optimal_tide
-    #
-    # puts("tide_rating: #{rating.to_s}")
-    # rating
-  end
-
-  # calculate a wind rating
-  def wind_rating
-    current_wind.rating
-  end
-
-  def swell_rating
-    return 0 unless current_swell && current_swell.size && current_swell.direction && current_swell.period
-
-    weight_of_optimal_swell_height = 0.7
-    weight_of_optimal_swell_direction = 0.3
-
-    rating = 0.0
-
-    is_optimal_swell_height = WeatherUtil.is_between(current_swell.size, swell_optimal_size_min_metres, swell_optimal_size_max_metres)
-    rating += weight_of_optimal_swell_height if is_optimal_swell_height
-
-    is_optimal_swell_direction = WeatherUtil.is_angle_inside_range(current_swell.direction, swell_optimal_direction_min_degrees, swell_optimal_direction_max_degrees)
-    rating += weight_of_optimal_swell_direction if is_optimal_swell_direction
-
-    puts("swell_rating: #{rating.to_s}")
-    rating
-  end
-
   def current_potential
     # calculate aggregate potential rating based on tide/wind/swell (as a percentage)
     aggregate = 0.0
 
-    aggregate += tide_rating / 3.0
-    aggregate += wind_rating / 3.0
-    aggregate += swell_rating / 3.0
+    # aggregate += current_tide.rating / 3.0 # TODO: uncomment me when @Taylor completes current tide calcs
+    aggregate += current_wind.rating / 3.0
+    aggregate += current_swell.rating / 3.0
 
     aggregate = aggregate * 100
     aggregate.round(3)
