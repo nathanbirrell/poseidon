@@ -1,14 +1,24 @@
 module SpotsHelper
-  def spot_observations_table(spot)
-    return '' unless spot.observations
+  def swell_models_table(rows)
+    show_table(rows)
+  end
+  def wind_models_table(rows)
+    show_table(rows)
+  end
+  def tide_models_table(rows)
+    show_table(rows)
+  end
 
-    date_attrs = ['created_at', 'updated_at', 'axes_reftime', 'axes_time']
+  private
+
+  def show_table(rows_to_show)
+    date_attrs = ['created_at', 'updated_at', 'date_time']
 
     table = ''
     table += '<table>'
     table += '<thead><tr>'
 
-    @spot.observations.columns.map do |column|
+    rows_to_show.columns.map do |column|
       table += "<td>#{column.name}</td>"
     end
 
@@ -16,7 +26,7 @@ module SpotsHelper
 
     table += '<tbody>'
 
-    @spot.observations.each do |observation|
+    rows_to_show.each do |observation|
       table += '<tr>'
       observation.attributes.each do |attr_name, attr_value|
         attr_value = attr_value.localtime.strftime("%a, %e %b %Y %H:%M") if date_attrs.include? attr_name

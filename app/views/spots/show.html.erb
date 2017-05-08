@@ -15,34 +15,39 @@
 </div><br>
 
 <div class="row">
-  <div class="small-6 columns">
+  <div class="small-12 columns">
     <h2><%= @spot.name %>, <br>
-      <small><%= link_to @region.name, @region %>, <%= @region.state %></small></h2>
+      <small><%= link_to @region.name, @region %>, <%= @region.state %></small><br>
+      <small>Updated <%= @spot.current_swell.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
+    </h2>
   </div>
-  <div class="small-6 columns text-right">
+  <!-- <div class="small-6 columns text-right">
     <p>
-      <small>Updated <%= @spot.latest_observation.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
+      <small>Updated <%= @spot.current_swell.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
       <% if user_signed_in? %> <%= link_to 'Edit Spot', edit_spot_path(@spot) %> <br> <% end %>
     </p>
-  </div>
+  </div> -->
 </div>
 
 <div class="row">
   <div class="large-12 columns">
     <div class="row">
 
-      <div class="large-3 small-6 columns panel">
-        <h6>Overall Potential</h6>
-        <p><strong><%= number_to_percentage(@spot.current_potential, precision: 1) %></strong></p>
+      <div class="large-3 small-12 columns panel">
+        <span class="<%= 'success' if @spot.current_potential > 75.0 %>"><strong><%= @spot.current_potential %></strong></span>
+        <p class="<%= 'success' if @spot.swell_rating > 0.75 %>"><strong><%= @spot.swell_rating * 100 %></strong></span>
+        <p class="<%= 'success' if @spot.wind_rating > 0.75 %>"><strong><%= @spot.wind_rating * 100 %></strong></span>
+        <p class="<%= 'success' if @spot.tide_rating > 0.75 %>"><strong><%= @spot.tide_rating * 100 %></strong></span>
       </div>
       <div class="large-3 small-6 columns panel">
         <h6>Swell</h6>
         <p><%= @spot.swell_rating * 100.0 %>%</p>
         <p>
           <ul>
-            <li><%= @spot.latest_observation.swell_size_metres %>m</li>
-            <li>at <%= @spot.latest_observation.swell_period_seconds %>s</li>
-            <li>from <%= @spot.latest_observation.swell_direction_degrees %> degrees OR <%= @spot.latest_observation.swell_direction_degrees.degrees %> radians <br></li>
+            <li><%= @spot.current_swell.size %>m</li>
+            <li>at <%= @spot.current_swell.period %>s</li>
+            <li>from <%= @spot.current_swell.direction %> degrees OR <%= @spot.current_swell.direction.degrees %> radians <br></li>
+            <li> at <%= @spot.current_swell.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
           </ul>
         </p>
       </div>
@@ -51,8 +56,9 @@
         <p><%= @spot.wind_rating * 100.0 %>%</p>
         <p>
           <ul>
-            <li><%= @spot.latest_observation.wind_strength_kmh %> km/h from</li>
-            <li><%= @spot.latest_observation.wind_direction_degrees %> degrees OR <%= @spot.latest_observation.wind_direction_degrees.degrees if @spot.latest_observation.wind_direction_degrees %> radians <br></li>
+            <li><%= @spot.current_wind.speed %> km/h from</li>
+            <li><%= @spot.current_wind.direction %> degrees OR <%= @spot.current_wind.direction.degrees if @spot.current_wind.direction %> radians <br></li>
+            <li> at <%= @spot.current_wind.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
           </ul>
         </p>
       </div>
@@ -62,7 +68,10 @@
         <p>Current_tide: <%= @spot.current_tide %>m</p>
         <p>
           <ul>
-            <li><%= @spot.latest_observation.tide_height_metres %>m above sea level</li>
+            <li><%= @spot.current_tide %>m above sea level</li>
+            Last tide:
+            <li><%= @spot.last_tide.height %>m above sea level at
+            <%= @spot.last_tide.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
           </ul>
         </p>
       </div>
@@ -130,7 +139,11 @@
 
 <div class="row">
   <div class="large-12 columns">
-    <h3><%= "Models for #{@spot.name}" %></h3>
-    <%= spot_observations_table(@spot) %>
+    <h3><%= "Swell Models for #{@spot.name}" %></h3>
+    <%= swell_models_table(@forecasts_swells) %>
+    <h3><%= "Wind Models for #{@spot.name}" %></h3>
+    <%= wind_models_table(@forecasts_winds) %>
+    <h3><%= "Tide Models for #{@spot.name}" %></h3>
+    <%= tide_models_table(@forecasts_tides) %>
   </div>
 </div>
