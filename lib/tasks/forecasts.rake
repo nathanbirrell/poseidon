@@ -5,7 +5,7 @@ WW_API_KEY = 'MTA5MTU5MWU3NThiZjg4ZjgxMDI2Nm'
 PLANETOS_API_KEY = '36cbaff072be400096158d9f71100c61' # TODO: Move this to an environment variable, very insecure tsk tsk!
 
 # TODO: Abstract out PlanetOS API calls into an adapter OR lib? https://github.com/infinum/rails-handbook/blob/master/Design%20Patterns/Adapters.md
-namespace :models do
+namespace :forecasts do
   task :update => :environment do
     spots = Spot.all
 

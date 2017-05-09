@@ -66,6 +66,7 @@ class Spot < ApplicationRecord
   end
 
   # calculate current tide
+  # TODO -- where do we put this code?
   def current_tide
     if last_tide.tide_type == 'low'
       low_tide = last_tide
@@ -74,7 +75,6 @@ class Spot < ApplicationRecord
       low_tide = next_tide
       high_tide = last_tide
     end
-
     # get tide range at location
     # get baseline (minimum) time for tide at location
 
@@ -96,114 +96,15 @@ class Spot < ApplicationRecord
     return curr_tide.round(2)
   end
 
-  # caclulate a tide rating
-  def tide_rating
-    return 0
-    # return 0 unless current_tide && current_tide.height
-    #
-    # rating = 0.0
-    #
-    # is_optimal_tide = is_between(current_tide.height, tide_optimal_min_metres, tide_optimal_max_metres)
-    # rating += 1 if is_optimal_tide
-    #
-    # puts("tide_rating: #{rating.to_s}")
-    # rating
-  end
-
-  # calculate a wind rating
-  def wind_rating
-    return 0 unless current_wind && current_wind.speed && current_wind.direction
-
-    weight_of_optimal_wind_speed = 0.2
-    weight_of_optimal_wind_direction = 0.8
-
-    rating = 0.0
-
-    is_optimal_wind_speed = is_between(current_wind.speed, wind_optimal_strength_min_kmh, wind_optimal_strength_max_kmh)
-    rating += weight_of_optimal_wind_speed if is_optimal_wind_speed
-
-    is_optimal_wind_direction = is_angle_inside_range(current_wind.direction, wind_optimal_direction_min_degrees, wind_optimal_direction_max_degrees)
-    rating += weight_of_optimal_wind_direction if is_optimal_wind_direction
-
-    x = wind_optimal_direction_min_degrees
-    y = current_wind.direction
-    puts("Calculating angle between x=#{x} and y=#{y} = #{calculate_angle_between(x, y)}")
-
-    puts("is_angle_inside_range target=#{current_wind.direction} + min=#{wind_optimal_direction_min_degrees} + max=#{wind_optimal_direction_max_degrees} ?")
-    puts("is_optimal_wind_direction= #{is_optimal_wind_direction}")
-
-    puts("wind_rating: #{rating.to_s}")
-    rating
-  end
-
-  def swell_rating
-    return 0 unless current_swell && current_swell.size && current_swell.direction && current_swell.period
-
-    weight_of_optimal_swell_height = 0.7
-    weight_of_optimal_swell_direction = 0.3
-
-    rating = 0.0
-
-    is_optimal_swell_height = is_between(current_swell.size, swell_optimal_size_min_metres, swell_optimal_size_max_metres)
-    rating += weight_of_optimal_swell_height if is_optimal_swell_height
-
-    is_optimal_swell_direction = is_angle_inside_range(current_swell.direction, swell_optimal_direction_min_degrees, swell_optimal_direction_max_degrees)
-    rating += weight_of_optimal_swell_direction if is_optimal_swell_direction
-
-    puts("swell_rating: #{rating.to_s}")
-    rating
-  end
-
   def current_potential
     # calculate aggregate potential rating based on tide/wind/swell (as a percentage)
     aggregate = 0.0
 
-    aggregate += tide_rating / 3.0
-    aggregate += wind_rating / 3.0
-    aggregate += swell_rating / 3.0
+    # aggregate += current_tide.rating / 3.0 # TODO: uncomment me when @Taylor completes current tide calcs
+    aggregate += current_wind.rating / 3.0
+    aggregate += current_swell.rating / 3.0
 
-    aggregate * 100.0
-    aggregate.round(3) * 100
-  end
-
-  private
-
-  def calculate_angle_between(x, y)
-    # Math.atan2(Math.sin(x-y), Math.cos(x-y))
-    a = x - y
-    a -= 360 if a > 180
-    a += 360 if a < -180
-    a
-  end
-
-  # Need to calculate whether the observed angle is between optimal range.
-  #   This is not as simple as the is_between() function, because of the 360°
-  #   threshold of measuring angles, for example, given observed wind at 3° and
-  #   an optimal range of 350° - 10°, 3 >= 350 = false, which is incorrect.
-  #   Read more: http://stackoverflow.com/questions/11406189/determine-if-angle-lies-between-2-other-angles
-  #
-  #   TODO: Explain the logic inside this function better via comments
-  def is_angle_inside_range(angle, range_min, range_max)
-    # FIXME: Do NOT validate these values here, validate them on the ActiveRecord model attributes
-    if (!is_between(angle, 1, 360) || !is_between(range_min, 1, 360) || !is_between(range_max, 1, 360))
-      puts('Angles must be provided inside 1 - 360 degrees')
-      return
-    end
-
-    # Make the angle from range_min to range_max to be <= 180 degrees
-    real_angle = ((range_max - range_min) % 360 + 360) % 360
-    # Swap the min/max range if it's > 180
-    range_min, range_max = range_max, range_min if (real_angle >= 180)
-
-    if range_min <= range_max
-      return angle >= range_min && angle <= range_max
-    else
-      return angle >= range_min || angle <= range_max
-    end
-  end
-
-  # Convenience function to check if `observation` is between the two params
-  def is_between(observation, param_min, param_max)
-    (observation >= param_min) && (observation <= param_max)
+    aggregate = aggregate * 100
+    aggregate.round(3)
   end
 end

@@ -12,7 +12,35 @@
 #  updated_at     :datetime         not null
 #
 
-class Wind < WeatherModel
+class Wind < WeatherForecast
   # default_scope { order(date_time: :desc) }
   belongs_to :spot
+
+  def rating
+    return 0 unless speed && direction
+
+    weight_of_optimal_wind_speed = 0.2
+    weight_of_optimal_wind_direction = 0.8
+
+    rating = 0.0
+
+    is_optimal_wind_speed = is_between(speed, spot.wind_optimal_strength_min_kmh, spot.wind_optimal_strength_max_kmh)
+    rating += weight_of_optimal_wind_speed if is_optimal_wind_speed
+
+    is_optimal_wind_direction = is_angle_inside_range(direction, spot.wind_optimal_direction_min_degrees, spot.wind_optimal_direction_max_degrees)
+    rating += weight_of_optimal_wind_direction if is_optimal_wind_direction
+
+    x = spot.wind_optimal_direction_min_degrees
+    y = direction
+
+    # TODO: clean me (remove logs)
+
+    puts("Calculating angle between x=#{x} and y=#{y} = #{calculate_angle_between(x, y)}")
+
+    puts("is_angle_inside_range target=#{direction} + min=#{spot.wind_optimal_direction_min_degrees} + max=#{spot.wind_optimal_direction_max_degrees} ?")
+    puts("is_optimal_wind_direction= #{is_optimal_wind_direction}")
+
+    puts("wind_rating: #{rating.to_s}")
+    rating
+  end
 end
