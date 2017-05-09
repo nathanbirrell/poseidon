@@ -66,11 +66,17 @@ class Spot < ApplicationRecord
     return high_tide.height - low_tide.height
   end
 
+  def tide_delta_time
+    delta_time = Time.now.to_i - last_tide.date_time.localtime.to_i
+    delta_time = delta_time/60
+    delta_time = delta_time/60.round(3)
+  end
+
   def current_tide_height
     if last_tide.tide_type == 'low'
-      curr_tide = tidal_range*sin(PI*1/6 - PI/2) + (tidal_range/2) + low_tide.height
+      curr_tide = tidal_range*sin(PI*tide_delta_time/6 - PI/2) + (tidal_range + low_tide.height)
     elsif last_tide.tide_type == 'high'
-      curr_tide = tidal_range*sin(PI*1/6 + PI/2) + (tidal_range/2) + low_tide.height
+      curr_tide = tidal_range*sin(PI*tide_delta_time/6 + PI/2) + (tidal_range + low_tide.height)
     end
     return curr_tide.round(2)
   end
