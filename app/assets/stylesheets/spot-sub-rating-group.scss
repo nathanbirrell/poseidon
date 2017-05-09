@@ -15,35 +15,35 @@
     }
     &.--swell {
       &.--positive::before {
-        background-image: url('http://www.iconsdb.com/icons/preview/lime/circle-xxl.png');
+        background-image: image-url('swell-positive.png');
       }
       &.--mixed::before {
-        background-image: url('http://www.iconsdb.com/icons/preview/orange/circle-xxl.png');
+        background-image: image-url('swell-mixed.png');
       }
       &.--negative::before {
-        background-image: url('http://www.iconsdb.com/icons/preview/red/circle-xxl.png');
+        background-image: image-url('swell-negative.png');
       }
     }
     &.--wind {
       &.--positive::before {
-        background-image: url('http://www.iconsdb.com/icons/preview/lime/circle-xxl.png');
+        background-image: image-url('wind-positive.png');
       }
       &.--mixed::before {
-        background-image: url('http://www.iconsdb.com/icons/preview/orange/circle-xxl.png');
+        background-image: image-url('wind-mixed.png');
       }
       &.--negative::before {
-        background-image: url('http://www.iconsdb.com/icons/preview/red/circle-xxl.png');
+        background-image: image-url('wind-negative.png');
       }
     }
     &.--tide {
       &.--positive::before {
-        background-image: url('http://www.iconsdb.com/icons/preview/lime/circle-xxl.png');
+        background-image: image-url('tide-positive.png');
       }
       &.--mixed::before {
-        background-image: url('http://www.iconsdb.com/icons/preview/orange/circle-xxl.png');
+        background-image: image-url('tide-mixed.png');
       }
       &.--negative::before {
-        background-image: url('http://www.iconsdb.com/icons/preview/red/circle-xxl.png');
+        background-image: image-url('tide-negative.png');
       }
     }
   }
