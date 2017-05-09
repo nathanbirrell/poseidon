@@ -37,7 +37,7 @@
         <span class="<%= 'success' if @spot.current_potential > 75.0 %>"><strong>Overall: <%= @spot.current_potential %></strong></span>
         <p class="<%= 'success' if @spot.current_swell.rating > 0.75 %>"><strong>Swell <%= @spot.current_swell.rating * 100 %></strong></span>
         <p class="<%= 'success' if @spot.current_wind.rating > 0.75 %>"><strong>Wind <%= @spot.current_wind.rating * 100 %></strong></span>
-        <p class=""><strong>Tide todo</strong></span>
+        <p class="<%= 'success' if @spot.current_tide_rating > 0.75 %>"><strong>Tide <%= @spot.current_tide_rating * 100 %></strong></span>
       </div>
       <div class="large-3 small-6 columns panel">
         <h6>Swell</h6>
@@ -64,16 +64,16 @@
       </div>
       <div class="large-3 small-6 columns panel">
         <h6>Tide</h6>
-        <p><%= "todo" %>%</p>
+        <p><%= @spot.current_tide_rating * 100.0 %>%</p>
         <p>
           <ul>
-            <li><%= @spot.current_tide %>m above sea level</li>
+            <li><%= @spot.current_tide_height %>m above sea level</li>
             Current tidal range:
             <li><%= @spot.tidal_range %>m</li>
-            Last tide:
+            Last tide (<%= @spot.last_tide.tide_type %>):
             <li><%= @spot.last_tide.height %>m above sea level at
             <%= @spot.last_tide.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
-            Next tide:
+            Next tide (<%= @spot.next_tide.tide_type %>):
             <li><%= @spot.next_tide.height %>m above sea level at
             <%= @spot.next_tide.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
           </ul>
