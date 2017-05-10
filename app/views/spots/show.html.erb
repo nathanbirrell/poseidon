@@ -14,6 +14,12 @@
   </div>
 </div><br>
 
+<% if (!@spot.current_swell || !@spot.current_wind) %>
+  <h2><%= @spot.name %></h2>
+  <p>No forecast data available for this spot.</p>
+  <p>Please run a <code>rails forecasts:update</code> then refresh.</p>
+<% else %>
+
 <div class="row">
   <div class="small-12 columns">
     <h2><%= @spot.name %>, <br>
@@ -154,3 +160,5 @@
     <%= tide_models_table(@forecasts_tides) %>
   </div>
 </div>
+
+<% end %>
