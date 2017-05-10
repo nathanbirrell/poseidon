@@ -45,6 +45,61 @@
   </a>
 <% end %>
 
+<% @spots.each do |spot| %>
+  <div class="large-4 small-12 spot-tile">
+    <a href="#">
+      <div class="spot-tile__image" style="background-image: url('http://blogs.acu.edu.au/international/files/2011/03/Bells-Beach-2008.jpg')"></div>
+      <div class="spot-tile__summary">
+        <div class="spot-tile__main-rating --positive">89</div>
+        <h3><%= spot.name %></h3>
+        <div class="spot-plan-summary">
+          <span class="spot-plan-summary__item --positive">
+            <p>F</p>
+          </span>
+          <span class="spot-plan-summary__item --positive">
+            <p>S</p>
+          </span>
+          <span class="spot-plan-summary__item --mixed">
+            <p>S</p>
+          </span>
+          <span class="spot-plan-summary__item --negative">
+            <p>M</p>
+          </span>
+          <span class="spot-plan-summary__item --mixed">
+            <p>T</p>
+          </span>
+        </div>
+      </div>
+    </a>
+  </div>
+<% end %>
+
+<% @spots.each do |spot| %>
+  <a href="#">
+    <div class="small-12 spot-list-item">
+      <div class="spot-list-item__main-rating --positive"><span>89</span></div>
+      <h3 class="spot-list-item__name"><%= spot.name %></h3>
+      <div class="spot-plan-summary">
+        <span class="spot-plan-summary__item --positive">
+          <p>F</p>
+        </span>
+        <span class="spot-plan-summary__item --positive">
+          <p>S</p>
+        </span>
+        <span class="spot-plan-summary__item --mixed">
+          <p>S</p>
+        </span>
+        <span class="spot-plan-summary__item --negative">
+          <p>M</p>
+        </span>
+        <span class="spot-plan-summary__item --mixed">
+          <p>T</p>
+        </span>
+      </div>
+    </div>
+  </a>
+<% end %>
+
 <table>
   <thead>
     <tr>

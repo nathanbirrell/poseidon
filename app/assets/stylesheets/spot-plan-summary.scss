@@ -1,0 +1,22 @@
+.spot-plan-summary {
+  &__item {
+    display: inline-block;
+    position: relative;
+    color: #fff;
+    margin-left: 3px;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+
+    &.--positive {
+      background-color: #6FCF97;
+    }
+    &.--mixed {
+      background-color: #F2C94C;
+    }
+    &.--negative {
+      background-color: #EB5757;
+    }
+  }
+}
