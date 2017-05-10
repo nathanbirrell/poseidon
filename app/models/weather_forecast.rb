@@ -1,13 +1,19 @@
 class WeatherForecast < ApplicationRecord
   self.abstract_class = true
 
-  scope :current, -> (spot_id) {
-    where(spot_id: spot_id).where("date_time <= ?", Time.current).order(date_time: :desc).first
-  }
+  # Class methods used in a similar way to named scopes
+  #   - Not using named scopes here so that when no results are found, we get
+  #       nil or an empty array (depends on query)
+  #   - this is preffered to the named scope approach of returning ALL records
+  #       if no results (this is for chainability).
 
-  scope :five_day_forecast, -> (spot_id) {
+  def self.current(spot_id)
+    where(spot_id: spot_id).where("date_time <= ?", Time.current).order(date_time: :desc).first
+  end
+
+  def self.five_day_forecast(spot_id)
     where(spot_id: spot_id).where("date_time >= ?", Date.current).where('date_time <= ?', 5.day.from_now).order(date_time: :asc)
-  }
+  end
 
   # Methods used by Swell, Wind, Tide models
 
