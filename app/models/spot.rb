@@ -67,7 +67,7 @@ class Spot < ApplicationRecord
   end
 
   def tide_delta_time
-    delta_time = Time.now.to_i - last_tide.date_time.localtime.to_i
+    delta_time = Time.zone.now.to_i - last_tide.date_time.localtime.to_i
     delta_time = delta_time/60
     delta_time = delta_time/60.round(3)
   end
