@@ -18,7 +18,7 @@
           <%= @spot.name %>, <br>
           <small><%= link_to @region.name, @region %>, <%= @region.state %></small>
         </h2>
-        <p>Updated <%= @spot.current_swell.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></p>
+        <p class="spot-banner__updated-date">Updated <%= @spot.current_swell.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></p>
       </div>
       <!-- <div class="small-6 columns text-right">
         <p>
@@ -33,14 +33,12 @@
 <div class="row">
   <div class="large-12 columns">
     <div class="row">
-
-      <div class="large-3 small-12 columns panel">
-        <span class="<%= 'success' if @spot.current_potential > 75.0 %>"><strong>Overall: <%= @spot.current_potential %></strong></span>
-        <p class="<%= 'success' if @spot.current_swell.rating > 0.75 %>"><strong>Swell <%= @spot.current_swell.rating * 100 %></strong></span>
-        <p class="<%= 'success' if @spot.current_wind.rating > 0.75 %>"><strong>Wind <%= @spot.current_wind.rating * 100 %></strong></span>
-        <p class="<%= 'success' if @spot.current_tide_rating > 0.75 %>"><strong>Tide <%= @spot.current_tide_rating * 100 %></strong></span>
+      <div class="small-12 columns panel">
+        <span class="<%= 'success' if @spot.current_potential > 75.0 %>">
+          <strong>Overall: <%= @spot.current_potential %></strong>
+        </span>
       </div>
-      <div class="large-3 small-6 columns panel">
+      <div class="small-6 columns panel">
         <h6>Swell</h6>
         <p><%= @spot.current_swell.rating * 100.0 %>%</p>
         <p>
