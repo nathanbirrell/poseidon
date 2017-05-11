@@ -14,27 +14,29 @@
   </form>
 </div>
 
+<h3>Current Conditions</h3>
 <% @spots.each do |spot| %>
   <div class="large-4 medium-6 small-12 spot-tile">
-    <a href="#">
+    <%= link_to spot do %>
       <div class="spot-tile__image" style="background-image: url('<%= spot.image %>')"></div>
       <div class="spot-tile__summary">
         <div class="spot-tile__main-rating --positive">89</div>
-        <h3><%= link_to spot.name, spot %> <br></h3>
+        <h3><%= spot.name %> <br></h3>
         <div class="spot-sub-rating-group">
           <span class="spot-sub-rating-group__item --swell --positive">89</span>
           <span class="spot-sub-rating-group__item --wind --mixed">89</span>
           <span class="spot-sub-rating-group__item --tide --negative">89</span>
         </div>
       </div>
-    </a>
+    <% end %>
   </div>
 <% end %>
 
+<h3>Forecasts</h3>
 <% @spots.each do |spot| %>
   <div class="large-4 medium-6 small-12 spot-tile">
-    <a href="#">
-      <div class="spot-tile__image" style="background-image: url('http://blogs.acu.edu.au/international/files/2011/03/Bells-Beach-2008.jpg')"></div>
+    <%= link_to spot do %>
+      <div class="spot-tile__image" style="background-image: url('<%= spot.image %>')"></div>
       <div class="spot-tile__summary">
         <div class="spot-tile__main-rating --positive">89</div>
         <h3><%= spot.name %></h3>
@@ -56,12 +58,13 @@
           </span>
         </div>
       </div>
-    </a>
+    <% end %>
   </div>
 <% end %>
 
+<h3>Collapsed</h3>
 <% @spots.each do |spot| %>
-  <a href="#">
+  <%= link_to spot do %>
     <div class="large-4 medium-6 small-12 spot-list-item">
       <div class="spot-list-item__main-rating --positive"><span>89</span></div>
       <h3 class="spot-list-item__name"><%= spot.name %></h3>
@@ -83,8 +86,10 @@
         </span>
       </div>
     </div>
-  </a>
+  <% end %>
 <% end %>
+
+<br><br>
 
 <table>
   <thead>
