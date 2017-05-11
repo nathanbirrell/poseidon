@@ -32,6 +32,21 @@
   </div>
 <% end %>
 
+<h3>Collapsed</h3>
+<% @spots.each do |spot| %>
+  <a href="#">
+   <div class="large-4 medium-6 small-12 spot-list-item">
+     <div class="spot-list-item__main-rating --positive"><span>89</span></div>
+     <h3 class="spot-list-item__name"><%= spot.name %></h3>
+     <div class="spot-sub-rating-group">
+       <span class="spot-sub-rating-group__item --swell --positive">89</span>
+       <span class="spot-sub-rating-group__item --wind --mixed">89</span>
+       <span class="spot-sub-rating-group__item --tide --negative">89</span>
+     </div>
+   </div>
+  </a>
+<% end %>
+
 <h3>Forecasts</h3>
 <% @spots.each do |spot| %>
   <div class="large-4 medium-6 small-12 spot-tile">
