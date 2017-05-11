@@ -1,18 +1,5 @@
+<!-- TODO: Figure out a nice way to handle notices -->
 <p id="notice"><%= notice %></p>
-
-<div class="row">
-  <div class="large-12 columns">
-
-    <div class="hide-for-small">
-      <div id="featured"><img alt="slide image" src="<%= @spot.image %>"></div>
-    </div>
-
-    <div class="row">
-      <div class="small-12 show-for-small"><br>
-        <img src="<%= @spot.image %>"></div>
-    </div>
-  </div>
-</div><br>
 
 <% if (!@spot.current_swell || !@spot.current_wind) %>
   <h2><%= @spot.name %></h2>
@@ -20,20 +7,28 @@
   <p>Please run a <code>rails forecasts:update</code> then refresh.</p>
 <% else %>
 
-<div class="row">
-  <div class="small-12 columns">
-    <h2><%= @spot.name %>, <br>
-      <small><%= link_to @region.name, @region %>, <%= @region.state %></small><br>
-      <small>Updated <%= @spot.current_swell.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
-    </h2>
+<% content_for :before_main do %>
+  <div class="row spot-banner">
+    <div class="spot-banner__image-wrapper">
+      <img alt="slide image" src="<%= @spot.image %>">
+    </div>
+    <div class="row spot-banner__content">
+      <div class="small-12 columns text-center">
+        <h2>
+          <%= @spot.name %>, <br>
+          <small><%= link_to @region.name, @region %>, <%= @region.state %></small>
+        </h2>
+        <p>Updated <%= @spot.current_swell.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></p>
+      </div>
+      <!-- <div class="small-6 columns text-right">
+        <p>
+          <small>Updated <%= @spot.current_swell.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
+          <% if user_signed_in? %> <%= link_to 'Edit Spot', edit_spot_path(@spot) %> <br> <% end %>
+        </p>
+      </div> -->
+    </div>
   </div>
-  <!-- <div class="small-6 columns text-right">
-    <p>
-      <small>Updated <%= @spot.current_swell.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></small><br>
-      <% if user_signed_in? %> <%= link_to 'Edit Spot', edit_spot_path(@spot) %> <br> <% end %>
-    </p>
-  </div> -->
-</div>
+<% end %>
 
 <div class="row">
   <div class="large-12 columns">

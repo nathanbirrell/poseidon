@@ -14,6 +14,9 @@
     <header>
       <%= render 'layouts/navigation' %>
     </header>
+
+    <%= content_for?(:before_main) ? yield(:before_main) : "" %>
+
     <main role="main">
        <%= render 'layouts/messages' %>
        <%= yield %>
