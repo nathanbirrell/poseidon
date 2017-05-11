@@ -9,6 +9,9 @@
   font-weight: normal;
   color: white;
   padding: 0 15px; }
+.top-bar.expanded {
+  z-index: 1;
+}
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create mixins using Foundation classes

@@ -2,17 +2,57 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#featured {
-  max-height: 380px;
-  overflow: hidden;
-
-  img {
-    width: 100%;
-  }
-}
-
 table {
   overflow: scroll;
   display: block;
   max-height: 420px;
+}
+
+.panel {
+  border: none;
+  background: transparent;
+}
+
+/** Spot banner **/
+
+.spot-banner {
+  //
+}
+
+.spot-banner__image-wrapper {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  max-height: 380px;
+  overflow: hidden;
+}
+
+.spot-banner__image-wrapper img {
+  width: 100%;
+  filter: blur(3px);
+  transform: scale(1.1);
+}
+
+.spot-banner__content {
+  padding-top: 12px;
+
+  * {
+    text-shadow: 0.5px 0.5px 0.1px rgba(0, 0, 0, 0.8);
+  }
+
+  h2 {
+    color: #fefefe;
+    line-height: 1.2;
+  }
+
+  p,
+  small,
+  a {
+    color: #fefefe;
+  }
+
+  .spot-banner__updated-date {
+    font-size: 0.8em;
+    color: #e9e9e9;
+  }
 }

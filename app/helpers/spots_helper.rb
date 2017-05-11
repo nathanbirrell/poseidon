@@ -1,4 +1,12 @@
 module SpotsHelper
+  def tide_incoming_or_outgoing(last_tide_type)
+    if last_tide_type === 'low'
+      'Incoming'
+    else
+      'Outgoing'
+    end
+  end
+
   def swell_models_table(rows)
     show_table(rows)
   end

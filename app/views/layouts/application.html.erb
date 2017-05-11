@@ -14,9 +14,19 @@
     <header>
       <%= render 'layouts/navigation' %>
     </header>
+
+    <%= content_for?(:before_main) ? yield(:before_main) : "" %>
+
     <main role="main">
        <%= render 'layouts/messages' %>
        <%= yield %>
     </main>
+
+    <div class="row text-center">
+      <footer class="small-12 columns">
+        <small>Built with code </> in Melbourne.</small> <br>
+        <small>Copyright Surf Poseidon Pty Ltd <%= Time.current.year %></small>
+      </footer>
+    </div>
   </body>
 </html>
