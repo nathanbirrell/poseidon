@@ -21,28 +21,37 @@ class Wind < WeatherForecast
     weight_of_optimal_wind_speed = 0.2
     weight_of_optimal_wind_direction = 0.8
 
+    #========= CALC WIND DIRECTION RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    maxVariance = 25.0 #Need to get this from DB or calc
-    kVar = 100.0
+    dirMaxVariance = 25.0 #Need to get this from DB or calc
+    dirKVar = 100.0
     # hVar = ((max - min)/2) + min
-    hVar = 0.0
+    dirHVar = 0.0
 
     # pass in known coord to determin var a value, (maxVariance, 75)
-    aVar = (75 - 100)/((maxVariance - hVar)**2)
+    dirAVar = (75 - 100)/((dirMaxVariance - dirHVar)**2)
 
-    currentVariance = 35.0 #need to calc, variance of direction compared to optimal wind dir
-    rating = aVar * ((currentVariance - hVar)**2) + kVar
+    dirCurrentVariance = 35.0 #need to calc, variance of direction compared to optimal wind dir
+    dirRating = dirAVar * ((dirCurrentVariance - dirHVar)**2) + dirKVar
 
     #puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
-    puts("Parabolic aVar=#{aVar} hVar=#{hVar} rating=#{rating}")
+    puts("Parabolic dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
 
-    # TODO WIND SPEED USE PARABOLA
-    is_optimal_wind_speed = is_between(speed, spot.wind_optimal_strength_min_kmh, spot.wind_optimal_strength_max_kmh)
-    rating += weight_of_optimal_wind_speed if is_optimal_wind_speed
+    #========= CALC WIND SPEED RATING ==========
+    # use vertex quad formula y = a(x-h)^2 + k
+    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
+    speedKVar = 100.0
+    speedMax = spot.wind_optimal_strength_max_kmh
+    speedMin = spot.wind_optimal_strength_min_kmh
+    speedHVar = ((speedMax - speedMin)/2) + speedMin
 
-    # is_optimal_wind_direction = is_angle_inside_range(direction, spot.wind_optimal_direction_min_degrees, spot.wind_optimal_direction_max_degrees)
-    # rating += weight_of_optimal_wind_direction if is_optimal_wind_direction
+    # pass in known coord to determine var a value, (speedMin, 75)
+    speedAVar = (75 - 100)/((speedMin - speedHVar)**2)
+
+    speedRating = speedAVar * ((speedMin - speedHVar)**2) + speedKVar
+
+    puts("Parabolic speedAVar=#{speedAVar} speedHVar=#{speedHVar} speedRating=#{speedRating}")
 
     x = spot.wind_optimal_direction_min_degrees
     y = direction
@@ -52,9 +61,9 @@ class Wind < WeatherForecast
     puts("Calculating angle between x=#{x} and y=#{y} = #{calculate_angle_between(x, y)}")
 
     puts("is_angle_inside_range target=#{direction} + min=#{spot.wind_optimal_direction_min_degrees} + max=#{spot.wind_optimal_direction_max_degrees} ?")
-    # puts("is_optimal_wind_direction= #{is_optimal_wind_direction}")
 
+    rating = speedRating
     puts("wind_rating: #{rating.to_s}")
-    rating
+    rating.round(2)
   end
 end
