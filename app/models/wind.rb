@@ -18,11 +18,24 @@ class Wind < WeatherForecast
 
   def rating
     return 0 unless speed && direction
-
+    rating = 0.0
     weight_of_optimal_wind_speed = 0.2
     weight_of_optimal_wind_direction = 0.8
 
-    rating = 0.0
+    # use vertex quad formula y = a(x-h)^2 + k
+    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
+    min = spot.wind_optimal_direction_min_degrees
+    max = spot.wind_optimal_direction_max_degrees
+    kVar = 100.0
+    hVar = ((max - min)/2) + min
+
+    # pass in known coord to determin var a value, (min, 75)
+    aVar = (75 - 100)/((min - hVar)**2)
+
+    rating = aVar * ((direction - hVar)**2) + kVar
+
+    puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
+    puts("Parabolic aVar=#{aVar} hVar=#{hVar} rating=#{rating}")
 
     is_optimal_wind_speed = is_between(speed, spot.wind_optimal_strength_min_kmh, spot.wind_optimal_strength_max_kmh)
     rating += weight_of_optimal_wind_speed if is_optimal_wind_speed
