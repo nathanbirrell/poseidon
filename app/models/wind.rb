@@ -24,17 +24,19 @@ class Wind < WeatherForecast
 
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    min = spot.wind_optimal_direction_min_degrees
-    max = spot.wind_optimal_direction_max_degrees
+
+    maxVariance = 25.0 #Need to get this from DB or calc
     kVar = 100.0
-    hVar = ((max - min)/2) + min
+    # hVar = ((max - min)/2) + min
+    hVar = 0.0
 
-    # pass in known coord to determin var a value, (min, 75)
-    aVar = (75 - 100)/((min - hVar)**2)
+    # pass in known coord to determin var a value, (maxVariance, 75)
+    aVar = (75 - 100)/((maxVariance - hVar)**2)
 
-    rating = aVar * ((direction - hVar)**2) + kVar
+    currentVariance = 35.0 #need to calc, variance of direction compared to optimal wind dir
+    rating = aVar * ((currentVariance - hVar)**2) + kVar
 
-    puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
+    #puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
     puts("Parabolic aVar=#{aVar} hVar=#{hVar} rating=#{rating}")
 
     is_optimal_wind_speed = is_between(speed, spot.wind_optimal_strength_min_kmh, spot.wind_optimal_strength_max_kmh)
