@@ -43,9 +43,9 @@
           <p><%= @spot.current_swell.rating %>%</p>
           <p>
             <ul>
-              <li><%= @spot.current_swell.size %>m</li>
-              <li>at <%= @spot.current_swell.period %>s</li>
-              <li>from <%= @spot.current_swell.direction %> degrees OR <%= @spot.current_swell.direction.degrees %> radians <br></li>
+              <li><strong>Size:</strong> <%= @spot.current_swell.size %>m</li>
+              <li><strong>Period:</strong> <%= @spot.current_swell.period %>s</li>
+              <li><strong>Direction:</strong> <%= @spot.current_swell.direction %> degrees OR <%= @spot.current_swell.direction.degrees %> radians <br></li>
               <li> at <%= @spot.current_swell.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
             </ul>
           </p>
@@ -55,8 +55,8 @@
           <p><%= @spot.current_wind.rating %>%</p>
           <p>
             <ul>
-              <li><%= @spot.current_wind.speed %> km/h from</li>
-              <li><%= @spot.current_wind.direction %> degrees OR <%= @spot.current_wind.direction.degrees if @spot.current_wind.direction %> radians <br></li>
+              <li><strong>Speed:</strong> <%= @spot.current_wind.speed %> km/h from</li>
+              <li><strong>Direction:</strong> <%= @spot.current_wind.direction %> degrees OR <%= @spot.current_wind.direction.degrees if @spot.current_wind.direction %> radians <br></li>
               <li> at <%= @spot.current_wind.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
             </ul>
           </p>
@@ -66,9 +66,9 @@
           <p><%= @spot.current_tide_rating %>%</p>
           <p>
             <ul>
-              <li>Current tide height: <%= @spot.current_tide_height %>m above sea level</li>
-              <li><%= tide_incoming_or_outgoing(@spot.last_tide.tide_type) %> tide</li>
-              <li>Next tide (<%= @spot.next_tide.tide_type %>): <%= @spot.next_tide.height %>m above sea level in TODO hrs:mins (at
+              <li><strong>Height:</strong> <%= @spot.current_tide_height %>m above sea level</li>
+              <li><strong>Phase:</strong> <%= tide_incoming_or_outgoing(@spot.last_tide.tide_type) %></li>
+              <li><strong>Next tide (<%= @spot.next_tide.tide_type %>):</strong> <%= @spot.next_tide.height %>m above sea level in TODO hrs:mins (at
               <%= @spot.next_tide.date_time.localtime.strftime("%H:%M") %>)</li>
             </ul>
           </p>
