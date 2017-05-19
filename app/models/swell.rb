@@ -23,18 +23,17 @@ class Swell < WeatherForecast
     #========= CALC SWELL SIZE RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    kVar = 100.0
-    max = spot.swell_optimal_size_max_metres
-    min = spot.swell_optimal_size_min_metres
-    hVar = ((max - min)/2) + min
+    sizeKVar = 100.0
+    sizeMax = spot.swell_optimal_size_max_metres
+    sizeMin = spot.swell_optimal_size_min_metres
+    sizeHVar = ((sizeMax - sizeMin)/2) + sizeMin
 
-    # pass in known coord to determin var a value, (min, 75)
-    aVar = (75 - 100)/((min - hVar)**2)
+    # pass in known coord to determine var a value, (sizeMin, 75)
+    sizeAVar = (75 - 100)/((sizeMin - sizeHVar)**2)
 
-    sizeRating = aVar * ((size - hVar)**2) + kVar
+    sizeRating = sizeAVar * ((sizeMin - sizeHVar)**2) + sizeKVar
 
-    #puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
-    puts("Parabolic aVar=#{aVar} hVar=#{hVar} sizeRating=#{sizeRating}")
+    puts("Parabolic sizeAVar=#{sizeAVar} sizeHVar=#{sizeHVar} sizeRating=#{sizeRating}")
 
     #========= CALC SWELL DIRECTION RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
