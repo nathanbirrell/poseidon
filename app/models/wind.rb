@@ -18,7 +18,6 @@ class Wind < WeatherForecast
 
   def rating
     return 0 unless speed && direction
-    rating = 0.0
     weight_of_optimal_wind_speed = 0.2
     weight_of_optimal_wind_direction = 0.8
 
