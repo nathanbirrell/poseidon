@@ -89,7 +89,21 @@ class Spot < ApplicationRecord
   end
 
   def current_tide_rating
-    return 1.0
+    # use vertex quad formula y = a(x-h)^2 + k
+    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
+    kVar = 100.0
+    max = tide_optimal_max_metres
+    min = tide_optimal_min_metres
+    hVar = ((max - min)/2) + min
+
+    # pass in known coord to determin var a value, (min, 75)
+    aVar = (75 - 100)/((min - hVar)**2)
+
+    rating = aVar * ((current_tide_height - hVar)**2) + kVar
+
+    #puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
+    puts("Parabolic aVar=#{aVar} hVar=#{hVar} rating=#{rating}")
+    return rating.round(2)
   end
 
   def current_potential
