@@ -95,9 +95,10 @@ class Spot < ApplicationRecord
     elsif last_tide.tide_type == 'high'
       opt_tide_time = asin((tide_optimal_min_metres - (tidal_range/2 + low_tide.height))/(tidal_range/2)) + PI/2
     end
-    opt_tide_time = opt_tide_time * 60 * 60 * 60
+    opt_tide_time = opt_tide_time * 60 * 60 * 1000
     opt_tide_time = opt_tide_time.round(0)
     time_remaining = opt_tide_time - Time.zone.now.to_i
+    time_remaining = time_remaining / 1000 / 60 / 60
     return time_remaining
   end
 
