@@ -91,8 +91,10 @@ class Spot < ApplicationRecord
   def tide_time_remaining
     return 0 unless current_tide_height.between?(tide_optimal_min_metres, tide_optimal_max_metres)
     if last_tide.tide_type == 'low'
+      return 0 unless next_tide.height > tide_optimal_max_metres # Return 0 if tide will not pass out of good range in this cycle
       opt_tide_time = asin((tide_optimal_max_metres - (tidal_range/2 + low_tide.height))/(tidal_range/2)) + PI/2
     elsif last_tide.tide_type == 'high'
+        return 0 unless next_tide.height < tide_optimal_min_metres # Return 0 if tide will not pass out of good range in this cycle
       opt_tide_time = asin((tide_optimal_min_metres - (tidal_range/2 + low_tide.height))/(tidal_range/2)) + PI/2
     end
     opt_tide_time = opt_tide_time * 60 * 60 * 1000
