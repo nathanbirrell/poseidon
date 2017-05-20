@@ -49,7 +49,7 @@ class Wind < WeatherForecast
     # pass in known coord to determine var a value, (speedMin, 75)
     speedAVar = (75 - 100)/((speedMin - speedHVar)**2)
 
-    speedRating = speedAVar * ((speedMin - speedHVar)**2) + speedKVar
+    speedRating = speedAVar * ((speed - speedHVar)**2) + speedKVar
 
     puts("Parabolic speedAVar=#{speedAVar} speedHVar=#{speedHVar} speedRating=#{speedRating}")
 

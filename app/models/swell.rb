@@ -31,7 +31,7 @@ class Swell < WeatherForecast
     # pass in known coord to determine var a value, (sizeMin, 75)
     sizeAVar = (75 - 100)/((sizeMin - sizeHVar)**2)
 
-    sizeRating = sizeAVar * ((sizeMin - sizeHVar)**2) + sizeKVar
+    sizeRating = sizeAVar * ((size - sizeHVar)**2) + sizeKVar
 
     puts("Parabolic sizeAVar=#{sizeAVar} sizeHVar=#{sizeHVar} sizeRating=#{sizeRating}")
 
