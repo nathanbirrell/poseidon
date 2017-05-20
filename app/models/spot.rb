@@ -88,6 +88,19 @@ class Spot < ApplicationRecord
     return curr_tide.round(2)
   end
 
+  def tide_time_remaining
+    return 0 unless current_tide_height.between?(tide_optimal_min_metres, tide_optimal_max_metres)
+    if last_tide.tide_type == 'low'
+      opt_tide_time = asin((tide_optimal_max_metres - (tidal_range/2 + low_tide.height))/(tidal_range/2)) + PI/2
+    elsif last_tide.tide_type == 'high'
+      opt_tide_time = asin((tide_optimal_min_metres - (tidal_range/2 + low_tide.height))/(tidal_range/2)) + PI/2
+    end
+    opt_tide_time = opt_tide_time * 60 * 60 * 60
+    opt_tide_time = opt_tide_time.round(0)
+    time_remaining = opt_tide_time - Time.zone.now.to_i
+    return time_remaining
+  end
+
   def current_tide_rating
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
