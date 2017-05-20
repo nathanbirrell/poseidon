@@ -31,6 +31,7 @@
 class Spot < ApplicationRecord
   include ActiveModel::Validations
   include Math
+  include Slack
 
   belongs_to :region
 
@@ -39,6 +40,14 @@ class Spot < ApplicationRecord
   has_many :swells
 
   validates :name, presence: true
+
+
+  Slack.configure do |config|
+    config.token = ENV['xoxb-185652955797-JOLjSoHyTIuxb6n8ZNV6BPih']
+  end
+
+  client = Slack::Web::Client.new
+  client.auth_test
 
   # get latest model readings
   def current_swell

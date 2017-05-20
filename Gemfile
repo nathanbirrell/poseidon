@@ -23,6 +23,9 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'annotate'
   gem 'seed_dump'
+  gem 'slack-ruby-client'
+  gem 'eventmachine'
+  gem 'faye-websocket'
 end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
