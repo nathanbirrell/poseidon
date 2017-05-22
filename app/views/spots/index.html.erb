@@ -14,36 +14,97 @@
   </form>
 </div>
 
+<h3>Current Conditions</h3>
 <% @spots.each do |spot| %>
-  <div class="large-4 small-12 spot-tile">
-    <a href="#">
-      <div class="spot-tile__image" style="background-image: url('http://blogs.acu.edu.au/international/files/2011/03/Bells-Beach-2008.jpg')"></div>
+  <div class="large-4 medium-6 small-12 spot-tile">
+    <%= link_to spot do %>
+      <div class="spot-tile__image" style="background-image: url('<%= spot.image %>')"></div>
       <div class="spot-tile__summary">
         <div class="spot-tile__main-rating --positive">89</div>
-        <h3><%= spot.name %></h3>
+        <h3><%= spot.name %> <br></h3>
         <div class="spot-sub-rating-group">
           <span class="spot-sub-rating-group__item --swell --positive">89</span>
           <span class="spot-sub-rating-group__item --wind --mixed">89</span>
           <span class="spot-sub-rating-group__item --tide --negative">89</span>
         </div>
       </div>
-    </a>
+    <% end %>
   </div>
 <% end %>
 
+<h3>Collapsed</h3>
 <% @spots.each do |spot| %>
   <a href="#">
-    <div class="small-12 spot-list-item">
-      <div class="spot-list-item__main-rating --positive"><span>89</span></div>
-      <h3 class="spot-list-item__name"><%= spot.name %></h3>
-      <div class="spot-sub-rating-group">
-        <span class="spot-sub-rating-group__item --swell --positive">89</span>
-        <span class="spot-sub-rating-group__item --wind --mixed">89</span>
-        <span class="spot-sub-rating-group__item --tide --negative">89</span>
-      </div>
-    </div>
+   <div class="large-4 medium-6 small-12 spot-list-item">
+     <div class="spot-list-item__main-rating --positive"><span>89</span></div>
+     <h3 class="spot-list-item__name"><%= spot.name %></h3>
+     <div class="spot-sub-rating-group">
+       <span class="spot-sub-rating-group__item --swell --positive">89</span>
+       <span class="spot-sub-rating-group__item --wind --mixed">89</span>
+       <span class="spot-sub-rating-group__item --tide --negative">89</span>
+     </div>
+   </div>
   </a>
 <% end %>
+
+<h3>Forecasts</h3>
+<% @spots.each do |spot| %>
+  <div class="large-4 medium-6 small-12 spot-tile">
+    <%= link_to spot do %>
+      <div class="spot-tile__image" style="background-image: url('<%= spot.image %>')"></div>
+      <div class="spot-tile__summary">
+        <div class="spot-tile__main-rating --positive">89</div>
+        <h3><%= spot.name %></h3>
+        <div class="spot-plan-summary">
+          <span class="spot-plan-summary__item --positive">
+            <p>F</p>
+          </span>
+          <span class="spot-plan-summary__item --positive">
+            <p>S</p>
+          </span>
+          <span class="spot-plan-summary__item --mixed">
+            <p>S</p>
+          </span>
+          <span class="spot-plan-summary__item --negative">
+            <p>M</p>
+          </span>
+          <span class="spot-plan-summary__item --mixed">
+            <p>T</p>
+          </span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<h3>Collapsed</h3>
+<% @spots.each do |spot| %>
+  <%= link_to spot do %>
+    <div class="large-4 medium-6 small-12 spot-list-item">
+      <div class="spot-list-item__main-rating --positive"><span>89</span></div>
+      <h3 class="spot-list-item__name"><%= spot.name %></h3>
+      <div class="spot-plan-summary">
+        <span class="spot-plan-summary__item --positive">
+          <p>F</p>
+        </span>
+        <span class="spot-plan-summary__item --positive">
+          <p>S</p>
+        </span>
+        <span class="spot-plan-summary__item --mixed">
+          <p>S</p>
+        </span>
+        <span class="spot-plan-summary__item --negative">
+          <p>M</p>
+        </span>
+        <span class="spot-plan-summary__item --mixed">
+          <p>T</p>
+        </span>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<br><br>
 
 <table>
   <thead>
@@ -65,8 +126,8 @@
           <%= link_to 'Destroy', spot, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
         <td><%= spot.description %></td>
-        <td><%= spot.wind_optimal_direction_min_degrees %></td>
-        <td><%= spot.swell_optimal_direction_min_degrees %></td>
+        <td><%= spot.wind_optimal_direction %></td>
+        <td><%= spot.swell_optimal_direction %></td>
         <td><%= spot.season %></td>
       </tr>
     <% end %>

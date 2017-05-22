@@ -11,7 +11,14 @@
 #  date_time  :datetime
 #
 
-class Tide < WeatherModel
+class Tide < WeatherForecast
   # default_scope { order(date_time: :desc) }
   belongs_to :spot
+
+  scope :last_tide, -> (spot_id) {
+    where(spot_id: spot_id).where("date_time <= ?", Time.current).order(date_time: :desc).first
+  }
+  scope :next_tide, -> (spot_id) {
+    where(spot_id: spot_id).where("date_time >= ?", Time.current).order(date_time: :asc).first
+  }
 end

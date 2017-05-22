@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505043115) do
+ActiveRecord::Schema.define(version: 20170522073333) do
 
   create_table "regions", force: :cascade do |t|
     t.string   "name"
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 20170505043115) do
     t.string   "name"
     t.string   "description"
     t.string   "season"
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
-    t.decimal  "latitude",                            precision: 10, scale: 6
-    t.decimal  "longitude",                           precision: 10, scale: 6
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
+    t.decimal  "latitude",                             precision: 10, scale: 6
+    t.decimal  "longitude",                            precision: 10, scale: 6
     t.string   "image"
     t.integer  "region_id"
     t.decimal  "tide_optimal_min_metres"
@@ -36,15 +36,15 @@ ActiveRecord::Schema.define(version: 20170505043115) do
     t.decimal  "swell_optimal_size_min_metres"
     t.decimal  "swell_optimal_size_max_metres"
     t.decimal  "swell_optimal_period_seconds"
-    t.integer  "swell_optimal_direction_min_degrees"
-    t.integer  "swell_optimal_direction_max_degrees"
     t.decimal  "wind_optimal_strength_min_kmh"
     t.decimal  "wind_optimal_strength_max_kmh"
-    t.integer  "wind_optimal_direction_min_degrees"
-    t.integer  "wind_optimal_direction_max_degrees"
     t.decimal  "wave_model_lat"
     t.decimal  "wave_model_lon"
     t.integer  "willyweather_location_id"
+    t.decimal  "swell_optimal_direction"
+    t.decimal  "swell_optimal_direction_max_variance"
+    t.decimal  "wind_optimal_direction"
+    t.decimal  "wind_optimal_direction_max_variance"
     t.index ["region_id"], name: "index_spots_on_region_id"
   end
 
