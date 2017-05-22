@@ -63,8 +63,7 @@ class Wind < WeatherForecast
       speedRating = 0
     end
 
-    rating = speedRating
-    puts("wind_rating: #{rating.to_s}")
+    rating = (dirRating * weight_of_optimal_wind_direction) + (speedRating * weight_of_optimal_wind_speed)
     rating.round(2)
   end
 end

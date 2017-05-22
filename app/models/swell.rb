@@ -62,8 +62,7 @@ class Swell < WeatherForecast
     puts("Swell direction dirCurrentVariance=#{dirCurrentVariance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
     puts("Swell dirRating= #{dirRating}")
 
-    rating = sizeRating
-    puts("swell_rating: #{rating.to_s}")
+    rating = (sizeRating * weight_of_optimal_swell_height) + (dirRating * weight_of_optimal_swell_direction)
     rating.round(2)
   end
 end
