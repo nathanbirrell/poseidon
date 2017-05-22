@@ -31,11 +31,11 @@ spot = Spot.create_with(
   swell_optimal_size_max_metres: "2.0",
   swell_optimal_period_seconds: "18.0",
   swell_optimal_direction: 225,
-  swell_optimal_direction_max_variance: 80,
+  swell_optimal_direction_max_variance: 50,
   wind_optimal_strength_min_kmh: "0.0",
   wind_optimal_strength_max_kmh: "30.0",
   wind_optimal_direction: 50,
-  wind_optimal_direction_max_variance: 70,
+  wind_optimal_direction_max_variance: 45,
   wave_model_lat: "-38.608",
   wave_model_lon: "144.501"
 ).find_or_create_by(
