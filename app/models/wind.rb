@@ -58,7 +58,7 @@ class Wind < WeatherForecast
 
     # TODO: clean me (remove logs)
 
-    puts("Calculating angle between x=#{x} and y=#{y} = #{calculate_angle_between(x, y)}")
+    # puts("Calculating angle between x=#{x} and y=#{y} = #{calculate_angle_between(x, y)}")
 
     puts("is_angle_inside_range target=#{direction} + min=#{spot.wind_optimal_direction} + max=#{spot.wind_optimal_direction_max_variance} ?")
 
