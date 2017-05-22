@@ -31,7 +31,6 @@
 class Spot < ApplicationRecord
   include ActiveModel::Validations
   include Math
-  include Slack
 
   belongs_to :region
 
@@ -42,7 +41,7 @@ class Spot < ApplicationRecord
   validates :name, presence: true
 
   client = Slack::Web::Client.new
-  client.auth_test
+  slack_message = "why can't I template variables properly"
 
   # get latest model readings
   def current_swell
@@ -107,4 +106,7 @@ class Spot < ApplicationRecord
     aggregate = aggregate * 100
     aggregate.round(3)
   end
+
+  # slack_message = "Spot ran with aggregate: #{current_potential}, swell: #{current_swell.rating}, wind:#{current_wind.rating}, tide: #{current_tide_rating}"
+  client.chat_postMessage(channel: "#devbot", text: slack_message, as_user: true)
 end
