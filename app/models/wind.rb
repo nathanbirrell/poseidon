@@ -36,6 +36,10 @@ class Wind < WeatherForecast
 
     dirRating = dirAVar * ((dirCurrentVariance - dirHVar)**2) + dirKVar
 
+    if dirRating < 0 then
+      dirRating = 0
+    end
+
     puts("Wind direction dirCurrentVariance=#{dirCurrentVariance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
     puts("Wind dirRating= #{dirRating}")
 
@@ -55,6 +59,9 @@ class Wind < WeatherForecast
     puts("Wind speed speedAVar=#{speedAVar} speedHVar=#{speedHVar} speedRating=#{speedRating}")
     puts("Wind speedRating= #{speedRating}")
 
+    if speedRating < 0 then
+      speedRating = 0
+    end
 
     rating = speedRating
     puts("wind_rating: #{rating.to_s}")

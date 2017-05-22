@@ -55,6 +55,10 @@ class Swell < WeatherForecast
 
     dirRating = dirAVar * ((dirCurrentVariance - dirHVar)**2) + dirKVar
 
+    if dirRating < 0 then
+      dirRating = 0
+    end
+
     puts("Swell direction dirCurrentVariance=#{dirCurrentVariance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
     puts("Swell dirRating= #{dirRating}")
 

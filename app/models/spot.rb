@@ -103,6 +103,11 @@ class Spot < ApplicationRecord
 
     #puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
     puts("Tide rating aVar=#{aVar} hVar=#{hVar} rating=#{rating}")
+
+    if rating < 0 then
+      rating = 0
+    end
+
     return rating.round(2)
   end
 
