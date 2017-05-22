@@ -30,19 +30,19 @@ spot = Spot.first_or_create(
   swell_optimal_size_min_metres: 1.5,
   swell_optimal_size_max_metres: 4,
   swell_optimal_period_seconds: 18,
-  swell_optimal_direction_min_degrees: 120,
-  swell_optimal_direction_max_degrees: 290,
+  swell_optimal_direction: 190,
+  swell_optimal_direction_max_variance: 20,
   wind_optimal_strength_min_kmh: 0,
   wind_optimal_strength_max_kmh: 30,
-  wind_optimal_direction_min_degrees: 320,
-  wind_optimal_direction_max_degrees: 40,
+  wind_optimal_direction: 5,
+  wind_optimal_direction_max_variance: 20,
   wave_model_lat: -38.608,
   wave_model_lon: 144.501
 )
 puts "Created Spot #{spot.name}"
 
 spot = Spot.first_or_create(
-name: "Portsea Back Beach", description: "Portsea Back Beach in Mornington Peninsula is an exposed beach break that has very consistent waves and works all around the year. The best wind direction is from the northeast. Groundswells are more common than windswells and the optimum swell angle is from the southwest. The beach break provides left and right handers. Best around mid tide. It very rarely gets crowded here. Watch out for rips, locals and sharks.", season: "All year", latitude: "-38.340116", longitude: "144.698524", image: "http://www.surf-forecast.com/system/images/2960/large/Portsea-Back-Beach.jpg", region_id: region.id, tide_optimal_min_metres: "0.6", tide_optimal_max_metres: "1.2", swell_optimal_size_min_metres: "1.5", swell_optimal_size_max_metres: "4.0", swell_optimal_period_seconds: "18.0", swell_optimal_direction_min_degrees: 180, swell_optimal_direction_max_degrees: 290, wind_optimal_strength_min_kmh: "0.0", wind_optimal_strength_max_kmh: "30.0", wind_optimal_direction_min_degrees: 360, wind_optimal_direction_max_degrees: 50, wave_model_lat: "-38.608", wave_model_lon: "144.501"
+name: "Portsea Back Beach", description: "Portsea Back Beach in Mornington Peninsula is an exposed beach break that has very consistent waves and works all around the year. The best wind direction is from the northeast. Groundswells are more common than windswells and the optimum swell angle is from the southwest. The beach break provides left and right handers. Best around mid tide. It very rarely gets crowded here. Watch out for rips, locals and sharks.", season: "All year", latitude: "-38.340116", longitude: "144.698524", image: "http://www.surf-forecast.com/system/images/2960/large/Portsea-Back-Beach.jpg", region_id: region.id, tide_optimal_min_metres: "0.6", tide_optimal_max_metres: "1.2", swell_optimal_size_min_metres: "1.5", swell_optimal_size_max_metres: "4.0", swell_optimal_period_seconds: "18.0", swell_optimal_direction_min_degrees: 220, wind_optimal_direction_max_variance: 20, wind_optimal_strength_min_kmh: "0.0", wind_optimal_strength_max_kmh: "30.0", wind_optimal_direction: 20, wind_optimal_direction_max_variance: 20, wave_model_lat: "-38.608", wave_model_lon: "144.501"
 )
 puts "Created Spot #{spot.name}"
 
