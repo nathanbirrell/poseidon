@@ -24,10 +24,12 @@
     </div>
   <% end %>
 
-  <div class="text-center">
-    Admin actions: <br>
-    <% if user_signed_in? %> <%= link_to 'Edit Spot', edit_spot_path(@spot), class: 'button' %> <br> <% end %>
-  </div>
+  <% if user_signed_in? %>
+    <div class="text-center">
+      Admin actions: <br>
+      <%= link_to 'Edit Spot', edit_spot_path(@spot), class: 'button' %> <br>
+    </div>
+  <% end %>
 
   <div class="row">
     <div class="large-12 columns">
