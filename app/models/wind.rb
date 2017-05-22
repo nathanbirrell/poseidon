@@ -53,14 +53,14 @@ class Wind < WeatherForecast
 
     puts("Parabolic speedAVar=#{speedAVar} speedHVar=#{speedHVar} speedRating=#{speedRating}")
 
-    x = spot.wind_optimal_direction_min_degrees
+    x = spot.wind_optimal_direction
     y = direction
 
     # TODO: clean me (remove logs)
 
     puts("Calculating angle between x=#{x} and y=#{y} = #{calculate_angle_between(x, y)}")
 
-    puts("is_angle_inside_range target=#{direction} + min=#{spot.wind_optimal_direction_min_degrees} + max=#{spot.wind_optimal_direction_max_degrees} ?")
+    puts("is_angle_inside_range target=#{direction} + min=#{spot.wind_optimal_direction} + max=#{spot.wind_optimal_direction_max_variance} ?")
 
     rating = speedRating
     puts("wind_rating: #{rating.to_s}")

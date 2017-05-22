@@ -89,13 +89,13 @@
       <div class="large-6 columns">
         <p>
           <strong>Optimal wind direction:</strong>
-          <%= @spot.wind_optimal_direction_min_degrees %> - <%= @spot.wind_optimal_direction_max_degrees %> degrees
+          <%= @spot.wind_optimal_direction %> - <%= @spot.wind_optimal_direction_max_variance %> degrees
           <br>
           <strong>Optimal wind strength:</strong>
           <%= @spot.wind_optimal_strength_min_kmh %> - <%= @spot.wind_optimal_strength_max_kmh %> kmh
           <br>
           <strong>Optimal swell direction:</strong>
-          <%= @spot.swell_optimal_direction_min_degrees %> - <%= @spot.swell_optimal_direction_max_degrees %> degrees
+          <%= @spot.swell_optimal_direction %> - <%= @spot.swell_optimal_direction_max_variance %> degrees
           <br>
           <strong>Optimal swell size:</strong>
           <%= @spot.swell_optimal_size_min_metres %> - <%= @spot.swell_optimal_size_max_metres %> metres
