@@ -38,15 +38,16 @@ class Swell < WeatherForecast
     #========= CALC SWELL DIRECTION RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    dirMaxVariance = 25.0 #Need to get this from DB or calc
+    dirOptimum = spot.swell_optimal_direction
+    dirMaxVariance = spot.swell_optimal_direction_max_variance #Need to get this from DB or calc
     dirKVar = 100.0
-    # hVar = ((max - min)/2) + min
     dirHVar = 0.0
 
     # pass in known coord to determin var a value, (dirMaxVariance, 75)
     dirAVar = (75 - 100)/((dirMaxVariance - dirHVar)**2)
 
-    dirCurrentVariance = 35.0 #need to calc, variance of direction compared to optimal wind dir
+    dirCurrentVariance = calculate_angle_between(direction, dirOptimum)
+
     dirRating = dirAVar * ((dirCurrentVariance - dirHVar)**2) + dirKVar
 
     puts("Parabolic dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")

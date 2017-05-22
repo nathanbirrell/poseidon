@@ -24,15 +24,16 @@ class Wind < WeatherForecast
     #========= CALC WIND DIRECTION RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    dirMaxVariance = 25.0 #Need to get this from DB or calc
+    dirOptimum = spot.wind_optimal_direction
+    dirMaxVariance =  spot.wind_optimal_direction_max_variance
     dirKVar = 100.0
-    # hVar = ((max - min)/2) + min
     dirHVar = 0.0
 
     # pass in known coord to determin var a value, (maxVariance, 75)
     dirAVar = (75 - 100)/((dirMaxVariance - dirHVar)**2)
 
-    dirCurrentVariance = 35.0 #need to calc, variance of direction compared to optimal wind dir
+    dirCurrentVariance = calculate_angle_between(direction, dirOptimum)
+
     dirRating = dirAVar * ((dirCurrentVariance - dirHVar)**2) + dirKVar
 
     #puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
