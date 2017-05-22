@@ -36,8 +36,8 @@ class Wind < WeatherForecast
 
     dirRating = dirAVar * ((dirCurrentVariance - dirHVar)**2) + dirKVar
 
-    #puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
-    puts("Parabolic dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
+    puts("Wind direction dirCurrentVariance=#{dirCurrentVariance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
+    puts("Wind dirRating= #{dirRating}")
 
     #========= CALC WIND SPEED RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
@@ -52,16 +52,9 @@ class Wind < WeatherForecast
 
     speedRating = speedAVar * ((speed - speedHVar)**2) + speedKVar
 
-    puts("Parabolic speedAVar=#{speedAVar} speedHVar=#{speedHVar} speedRating=#{speedRating}")
+    puts("Wind speed speedAVar=#{speedAVar} speedHVar=#{speedHVar} speedRating=#{speedRating}")
+    puts("Wind speedRating= #{speedRating}")
 
-    x = spot.wind_optimal_direction
-    y = direction
-
-    # TODO: clean me (remove logs)
-
-    # puts("Calculating angle between x=#{x} and y=#{y} = #{calculate_angle_between(x, y)}")
-
-    puts("is_angle_inside_range target=#{direction} + min=#{spot.wind_optimal_direction} + max=#{spot.wind_optimal_direction_max_variance} ?")
 
     rating = speedRating
     puts("wind_rating: #{rating.to_s}")

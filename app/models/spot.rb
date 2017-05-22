@@ -102,7 +102,7 @@ class Spot < ApplicationRecord
     rating = aVar * ((current_tide_height - hVar)**2) + kVar
 
     #puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
-    puts("Parabolic aVar=#{aVar} hVar=#{hVar} rating=#{rating}")
+    puts("Tide rating aVar=#{aVar} hVar=#{hVar} rating=#{rating}")
     return rating.round(2)
   end
 

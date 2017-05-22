@@ -33,13 +33,18 @@ class Swell < WeatherForecast
 
     sizeRating = sizeAVar * ((size - sizeHVar)**2) + sizeKVar
 
+    if sizeRating < 0 then
+      sizeRating = 0
+    end
+
     puts("Parabolic sizeAVar=#{sizeAVar} sizeHVar=#{sizeHVar} sizeRating=#{sizeRating}")
+    puts("Swell sizeRating= #{sizeRating}")
 
     #========= CALC SWELL DIRECTION RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
     dirOptimum = spot.swell_optimal_direction
-    dirMaxVariance = spot.swell_optimal_direction_max_variance #Need to get this from DB or calc
+    dirMaxVariance = spot.swell_optimal_direction_max_variance
     dirKVar = 100.0
     dirHVar = 0.0
 
@@ -50,7 +55,8 @@ class Swell < WeatherForecast
 
     dirRating = dirAVar * ((dirCurrentVariance - dirHVar)**2) + dirKVar
 
-    puts("Parabolic dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
+    puts("Swell direction dirCurrentVariance=#{dirCurrentVariance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
+    puts("Swell dirRating= #{dirRating}")
 
     rating = sizeRating
     puts("swell_rating: #{rating.to_s}")
