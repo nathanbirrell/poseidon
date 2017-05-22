@@ -41,11 +41,6 @@ class Spot < ApplicationRecord
 
   validates :name, presence: true
 
-
-  Slack.configure do |config|
-    config.token = ENV['xoxb-185652955797-JOLjSoHyTIuxb6n8ZNV6BPih']
-  end
-
   client = Slack::Web::Client.new
   client.auth_test
 
