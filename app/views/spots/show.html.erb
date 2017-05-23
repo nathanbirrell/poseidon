@@ -130,11 +130,15 @@
 
 
   <div class="row">
-    <div class="large-12 columns">
+    <div class="small-12 medium-4 columns">
       <h3><%= "Swell Models for #{@spot.name}" %></h3>
       <%= swell_models_table(@forecasts_swells) %>
+    </div>
+    <div class="small-12 medium-4 columns">
       <h3><%= "Wind Models for #{@spot.name}" %></h3>
       <%= wind_models_table(@forecasts_winds) %>
+    </div>
+    <div class="small-12 medium-4 columns">
       <h3><%= "Tide Models for #{@spot.name}" %></h3>
       <%= tide_models_table(@forecasts_tides) %>
     </div>
