@@ -22,6 +22,7 @@ module SpotsHelper
   def show_table(rows_to_show)
     columns_to_hide = ['id', 'created_at', 'updated_at', 'spot_id']
     date_attrs = ['created_at', 'updated_at', 'date_time']
+    decimal_attrs = ['size', 'period', 'height']
 
     table = ''
     table += '<table>'
@@ -41,6 +42,7 @@ module SpotsHelper
       observation.attributes.each do |attr_name, attr_value|
         next if columns_to_hide.include? attr_name
         attr_value = attr_value.localtime.strftime("%a, %e %b %Y %H:%M") if date_attrs.include? attr_name
+        attr_value = attr_value.round(2) if decimal_attrs.include? attr_name
         table += "<td>#{attr_value}</td>"
       end
       table += '</tr>'
