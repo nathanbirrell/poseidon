@@ -24,10 +24,12 @@
     </div>
   <% end %>
 
-  <div class="text-center">
-    Admin actions: <br>
-    <% if user_signed_in? %> <%= link_to 'Edit Spot', edit_spot_path(@spot), class: 'button' %> <br> <% end %>
-  </div>
+  <% if user_signed_in? %>
+    <div class="text-center">
+      Admin actions: <br>
+      <%= link_to 'Edit Spot', edit_spot_path(@spot), class: 'button' %> <br>
+    </div>
+  <% end %>
 
   <div class="row">
     <div class="large-12 columns">
@@ -35,40 +37,40 @@
         <div class="small-12 large-3 columns text-center large-text-left panel">
           <h4>Overall potential</h4>
           <span class="<%= 'success' if @spot.current_potential > 75.0 %>">
-            <%= @spot.current_potential %>
+            <%= @spot.current_potential %>%
           </span>
         </div>
         <div class="small-12 medium-4 large-3 columns panel">
           <h4>Swell</h4>
-          <p><%= @spot.current_swell.rating * 100.0 %>%</p>
+          <p><%= @spot.current_swell.rating %>%</p>
           <p>
             <ul>
-              <li><%= @spot.current_swell.size %>m</li>
-              <li>at <%= @spot.current_swell.period %>s</li>
-              <li>from <%= @spot.current_swell.direction %> degrees OR <%= @spot.current_swell.direction.degrees %> radians <br></li>
+              <li><strong>Size:</strong> <%= @spot.current_swell.size %>m</li>
+              <li><strong>Period:</strong> <%= @spot.current_swell.period %>s</li>
+              <li><strong>Direction:</strong> <%= @spot.current_swell.direction %> degrees OR <%= @spot.current_swell.direction.degrees %> radians <br></li>
               <li> at <%= @spot.current_swell.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
             </ul>
           </p>
         </div>
         <div class="small-12 medium-4 large-3 columns panel">
           <h4>Wind</h4>
-          <p><%= @spot.current_wind.rating * 100.0 %>%</p>
+          <p><%= @spot.current_wind.rating %>%</p>
           <p>
             <ul>
-              <li><%= @spot.current_wind.speed %> km/h from</li>
-              <li><%= @spot.current_wind.direction %> degrees OR <%= @spot.current_wind.direction.degrees if @spot.current_wind.direction %> radians <br></li>
+              <li><strong>Speed:</strong> <%= @spot.current_wind.speed %> km/h from</li>
+              <li><strong>Direction:</strong> <%= @spot.current_wind.direction %> degrees OR <%= @spot.current_wind.direction.degrees if @spot.current_wind.direction %> radians <br></li>
               <li> at <%= @spot.current_wind.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
             </ul>
           </p>
         </div>
         <div class="small-12 medium-4 large-3 columns panel">
           <h4>Tide</h4>
-          <p><%= @spot.current_tide_rating * 100.0 %>%</p>
+          <p><%= @spot.current_tide_rating %>%</p>
           <p>
             <ul>
-              <li>Current tide height: <%= @spot.current_tide_height %>m above sea level</li>
-              <li><%= tide_incoming_or_outgoing(@spot.last_tide.tide_type) %> tide</li>
-              <li>Next tide (<%= @spot.next_tide.tide_type %>): <%= @spot.next_tide.height %>m above sea level in TODO hrs:mins (at
+              <li><strong>Height:</strong> <%= @spot.current_tide_height %>m above sea level</li>
+              <li><strong>Phase:</strong> <%= tide_incoming_or_outgoing(@spot.last_tide.tide_type) %></li>
+              <li><strong>Next tide (<%= @spot.next_tide.tide_type %>):</strong> <%= @spot.next_tide.height %>m above sea level in TODO hrs:mins (at
               <%= @spot.next_tide.date_time.localtime.strftime("%H:%M") %>)</li>
             </ul>
           </p>
@@ -89,12 +91,13 @@
       <div class="large-6 columns">
         <p>
           <strong>Optimal wind direction:</strong>
-          <%= @spot.wind_optimal_direction_min_degrees %> - <%= @spot.wind_optimal_direction_max_degrees %> degrees
+          <%= @spot.wind_optimal_direction %> degrees with <%= @spot.wind_optimal_direction_max_variance %> variance
           <br>
           <strong>Optimal wind strength:</strong>
           <%= @spot.wind_optimal_strength_min_kmh %> - <%= @spot.wind_optimal_strength_max_kmh %> kmh
+          <br>
           <strong>Optimal swell direction:</strong>
-          <%= @spot.swell_optimal_direction_min_degrees %> - <%= @spot.swell_optimal_direction_max_degrees %> degrees
+          <%= @spot.swell_optimal_direction %> degrees with <%= @spot.swell_optimal_direction_max_variance %> variance
           <br>
           <strong>Optimal swell size:</strong>
           <%= @spot.swell_optimal_size_min_metres %> - <%= @spot.swell_optimal_size_max_metres %> metres
@@ -104,7 +107,7 @@
           <br>
           <strong>Optimal tides:</strong>
           <%= "#{@spot.tide_optimal_min_metres}m to #{@spot.tide_optimal_max_metres}m" %>
-
+          <br>
           <strong>Season:</strong> <%= @spot.season %> <br>
           <strong>Lat/long: </strong> <%= @spot.latitude %>, <%= @spot.longitude %>
 
@@ -127,11 +130,15 @@
 
 
   <div class="row">
-    <div class="large-12 columns">
+    <div class="small-12 medium-4 columns">
       <h3><%= "Swell Models for #{@spot.name}" %></h3>
       <%= swell_models_table(@forecasts_swells) %>
+    </div>
+    <div class="small-12 medium-4 columns">
       <h3><%= "Wind Models for #{@spot.name}" %></h3>
       <%= wind_models_table(@forecasts_winds) %>
+    </div>
+    <div class="small-12 medium-4 columns">
       <h3><%= "Tide Models for #{@spot.name}" %></h3>
       <%= tide_models_table(@forecasts_tides) %>
     </div>

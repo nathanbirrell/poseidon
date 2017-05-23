@@ -76,7 +76,7 @@ class SpotsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def spot_params
-      params.require(:spot).permit(:name, :description, :season, :created_at, :updated_at, :latitude, :longitude, :image, :region_id, :tide_optimal_min_metres, :tide_optimal_max_metres, :swell_optimal_size_min_metres, :swell_optimal_size_max_metres, :swell_optimal_period_seconds, :swell_optimal_direction_min_degrees, :swell_optimal_direction_max_degrees, :wind_optimal_strength_min_kmh, :wind_optimal_strength_max_kmh, :wind_optimal_direction_min_degrees, :wind_optimal_direction_max_degrees, :wave_model_lat, :wave_model_lon, :willyweather_location_id)
+      params.require(:spot).permit(:name, :description, :season, :created_at, :updated_at, :latitude, :longitude, :image, :region_id, :tide_optimal_min_metres, :tide_optimal_max_metres, :swell_optimal_size_min_metres, :swell_optimal_size_max_metres, :swell_optimal_period_seconds, :swell_optimal_direction, :swell_optimal_direction_max_variance, :wind_optimal_strength_min_kmh, :wind_optimal_strength_max_kmh, :wind_optimal_direction, :wind_optimal_direction_max_variance, :wave_model_lat, :wave_model_lon, :willyweather_location_id)
     end
 
     def set_forecasts

@@ -2,30 +2,30 @@
 #
 # Table name: spots
 #
-#  id                                  :integer          not null, primary key
-#  name                                :string
-#  description                         :string
-#  season                              :string
-#  created_at                          :datetime         not null
-#  updated_at                          :datetime         not null
-#  latitude                            :decimal(10, 6)
-#  longitude                           :decimal(10, 6)
-#  image                               :string
-#  region_id                           :integer
-#  tide_optimal_min_metres             :decimal(, )
-#  tide_optimal_max_metres             :decimal(, )
-#  swell_optimal_size_min_metres       :decimal(, )
-#  swell_optimal_size_max_metres       :decimal(, )
-#  swell_optimal_period_seconds        :decimal(, )
-#  swell_optimal_direction_min_degrees :integer
-#  swell_optimal_direction_max_degrees :integer
-#  wind_optimal_strength_min_kmh       :decimal(, )
-#  wind_optimal_strength_max_kmh       :decimal(, )
-#  wind_optimal_direction_min_degrees  :integer
-#  wind_optimal_direction_max_degrees  :integer
-#  wave_model_lat                      :decimal(, )
-#  wave_model_lon                      :decimal(, )
-#  willyweather_location_id            :integer
+#  id                                   :integer          not null, primary key
+#  name                                 :string
+#  description                          :string
+#  season                               :string
+#  created_at                           :datetime         not null
+#  updated_at                           :datetime         not null
+#  latitude                             :decimal(10, 6)
+#  longitude                            :decimal(10, 6)
+#  image                                :string
+#  region_id                            :integer
+#  tide_optimal_min_metres              :decimal(, )
+#  tide_optimal_max_metres              :decimal(, )
+#  swell_optimal_size_min_metres        :decimal(, )
+#  swell_optimal_size_max_metres        :decimal(, )
+#  swell_optimal_period_seconds         :decimal(, )
+#  wind_optimal_strength_min_kmh        :decimal(, )
+#  wind_optimal_strength_max_kmh        :decimal(, )
+#  wave_model_lat                       :decimal(, )
+#  wave_model_lon                       :decimal(, )
+#  willyweather_location_id             :integer
+#  swell_optimal_direction              :decimal(, )
+#  swell_optimal_direction_max_variance :decimal(, )
+#  wind_optimal_direction               :decimal(, )
+#  wind_optimal_direction_max_variance  :decimal(, )
 #
 
 class Spot < ApplicationRecord
@@ -92,19 +92,32 @@ class Spot < ApplicationRecord
   end
 
   def current_tide_rating
-    return 1.0
+    # use vertex quad formula y = a(x-h)^2 + k
+    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
+    kVar = 100.0
+    max = tide_optimal_max_metres
+    min = tide_optimal_min_metres
+    hVar = ((max - min)/2) + min
+
+    # pass in known coord to determin var a value, (min, 75)
+    aVar = (75 - 100)/((min - hVar)**2)
+
+    rating = aVar * ((current_tide_height - hVar)**2) + kVar
+
+    #puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
+    puts("Tide rating aVar=#{aVar} hVar=#{hVar} rating=#{rating}")
+
+    if rating < 0 then
+      rating = 0
+    end
+
+    return rating.round(2)
   end
 
   def current_potential
     # calculate aggregate potential rating based on tide/wind/swell (as a percentage)
-    aggregate = 0.0
-
-    # aggregate += current_tide.rating / 3.0 # TODO: uncomment me when @Taylor completes current tide calcs
-    aggregate += current_wind.rating / 3.0
-    aggregate += current_swell.rating / 3.0
-
-    aggregate = aggregate * 100
-    aggregate.round(3)
+    aggregate = (current_tide_rating + current_wind.rating + current_swell.rating)/3.0
+    aggregate.round(2)
   end
 
   # slack_message = "Spot ran with aggregate: #{current_potential}, swell: #{current_swell.rating}, wind:#{current_wind.rating}, tide: #{current_tide_rating}"
