@@ -88,18 +88,32 @@ class Spot < ApplicationRecord
     return curr_tide.round(2)
   end
 
-  def tide_hours_remaining
-    return 0 unless current_tide_height.between?(tide_optimal_min_metres, tide_optimal_max_metres)
-    if last_tide.tide_type == 'low'
-      return 0 unless next_tide.height > tide_optimal_max_metres # Return 0 if tide will not pass out of good range in this cycle
-      opt_tide_time = asin((tide_optimal_max_metres - (tidal_range/2 + low_tide.height))/(tidal_range/2)) + PI/2
-      opt_tide_time = opt_tide_time/(2*PI/tide_period)
-    elsif last_tide.tide_type == 'high'
-      return 0 unless next_tide.height < tide_optimal_min_metres # Return 0 if tide will not pass out of good range in this cycle
-      opt_tide_time = asin((tide_optimal_min_metres - (tidal_range/2 + low_tide.height))/(tidal_range/2)) - PI/2
-      opt_tide_time = opt_tide_time/(2*PI/tide_period)
+  def tide_remaining_or_to
+    if current_tide_height.between?(tide_optimal_min_metres, tide_optimal_max_metres)
+      if (last_tide.tide_type == 'low' && next_tide.height > tide_optimal_max_metres) || (last_tide.tide_type == 'high' && next_tide.height < tide_optimal_min_metres)
+        return 'remaining'
+      else
+        return nil
+      end
+    else
+      if (last_tide.tide_type == 'low' && next_tide.height > tide_optimal_min_metres) || (last_tide.tide_type == 'high' && next_tide.height < tide_optimal_max_metres)
+        return 'to'
+      else
+        return nil
+      end
     end
+  end
 
+  def tide_hours_remaining
+    return 0 unless tide_remaining_or_to != nil
+    yValue = 0
+    if (tide_remaining_or_to == 'remaining' && last_tide.tide_type == 'low') || (tide_remaining_or_to == 'to' && last_tide.tide_type == 'high')
+      yValue = tide_optimal_max_metres
+    elsif (tide_remaining_or_to == 'remaining' && last_tide.tide_type == 'high') || (tide_remaining_or_to == 'to' && last_tide.tide_type == 'low')
+      yValue = tide_optimal_min_metres
+    end
+    opt_tide_time = asin((tide_optimal_max_metres - (tidal_range/2 + low_tide.height))/(tidal_range/2)) + PI/2 # get x value part 1
+    opt_tide_time = opt_tide_time/(2*PI/tide_period) # get x value part 2
     opt_tide_time = opt_tide_time * 60 * 60 # transform hours to seconds
     opt_tide_time = opt_tide_time.round(0) # round to nearest second
     hours_remaining = (opt_tide_time + last_tide.date_time.localtime.to_i) - Time.zone.now.to_i # get seconds between current time and optimum tide intercept
