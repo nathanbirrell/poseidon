@@ -40,9 +40,6 @@ class Spot < ApplicationRecord
 
   validates :name, presence: true
 
-  client = Slack::Web::Client.new
-  slack_message = "why can't I template variables properly"
-
   # get latest model readings
   def current_swell
     Swell.current(id)
@@ -119,7 +116,4 @@ class Spot < ApplicationRecord
     aggregate = (current_tide_rating + current_wind.rating + current_swell.rating)/3.0
     aggregate.round(2)
   end
-
-  # slack_message = "Spot ran with aggregate: #{current_potential}, swell: #{current_swell.rating}, wind:#{current_wind.rating}, tide: #{current_tide_rating}"
-  client.chat_postMessage(channel: "#devbot", text: slack_message, as_user: true)
 end
