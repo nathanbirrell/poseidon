@@ -70,7 +70,7 @@
             <ul>
               <li><strong>Height:</strong> <%= @spot.current_tide_height %>m above sea level</li>
               <li><strong>Phase:</strong> <%= tide_incoming_or_outgoing(@spot.last_tide.tide_type) %></li>
-              <li><strong>Next tide (<%= @spot.next_tide.tide_type %>):</strong> <%= @spot.next_tide.height %>m above sea level in TODO hrs:mins (at
+              <li><strong>Next tide (<%= @spot.next_tide.tide_type %>):</strong> <%= @spot.next_tide.height %>m above sea level in <%= @spot.display_hours(@spot.time_till_next_tide_hours) %> hours <%= @spot.display_mins(@spot.time_till_next_tide_hours) %> mins (at
               <%= @spot.next_tide.date_time.localtime.strftime("%H:%M") %>)</li>
               <% if (@spot.tide_remaining_or_to != nil) %>
                 <li>
@@ -79,7 +79,7 @@
                   <% elsif (@spot.tide_remaining_or_to == 'to') %>
                     <strong>Time till good:</strong>
                   <% end %>
-                  <%= @spot.tide_hours_remaining_display %> hours <%= @spot.tide_mins_remaining %> mins
+                  <%= @spot.display_hours(@spot.tide_hours_remaining) %> hours <%= @spot.display_mins(@spot.tide_hours_remaining) %> mins
                 </li>
               <% end %>
             </ul>

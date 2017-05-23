@@ -79,6 +79,10 @@ class Spot < ApplicationRecord
     delta_time = delta_time/60.round(3)
   end
 
+  def time_till_next_tide_hours
+    return ((next_tide.date_time.localtime.to_i - Time.zone.now.to_i) / 60 / 60.round(3))
+  end
+
   def current_tide_height
     if last_tide.tide_type == 'low'
       curr_tide = (tidal_range/2)*sin((2*PI/tide_period) * tide_delta_time - PI/2) + (tidal_range/2 + low_tide.height)
@@ -121,13 +125,12 @@ class Spot < ApplicationRecord
     return hours_remaining
   end
 
-  def tide_mins_remaining
-    mins_remaining = tide_hours_remaining % 1 # get leftover hours decimal value
-    mins_remaining = (mins_remaining * 60).round(0) # transform into mins and return neat display figure
+  def display_hours(data)
+    return (data - data%1).round(0) # return a neat figure for hours, taking off any decimal
   end
 
-  def tide_hours_remaining_display
-    return (tide_hours_remaining - tide_hours_remaining%1).round(0) # return a neat figure for hours, taking off any decimal
+  def display_mins(data)
+    return ((data % 1)*60).round(0) # get leftover hours decimal value and return neat mins display figure
   end
 
   def current_tide_rating
