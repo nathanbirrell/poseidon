@@ -45,9 +45,9 @@
           <p><%= @spot.current_swell.rating %>%</p>
           <p>
             <ul>
-              <li><strong>Size:</strong> <%= @spot.current_swell.size %>m</li>
-              <li><strong>Period:</strong> <%= @spot.current_swell.period %>s</li>
-              <li><strong>Direction:</strong> <%= @spot.current_swell.direction %> degrees OR <%= @spot.current_swell.direction.degrees %> radians <br></li>
+              <li><strong>Size:</strong> <%= @spot.current_swell.size.round(2) %>m</li>
+              <li><strong>Period:</strong> <%= @spot.current_swell.period.round(2)  %>s</li>
+              <li><strong>Direction:</strong> <%= @spot.current_swell.direction %> degrees OR <%= @spot.current_swell.direction.degrees.round(2)  %> radians <br></li>
               <li> at <%= @spot.current_swell.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
             </ul>
           </p>
@@ -58,7 +58,7 @@
           <p>
             <ul>
               <li><strong>Speed:</strong> <%= @spot.current_wind.speed %> km/h from</li>
-              <li><strong>Direction:</strong> <%= @spot.current_wind.direction %> degrees OR <%= @spot.current_wind.direction.degrees if @spot.current_wind.direction %> radians <br></li>
+              <li><strong>Direction:</strong> <%= @spot.current_wind.direction %> degrees OR <%= @spot.current_wind.direction.degrees.round(2)  if @spot.current_wind.direction %> radians <br></li>
               <li> at <%= @spot.current_wind.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
             </ul>
           </p>
