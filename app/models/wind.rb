@@ -24,19 +24,24 @@ class Wind < WeatherForecast
     #========= CALC WIND DIRECTION RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    dirMaxVariance = 25.0 #Need to get this from DB or calc
+    dirOptimum = spot.wind_optimal_direction
+    dirMaxVariance =  spot.wind_optimal_direction_max_variance
     dirKVar = 100.0
-    # hVar = ((max - min)/2) + min
     dirHVar = 0.0
 
     # pass in known coord to determin var a value, (maxVariance, 75)
     dirAVar = (75 - 100)/((dirMaxVariance - dirHVar)**2)
 
-    dirCurrentVariance = 35.0 #need to calc, variance of direction compared to optimal wind dir
+    dirCurrentVariance = calculate_angle_between(direction, dirOptimum)
+
     dirRating = dirAVar * ((dirCurrentVariance - dirHVar)**2) + dirKVar
 
-    #puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
-    puts("Parabolic dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
+    if dirRating < 0 then
+      dirRating = 0
+    end
+
+    puts("Wind direction dirCurrentVariance=#{dirCurrentVariance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
+    puts("Wind dirRating= #{dirRating}")
 
     #========= CALC WIND SPEED RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
@@ -51,19 +56,14 @@ class Wind < WeatherForecast
 
     speedRating = speedAVar * ((speed - speedHVar)**2) + speedKVar
 
-    puts("Parabolic speedAVar=#{speedAVar} speedHVar=#{speedHVar} speedRating=#{speedRating}")
+    puts("Wind speed speedAVar=#{speedAVar} speedHVar=#{speedHVar} speedRating=#{speedRating}")
+    puts("Wind speedRating= #{speedRating}")
 
-    x = spot.wind_optimal_direction_min_degrees
-    y = direction
+    if speedRating < 0 then
+      speedRating = 0
+    end
 
-    # TODO: clean me (remove logs)
-
-    puts("Calculating angle between x=#{x} and y=#{y} = #{calculate_angle_between(x, y)}")
-
-    puts("is_angle_inside_range target=#{direction} + min=#{spot.wind_optimal_direction_min_degrees} + max=#{spot.wind_optimal_direction_max_degrees} ?")
-
-    rating = speedRating
-    puts("wind_rating: #{rating.to_s}")
+    rating = (dirRating * weight_of_optimal_wind_direction) + (speedRating * weight_of_optimal_wind_speed)
     rating.round(2)
   end
 end
