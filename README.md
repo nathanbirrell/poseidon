@@ -20,10 +20,10 @@ Getting Started
 
 Optional: install and use [Pow](http://pow.cx) for nice local development server/tools/urls:
 
-1. Install Pow: `curl get.pow.cx | sh`
+1. Install Pow: `curl get.pow.cx | sh` and Powder (a helpful tool for it) `gem install powder`
 1. Add your local project to pow: `cd ~/.pow; ln -s /path/to/poseidon`
-1. Open [http://poseidon.dev](http://poseidon.dev) in your browser. This is your local instance of Poseidon to play with.
-
+1. Add RVM env to Pow env `rvm env . > .powenv`
+1. Open [http://poseidon.dev](http://poseidon.dev) in your browser. This is your local instance of Poseidon to play with. If you need to restart, use powder with `powder restart`
 
 Documentation and Support
 -------------------------
@@ -43,4 +43,4 @@ Contributing
 
 Use [Gitflow](http://nvie.com/posts/a-successful-git-branching-model/), branch a `feature/your_feature` off `develop`, create a Pull Request back to `develop` for approval and merge by team.
 
-Pull request process?
+TODO - Pull request process?
