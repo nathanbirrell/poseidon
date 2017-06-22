@@ -27,8 +27,8 @@ spot = Spot.create_with(
   region_id: region.id,
   tide_optimal_min_metres: "0.0",
   tide_optimal_max_metres: "1.8",
-  swell_optimal_size_min_metres: "0.5",
-  swell_optimal_size_max_metres: "2.0",
+  swell_optimal_size_min_metres: "0.4",
+  swell_optimal_size_max_metres: "1.6",
   swell_optimal_period_seconds: "18.0",
   swell_optimal_direction: 225,
   swell_optimal_direction_max_variance: 50,
@@ -38,8 +38,17 @@ spot = Spot.create_with(
   wind_optimal_direction_max_variance: 45,
   wave_model_lat: "-38.608",
   wave_model_lon: "144.501"
-).find_or_create_by(
+)
+
+spot.find_or_create_by(
   name: "Portsea Back Beach"
+)
+puts "Created Spot #{spot.name}"
+
+spot = Spot.create_with(
+  description: "TODO", season: "May-July", latitude: "-38.367745", longitude: "144.279932", image: "https://www.surfcoast.vic.gov.au/files/assets/public/tourism/images/bellsbeachlandscape.jpg", region_id: 1, tide_optimal_min_metres: "0.2", tide_optimal_max_metres: "1.2", swell_optimal_size_min_metres: "0.5", swell_optimal_size_max_metres: "3.5", swell_optimal_period_seconds: "18.0", wind_optimal_strength_min_kmh: "0.0", wind_optimal_strength_max_kmh: "30.0", wave_model_lat: "-38.608", wave_model_lon: "144.501", willyweather_location_id: 11642, swell_optimal_direction: "230.0", swell_optimal_direction_max_variance: "40.0", wind_optimal_direction: "330.0", wind_optimal_direction_max_variance: "40.0"
+).find_or_create_by(
+  name: "Bells Beach"
 )
 puts "Created Spot #{spot.name}"
 
