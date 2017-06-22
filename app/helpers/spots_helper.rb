@@ -7,6 +7,17 @@ module SpotsHelper
     end
   end
 
+  def get_verdict(rating)
+    return 'positive' if rating > 75
+    return 'negative' if rating < 50
+    return 'mixed' if rating > 50
+  end
+
+  def trim num
+    i, f = num.to_i, num.to_f
+    i == f ? i : f
+  end
+
   def swell_models_table(rows)
     show_table(rows)
   end
