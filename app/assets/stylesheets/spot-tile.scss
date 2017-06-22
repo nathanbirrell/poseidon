@@ -1,5 +1,4 @@
 .spot-tile {
-  background-color: #fff;
   border-radius: 3px;
   margin-bottom: 15px;
 
@@ -11,6 +10,7 @@
   }
 
   &__summary {
+    background-color: #fff;
     padding: 10px 16px 10px 54px;
     position: relative;
     height: 46px;
