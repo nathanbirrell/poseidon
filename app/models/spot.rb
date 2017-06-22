@@ -159,6 +159,14 @@ class Spot < ApplicationRecord
   def current_potential
     # calculate aggregate potential rating based on tide/wind/swell (as a percentage)
     aggregate = (current_tide_rating + current_wind.rating + current_swell.rating)/3.0
-    aggregate.round(2)
+    aggregate = aggregate.round(0)
+    trim(aggregate)
+  end
+
+  private
+
+  def trim num
+    i, f = num.to_i, num.to_f
+    i == f ? i : f
   end
 end
