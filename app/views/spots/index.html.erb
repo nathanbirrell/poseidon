@@ -37,7 +37,7 @@
 
 <h3>Collapsed</h3>
 <% @spots.each do |spot| %>
-  <a href="#">
+  <%= link_to spot do %>
    <div class="large-4 medium-6 small-12 spot-list-item">
      <div class="spot-list-item__main-rating --positive"><span>89</span></div>
      <h3 class="spot-list-item__name"><%= spot.name %></h3>
@@ -47,7 +47,7 @@
        <span class="spot-sub-rating-group__item --tide --negative">89</span>
      </div>
    </div>
-  </a>
+  <% end %>
 <% end %>
 
 <h3>Forecasts</h3>
