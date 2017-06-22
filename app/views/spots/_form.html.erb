@@ -13,109 +13,107 @@
 
   <div class="row">
     <div class="small-12 columns">
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-    </div>
+      <fieldset>
+        <legend>About</legend>
 
-    <div class="small-12 columns">
-      <%= f.label :description %>
-      <%= f.text_area :description %>
-    </div>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
 
-    <div class="medium-3 columns">
-      <%= f.label :wind_optimal_direction %>
-      <%= f.text_field :wind_optimal_direction %>
-    </div>
-    <div class="medium-3 columns">
-      <%= f.label :wind_optimal_direction_max_variance %>
-      <%= f.text_field :wind_optimal_direction_max_variance %>
-    </div>
+        <%= f.label :description %>
+        <%= f.text_area :description %>
 
-    <div class="medium-3 columns">
-      <%= f.label :wind_optimal_strength_min_kmh %>
-      <%= f.text_field :wind_optimal_strength_min_kmh %>
-    </div>
-    <div class="medium-3 columns">
-      <%= f.label :wind_optimal_strength_max_kmh %>
-      <%= f.text_field :wind_optimal_strength_max_kmh %>
-    </div>
+        <div class="row">
+          <div class="medium-4 columns">
+            <%= f.label :season %>
+            <%= f.text_field :season %>
+          </div>
+          <div class="medium-4 columns">
+            <%= f.label :latitude %>
+            <%= f.text_field :latitude %>
+          </div>
+          <div class="medium-4 columns">
+            <%= f.label :longitude %>
+            <%= f.text_field :longitude %>
+          </div>
+        </div>
 
+        <div class="row">
+          <div class="medium-6 columns">
+            <%= f.label :region %>
+            <%= f.select :region_id, options_for_select(Region.all.map{|r|[r.name, r.id]}) %>
+          </div>
+          <div class="medium-6 columns">
+            <%= f.label :image %>
+            <%= f.text_field :image %>
+          </div>
+        </div>
+      </fieldset>
 
-    <div class="medium-3 columns">
-      <%= f.label :swell_optimal_size_min_metres %>
-      <%= f.text_field :swell_optimal_size_min_metres %>
-    </div>
-    <div class="medium-3 columns">
-      <%= f.label :swell_optimal_size_max_metres %>
-      <%= f.text_field :swell_optimal_size_max_metres %>
-    </div>
+      <div class="row">
+        <div class="medium-4 columns">
+          <fieldset>
+            <legend>Swell</legend>
 
-    <div class="medium-3 columns">
-      <%= f.label :swell_optimal_direction %>
-      <%= f.text_field :swell_optimal_direction %>
-    </div>
-    <div class="medium-3 columns">
-      <%= f.label :swell_optimal_direction_max_variance %>
-      <%= f.text_field :swell_optimal_direction_max_variance %>
-    </div>
+            <%= f.label :swell_optimal_size_min_metres %>
+            <%= f.text_field :swell_optimal_size_min_metres %>
 
-    <div class="medium-3 columns">
-      <%= f.label :swell_optimal_period_seconds %>
-      <%= f.text_field :swell_optimal_period_seconds %>
-    </div>
+            <%= f.label :swell_optimal_size_max_metres %>
+            <%= f.text_field :swell_optimal_size_max_metres %>
 
-    <div class="medium-1 columns">
-      <%= f.label :tide_optimal_min_metres %>
-      <%= f.text_field :tide_optimal_min_metres %>
-    </div>
-    <div class="medium-1 columns">
-      <%= f.label :tide_optimal_max_metres %>
-      <%= f.text_field :tide_optimal_max_metres %>
-    </div>
+            <%= f.label :swell_optimal_period_seconds %>
+            <%= f.text_field :swell_optimal_period_seconds %>
 
-    <div class="medium-3 columns">
-      <%= f.label :season %>
-      <%= f.text_field :season %>
-    </div>
+            <%= f.label :swell_optimal_direction %>
+            <%= f.text_field :swell_optimal_direction %>
 
-    <div class="small-12 columns">
-      <%= f.label :image %>
-      <%= f.text_field :image %>
-    </div>
+            <%= f.label :swell_optimal_direction_max_variance %>
+            <%= f.text_field :swell_optimal_direction_max_variance %>
 
-    <section class="small-12 columns">
-      <strong>Location</strong> <br>
-      <div class="small-4 columns">
-        <%= f.label :latitude %>
-        <%= f.text_field :latitude %>
+            <%= f.label :wave_model_lat %>
+            <%= f.text_field :wave_model_lat %>
+
+            <%= f.label :wave_model_lon %>
+            <%= f.text_field :wave_model_lon %>
+
+          </fieldset>
+        </div>
+
+        <div class="medium-4 columns">
+          <fieldset>
+            <legend>Wind</legend>
+
+            <%= f.label :wind_optimal_strength_min_kmh %>
+            <%= f.text_field :wind_optimal_strength_min_kmh %>
+
+            <%= f.label :wind_optimal_strength_max_kmh %>
+            <%= f.text_field :wind_optimal_strength_max_kmh %>
+
+            <%= f.label :wind_optimal_direction %>
+            <%= f.text_field :wind_optimal_direction %>
+
+            <%= f.label :wind_optimal_direction_max_variance %>
+            <%= f.text_field :wind_optimal_direction_max_variance %>
+
+          </fieldset>
+        </div>
+
+        <div class="medium-4 columns">
+          <fieldset>
+            <legend>Tide</legend>
+
+            <%= f.label :tide_optimal_min_metres %>
+            <%= f.text_field :tide_optimal_min_metres %>
+
+            <%= f.label :tide_optimal_max_metres %>
+            <%= f.text_field :tide_optimal_max_metres %>
+
+          </fieldset>
+        </div>
       </div>
-      <div class="small-4 columns">
-        <%= f.label :longitude %>
-        <%= f.text_field :longitude %>
-      </div>
-      <div class="small-4 columns">
-        <%= f.label :region %><br />
-        <%= f.select :region_id, options_for_select(Region.all.map{|r|[r.name, r.id]}) %>
-      </div>
-    </section>
 
-    <section class="small-12 columns">
-      <strong>Wave model location</strong> <br>
-      <div class="small-4 columns">
-        <%= f.label :wave_model_lat %>
-        <%= f.text_field :wave_model_lat %>
+      <div class="row actions">
+        <%= f.submit 'Done', :class => 'button large' %>
       </div>
-      <div class="small-4 columns">
-        <%= f.label :wave_model_lon %>
-        <%= f.text_field :wave_model_lon %>
-      </div>
-    </section>
-
-    <div class="medium-6 columns">
-    </div>
   </div>
-
-  <div class="row actions">
-    <%= f.submit 'Done', :class => 'button large' %>
-  </div>
+</div>
 <% end %>
