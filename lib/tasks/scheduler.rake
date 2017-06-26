@@ -5,22 +5,21 @@ WW_API_KEY = 'MTA5MTU5MWU3NThiZjg4ZjgxMDI2Nm'
 PLANETOS_API_KEY = '36cbaff072be400096158d9f71100c61' # TODO: Move this to an environment variable, very insecure tsk tsk!
 
 # TODO: Abstract out PlanetOS API calls into an adapter OR lib? https://github.com/infinum/rails-handbook/blob/master/Design%20Patterns/Adapters.md
-namespace :forecasts do
-  task :update => :environment do
-    spots = Spot.all
 
-    spots.each do |spot|
-      update_swell_data(spot)
-      update_wind_data(spot)
-      update_tide_data(spot)
-    end
-  end
+task :forecasts_update => :environment do
+  spots = Spot.all
 
-  task :reset => :environment do
-    Swell.delete_all
-    Wind.delete_all
-    Tide.delete_all
+  spots.each do |spot|
+    update_swell_data(spot)
+    update_wind_data(spot)
+    update_tide_data(spot)
   end
+end
+
+task :forecasts_reset => :environment do
+  Swell.delete_all
+  Wind.delete_all
+  Tide.delete_all
 end
 
 # TODO Move ALL these methods into their respective controllers OR into ActiveJobs
