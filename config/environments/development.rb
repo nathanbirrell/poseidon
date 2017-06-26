@@ -71,3 +71,7 @@ Rails.application.configure do
 
   config.time_zone = 'Melbourne'
 end
+
+Slack.configure do |config|
+  config.token = ENV['SLACK_API_TOKEN']
+end
