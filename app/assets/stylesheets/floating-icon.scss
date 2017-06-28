@@ -1,0 +1,35 @@
+.floating-icon {
+  display: block;
+  position: relative;
+  height: 40px;
+  width: 40px;
+  border-radius: 30px;
+
+  &::before {
+    position: absolute;
+    background-image: image-url('icons/alert-triangle--white.svg');
+    background-position: center;
+    background-size: cover;
+    height: 24px;
+    width: 24px;
+    content: ' ';
+    top: 50%;
+    left: 50%;
+    margin-left: -12px;
+    margin-top: -13px;
+  }
+
+  &.hide {
+    display: none;
+  }
+
+  &.--positive {
+    background-color: #EB5757;
+  }
+  &.--mixed {
+    background-color: #EB5757;
+  }
+  &.--negative {
+    background-color: #EB5757;
+  }
+}
