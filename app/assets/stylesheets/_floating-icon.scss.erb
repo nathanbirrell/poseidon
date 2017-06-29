@@ -7,9 +7,9 @@
 
   &::before {
     position: absolute;
-    background-image: image-url('icons/alert-triangle--white.svg');
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
     height: 24px;
     width: 24px;
     content: ' ';
@@ -17,6 +17,10 @@
     left: 50%;
     margin-left: -12px;
     margin-top: -13px;
+  }
+
+  &.--icon-alert-triangle--white::before {
+    background-image: image-url('icons/alert-triangle--white.svg');
   }
 
   &.hide {
