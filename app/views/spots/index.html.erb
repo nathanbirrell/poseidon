@@ -23,7 +23,7 @@
 
     <div class="row">
       <h3 class="columns">Current Conditions</h3>
-      <% @spots.each do |spot| %>
+      <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
         <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'current'} %>
       <% end %>
     </div>
@@ -31,7 +31,7 @@
     <div class="row">
       <div class="medium-6 columns">
         <h3>Collapsed</h3>
-        <% @spots.each do |spot| %>
+        <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
           <%= render partial: 'partials/spot-list-item', locals: {spot: spot, type: 'current'} %>
         <% end %>
       </div>
@@ -39,7 +39,7 @@
 
     <div class="row">
       <h3 class="columns">Forecasts</h3>
-      <% @spots.each do |spot| %>
+      <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
         <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'forecast'} %>
       <% end %>
     </div>
@@ -47,7 +47,7 @@
     <div class="row">
       <div class="medium-6 columns">
         <h3>Collapsed</h3>
-        <% @spots.each do |spot| %>
+        <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
           <%= render partial: 'partials/spot-list-item', locals: {spot: spot, type: 'forecast'} %>
         <% end %>
       </div>
