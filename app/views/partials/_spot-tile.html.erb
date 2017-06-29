@@ -4,7 +4,7 @@
     <div class="spot-tile__image" style="background-image: url('<%= spot.image %>')"></div>
     <div class="spot-tile__summary">
       <div class="spot-tile__main-rating --<%= get_verdict(spot.current_potential) %>"><%= trim(spot.current_potential) %></div>
-      <h3><%= spot.name %><br></h3>
+      <h3><%= spot.name %></h3>
       <% if type === 'current' %>
         <div class="spot-sub-rating-group">
           <span class="spot-sub-rating-group__item --swell --<%= get_verdict(spot.current_swell.rating) %>"><%= trim(spot.current_swell.rating.round(0)) %></span>
