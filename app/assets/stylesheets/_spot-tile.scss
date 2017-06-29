@@ -3,6 +3,7 @@
   margin-bottom: 15px;
 
   &__image {
+    position: relative;
     background-size: cover;
     width: 100%;
     padding-bottom: 60%;
@@ -15,20 +16,22 @@
     top: 15px;
     right: 0;
 
-    // &::before {
-    //   background-color: darken(#6FCF97, 15%);
-    //   content: "";
-    //   display: block;
-    //   height: 30px;
-    //   width: 15px;
-    //   position: absolute;
-    //   right: 9px;
-    //   bottom: 0;
-    //   margin-bottom: -20px;
-    //   transform: rotate(45deg);
-    // }
+    &::before {
+      background-color: darken(#6FCF97, 15%);
+      content: "";
+      display: block;
+      height: 30px;
+      width: 15px;
+      position: absolute;
+      right: 8.6px;
+      bottom: -1.2px;
+      margin-bottom: -20px;
+      transform: rotate(45deg);
+    }
 
     p {
+      position: relative;
+      z-index: 2;
       color: #fff;
       margin: 0;
       font-size: 12px;
