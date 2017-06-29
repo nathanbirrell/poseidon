@@ -1,0 +1,31 @@
+<%= link_to spot do %>
+  <div class="small-12 columns spot-list-item">
+    <div class="spot-list-item__main-rating --<%= get_verdict(spot.current_potential) %>"><span><%= trim(spot.current_potential) %></span></div>
+    <h3 class="spot-list-item__name"><%= spot.name %></h3>
+    <% if type === 'current' %>
+      <div class="spot-sub-rating-group">
+        <span class="spot-sub-rating-group__item --swell --<%= get_verdict(spot.current_swell.rating) %>"><%= trim(spot.current_swell.rating.round(0)) %></span>
+        <span class="spot-sub-rating-group__item --wind --<%= get_verdict(spot.current_wind.rating) %>"><%= trim(spot.current_wind.rating.round(0)) %></span>
+        <span class="spot-sub-rating-group__item --tide --<%= get_verdict(spot.current_tide_rating) %>"><%= trim(spot.current_tide_rating.round(0)) %></span>
+      </div>
+    <% elsif type === 'forecast' %>
+      <div class="spot-plan-summary">
+        <span class="spot-plan-summary__item --positive">
+          <p>F</p>
+        </span>
+        <span class="spot-plan-summary__item --positive">
+          <p>S</p>
+        </span>
+        <span class="spot-plan-summary__item --mixed">
+          <p>S</p>
+        </span>
+        <span class="spot-plan-summary__item --negative">
+          <p>M</p>
+        </span>
+        <span class="spot-plan-summary__item --mixed">
+          <p>T</p>
+        </span>
+      </div>
+    <% end %>
+  </div>
+<% end %>

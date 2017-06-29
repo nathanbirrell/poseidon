@@ -24,20 +24,7 @@
     <div class="row">
       <h3 class="columns">Current Conditions</h3>
       <% @spots.each do |spot| %>
-        <div class="large-4 medium-6 small-12 columns spot-tile">
-          <%= link_to spot do %>
-            <div class="spot-tile__image" style="background-image: url('<%= spot.image %>')"></div>
-            <div class="spot-tile__summary">
-              <div class="spot-tile__main-rating --<%= get_verdict(spot.current_potential) %>"><%= trim(spot.current_potential) %></div>
-              <h3><%= spot.name %><br></h3>
-              <div class="spot-sub-rating-group">
-                <span class="spot-sub-rating-group__item --swell --<%= get_verdict(spot.current_swell.rating) %>"><%= trim(spot.current_swell.rating.round(0)) %></span>
-                <span class="spot-sub-rating-group__item --wind --<%= get_verdict(spot.current_wind.rating) %>"><%= trim(spot.current_wind.rating.round(0)) %></span>
-                <span class="spot-sub-rating-group__item --tide --<%= get_verdict(spot.current_tide_rating) %>"><%= trim(spot.current_tide_rating.round(0)) %></span>
-              </div>
-            </div>
-          <% end %>
-        </div>
+        <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'current'} %>
       <% end %>
     </div>
 
@@ -45,50 +32,15 @@
       <div class="medium-6 columns">
         <h3>Collapsed</h3>
         <% @spots.each do |spot| %>
-          <%= link_to spot do %>
-           <div class="small-12 columns spot-list-item">
-             <div class="spot-list-item__main-rating --positive"><span>89</span></div>
-             <h3 class="spot-list-item__name"><%= spot.name %></h3>
-             <div class="spot-sub-rating-group">
-               <span class="spot-sub-rating-group__item --swell --positive">89</span>
-               <span class="spot-sub-rating-group__item --wind --mixed">89</span>
-               <span class="spot-sub-rating-group__item --tide --negative">89</span>
-             </div>
-           </div>
-          <% end %>
+          <%= render partial: 'partials/spot-list-item', locals: {spot: spot, type: 'current'} %>
         <% end %>
       </div>
     </div>
 
     <div class="row">
-      <h3>Forecasts</h3>
+      <h3 class="columns">Forecasts</h3>
       <% @spots.each do |spot| %>
-        <div class="large-4 medium-6 small-12 columns spot-tile">
-          <%= link_to spot do %>
-            <div class="spot-tile__image" style="background-image: url('<%= spot.image %>')"></div>
-            <div class="spot-tile__summary">
-              <div class="spot-tile__main-rating --positive">89</div>
-              <h3><%= spot.name %></h3>
-              <div class="spot-plan-summary">
-                <span class="spot-plan-summary__item --positive">
-                  <p>F</p>
-                </span>
-                <span class="spot-plan-summary__item --positive">
-                  <p>S</p>
-                </span>
-                <span class="spot-plan-summary__item --mixed">
-                  <p>S</p>
-                </span>
-                <span class="spot-plan-summary__item --negative">
-                  <p>M</p>
-                </span>
-                <span class="spot-plan-summary__item --mixed">
-                  <p>T</p>
-                </span>
-              </div>
-            </div>
-          <% end %>
-        </div>
+        <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'forecast'} %>
       <% end %>
     </div>
 
@@ -96,29 +48,7 @@
       <div class="medium-6 columns">
         <h3>Collapsed</h3>
         <% @spots.each do |spot| %>
-          <%= link_to spot do %>
-            <div class="small-12 columns spot-list-item">
-              <div class="spot-list-item__main-rating --positive"><span>89</span></div>
-              <h3 class="spot-list-item__name"><%= spot.name %></h3>
-              <div class="spot-plan-summary">
-                <span class="spot-plan-summary__item --positive">
-                  <p>F</p>
-                </span>
-                <span class="spot-plan-summary__item --positive">
-                  <p>S</p>
-                </span>
-                <span class="spot-plan-summary__item --mixed">
-                  <p>S</p>
-                </span>
-                <span class="spot-plan-summary__item --negative">
-                  <p>M</p>
-                </span>
-                <span class="spot-plan-summary__item --mixed">
-                  <p>T</p>
-                </span>
-              </div>
-            </div>
-          <% end %>
+          <%= render partial: 'partials/spot-list-item', locals: {spot: spot, type: 'forecast'} %>
         <% end %>
       </div>
     </div>
