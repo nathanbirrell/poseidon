@@ -1,5 +1,6 @@
 <div class="large-4 medium-6 small-12 columns spot-tile">
   <%= link_to spot do %>
+    <div class="spot-tile__datetime"><p><%= spot.created_at.strftime("%I:%M %p") %></p></div>
     <div class="spot-tile__image" style="background-image: url('<%= spot.image %>')"></div>
     <div class="spot-tile__summary">
       <div class="spot-tile__main-rating --<%= get_verdict(spot.current_potential) %>"><%= trim(spot.current_potential) %></div>
