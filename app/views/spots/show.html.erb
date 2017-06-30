@@ -147,12 +147,13 @@
       <%= render partial: 'partials/optimum-visualisation',
         locals: {
           label: 'Wind direction',
-          min: @spot.wind_optimal_direction,
+          min: 0,
           max: @spot.wind_optimal_direction_max_variance,
-          value: @spot.current_wind.direction,
+          value: 23,
           step: 1,
           unit: "*",
-          uniqueName: 'swell-range-input'
+          roc: 5,
+          rocDirection: 'right'
         }
       %>
       <%= render partial: 'partials/optimum-visualisation',
@@ -161,20 +162,22 @@
           min: @spot.wind_optimal_strength_min_kmh,
           max: @spot.wind_optimal_strength_max_kmh,
           value: @spot.current_wind.speed,
-          step: 1,
+          step: 0.1,
           unit: "km/h",
-          uniqueName: 'swell-range-input'
+          roc: 20,
+          rocDirection: 'left'
         }
       %>
       <%= render partial: 'partials/optimum-visualisation',
         locals: {
           label: 'Swell direction',
-          min: @spot.swell_optimal_direction,
+          min: 0,
           max: @spot.swell_optimal_direction_max_variance,
-          value: @spot.current_wind.direction,
+          value: 7,
           step: 1,
           unit: "*",
-          uniqueName: 'swell-range-input'
+          roc: 7,
+          rocDirection: 'right'
         }
       %>
       <%= render partial: 'partials/optimum-visualisation',
@@ -185,7 +188,8 @@
           value: @spot.current_swell.size.round(2),
           step: 0.01,
           unit: "m",
-          uniqueName: 'swell-range-input'
+          roc: 25,
+          rocDirection: 'left'
         }
       %>
       <%= render partial: 'partials/optimum-visualisation',
@@ -193,10 +197,11 @@
           label: 'Tide height',
           min: @spot.tide_optimal_min_metres,
           max: @spot.tide_optimal_max_metres,
-          value: @spot.current_tide_height,
+          value: 0.20,
           step: 0.01,
           unit: "m",
-          uniqueName: 'swell-range-input'
+          roc: 15,
+          rocDirection: 'right'
         }
       %>
     </div>
