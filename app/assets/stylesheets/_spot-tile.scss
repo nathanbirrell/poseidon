@@ -13,8 +13,15 @@
   &__datetime {
     height: 22px;
     position: absolute;
-    top: 15px;
     right: 0;
+
+    &.--full {
+      top: 15px;
+    }
+
+    &.--collapsed {
+      top: 7px;
+    }
 
     &::before {
       background-color: darken(#6FCF97, 15%);
