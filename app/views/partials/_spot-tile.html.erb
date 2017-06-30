@@ -1,17 +1,19 @@
 <div class="large-4 medium-6 small-12 columns spot-tile">
   <%= link_to spot do %>
     <div class="spot-tile__datetime"><p><%= spot.created_at.strftime("%I:%M %p") %></p></div>
-    <div class="spot-tile__image" style="background-image: url('<%= spot.image %>')"></div>
+    <% if type === 'full' %>
+      <div class="spot-tile__image" style="background-image: url('<%= spot.image %>')"></div>
+    <% end %>
     <div class="spot-tile__summary">
       <div class="spot-tile__main-rating --<%= get_verdict(spot.current_potential) %>"><%= trim(spot.current_potential) %></div>
       <h3><%= spot.name %></h3>
-      <% if type === 'current' %>
+      <% if data === 'current' %>
         <div class="spot-sub-rating-group">
           <span class="spot-sub-rating-group__item --swell --<%= get_verdict(spot.current_swell.rating) %>"><%= trim(spot.current_swell.rating.round(0)) %></span>
           <span class="spot-sub-rating-group__item --wind --<%= get_verdict(spot.current_wind.rating) %>"><%= trim(spot.current_wind.rating.round(0)) %></span>
           <span class="spot-sub-rating-group__item --tide --<%= get_verdict(spot.current_tide_rating) %>"><%= trim(spot.current_tide_rating.round(0)) %></span>
         </div>
-      <% elsif type === 'forecast' %>
+      <% elsif data === 'forecast' %>
         <div class="spot-plan-summary">
           <span class="spot-plan-summary__item --positive">
             <p>F</p>
