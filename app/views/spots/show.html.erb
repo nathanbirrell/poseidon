@@ -140,6 +140,69 @@
   </div>
 
   <div class="row">
+    <div class="large-6 small-12 columns">
+      <h5 class="subheader"><%= @spot.description %></h5>
+    </div>
+    <div class="large-6 small-12 columns">
+      <%= render partial: 'partials/optimum-visualisation',
+        locals: {
+          label: 'Wind direction',
+          min: @spot.wind_optimal_direction,
+          max: @spot.wind_optimal_direction_max_variance,
+          value: @spot.current_wind.direction,
+          step: 1,
+          unit: "*",
+          uniqueName: 'swell-range-input'
+        }
+      %>
+      <%= render partial: 'partials/optimum-visualisation',
+        locals: {
+          label: 'Wind strength',
+          min: @spot.wind_optimal_strength_min_kmh,
+          max: @spot.wind_optimal_strength_max_kmh,
+          value: @spot.current_wind.speed,
+          step: 1,
+          unit: "km/h",
+          uniqueName: 'swell-range-input'
+        }
+      %>
+      <%= render partial: 'partials/optimum-visualisation',
+        locals: {
+          label: 'Swell direction',
+          min: @spot.swell_optimal_direction,
+          max: @spot.swell_optimal_direction_max_variance,
+          value: @spot.current_wind.direction,
+          step: 1,
+          unit: "*",
+          uniqueName: 'swell-range-input'
+        }
+      %>
+      <%= render partial: 'partials/optimum-visualisation',
+        locals: {
+          label: 'Swell Size',
+          min: @spot.swell_optimal_size_min_metres,
+          max: @spot.swell_optimal_size_max_metres,
+          value: @spot.current_swell.size.round(2),
+          step: 0.01,
+          unit: "m",
+          uniqueName: 'swell-range-input'
+        }
+      %>
+      <%= render partial: 'partials/optimum-visualisation',
+        locals: {
+          label: 'Tide height',
+          min: @spot.tide_optimal_min_metres,
+          max: @spot.tide_optimal_max_metres,
+          value: @spot.current_tide_height,
+          step: 0.01,
+          unit: "m",
+          uniqueName: 'swell-range-input'
+        }
+      %>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="large-12 columns">
       <iframe
       width="100%"

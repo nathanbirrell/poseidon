@@ -1,0 +1,10 @@
+<div class="optimum-vis <%= value < min || value > max ? '--outside' : '--inside'%>">
+  <div class="optimum-vis__meta"><%= label %></div>
+  <div class="optimum-vis__visual">
+    <span class="optimum-vis__min"><%= min %><%= unit %></span>
+    <input type="range" min="<%= min %>"
+      max="<%= max %>" value="<%= value %>" step="<%= step %>" name="<%= uniqueName %>" disabled>
+    <span class="optimum-vis__current" style="left: <%= (value/(max-min) * 100) %>%;"><%= value %></span>
+    <span class="optimum-vis__max"><%= max %><%= unit %></span>
+  </div>
+</div>
