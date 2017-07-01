@@ -54,6 +54,30 @@
         background-color: #ccc;
         height: 8px;
         border-radius: 8px;
+
+        &::after {
+          display: block;
+          content: "";
+          height: 30px;
+          width: 30px;
+          background-size: cover;
+          margin-top: -11px;
+        }
+
+        &.--left {
+          &::after {
+            margin-left: -10px;
+            background-image: asset-url('icons/chevron-left--grey.svg');
+          }
+        }
+
+        &.--right {
+          &::after {
+            float: right;
+            margin-right: -10px;
+            background-image: asset-url('icons/chevron-right--grey.svg');
+          }
+        }
       }
     }
   }
