@@ -19,7 +19,7 @@
             <%= @spot.name %>, <br>
             <small><%= link_to @region.name, @region %>, <%= @region.state %></small>
           </h2>
-          <p class="spot-banner__updated-date">Updated <%= @spot.current_swell.updated_at.localtime.strftime("%a, %e %b %Y %H:%M") %></p>
+          <p class="spot-banner__updated-date">Updated <%= time_ago_in_words(@spot.current_swell.updated_at.localtime) %> ago</p>
         </div>
       </div>
     </div>
