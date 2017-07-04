@@ -8,9 +8,9 @@ $(document).ready(function() {
     var end = parseFloat(wrapper.dataset.percentage);
 
     var colours = {
-      fill: '#' + wrapper.dataset.fillColour,
-      track: '#' + wrapper.dataset.trackColour,
-      stroke: '#' + wrapper.dataset.strokeColour,
+      fill: wrapper.dataset.fillColour,
+      track: wrapper.dataset.trackColour,
+      stroke: wrapper.dataset.strokeColour,
     }
 
     var radius = wrapper.dataset.radius;

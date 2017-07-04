@@ -40,9 +40,9 @@
                data-percentage="<%= @spot.current_potential %>"
                data-radius="50"
                data-track-width="12"
-               data-track-colour="E0E0E0"
-               data-fill-colour="008CBA"
-               data-stroke-colour="FFFFFF"
+               data-track-colour="#E0E0E0"
+               data-fill-colour="<%= get_verdict_colour(@spot.current_potential) %>"
+               data-stroke-colour="#FFFFFF"
                data-stroke-spacing="0">
           </div>
           <span class="<%= 'success' if @spot.current_potential > 75.0 %> <%= 'hide' if @spot.current_potential <= 30.0 %>">

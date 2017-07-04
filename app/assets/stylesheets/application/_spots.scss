@@ -63,13 +63,15 @@
 }
 
 .potential-radial {
-  //
+  width: 100px;
+  height: 100px;
+  background: #fff;
+  border-radius: 50px;
 }
-
 
 .radial-progress {
   &__text {
-    font-size: rem-calc(24);
+    font-size: rem-calc(32);
     font-weight: 500;
   }
 }

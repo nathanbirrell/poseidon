@@ -116,12 +116,13 @@ $column-gutter: rem-calc(30);
 // $black       : #000000;
 
 // We use these as default colors throughout
-// $primary-color: #008CBA;
-// $secondary-color: #e7e7e7;
-// $alert-color: #f04124;
-// $success-color: #43AC6A;
-// $warning-color: #f08a24;
-// $info-color: #a0d3e8;
+$primary-color: #2D9CDB;
+$secondary-color: #e7e7e7;
+$alert-color: #EB5757;
+$fail-color: #EB5757;
+$success-color: #27AE60;
+$warning-color: #F2994A;
+$info-color: #a0d3e8;
 
 // We use these to control various global styles
 // $body-bg: $white;
