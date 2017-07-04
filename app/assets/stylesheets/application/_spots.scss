@@ -12,7 +12,7 @@
 .spot-banner {
   position: relative;
   min-height: 192px;
-  max-height: 380px;
+  max-height: 320px;
   overflow: hidden;
 }
 
@@ -37,9 +37,9 @@
   justify-content: center;
   height: 192px;
 
-  // @media #{$medium-up} {
-  //   height: 380px
-  // }
+  @media #{$medium-up} {
+    height: 320px;
+  }
 
   * {
     text-shadow: 0.5px 0.5px 0.1px rgba(0, 0, 0, 0.8);
