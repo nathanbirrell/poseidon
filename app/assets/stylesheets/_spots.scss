@@ -10,26 +10,36 @@
 /** Spot banner **/
 
 .spot-banner {
-  //
+  position: relative;
+  min-height: 192px;
+  max-height: 380px;
+  overflow: hidden;
 }
 
 .spot-banner__image-wrapper {
   position: absolute;
-  top: 45px;
+  top: 0;
   left: 0;
-  max-height: 380px;
-  overflow: hidden;
   width: 100%;
+  height: 100%;
 }
 
 .spot-banner__image-wrapper img {
   width: 100%;
-  filter: blur(3px);
+  filter: blur(2px);
   transform: scale(1.1);
 }
 
 .spot-banner__content {
-  padding-top: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 192px;
+
+  // @media #{$medium-up} {
+  //   height: 380px
+  // }
 
   * {
     text-shadow: 0.5px 0.5px 0.1px rgba(0, 0, 0, 0.8);

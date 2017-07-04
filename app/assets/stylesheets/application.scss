@@ -10,17 +10,15 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require _settings
+ *= require foundation
  *= require_tree .
  *= require_self
  */
 
- @import "foundation";
-
 /**
  * Base element styles
  */
-
- // TODO: start typography stylez here
 
  h1,
  h2,
@@ -43,19 +41,3 @@
      padding: 0px 8px;
      font-size: 0.8em;
  }
-
-/**
- * Navigation
- */
-
-.top-bar-section {
-   margin: 0;
-}
-
-.title-area {
-  z-index: 1;
-}
-
-.top-bar {
-  color: #fff;
-}
