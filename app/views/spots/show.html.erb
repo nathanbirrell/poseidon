@@ -44,23 +44,34 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="row">
-        <div class="small-12 medium-4 columns panel">
-          <h4>Swell</h4>
+        <div class="small-12 medium-4 columns">
+          <div class="info-card">
+            <div class="info-card__top">
+              <h3 class="text-left">Swell</h3>
+              <span class="text-right"><%= @spot.current_swell.date_time.localtime.strftime("%H:%M") %></span>
+            </div>
 
-          <% if @spot.current_swell.rating <= 30.0 %>
-            <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white'} %>
-          <% else %>
-            <%= render partial: 'partials/rating-radial', locals: {rating: @spot.current_swell.rating} %>
-          <% end %>
+            <div class="info-card__body row">
+              <div class="small-4 columns">
+                <% if @spot.current_swell.rating <= 30.0 %>
+                  <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white'} %>
+                <% else %>
+                  <%= render partial: 'partials/rating-radial', locals: {rating: @spot.current_swell.rating, radius: '40'} %>
+                <% end %>
+              </div>
 
-          <p>
-            <ul>
-              <li><strong>Size:</strong> <%= @spot.current_swell.size.round(2) %>m</li>
-              <li><strong>Period:</strong> <%= @spot.current_swell.period.round(2)  %>s</li>
-              <li><strong>Direction:</strong> <%= @spot.current_swell.direction %> degrees OR <%= @spot.current_swell.direction.degrees.round(2)  %> radians <br></li>
-              <li> at <%= @spot.current_swell.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
-            </ul>
-          </p>
+              <div class="small-4 columns">
+                <p>
+                  <strong><%= @spot.current_swell.size.round(1) %>m</strong> <br>
+                  <strong>@ <%= trim(@spot.current_swell.period.round(0))  %>s</strong>
+                </p>
+              </div>
+              <div class="small-4 columns">
+                <%= render partial: 'partials/floating-icon',  locals: {icon: 'navigation-2'} %>
+                <strong><%= @spot.current_swell.direction %> degrees</strong>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="small-12 medium-4 columns panel">
           <h4>Wind</h4>
