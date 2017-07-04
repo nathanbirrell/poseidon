@@ -1,7 +1,7 @@
 // Inspired by https://codepen.io/shellbryson/pen/KzaKLe
 
 $(document).ready(function() {
-  var ratingElements = $('.potential-radial');
+  var ratingElements = $('.potential-radial__circle-element');
 
   var initRatingElement = function(index, wrapper) {
     var start = 0;
