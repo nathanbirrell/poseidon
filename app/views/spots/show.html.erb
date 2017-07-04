@@ -36,6 +36,15 @@
       <div class="row">
         <div class="small-12 large-3 columns text-center large-text-left panel">
           <h4>Overall potential</h4>
+          <div id="overall-potential" class="potential-radial"
+               data-percentage="<%= @spot.current_potential %>"
+               data-radius="50"
+               data-track-width="12"
+               data-track-colour="E0E0E0"
+               data-fill-colour="008CBA"
+               data-stroke-colour="FFFFFF"
+               data-stroke-spacing="0">
+          </div>
           <span class="<%= 'success' if @spot.current_potential > 75.0 %> <%= 'hide' if @spot.current_potential <= 30.0 %>">
             <%= @spot.current_potential %>%
           </span>
