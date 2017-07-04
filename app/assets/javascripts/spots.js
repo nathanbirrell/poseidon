@@ -1,13 +1,9 @@
-/**********************************************
-/* Example of how to use d3 to create scalable
-/* SVG radial progress bars, controllable values
-/* and colours are passed in via data attributes.
-************************************************/
+// Inspired by https://codepen.io/shellbryson/pen/KzaKLe
 
 $(document).ready(function() {
-  var wrappers = $('.potential-radial');
+  var ratingElements = $('.potential-radial');
 
-  var initPotentialRadial = function(index, wrapper) {
+  var initRatingElement = function(index, wrapper) {
     var start = 0;
     var end = parseFloat(wrapper.dataset.percentage);
 
@@ -86,5 +82,5 @@ $(document).ready(function() {
     })();
   }
 
-  wrappers.each(initPotentialRadial);
+  ratingElements.each(initRatingElement);
 });
