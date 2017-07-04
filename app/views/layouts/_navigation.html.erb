@@ -4,11 +4,11 @@
   </section>
 
   <section class="middle tab-bar-section">
-    <h1 class="title">POSEIDON</h1>
+    <h1><%= link_to 'POSEIDON', root_path, class: 'title' %></h1>
   </section>
 
   <section class="right-small">
-    <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
+    <a class="right-off-canvas-toggle" href="#"><%= render partial: 'partials/floating-icon',  locals: {type: '', icon: 'user--white'} %></a>
   </section>
 </nav>
 
@@ -25,6 +25,18 @@
 
 <aside class="right-off-canvas-menu">
   <ul class="off-canvas-list">
-    <%= render 'layouts/nav_links_for_auth' %>
+    <% if user_signed_in? %>
+      <li class="has-dropdown">
+        <a href="#">Sup, <%= current_user.name if current_user.name %></a>
+
+        <ul class="dropdown">
+          <li><%= link_to 'Edit account', edit_user_registration_path %></li>
+          <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
+        </ul>
+      </li>
+    <% else %>
+      <li><%= link_to 'Sign in', new_user_session_path %></li>
+      <li><%= link_to 'Sign up', new_user_registration_path %></li>
+    <% end %>
   </ul>
 </aside>
