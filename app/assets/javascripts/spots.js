@@ -59,7 +59,7 @@ $(document).ready(function() {
     var numberText = track.append('text')
       .attr('class', 'radial-progress__text')
       .attr('text-anchor', 'middle')
-      .attr('dy', '.5rem');
+      .attr('dy', '.75rem');
 
     function update(progress) {
       //update position of endAngle

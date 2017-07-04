@@ -71,6 +71,7 @@
 
 .radial-progress {
   &__text {
+    color: $oil;
     font-size: rem-calc(32);
     font-weight: 500;
   }

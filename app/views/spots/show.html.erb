@@ -36,29 +36,22 @@
       <div class="row">
         <div class="small-12 large-3 columns text-center large-text-left panel">
           <h4>Overall potential</h4>
-          <div id="overall-potential" class="potential-radial"
-               data-percentage="<%= @spot.current_potential %>"
-               data-radius="50"
-               data-track-width="12"
-               data-track-colour="#E0E0E0"
-               data-fill-colour="<%= get_verdict_colour(@spot.current_potential) %>"
-               data-stroke-colour="#FFFFFF"
-               data-stroke-spacing="0">
-          </div>
-          <span class="<%= 'success' if @spot.current_potential > 75.0 %> <%= 'hide' if @spot.current_potential <= 30.0 %>">
-            <%= @spot.current_potential %>%
-          </span>
           <% if @spot.current_potential <= 30.0 %>
             <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white'} %>
+          <% else %>
+            <%= render partial: 'partials/rating-radial', locals: {rating: @spot.current_potential} %>
           <% end %>
           <span class="floating-icon --negative <%= 'hide' if @spot.current_potential >= 30.0%>"></span>
         </div>
         <div class="small-12 medium-4 large-3 columns panel">
           <h4>Swell</h4>
-          <p class="<%= 'hide' if @spot.current_swell.rating <= 30.0 %>"><%= @spot.current_swell.rating %>%</p>
+
           <% if @spot.current_swell.rating <= 30.0 %>
             <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white'} %>
+          <% else %>
+            <%= render partial: 'partials/rating-radial', locals: {rating: @spot.current_swell.rating} %>
           <% end %>
+
           <p>
             <ul>
               <li><strong>Size:</strong> <%= @spot.current_swell.size.round(2) %>m</li>
@@ -70,10 +63,13 @@
         </div>
         <div class="small-12 medium-4 large-3 columns panel">
           <h4>Wind</h4>
-          <p class="<%= 'hide' if @spot.current_wind.rating <= 30.0 %>"><%= @spot.current_wind.rating %>%</p>
+
           <% if @spot.current_wind.rating <= 30.0 %>
             <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white'} %>
+          <% else %>
+            <%= render partial: 'partials/rating-radial', locals: {rating: @spot.current_wind.rating} %>
           <% end %>
+
           <p>
             <ul>
               <li><strong>Speed:</strong> <%= @spot.current_wind.speed %> km/h from</li>
@@ -84,9 +80,11 @@
         </div>
         <div class="small-12 medium-4 large-3 columns panel">
           <h4>Tide</h4>
-          <p class="<%= 'hide' if @spot.current_tide_rating <= 30.0 %>"><%= @spot.current_tide_rating %>%</p>
+
           <% if @spot.current_tide_rating <= 30.0 %>
             <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white'} %>
+          <% else %>
+            <%= render partial: 'partials/rating-radial', locals: {rating: @spot.current_tide_rating} %>
           <% end %>
           <p>
             <ul>
