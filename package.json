@@ -7,7 +7,6 @@
   "author": "<nathanbirrell@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "d3": "^4.9.1",
-    "radial-progress-chart": "^0.0.4"
+    "d3": "^4.9.1"
   }
 }

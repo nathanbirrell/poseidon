@@ -181,10 +181,6 @@ d3-zoom@1.2.0:
     d3-selection "1"
     d3-transition "1"
 
-d3@^3.5.0:
-  version "3.5.17"
-  resolved "https://registry.yarnpkg.com/d3/-/d3-3.5.17.tgz#bc46748004378b21a360c9fc7cf5231790762fb8"
-
 d3@^4.9.1:
   version "4.9.1"
   resolved "https://registry.yarnpkg.com/d3/-/d3-4.9.1.tgz#f860be9252261a3c14eea64b1d2590d14f4db838"
@@ -223,12 +219,6 @@ d3@^4.9.1:
 iconv-lite@0.4:
   version "0.4.18"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.18.tgz#23d8656b16aae6742ac29732ea8f0336a4789cf2"
-
-radial-progress-chart@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/radial-progress-chart/-/radial-progress-chart-0.0.4.tgz#cf3684bb5c84cd2da7e27b35e1df92ebb3b772b2"
-  dependencies:
-    d3 "^3.5.0"
 
 rw@1:
   version "1.3.3"
