@@ -1,6 +1,7 @@
 // Inspired by https://codepen.io/shellbryson/pen/KzaKLe
 
-$(document).ready(function() {
+var ready = function() {
+  console.log('initing potential radial');
   var ratingElements = $('.potential-radial__circle-element');
 
   var initRatingElement = function(index, wrapper) {
@@ -83,4 +84,7 @@ $(document).ready(function() {
   }
 
   ratingElements.each(initRatingElement);
-});
+};
+
+// $(document).ready(ready);
+$(document).on('turbolinks:load', ready);
