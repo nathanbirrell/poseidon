@@ -1,0 +1,35 @@
+.info-card {
+  background: $white;
+  min-width: 290px;
+  border-radius: 4px;
+  border: 1px solid $silver;
+  box-shadow: -3px 3px 10px -0px rgba(0,0,0,0.1);
+
+  &__top {
+    height: 28px;
+    background: $snow;
+    padding: 2px 12px;
+  }
+
+  &__top h3,
+  &__top span {
+    margin: 0;
+    display: inline-block;
+    font-size: rem-calc(16);
+    text-transform: uppercase;
+    color: $oil;
+  }
+
+  &__top h3 {
+    font-weight: 500;
+  }
+
+  &__top span {
+    float: right;
+    font-weight: $font-weight-light;
+  }
+
+  &__body {
+    padding: 10px 12px;
+  }
+}

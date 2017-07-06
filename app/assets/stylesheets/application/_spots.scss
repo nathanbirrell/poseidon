@@ -1,0 +1,75 @@
+// Place all the styles related to the Spots controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.panel {
+  border: none;
+  background: transparent;
+}
+
+/** Spot banner **/
+
+.spot-banner {
+  position: relative;
+  min-height: 192px;
+  max-height: 320px;
+  overflow: hidden;
+}
+
+.spot-banner__image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.spot-banner__image-wrapper img {
+  width: 100%;
+  filter: blur(2px);
+  transform: scale(1.1);
+}
+
+.spot-banner__content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 192px;
+
+  @media #{$medium-up} {
+    height: 320px;
+  }
+
+  * {
+    text-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  h2 {
+    color: #fefefe;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
+  h2.small {
+    font-weight: 400;
+  }
+
+  p,
+  small,
+  a {
+    color: #fefefe;
+  }
+
+  .spot-banner__updated-date {
+    //
+  }
+}
+
+#overall-potential {
+  position: relative;
+  top: -50px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}

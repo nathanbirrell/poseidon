@@ -1,0 +1,47 @@
+.floating-icon {
+  display: block;
+  position: relative;
+  height: 40px;
+  width: 40px;
+  border-radius: 30px;
+
+  &::before {
+    position: absolute;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 24px;
+    width: 24px;
+    content: ' ';
+    top: 50%;
+    left: 50%;
+    margin-left: -12px;
+    margin-top: -13px;
+  }
+
+  &.--icon-alert-triangle--white::before {
+    background-image: image-url('icons/alert-triangle--white.svg');
+  }
+
+  &.--icon-navigation-2::before {
+    background-image: image-url('icons/navigation-2.svg');
+  }
+
+  &.--icon-user--white::before {
+    background-image: image-url('icons/user--white.svg');
+  }
+
+  &.hide {
+    display: none;
+  }
+
+  &.--positive {
+    background-color: #EB5757;
+  }
+  &.--mixed {
+    background-color: #EB5757;
+  }
+  &.--negative {
+    background-color: #EB5757;
+  }
+}
