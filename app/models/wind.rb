@@ -16,6 +16,11 @@ class Wind < WeatherForecast
   # default_scope { order(date_time: :desc) }
   belongs_to :spot
 
+  def current_variance
+    return 0 unless direction
+    calculate_angle_between(direction, spot.wind_optimal_direction)
+  end
+
   def rating
     return 0 unless speed && direction
     weight_of_optimal_wind_speed = 0.2
@@ -32,15 +37,13 @@ class Wind < WeatherForecast
     # pass in known coord to determin var a value, (maxVariance, 75)
     dirAVar = (75 - 100)/((dirMaxVariance - dirHVar)**2)
 
-    dirCurrentVariance = calculate_angle_between(direction, dirOptimum)
-
-    dirRating = dirAVar * ((dirCurrentVariance - dirHVar)**2) + dirKVar
+    dirRating = dirAVar * ((current_variance - dirHVar)**2) + dirKVar
 
     if dirRating < 0 then
       dirRating = 0
     end
 
-    puts("Wind direction dirCurrentVariance=#{dirCurrentVariance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
+    puts("Wind direction current_variance=#{current_variance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
     puts("Wind dirRating= #{dirRating}")
 
     #========= CALC WIND SPEED RATING ==========
