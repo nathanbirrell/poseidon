@@ -135,11 +135,11 @@
       <div class="large-6 small-12 columns">
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
-            label: 'Wind direction',
+            label: 'Wind direction variance',
             min: 0,
             max: @spot.wind_optimal_direction_max_variance,
             value: @spot.current_wind.rating,
-            unit: "*",
+            unit: " deg",
             roc: 5,
             rocDirection: 'right'
           }
@@ -157,11 +157,11 @@
         %>
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
-            label: 'Swell direction',
+            label: 'Swell direction variance',
             min: 0,
             max: @spot.swell_optimal_direction_max_variance,
             value: @spot.current_swell.direction,
-            unit: "*",
+            unit: " deg",
             roc: 7,
             rocDirection: 'right'
           }
