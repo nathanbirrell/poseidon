@@ -3,8 +3,10 @@
   <div class="optimum-vis__visual">
     <div class="data-vis">
       <span class="data-vis__bg"></span>
-      <span class="data-vis__ROC --<%= rocDirection %>" style="left: <%= rocDirection === 'right' ? ((value - min)/(max-min) * 100) : ((value - min)/(max-min) * 100 - roc)%>%; width: <%= roc %>%;"></span>
-      <span class="data-vis__current" style="left: <%= ((value - min)/(max-min) * 100) %>%;"><%= value %></span>
+      <% if value > min && value < max %>
+        <span class="data-vis__ROC --<%= rocDirection %>" style="left: <%= rocDirection === 'right' ? ((value - min)/(max-min) * 100) : ((value - min)/(max-min) * 100 - roc)%>%; width: <%= roc %>%;"></span>
+        <span class="data-vis__current" style="left: <%= ((value - min)/(max-min) * 100) %>%;"><%= value %></span>
+      <% end %>
     </div>
     <div class="optimum-vis__markings">
       <span class="optimum-vis__min"><%= min %><%= unit %></span>
