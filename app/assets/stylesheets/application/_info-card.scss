@@ -32,4 +32,10 @@
   &__body {
     padding: 10px 12px;
   }
+
+  &__body .columns {
+    strong {
+      font-size: rem-calc(32);
+    }
+  }
 }

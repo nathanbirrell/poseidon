@@ -25,6 +25,10 @@ Optional: install and use [Pow](http://pow.cx) for nice local development server
 1. Add RVM env to Pow env `rvm env . > .powenv`
 1. Open [http://poseidon.dev](http://poseidon.dev) in your browser. This is your local instance of Poseidon to play with. If you need to restart, use powder with `powder restart`
 
+LiveReload:
+
+* If you're working on the front-end, it's convenient to use Live Reload. To use it, run `guard -P livereload`.
+
 Documentation and Support
 -------------------------
 
