@@ -27,7 +27,7 @@ Optional: install and use [Pow](http://pow.cx) for nice local development server
 
 LiveReload:
 
-* If you're working on the front-end, it's convenient to use Live Reload. To use it, run `guard -P livereload`.
+* If you're working on the front-end, it's convenient to use [Live Reload](https://mattbrictson.com/lightning-fast-sass-reloading-in-rails). To use it, run `guard -P livereload`.
 
 Documentation and Support
 -------------------------
