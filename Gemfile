@@ -22,6 +22,7 @@ gem 'high_voltage'
 # gem 'geocoder'
 gem 'countries'
 gem 'country_select'
+gem 'ruby-units'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
