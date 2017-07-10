@@ -54,6 +54,9 @@
           <fieldset>
             <legend>Swell</legend>
 
+            <%= f.label :weighting_swell %>
+            <%= f.text_field :weighting_swell %>
+
             <%= f.label :swell_optimal_size_min_metres %>
             <%= f.text_field :swell_optimal_size_min_metres %>
 
@@ -84,6 +87,9 @@
         <div class="medium-4 columns">
           <fieldset>
             <legend>Wind</legend>
+            
+            <%= f.label :weighting_wind %>
+            <%= f.text_field :weighting_wind %>
 
             <%= f.label :wind_optimal_strength_min_kmh %>
             <%= f.text_field :wind_optimal_strength_min_kmh %>
@@ -103,6 +109,9 @@
         <div class="medium-4 columns">
           <fieldset>
             <legend>Tide</legend>
+
+            <%= f.label :weighting_tide %>
+            <%= f.text_field :weighting_tide %>
 
             <%= f.label :tide_optimal_min_metres %>
             <%= f.text_field :tide_optimal_min_metres %>
