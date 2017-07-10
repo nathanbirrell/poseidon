@@ -35,13 +35,11 @@ module SpotsHelper
   end
 
   def kph_to_knots(speed)
-    kph = Unit.new("#{speed} kph")
-    kph.convert_to('knots')
+    Unit.new("#{speed} kph").convert_to('knots')
   end
 
   def m_to_ft(height)
-    m = Unit.new("#{height} m")
-    m.convert_to('ft')
+    Unit.new("#{height} m").convert_to('ft')
   end
 
   def degrees_to_text(direction)
