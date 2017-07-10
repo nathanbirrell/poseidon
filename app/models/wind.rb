@@ -21,9 +21,9 @@ class Wind < WeatherForecast
     calculate_angle_between(direction, spot.wind_optimal_direction)
   end
 
-  def variance_in_two_hours
-    return 0 unless Wind.in_two_hours(spot_id).direction
-    calculate_angle_between(direction, Wind.in_two_hours(spot_id).direction)
+  def rate_of_change_direction
+    return 0 unless Wind.in_three_hours(spot_id).direction
+    calculate_angle_between(direction, Wind.in_three_hours(spot_id).direction)
   end
 
   def rating

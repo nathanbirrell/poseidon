@@ -159,7 +159,7 @@
             max: @spot.wind_optimal_direction_max_variance,
             value: @spot.current_wind.current_variance.abs,
             unit: " deg",
-            roc: @spot.current_wind.variance_in_two_hours * 1,
+            roc: @spot.current_wind.rate_of_change_direction,
             rocDirection: 'right'
           }
         %>

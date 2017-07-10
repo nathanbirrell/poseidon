@@ -11,8 +11,8 @@ class WeatherForecast < ApplicationRecord
     where(spot_id: spot_id).where("date_time <= ?", Time.current).order(date_time: :desc).first
   end
 
-  def self.in_two_hours(spot_id)
-    where(spot_id: spot_id).where("date_time <= ?", Time.current + 2.hour).order(date_time: :desc).first
+  def self.in_three_hours(spot_id)
+    where(spot_id: spot_id).where("date_time <= ?", Time.current + 3.hour).order(date_time: :desc).first
   end
 
   def self.five_day_forecast(spot_id)
