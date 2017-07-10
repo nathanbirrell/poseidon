@@ -34,6 +34,20 @@ module SpotsHelper
     show_table(rows)
   end
 
+  def kph_to_knots(speed)
+    Unit.new("#{speed} kph").convert_to('knots')
+  end
+
+  def m_to_ft(height)
+    Unit.new("#{height} m").convert_to('ft')
+  end
+
+  def degrees_to_text(direction)
+    val = ((direction/22.5) + 0.5).round(0)
+    directions = ["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"]
+    directions[(val % 16)]
+  end
+
   private
 
   def show_table(rows_to_show)
