@@ -11,8 +11,8 @@
 
 .spot-banner {
   position: relative;
-  min-height: 192px;
-  max-height: 320px;
+  min-height: 120px;
+  max-height: 192px;
   overflow: hidden;
 }
 
@@ -35,41 +35,39 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 192px;
+  height: 120px;
 
-  @media #{$medium-up} {
-    height: 320px;
+  &.--positive {
+    background-color: #27AE60;
+  }
+  &.--mixed {
+    background-color: #f1c04b;
+  }
+  &.--negative {
+    background-color: #EB5757;
   }
 
-  * {
-    text-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.5);
+  @media #{$medium-up} {
+    height: 192px;
   }
 
   h2 {
     color: #fefefe;
     line-height: 1.2;
-    font-weight: 500;
-  }
-
-  h2.small {
     font-weight: 400;
+    margin-bottom: 0;
   }
 
   p,
-  small,
+  span,
   a {
     color: #fefefe;
-  }
-
-  .spot-banner__updated-date {
-    //
+    font-weight: lighter;
   }
 }
 
-#overall-potential {
-  position: relative;
-  top: -50px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
+.spot-toolbar {
+  margin-bottom: 24px;
+  border-bottom: 1px solid $iron;
+  padding: 12px;
 }

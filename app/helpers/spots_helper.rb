@@ -15,8 +15,8 @@ module SpotsHelper
 
   def get_verdict_colour(rating)
     return '#27AE60' if get_verdict(rating) == 'positive'
-    return '#f04124' if get_verdict(rating) == 'negative'
-    return '#F2994A' if get_verdict(rating) == 'mixed'
+    return '#f1c04b' if get_verdict(rating) == 'mixed'
+    return '#EB5757' if get_verdict(rating) == 'negative'
   end
 
   def trim num
