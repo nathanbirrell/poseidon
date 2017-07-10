@@ -62,13 +62,13 @@
 
               <div class="small-4 columns">
                 <p>
-                  <strong><%= @spot.current_swell.size.round(1) %>m</strong> <br>
+                  <strong><%= m_to_ft(@spot.current_swell.size).round(0) %></strong> <br>
                   <strong>@ <%= trim(@spot.current_swell.period.round(0))  %>s</strong>
                 </p>
               </div>
               <div class="small-4 columns">
                 <%= render partial: 'partials/floating-icon',  locals: {icon: 'navigation-2'} %>
-                <strong><%= @spot.current_swell.direction %> degrees</strong>
+                <strong><%= degrees_to_text(@spot.current_swell.direction) %></strong>
               </div>
             </div>
           </div>
@@ -84,8 +84,8 @@
 
           <p>
             <ul>
-              <li><strong>Speed:</strong> <%= @spot.current_wind.speed %> km/h from</li>
-              <li><strong>Direction:</strong> <%= @spot.current_wind.direction %> degrees OR <%= @spot.current_wind.direction.degrees.round(2)  if @spot.current_wind.direction %> radians <br></li>
+              <li><strong>Speed:</strong> <%= kph_to_knots(@spot.current_wind.speed) %></li>
+              <li><strong>Direction:</strong> <%= degrees_to_text(@spot.current_wind.direction) %><br></li>
               <li> at <%= @spot.current_wind.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
             </ul>
           </p>

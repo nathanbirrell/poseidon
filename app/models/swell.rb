@@ -19,6 +19,12 @@ class Swell < WeatherForecast
     calculate_angle_between(direction, spot.swell_optimal_direction)
   end
 
+  def size
+    # Swell size is *always* the model size by the coefficient, thus calibrating
+    #   the spot to it's nearest model reading.
+    self[:size] * spot.wave_model_size_coefficient
+  end
+
   def rating
     return 0 unless size && direction && period
     weight_of_optimal_swell_height = 0.7
