@@ -243,6 +243,7 @@ GEM
       rspec-mocks (~> 3.6.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
+    ruby-units (2.1.0)
     rubyzip (1.2.1)
     sass (3.4.24)
     sass-rails (5.0.6)
@@ -349,6 +350,7 @@ DEPENDENCIES
   rb-fsevent
   rest-client (= 2.0.1)
   rspec-rails
+  ruby-units
   sass-rails (~> 5.0)
   seed_dump
   selenium-webdriver
