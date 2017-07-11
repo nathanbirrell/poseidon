@@ -19,9 +19,8 @@ class Swell < WeatherForecast
     calculate_angle_between(direction, spot.swell_optimal_direction)
   end
 
-  def rating
-    return 0 unless size && direction && period
-    weight_of_optimal_swell_height = 0.7
+  def dir_rating
+    return 0 unless direction
     weight_of_optimal_swell_direction = 0.3
 
     #========= CALC SWELL DIRECTION RATING ==========
@@ -43,6 +42,12 @@ class Swell < WeatherForecast
     puts("Swell direction current_variance=#{current_variance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
     puts("Swell dirRating= #{dirRating}")
 
+    return dirRating
+  end
+
+  def size_rating
+    return 0 unless size && period
+    weight_of_optimal_swell_height = 0.7
     #========= CALC SWELL SIZE RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
@@ -63,7 +68,13 @@ class Swell < WeatherForecast
     puts("Parabolic sizeAVar=#{sizeAVar} sizeHVar=#{sizeHVar} sizeRating=#{sizeRating}")
     puts("Swell sizeRating= #{sizeRating}")
 
-    rating = (sizeRating * weight_of_optimal_swell_height) + (dirRating * weight_of_optimal_swell_direction)
+    return sizeRating
+  end
+
+  def rating
+    weight_of_optimal_swell_height = 0.7
+    weight_of_optimal_swell_direction = 0.3
+    rating = (size_rating * weight_of_optimal_swell_height) + (dir_rating * weight_of_optimal_swell_direction)
     rating.round(2)
   end
 end

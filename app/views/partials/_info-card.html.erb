@@ -3,7 +3,7 @@
     <div class="info-card__top --<%= get_verdict(rating) %>">
       <h3><%= title %></h3>
       <span class="text-right">
-        <%= datetime.localtime.strftime("%I:%M %p")%> @ <%= secondary %>
+        <%= secondary %> @ <%= datetime.localtime.strftime("%I:%M %p")%>
       </span>
     </div>
 
@@ -17,8 +17,13 @@
       </div>
       <% data.each do |d| %>
         <div class="small-4 columns datapoint">
-          <p class="main-text"><%= d[:prefix] %><%= d[:value] %></p>
-          <p class="sub-text"><%= d[:subtext] %> (<%= d[:unit] %>)</p>
+          <p class="main-text --<%= d[:indicator] %>">
+            <%= d[:prefix] %>
+            <% d[:values].each do |v| %>
+              <span><%= v[:value] %><%= v[:unit] %></span>
+            <% end %>
+          </p>
+          <p class="sub-text"><%= d[:subtext] %></p>
         </div>
       <% end %>
     </div>

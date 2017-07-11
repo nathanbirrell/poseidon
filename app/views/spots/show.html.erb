@@ -9,11 +9,11 @@
   <p>Please run a <code>rails forecasts:update</code> then refresh.</p>
 <% else %>
   <% content_for :before_main do %>
-    <div class="spot-banner">
+    <div class="spot-banner --<%= get_verdict(@spot.current_potential) %>">
       <!-- <div class="spot-banner__image-wrapper">
         <img alt="slide image" src="<%= @spot.image %>">
       </div> -->
-      <div class="row spot-banner__content --<%= get_verdict(@spot.current_potential) %>">
+      <div class="row spot-banner__content">
         <div class="small-12 columns text-left">
           <h2><%= @spot.name %></h2>
           <span><%= link_to @region.name, @region %>, <%= @region.state %></span>
@@ -33,7 +33,7 @@
           <% end %>
         </div>
         <div class= "small-8 columns">
-          
+
         </div>
       </div>
     </div>
@@ -56,15 +56,21 @@
           datetime: @spot.current_swell.date_time,
           data: [
             {
+              indicator: get_verdict(@spot.current_swell.size_rating),
               prefix: '',
-              value: @spot.current_swell.size.round(1),
-              unit: 'm',
-              subtext: 'Wave height @ 12s'
+              values: [{
+                value: @spot.current_swell.size.round(1),
+                unit: 'm'
+              }],
+              subtext: 'Wave height @ TODOs'
             },
             {
+              indicator: get_verdict(@spot.current_swell.dir_rating),
               prefix: '',
-              value: @spot.current_swell.direction,
-              unit: '&deg;'.html_safe,
+              values: [{
+                value: @spot.current_swell.direction,
+                unit: '&deg;'.html_safe
+              }],
               subtext: 'Direction'
             }
           ]
@@ -76,15 +82,21 @@
           datetime: @spot.current_wind.date_time,
           data: [
             {
+              indicator: get_verdict(@spot.current_wind.speed_rating),
               prefix: '',
-              value: @spot.current_wind.speed.round(1),
-              unit: 'km/h',
+              values: [{
+                value: @spot.current_wind.speed.round(1),
+                unit: 'kph'
+              }],
               subtext: 'Wind speed'
             },
             {
+              indicator: get_verdict(@spot.current_wind.dir_rating),
               prefix: '',
-              value: @spot.current_wind.direction,
-              unit: '&deg;'.html_safe,
+              values: [{
+                value: @spot.current_wind.direction,
+                unit: '&deg;'.html_safe
+              }],
               subtext: 'Direction'
             }
           ]
@@ -96,22 +108,33 @@
           datetime: Time.zone.now,
           data: [
             {
+              indicator: get_verdict(@spot.current_tide_rating),
               prefix: '',
-              value: @spot.current_tide_height,
-              unit: 'm',
+              values: [{
+                value: @spot.current_tide_height,
+                unit: 'm'
+              }],
               subtext: 'Tide height'
             },
             {
+              indicator: '',
               prefix: '',
-              value: @spot.display_hours(@spot.tide_hours_remaining),
-              unit: 'hours',
+              values: [
+                {
+                  value: @spot.display_hours(@spot.tide_hours_remaining),
+                  unit: ':'.html_safe
+                },
+                {
+                  value: '%02d' % @spot.display_mins(@spot.tide_hours_remaining),
+                  unit: ''
+                },
+              ],
               subtext: 'Time till good'
             }
           ]
         } %>
 
         <div class="small-12 medium-4 columns panel">
-          <h4>Tide</h4>
           <p>
             <ul>
               <li><strong>Next tide (<%= @spot.next_tide.tide_type %>):</strong> <%= @spot.next_tide.height %>m above sea level in <%= @spot.display_hours(@spot.time_till_next_tide_hours) %> hours <%= @spot.display_mins(@spot.time_till_next_tide_hours) %> mins (at
@@ -181,7 +204,7 @@
             min: @spot.wind_optimal_strength_min_kmh,
             max: @spot.wind_optimal_strength_max_kmh,
             value: @spot.current_wind.speed,
-            unit: "km/h",
+            unit: "kph",
             roc: 20,
             rocDirection: 'left'
           }

@@ -52,8 +52,41 @@
       }
 
       .main-text {
-        font-size: rem-calc(24);
+        font-size: 0px;
         font-weight: bold;
+        position: relative;
+
+        // NOTE: IMPORTANT! THIS WILL STOP ANY TEXT NOT IN A SPAN FROM APPEARING.
+        // It is a fix to hide any unintentional whitespace not inside the spans
+        span {
+          font-size: rem-calc(24);
+        }
+
+        &::before {
+          content: '';
+          height: 10px;
+          width: 10px;
+          border-radius: 10px;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+
+        &.--positive {
+          &::before {
+            background-color: #27AE60;
+          }
+        }
+        &.--mixed {
+          &::before {
+            background-color: #f1c04b;
+          }
+        }
+        &.--negative {
+          &::before {
+            background-color: #EB5757;
+          }
+        }
       }
 
       .sub-text {
