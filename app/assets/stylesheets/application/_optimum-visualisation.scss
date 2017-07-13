@@ -5,6 +5,62 @@
   background-color: $aluminum;
   color: $white;
 
+  &__scale {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin-top: -12px;
+
+    .scale-marker {
+      width: 2px;
+      height: 12px;
+      background-color: $black;
+      position: absolute;
+      top: 0;
+      margin-left: -1px;
+
+      p {
+        color: $black;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        text-align: center;
+        width: 26px;
+        margin-left: -13px;
+        margin-top: -25px;
+      }
+
+      &.--full {
+        left: 50%;
+      }
+      &.--pos {
+        &.--left {
+          left: 34.375%;
+        }
+        &.--right {
+          left: 65.625%;
+        }
+      }
+      &.--mixed {
+        &.--left {
+          left: 18.75%;
+        }
+        &.--right {
+          left: 81.25%;
+        }
+      }
+      &.--neg {
+        &.--left {
+          left: 6.25%;
+        }
+        &.--right {
+          left: 93.75%
+        }
+      }
+    }
+  }
+
   &__bg {
     position: absolute;
     top: 0;

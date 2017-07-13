@@ -154,6 +154,7 @@
       <div class="large-6 small-12 columns">
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
+            showScale: true,
             label: 'Wind direction variance',
             min: 0,
             max: @spot.wind_optimal_direction_max_variance,

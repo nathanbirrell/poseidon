@@ -1,4 +1,15 @@
 <div class="optimum-vis <%= value < min || value > max ? '--outside' : '--inside'%>">
+  <% if local_assigns[:showScale] then %>
+  <div class="optimum-vis__scale">
+    <span class="scale-marker --neg --left"><p>30</p></span>
+    <span class="scale-marker --mixed --left"><p>50</p></span>
+    <span class="scale-marker --pos --left"><p>75</p></span>
+    <span class="scale-marker --full"><p>100</p></span>
+    <span class="scale-marker --pos --right"><p>75</p></span>
+    <span class="scale-marker --mixed --right"><p>50</p></span>
+    <span class="scale-marker --neg --right"><p>30</p></span>
+  </div>
+  <% end %>
 
   <div class="optimum-vis__bg --neg --left"></div>
   <div class="optimum-vis__bg --mix --left"></div>
