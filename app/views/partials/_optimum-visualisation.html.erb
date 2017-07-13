@@ -1,4 +1,11 @@
 <div class="optimum-vis <%= value < min || value > max ? '--outside' : '--inside'%>">
+
+  <div class="optimum-vis__bg --neg --left"></div>
+  <div class="optimum-vis__bg --mix --left"></div>
+  <div class="optimum-vis__bg --pos"></div>
+  <div class="optimum-vis__bg --neg --right"></div>
+  <div class="optimum-vis__bg --mix --right"></div>
+
   <div class="optimum-vis__meta"><%= label %></div>
   <div class="optimum-vis__visual">
     <div class="data-vis">
