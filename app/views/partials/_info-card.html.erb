@@ -12,7 +12,7 @@
         <% if rating <= 30.0 %>
           <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white', size: 'xlg'} %>
         <% else %>
-          <%= render partial: 'partials/rating-radial', locals: {rating: rating, radius: '40', width: '80'} %>
+          <%= render partial: 'partials/rating-radial', locals: {rating: rating, radius: '40', width: '80', centered: true} %>
         <% end %>
       </div>
       <% data.each do |d| %>

@@ -7,18 +7,8 @@
 
   &__top {
     height: 24px;
-    background: $snow;
+    background: $gainsboro;
     padding: 0px 12px;
-
-    &.--positive {
-      background-color: #27AE60;
-    }
-    &.--mixed {
-      background-color: #f1c04b;
-    }
-    &.--negative {
-      background-color: #EB5757;
-    }
   }
 
   &__top h3,
@@ -27,7 +17,7 @@
     display: inline-block;
     font-size: rem-calc(14);
     text-transform: uppercase;
-    color: $white;
+    color: $black;
   }
 
   &__top h3 {

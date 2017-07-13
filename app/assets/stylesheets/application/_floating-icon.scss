@@ -54,6 +54,18 @@
     background-image: image-url('icons/alert-triangle--white.svg');
   }
 
+  &.--icon-map::before {
+    background-image: image-url('icons/map.svg');
+  }
+
+  &.--icon-share::before {
+    background-image: image-url('icons/share.svg');
+  }
+
+  &.--icon-more-vertical::before {
+    background-image: image-url('icons/more-vertical.svg');
+  }
+
   &.--icon-navigation-2::before {
     background-image: image-url('icons/navigation-2.svg');
   }
@@ -67,12 +79,18 @@
   }
 
   &.--positive {
-    background-color: #EB5757;
+    background-color: $positive;
   }
   &.--mixed {
-    background-color: #EB5757;
+    background-color: $mixed;
   }
   &.--negative {
-    background-color: #EB5757;
+    background-color: $negative;
+  }
+  &.--toolbar {
+    background-color: $aluminum;
+  }
+  &.--plain {
+    background-color: none;
   }
 }
