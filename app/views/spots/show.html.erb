@@ -35,7 +35,9 @@
         <div class="small-6 medium-3 columns">
           <div class="row">
             <div class="small-4 columns">
-              <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'map', size: 'reg'} %>
+              <a href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
+                <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'map', size: 'reg'} %>
+              </a>
             </div>
             <div class="small-4 columns">
               <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'share', size: 'reg'} %>
