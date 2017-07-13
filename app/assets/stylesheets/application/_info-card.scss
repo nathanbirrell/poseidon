@@ -2,7 +2,9 @@
   background: $white;
   min-width: 290px;
   border-radius: 4px;
-  box-shadow: -3px 3px 10px -0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: $shadow-subtle;
+  -moz-box-shadow: $shadow-subtle;
+  box-shadow: $shadow-subtle;
   margin-bottom: 12px;
 
   &__top {
