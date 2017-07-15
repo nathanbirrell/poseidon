@@ -15,8 +15,8 @@ module SpotsHelper
 
   def get_verdict_colour(rating)
     return '#27AE60' if get_verdict(rating) == 'positive'
-    return '#f04124' if get_verdict(rating) == 'negative'
-    return '#F2994A' if get_verdict(rating) == 'mixed'
+    return '#f1c04b' if get_verdict(rating) == 'mixed'
+    return '#EB5757' if get_verdict(rating) == 'negative'
   end
 
   def trim num
@@ -35,11 +35,11 @@ module SpotsHelper
   end
 
   def kph_to_knots(speed)
-    Unit.new("#{speed} kph").convert_to('knots')
+    Unit.new("#{speed} kph").convert_to('knots').scalar
   end
 
   def m_to_ft(height)
-    Unit.new("#{height} m").convert_to('ft')
+    Unit.new("#{height} m").convert_to('ft').scalar
   end
 
   def degrees_to_text(direction)

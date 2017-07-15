@@ -9,29 +9,46 @@
   <p>Please run a <code>rails forecasts:update</code> then refresh.</p>
 <% else %>
   <% content_for :before_main do %>
-    <div class="spot-banner">
-      <div class="spot-banner__image-wrapper">
+    <div class="spot-banner --<%= get_verdict(@spot.current_potential) %>">
+      <!-- <div class="spot-banner__image-wrapper">
         <img alt="slide image" src="<%= @spot.image %>">
-      </div>
+      </div> -->
       <div class="row spot-banner__content">
-        <div class="small-12 columns text-center">
-          <h2>
-            <%= @spot.name %>, <br>
-            <small><%= link_to @region.name, @region %>, <%= @region.state %></small>
-          </h2>
-          <p class="spot-banner__updated-date">Updated <%= time_ago_in_words(@spot.current_swell.updated_at.localtime) %> ago</p>
+        <div class="small-12 columns text-left">
+          <div class="spot-banner__rating">
+            <span><%= trim(@spot.current_potential) %></span>
+          </div>
+          <div class="spot-banner__details">
+            <h2><%= @spot.name %></h2>
+            <span><%= link_to @region.name, @region %>, <%= @region.state %></span>
+          </div>
         </div>
       </div>
     </div>
   <% end %>
 
-  <div id="overall-potential" class="row">
-    <% if @spot.current_potential <= 30.0 %>
-      <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white'} %>
-    <% else %>
-      <%= render partial: 'partials/rating-radial', locals: {rating: @spot.current_potential} %>
-    <% end %>
-    <span class="floating-icon --negative <%= 'hide' if @spot.current_potential >= 30.0%>"></span>
+  <div class="row">
+    <div class= "small-12 columns spot-toolbar">
+      <div class="row">
+        <div class="small-6 medium-9 columns">
+        </div>
+        <div class="small-6 medium-3 columns">
+          <div class="row">
+            <div class="small-4 columns">
+              <a href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
+                <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'map', size: 'reg'} %>
+              </a>
+            </div>
+            <div class="small-4 columns">
+              <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'share', size: 'reg'} %>
+            </div>
+            <div class="small-4 columns">
+              <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'more-vertical', size: 'reg'} %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <% if user_signed_in? %>
@@ -44,79 +61,90 @@
   <div class="row">
     <div class="large-12 columns">
       <div class="row">
-        <div class="small-12 medium-4 columns">
-          <div class="info-card">
-            <div class="info-card__top">
-              <h3 class="text-left">Swell</h3>
-              <span class="text-right"><%= @spot.current_swell.date_time.localtime.strftime("%H:%M") %></span>
-            </div>
-
-            <div class="info-card__body row">
-              <div class="small-4 columns">
-                <% if @spot.current_swell.rating <= 30.0 %>
-                  <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white'} %>
-                <% else %>
-                  <%= render partial: 'partials/rating-radial', locals: {rating: @spot.current_swell.rating, radius: '40'} %>
-                <% end %>
-              </div>
-
-              <div class="small-4 columns">
-                <p>
-                  <strong><%= m_to_ft(@spot.current_swell.size).round(0) %></strong> <br>
-                  <strong>@ <%= trim(@spot.current_swell.period.round(0))  %>s</strong>
-                </p>
-              </div>
-              <div class="small-4 columns">
-                <%= render partial: 'partials/floating-icon',  locals: {icon: 'navigation-2'} %>
-                <strong><%= degrees_to_text(@spot.current_swell.direction) %></strong>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="small-12 medium-4 columns panel">
-          <h4>Wind</h4>
-
-          <% if @spot.current_wind.rating <= 30.0 %>
-            <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white'} %>
-          <% else %>
-            <%= render partial: 'partials/rating-radial', locals: {rating: @spot.current_wind.rating} %>
-          <% end %>
-
-          <p>
-            <ul>
-              <li><strong>Speed:</strong> <%= kph_to_knots(@spot.current_wind.speed) %></li>
-              <li><strong>Direction:</strong> <%= degrees_to_text(@spot.current_wind.direction) %><br></li>
-              <li> at <%= @spot.current_wind.date_time.localtime.strftime("%a, %e %b %Y %H:%M") %></li>
-            </ul>
-          </p>
-        </div>
-        <div class="small-12 medium-4 columns panel">
-          <h4>Tide</h4>
-
-          <% if @spot.current_tide_rating <= 30.0 %>
-            <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white'} %>
-          <% else %>
-            <%= render partial: 'partials/rating-radial', locals: {rating: @spot.current_tide_rating} %>
-          <% end %>
-          <p>
-            <ul>
-              <li><strong>Height:</strong> <%= @spot.current_tide_height %>m above sea level</li>
-              <li><strong>Phase:</strong> <%= tide_incoming_or_outgoing(@spot.last_tide.tide_type) %></li>
-              <li><strong>Next tide (<%= @spot.next_tide.tide_type %>):</strong> <%= @spot.next_tide.height %>m above sea level in <%= @spot.display_hours(@spot.time_till_next_tide_hours) %> hours <%= @spot.display_mins(@spot.time_till_next_tide_hours) %> mins (at
-              <%= @spot.next_tide.date_time.localtime.strftime("%H:%M") %>)</li>
-              <% if (@spot.tide_remaining_or_to != nil) %>
-                <li>
-                  <% if (@spot.tide_remaining_or_to == 'remaining') %>
-                    <strong>Good tide remaining:</strong>
-                  <% elsif (@spot.tide_remaining_or_to == 'to') %>
-                    <strong>Time till good:</strong>
-                  <% end %>
-                  <%= @spot.display_hours(@spot.tide_hours_remaining) %> hours <%= @spot.display_mins(@spot.tide_hours_remaining) %> mins
-                </li>
-              <% end %>
-            </ul>
-          </p>
-        </div>
+        <%= render partial: 'partials/info-card', locals: {
+          title: 'Swell',
+          secondary: 'Overhead',
+          rating: @spot.current_swell.rating,
+          datetime: @spot.current_swell.date_time,
+          data: [
+            {
+              indicator: get_verdict(@spot.current_swell.size_rating),
+              prefix: '',
+              values: [{
+                value: m_to_ft(@spot.current_swell.size).round(1),
+                unit: 'ft'
+              }],
+              subtext: "Wave height <br />@ #{trim(@spot.current_swell.period.round(0))} secs"
+            },
+            {
+              indicator: get_verdict(@spot.current_swell.dir_rating),
+              prefix: '',
+              values: [{
+                value: degrees_to_text(@spot.current_swell.direction),
+                unit: ''
+              }],
+              subtext: "Direction <br />(#{@spot.current_swell.direction}&deg;)"
+            }
+          ]
+        } %>
+        <%= render partial: 'partials/info-card', locals: {
+          title: 'Wind',
+          secondary: 'Gusty',
+          rating: @spot.current_wind.rating,
+          datetime: @spot.current_wind.date_time,
+          data: [
+            {
+              indicator: get_verdict(@spot.current_wind.speed_rating),
+              prefix: '',
+              values: [{
+                value: trim(kph_to_knots(@spot.current_wind.speed).round(0)),
+                unit: 'kts'
+              }],
+              subtext: 'Wind speed'
+            },
+            {
+              indicator: get_verdict(@spot.current_wind.dir_rating),
+              prefix: '',
+              values: [{
+                value: degrees_to_text(@spot.current_wind.direction),
+                unit: ''
+              }],
+              subtext: "Direction <br />(#{@spot.current_wind.direction}&deg;)"
+            }
+          ]
+        } %>
+        <%= render partial: 'partials/info-card', locals: {
+          title: 'Tide',
+          secondary: tide_incoming_or_outgoing(@spot.last_tide.tide_type),
+          rating: @spot.current_tide_rating,
+          datetime: Time.zone.now,
+          data: [
+            {
+              indicator: get_verdict(@spot.current_tide_rating),
+              prefix: '',
+              values: [{
+                value: @spot.current_tide_height.round(1),
+                unit: 'm'
+              }],
+              subtext: 'Tide height'
+            },
+            {
+              indicator: '',
+              prefix: '',
+              values: [
+                {
+                  value: @spot.display_hours(@spot.tide_hours_remaining),
+                  unit: ':'.html_safe
+                },
+                {
+                  value: '%02d' % @spot.display_mins(@spot.tide_hours_remaining),
+                  unit: ''
+                },
+              ],
+              subtext: 'Time till good'
+            }
+          ]
+        } %>
       </div>
     </div>
   </div>
@@ -170,7 +198,7 @@
             min: @spot.wind_optimal_strength_min_kmh,
             max: @spot.wind_optimal_strength_max_kmh,
             value: @spot.current_wind.speed,
-            unit: "km/h",
+            unit: "kph",
             roc: 20,
             rocDirection: 'left'
           }

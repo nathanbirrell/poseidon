@@ -1,12 +1,12 @@
-<div class="potential-radial">
-  <div class="potential-radial__circle-element"
-       data-percentage="<%= rating %>"
-       data-radius="<%= radius ||= '50' %>"
-       data-track-width="10"
-       data-track-colour="#E0E0E0"
-       data-fill-colour="<%= get_verdict_colour(rating) %>"
-       data-stroke-colour="#FFFFFF"
-       data-stroke-spacing="0">
+<div class="potential-radial <%= '--perfect' if rating === 100 %>">
+  <div class="potential-radial__circle-element <%= 'centered' if local_assigns[:centered] %>"
+    style="width: <%= width ||= '100'%>px; height: <%= width ||= '100'%>px;"
+    data-percentage="<%= rating %>"
+    data-radius="<%= radius ||= '50' %>"
+    data-track-width="10"
+    data-track-colour="#E0E0E0"
+    data-fill-colour="<%= get_verdict_colour(rating) %>"
+    data-stroke-colour="#FFFFFF"
+    data-stroke-spacing="0">
   </div>
-  <span class="potential-radial__background-fill"></span>
 </div>
