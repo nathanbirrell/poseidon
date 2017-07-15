@@ -10,59 +10,63 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522073333) do
+ActiveRecord::Schema.define(version: 20170708045249) do
 
   create_table "regions", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
-    t.string   "country"
-    t.string   "state"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string "name"
+    t.string "description"
+    t.string "country"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "spots", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
-    t.string   "season"
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
-    t.decimal  "latitude",                             precision: 10, scale: 6
-    t.decimal  "longitude",                            precision: 10, scale: 6
-    t.string   "image"
-    t.integer  "region_id"
-    t.decimal  "tide_optimal_min_metres"
-    t.decimal  "tide_optimal_max_metres"
-    t.decimal  "swell_optimal_size_min_metres"
-    t.decimal  "swell_optimal_size_max_metres"
-    t.decimal  "swell_optimal_period_seconds"
-    t.decimal  "wind_optimal_strength_min_kmh"
-    t.decimal  "wind_optimal_strength_max_kmh"
-    t.decimal  "wave_model_lat"
-    t.decimal  "wave_model_lon"
-    t.integer  "willyweather_location_id"
-    t.decimal  "swell_optimal_direction"
-    t.decimal  "swell_optimal_direction_max_variance"
-    t.decimal  "wind_optimal_direction"
-    t.decimal  "wind_optimal_direction_max_variance"
+    t.string "name"
+    t.string "description"
+    t.string "season"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
+    t.string "image"
+    t.integer "region_id"
+    t.decimal "tide_optimal_min_metres"
+    t.decimal "tide_optimal_max_metres"
+    t.decimal "swell_optimal_size_min_metres"
+    t.decimal "swell_optimal_size_max_metres"
+    t.decimal "swell_optimal_period_seconds"
+    t.decimal "wind_optimal_strength_min_kmh"
+    t.decimal "wind_optimal_strength_max_kmh"
+    t.decimal "wave_model_lat"
+    t.decimal "wave_model_lon"
+    t.integer "willyweather_location_id"
+    t.decimal "swell_optimal_direction"
+    t.decimal "swell_optimal_direction_max_variance"
+    t.decimal "wind_optimal_direction"
+    t.decimal "wind_optimal_direction_max_variance"
+    t.decimal "weighting_swell", precision: 1, scale: 2
+    t.decimal "weighting_wind", precision: 1, scale: 2
+    t.decimal "weighting_tide", precision: 1, scale: 2
+    t.decimal "wave_model_size_coefficient", precision: 1, scale: 3
     t.index ["region_id"], name: "index_spots_on_region_id"
   end
 
   create_table "swells", force: :cascade do |t|
-    t.decimal  "size"
-    t.decimal  "period"
-    t.integer  "direction"
+    t.decimal "size"
+    t.decimal "period"
+    t.integer "direction"
     t.datetime "date_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "spot_id"
+    t.integer "spot_id"
     t.index ["spot_id"], name: "index_swells_on_spot_id"
   end
 
   create_table "tides", force: :cascade do |t|
-    t.string   "tide_type"
-    t.decimal  "height"
-    t.integer  "spot_id"
+    t.string "tide_type"
+    t.decimal "height"
+    t.integer "spot_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "date_time"
@@ -70,31 +74,31 @@ ActiveRecord::Schema.define(version: 20170522073333) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "name"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "winds", force: :cascade do |t|
-    t.decimal  "speed"
-    t.integer  "direction"
-    t.string   "direction_text"
+    t.decimal "speed"
+    t.integer "direction"
+    t.string "direction_text"
     t.datetime "date_time"
-    t.integer  "spot_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer "spot_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["spot_id"], name: "index_winds_on_spot_id"
   end
 

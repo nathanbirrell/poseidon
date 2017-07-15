@@ -13,6 +13,12 @@ module SpotsHelper
     return 'mixed' if rating > 50
   end
 
+  def get_verdict_colour(rating)
+    return '#27AE60' if get_verdict(rating) == 'positive'
+    return '#f1c04b' if get_verdict(rating) == 'mixed'
+    return '#EB5757' if get_verdict(rating) == 'negative'
+  end
+
   def trim num
     i, f = num.to_i, num.to_f
     i == f ? i : f
@@ -26,6 +32,20 @@ module SpotsHelper
   end
   def tide_models_table(rows)
     show_table(rows)
+  end
+
+  def kph_to_knots(speed)
+    Unit.new("#{speed} kph").convert_to('knots')
+  end
+
+  def m_to_ft(height)
+    Unit.new("#{height} m").convert_to('ft')
+  end
+
+  def degrees_to_text(direction)
+    val = ((direction/22.5) + 0.5).round(0)
+    directions = ["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"]
+    directions[(val % 16)]
   end
 
   private

@@ -1,0 +1,121 @@
+// Place all the styles related to the Spots controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.panel {
+  border: none;
+  background: transparent;
+}
+
+/** Spot banner **/
+
+.spot-banner {
+  position: relative;
+  min-height: 100px;
+  max-height: 160px;
+  overflow: hidden;
+
+  &.--positive {
+    background-color: $positive;
+    .spot-banner__content {
+      .spot-banner__rating span  {
+        color: $positive;
+      }
+    }
+  }
+  &.--mixed {
+    background-color: $mixed;
+    .spot-banner__content {
+      .spot-banner__rating span  {
+        color: $mixed;
+      }
+    }
+  }
+  &.--negative {
+    background-color: $negative;
+    .spot-banner__content {
+      .spot-banner__rating span {
+        color: $negative;
+      }
+    }
+  }
+}
+
+.spot-banner__image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.spot-banner__image-wrapper img {
+  width: 100%;
+  filter: blur(2px);
+  transform: scale(1.1);
+}
+
+.spot-banner__content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  height: 100px;
+  padding: 12px 0;
+
+  .spot-banner__rating {
+    display: inline-block;
+    vertical-align: middle;
+    height: 60px;
+    width: 120px;
+    border-radius: 60px;
+    background-color: #fefefe;
+    line-height: 62px;
+    margin-right: 12px;
+    text-align: right;
+    margin-left: -65px;
+    -webkit-box-shadow: $shadow-subtle;
+    -moz-box-shadow: $shadow-subtle;
+    box-shadow: $shadow-subtle;
+
+    span {
+      font-size: rem-calc(40);
+      font-weight: 500;
+      margin-right: 12px;
+    }
+  }
+
+  .spot-banner__details {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  @media #{$medium-up} {
+    height: 160px;
+  }
+
+  h2 {
+    color: #fefefe;
+    line-height: 1.2;
+    font-weight: 400;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  p,
+  span,
+  a {
+    color: #fefefe;
+    font-weight: lighter;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.spot-toolbar {
+  margin-bottom: 12px;
+  border-bottom: 1px solid $iron;
+  padding: 6px 12px;
+}

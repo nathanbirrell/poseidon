@@ -1,0 +1,16 @@
+<div class="optimum-vis <%= value < min || value > max ? '--outside' : '--inside'%>">
+  <div class="optimum-vis__meta"><%= label %></div>
+  <div class="optimum-vis__visual">
+    <div class="data-vis">
+      <span class="data-vis__bg"></span>
+      <% if value > min && value < max %>
+        <span class="data-vis__ROC --<%= rocDirection %>" style="left: <%= rocDirection === 'right' ? ((value - min)/(max-min) * 100) : ((value - min)/(max-min) * 100 - roc)%>%; width: <%= roc %>%;"></span>
+        <span class="data-vis__current" style="left: <%= ((value - min)/(max-min) * 100) %>%;"><%= value %></span>
+      <% end %>
+    </div>
+    <div class="optimum-vis__markings">
+      <span class="optimum-vis__min"><%= min %><%= unit %></span>
+      <span class="optimum-vis__max"><%= max %><%= unit %></span>
+    </div>
+  </div>
+</div>

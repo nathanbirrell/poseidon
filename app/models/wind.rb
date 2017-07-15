@@ -16,9 +16,13 @@ class Wind < WeatherForecast
   # default_scope { order(date_time: :desc) }
   belongs_to :spot
 
-  def rating
-    return 0 unless speed && direction
-    weight_of_optimal_wind_speed = 0.2
+  def current_variance
+    return 0 unless direction
+    calculate_angle_between(direction, spot.wind_optimal_direction)
+  end
+
+  def dir_rating
+    return 0 unless direction
     weight_of_optimal_wind_direction = 0.8
 
     #========= CALC WIND DIRECTION RATING ==========
@@ -32,17 +36,21 @@ class Wind < WeatherForecast
     # pass in known coord to determin var a value, (maxVariance, 75)
     dirAVar = (75 - 100)/((dirMaxVariance - dirHVar)**2)
 
-    dirCurrentVariance = calculate_angle_between(direction, dirOptimum)
-
-    dirRating = dirAVar * ((dirCurrentVariance - dirHVar)**2) + dirKVar
+    dirRating = dirAVar * ((current_variance - dirHVar)**2) + dirKVar
 
     if dirRating < 0 then
       dirRating = 0
     end
 
-    puts("Wind direction dirCurrentVariance=#{dirCurrentVariance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
+    puts("Wind direction current_variance=#{current_variance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
     puts("Wind dirRating= #{dirRating}")
 
+    return dirRating
+  end
+
+  def speed_rating
+    return 0 unless speed
+    weight_of_optimal_wind_speed = 0.2
     #========= CALC WIND SPEED RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
@@ -63,7 +71,13 @@ class Wind < WeatherForecast
       speedRating = 0
     end
 
-    rating = (dirRating * weight_of_optimal_wind_direction) + (speedRating * weight_of_optimal_wind_speed)
+    return speedRating
+  end
+
+  def rating
+    weight_of_optimal_wind_direction = 0.8
+    weight_of_optimal_wind_speed = 0.2
+    rating = (dir_rating * weight_of_optimal_wind_direction) + (speed_rating * weight_of_optimal_wind_speed)
     rating.round(2)
   end
 end

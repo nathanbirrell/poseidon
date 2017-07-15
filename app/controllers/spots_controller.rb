@@ -12,7 +12,7 @@ class SpotsController < ApplicationController
   # GET /spots/1
   # GET /spots/1.json
   def show
-    if Rails.env.development?
+    if Rails.env.development? && ENV['SLACK_API_TOKEN']
       slack_client = Slack::Web::Client.new
       slack_message = "Spot ##{@spot.id}, #{@spot.name}, ran with *Aggregate*: #{@spot.current_potential}%, *Swell* :ocean:: #{@spot.current_swell.rating}%, *Wind* :dash:: #{@spot.current_wind.rating}%, *Tide* :crescent_moon:: #{@spot.current_tide_rating}%"
       slack_client.chat_postMessage(channel: "#devbot", text: slack_message, as_user: true)
@@ -80,7 +80,7 @@ class SpotsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def spot_params
-      params.require(:spot).permit(:name, :description, :season, :created_at, :updated_at, :latitude, :longitude, :image, :region_id, :tide_optimal_min_metres, :tide_optimal_max_metres, :swell_optimal_size_min_metres, :swell_optimal_size_max_metres, :swell_optimal_period_seconds, :swell_optimal_direction, :swell_optimal_direction_max_variance, :wind_optimal_strength_min_kmh, :wind_optimal_strength_max_kmh, :wind_optimal_direction, :wind_optimal_direction_max_variance, :wave_model_lat, :wave_model_lon, :willyweather_location_id)
+      params.require(:spot).permit(:name, :description, :season, :created_at, :updated_at, :latitude, :longitude, :image, :region_id, :tide_optimal_min_metres, :tide_optimal_max_metres, :swell_optimal_size_min_metres, :swell_optimal_size_max_metres, :swell_optimal_period_seconds, :swell_optimal_direction, :swell_optimal_direction_max_variance, :wind_optimal_strength_min_kmh, :wind_optimal_strength_max_kmh, :wind_optimal_direction, :wind_optimal_direction_max_variance, :wave_model_lat, :wave_model_lon, :willyweather_location_id, :weighting_swell, :weighting_wind, :weighting_tide, :wave_model_size_coefficient)
     end
 
     def set_forecasts

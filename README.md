@@ -17,6 +17,7 @@ Getting Started
 1. Create, set-up and seed database with `rails db:create db:schema:load db:seed`
 1. If you like, load some model data for the seed spots with `rails forecasts:update`
 1. Start the Rails server to confirm all is working `rails server`
+1. Install Rubocop and the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) ([Atom](https://fmcgeough.wordpress.com/2015/11/14/using-rubocop-in-atom/), [RubyMine](#TODO))
 
 Optional: install and use [Pow](http://pow.cx) for nice local development server/tools/urls:
 
@@ -24,6 +25,10 @@ Optional: install and use [Pow](http://pow.cx) for nice local development server
 1. Add your local project to pow: `cd ~/.pow; ln -s /path/to/poseidon`
 1. Add RVM env to Pow env `rvm env . > .powenv`
 1. Open [http://poseidon.dev](http://poseidon.dev) in your browser. This is your local instance of Poseidon to play with. If you need to restart, use powder with `powder restart`
+
+LiveReload:
+
+* If you're working on the front-end, it's convenient to use [Live Reload](https://mattbrictson.com/lightning-fast-sass-reloading-in-rails). To use it, run `guard -P livereload`.
 
 Documentation and Support
 -------------------------

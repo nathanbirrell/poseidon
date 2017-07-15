@@ -1,0 +1,12 @@
+{
+  "name": "poseidon",
+  "version": "0.0.1",
+  "description": "A smarter surf forecasting platform",
+  "main": "index.js",
+  "repository": "git@github.com:nathanbirrell/poseidon.git",
+  "author": "<nathanbirrell@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "d3": "^4.9.1"
+  }
+}
