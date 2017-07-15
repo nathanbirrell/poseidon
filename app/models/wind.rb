@@ -21,11 +21,6 @@ class Wind < WeatherForecast
     calculate_angle_between(direction, spot.wind_optimal_direction)
   end
 
-  def rate_of_change_direction
-    return 0 unless Wind.in_three_hours(spot_id).direction
-    calculate_angle_between(direction, Wind.in_three_hours(spot_id).direction)
-  end
-
   def dir_rating
     return 0 unless direction
     weight_of_optimal_wind_direction = 0.8
@@ -77,6 +72,20 @@ class Wind < WeatherForecast
     end
 
     return speedRating
+  end
+
+  def wind_in_3_hours
+    @wind_in_3_hours ||= Wind.in_three_hours(spot_id)
+  end
+
+  def rate_of_change_direction
+    return 0 unless wind_in_3_hours
+    calculate_angle_between(direction, wind_in_3_hours.direction)
+  end
+
+  def rate_of_change_speed
+    return 0 unless wind_in_3_hours
+    speed - wind_in_3_hours.speed
   end
 
   def rating

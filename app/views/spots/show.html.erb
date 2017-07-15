@@ -183,7 +183,7 @@
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
             showScale: true,
-            label: 'Wind direction variance',
+            label: 'Wind direction variance (TODO: handle negatives, make 0 center (+-45))',
             min: 0,
             max: @spot.wind_optimal_direction_max_variance,
             value: @spot.current_wind.current_variance.abs,
@@ -199,13 +199,13 @@
             max: @spot.wind_optimal_strength_max_kmh,
             value: @spot.current_wind.speed,
             unit: "kph",
-            roc: 20,
+            roc: @spot.current_wind.rate_of_change_speed,
             rocDirection: 'left'
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
-            label: 'Swell direction variance',
+            label: 'Swell direction variance (TODO: handle negatives, make 0 center (+-45))',
             min: 0,
             max: @spot.swell_optimal_direction_max_variance,
             value: @spot.current_swell.current_variance.abs,
