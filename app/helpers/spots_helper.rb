@@ -53,6 +53,14 @@ module SpotsHelper
     return 'left' if value.negative?
   end
 
+  def display_hours(data)
+    return (data - data%1).round(0) # return a neat figure for hours, taking off any decimal
+  end
+
+  def display_mins(data)
+    return ((data % 1)*60).round(0) # get leftover hours decimal value and return neat mins display figure
+  end
+
   private
 
   def show_table(rows_to_show)
