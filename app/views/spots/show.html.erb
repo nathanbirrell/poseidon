@@ -74,16 +74,16 @@
                 value: m_to_ft(@spot.current_swell.size).round(1),
                 unit: 'ft'
               }],
-              subtext: "Wave height @ #{trim(@spot.current_swell.period.round(0))} secs"
+              subtext: "Wave height <br />@ #{trim(@spot.current_swell.period.round(0))} secs"
             },
             {
               indicator: get_verdict(@spot.current_swell.dir_rating),
               prefix: '',
               values: [{
-                value: @spot.current_swell.direction,
-                unit: '&deg;'.html_safe
+                value: degrees_to_text(@spot.current_swell.direction),
+                unit: ''
               }],
-              subtext: 'Direction'
+              subtext: "Direction <br />(#{@spot.current_swell.direction}&deg;)"
             }
           ]
         } %>
@@ -97,8 +97,8 @@
               indicator: get_verdict(@spot.current_wind.speed_rating),
               prefix: '',
               values: [{
-                value: @spot.current_wind.speed.round(1),
-                unit: 'k'
+                value: trim(kph_to_knots(@spot.current_wind.speed).round(0)),
+                unit: 'kts'
               }],
               subtext: 'Wind speed'
             },
@@ -106,10 +106,10 @@
               indicator: get_verdict(@spot.current_wind.dir_rating),
               prefix: '',
               values: [{
-                value: @spot.current_wind.direction,
-                unit: '&deg;'.html_safe
+                value: degrees_to_text(@spot.current_wind.direction),
+                unit: ''
               }],
-              subtext: 'Direction'
+              subtext: "Direction <br />(#{@spot.current_wind.direction}&deg;)"
             }
           ]
         } %>

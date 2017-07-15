@@ -51,7 +51,7 @@ spot = Spot.create_with(
   weighting_swell: 0.4,
   weighting_wind: 0.4,
   weighting_tide: 0.2,
-  wave_model_size_coefficient: 1
+  wave_model_size_coefficient: 0.8
 ).find_or_create_by(
   name: "Portsea Back Beach"
 )
