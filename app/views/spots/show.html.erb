@@ -189,7 +189,7 @@
             value: @spot.current_wind.current_variance.abs,
             unit: " deg",
             roc: @spot.current_wind.rate_of_change_direction,
-            rocDirection: 'right'
+            rocDirection: get_roc_direction(@spot.current_wind.rate_of_change_direction)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
@@ -200,7 +200,7 @@
             value: @spot.current_wind.speed,
             unit: "kph",
             roc: @spot.current_wind.rate_of_change_speed,
-            rocDirection: 'left'
+            rocDirection: get_roc_direction(@spot.current_wind.rate_of_change_speed)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
@@ -210,8 +210,8 @@
             max: @spot.swell_optimal_direction_max_variance,
             value: @spot.current_swell.current_variance.abs,
             unit: " deg",
-            roc: 7,
-            rocDirection: 'right'
+            roc: @spot.current_swell.rate_of_change_size,
+            rocDirection: get_roc_direction(@spot.current_swell.rate_of_change_size)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
@@ -221,8 +221,8 @@
             max: @spot.swell_optimal_size_max_metres,
             value: @spot.current_swell.size.round(2),
             unit: "m",
-            roc: 25,
-            rocDirection: 'left'
+            roc: @spot.current_swell.rate_of_change_size,
+            rocDirection: get_roc_direction(@spot.current_swell.rate_of_change_size)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
@@ -232,8 +232,8 @@
             max: @spot.tide_optimal_max_metres,
             value: @spot.current_tide_height,
             unit: "m",
-            roc: 15,
-            rocDirection: 'right'
+            roc: 0.9,
+            rocDirection: get_roc_direction(0.9)
           }
         %>
       </div>

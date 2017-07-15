@@ -83,4 +83,18 @@ class Swell < WeatherForecast
     rating = (size_rating * weight_of_optimal_swell_height) + (dir_rating * weight_of_optimal_swell_direction)
     rating.round(2)
   end
+
+  def swell_in_3_hours
+    @swell_in_3_hours ||= Swell.in_three_hours(spot_id)
+  end
+
+  def rate_of_change_size
+    return 0 unless swell_in_3_hours
+    size - swell_in_3_hours.size
+  end
+
+  def rate_of_change_direction
+    return 0 unless swell_in_3_hours
+    calculate_angle_between(direction, swell_in_3_hours.direction)
+  end
 end

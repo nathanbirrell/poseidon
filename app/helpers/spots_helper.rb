@@ -48,6 +48,11 @@ module SpotsHelper
     directions[(val % 16)]
   end
 
+  def get_roc_direction(value)
+    return 'right' if value.positive?
+    return 'left' if value.negative?
+  end
+
   private
 
   def show_table(rows_to_show)
