@@ -71,10 +71,10 @@
               indicator: get_verdict(@spot.current_swell.size_rating),
               prefix: '',
               values: [{
-                value: @spot.current_swell.size.round(1),
-                unit: 'm'
+                value: m_to_ft(@spot.current_swell.size).round(1),
+                unit: 'ft'
               }],
-              subtext: 'Wave height @ TODOs'
+              subtext: "Wave height @ #{trim(@spot.current_swell.period.round(0))} secs"
             },
             {
               indicator: get_verdict(@spot.current_swell.dir_rating),
