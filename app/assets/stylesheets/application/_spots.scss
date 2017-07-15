@@ -11,9 +11,34 @@
 
 .spot-banner {
   position: relative;
-  min-height: 192px;
-  max-height: 320px;
+  min-height: 100px;
+  max-height: 160px;
   overflow: hidden;
+
+  &.--positive {
+    background-color: $positive;
+    .spot-banner__content {
+      .spot-banner__rating span  {
+        color: $positive;
+      }
+    }
+  }
+  &.--mixed {
+    background-color: $mixed;
+    .spot-banner__content {
+      .spot-banner__rating span  {
+        color: $mixed;
+      }
+    }
+  }
+  &.--negative {
+    background-color: $negative;
+    .spot-banner__content {
+      .spot-banner__rating span {
+        color: $negative;
+      }
+    }
+  }
 }
 
 .spot-banner__image-wrapper {
@@ -33,43 +58,64 @@
 .spot-banner__content {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: 192px;
+  align-items: flex-end;
+  justify-content: flex-start;
+  height: 100px;
+  padding: 12px 0;
 
-  @media #{$medium-up} {
-    height: 320px;
+  .spot-banner__rating {
+    display: inline-block;
+    vertical-align: middle;
+    height: 60px;
+    width: 120px;
+    border-radius: 60px;
+    background-color: #fefefe;
+    line-height: 62px;
+    margin-right: 12px;
+    text-align: right;
+    margin-left: -65px;
+    -webkit-box-shadow: $shadow-subtle;
+    -moz-box-shadow: $shadow-subtle;
+    box-shadow: $shadow-subtle;
+
+    span {
+      font-size: rem-calc(40);
+      font-weight: 500;
+      margin-right: 12px;
+    }
   }
 
-  * {
-    text-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.5);
+  .spot-banner__details {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  @media #{$medium-up} {
+    height: 160px;
   }
 
   h2 {
     color: #fefefe;
     line-height: 1.2;
-    font-weight: 500;
-  }
-
-  h2.small {
     font-weight: 400;
+    margin-bottom: 0;
+    margin-top: 0;
   }
 
   p,
-  small,
+  span,
   a {
     color: #fefefe;
+    font-weight: lighter;
   }
 
-  .spot-banner__updated-date {
-    //
+  a {
+    text-decoration: underline;
   }
 }
 
-#overall-potential {
-  position: relative;
-  top: -50px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
+.spot-toolbar {
+  margin-bottom: 12px;
+  border-bottom: 1px solid $iron;
+  padding: 6px 12px;
 }

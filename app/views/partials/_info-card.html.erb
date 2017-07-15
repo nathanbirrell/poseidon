@@ -1,0 +1,31 @@
+<div class="small-12 medium-6 large-4 columns">
+  <div class="info-card">
+    <div class="info-card__top --<%= get_verdict(rating) %>">
+      <h3><%= title %></h3>
+      <span class="text-right">
+        <%= secondary %> @ <%= datetime.localtime.strftime("%I:%M %p")%>
+      </span>
+    </div>
+
+    <div class="info-card__body row">
+      <div class="small-4 columns">
+        <% if rating <= 30.0 %>
+          <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white', size: 'xlg'} %>
+        <% else %>
+          <%= render partial: 'partials/rating-radial', locals: {rating: rating, radius: '40', width: '80', centered: true} %>
+        <% end %>
+      </div>
+      <% data.each do |d| %>
+        <div class="small-4 columns datapoint">
+          <p class="main-text --<%= d[:indicator] %>">
+            <%= d[:prefix] %>
+            <% d[:values].each do |v| %>
+              <span><%= v[:value] %><%= v[:unit] %></span>
+            <% end %>
+          </p>
+          <p class="sub-text"><%= d[:subtext] %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
