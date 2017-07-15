@@ -45,10 +45,10 @@ ActiveRecord::Schema.define(version: 20170708045249) do
     t.decimal "swell_optimal_direction_max_variance"
     t.decimal "wind_optimal_direction"
     t.decimal "wind_optimal_direction_max_variance"
-    t.decimal "weighting_swell", precision: 1, scale: 2
-    t.decimal "weighting_wind", precision: 1, scale: 2
-    t.decimal "weighting_tide", precision: 1, scale: 2
-    t.decimal "wave_model_size_coefficient", precision: 1, scale: 3
+    t.decimal "weighting_swell", precision: 3, scale: 2
+    t.decimal "weighting_wind", precision: 3, scale: 2
+    t.decimal "weighting_tide", precision: 3, scale: 2
+    t.decimal "wave_model_size_coefficient", precision: 4, scale: 3
     t.index ["region_id"], name: "index_spots_on_region_id"
   end
 
