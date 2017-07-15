@@ -1,8 +1,6 @@
 class AddAttributesToSpot < ActiveRecord::Migration[5.0]
 
   change_table :spots do |t|
-    t.remove :optimal_wind_direction_degrees
-    t.remove :optimal_swell_direction_degrees
     t.remove :optimal_tide_height_metres
     t.remove :swell_optimal_size_min_metres
     t.remove :swell_optimal_size_max_metres
