@@ -123,7 +123,7 @@
               indicator: get_verdict(@spot.current_tide_rating),
               prefix: '',
               values: [{
-                value: @spot.current_tide_height,
+                value: @spot.current_tide_height.round(1),
                 unit: 'm'
               }],
               subtext: 'Tide height'

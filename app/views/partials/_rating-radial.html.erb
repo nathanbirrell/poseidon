@@ -1,4 +1,4 @@
-<div class="potential-radial">
+<div class="potential-radial <%= '--perfect' if rating === 100 %>">
   <div class="potential-radial__circle-element <%= 'centered' if local_assigns[:centered] %>"
     style="width: <%= width ||= '100'%>px; height: <%= width ||= '100'%>px;"
     data-percentage="<%= rating %>"
