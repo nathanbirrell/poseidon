@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170708045249) do
+ActiveRecord::Schema.define(version: 20170717221107) do
 
   create_table "regions", force: :cascade do |t|
     t.string "name"
@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 20170708045249) do
     t.decimal "tide_optimal_max_metres"
     t.decimal "swell_optimal_size_min_metres"
     t.decimal "swell_optimal_size_max_metres"
-    t.decimal "swell_optimal_period_seconds"
     t.decimal "wind_optimal_strength_min_kmh"
     t.decimal "wind_optimal_strength_max_kmh"
     t.decimal "wave_model_lat"
