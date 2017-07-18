@@ -125,14 +125,6 @@ class Spot < ApplicationRecord
     return hours_remaining
   end
 
-  def display_hours(data)
-    return (data - data%1).round(0) # return a neat figure for hours, taking off any decimal
-  end
-
-  def display_mins(data)
-    return ((data % 1)*60).round(0) # get leftover hours decimal value and return neat mins display figure
-  end
-
   def current_tide_rating
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex

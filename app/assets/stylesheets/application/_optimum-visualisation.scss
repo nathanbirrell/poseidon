@@ -1,27 +1,123 @@
 .optimum-vis {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
+  position: relative;
+  width: 100%;
+  background-color: $aluminum;
+  color: $white;
+
+  &__scale {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin-top: -12px;
+
+    .scale-marker {
+      width: 2px;
+      height: 12px;
+      background-color: $black;
+      position: absolute;
+      top: 0;
+      margin-left: -1px;
+
+      p {
+        color: $black;
+        position: absolute;
+        left: 50%;
+        top: 0;
+        text-align: center;
+        width: 26px;
+        margin-left: -13px;
+        margin-top: -25px;
+      }
+
+      &.--full {
+        left: 50%;
+      }
+      &.--pos {
+        &.--left {
+          left: 34.375%;
+        }
+        &.--right {
+          left: 65.625%;
+        }
+      }
+      &.--mixed {
+        &.--left {
+          left: 18.75%;
+        }
+        &.--right {
+          left: 81.25%;
+        }
+      }
+      &.--neg {
+        &.--left {
+          left: 6.25%;
+        }
+        &.--right {
+          left: 93.75%
+        }
+      }
+    }
+  }
+
+  &__bg {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    opacity: 0.4;
+
+    &.--pos {
+      width: 31.25%;
+      background-color: #27AE60;
+      left: 34.375%;
+    }
+    &.--mix {
+      width: 15.625%;
+      background-color: #F2994A;
+
+      &.--left {
+        left: 18.75%;
+      }
+      &.--right {
+        left: 65.625%;
+      }
+    }
+    &.--neg {
+      width: 18.75%;
+      background-color: #EB5757;
+
+      &.--left {
+        left: 0;
+      }
+      &.--right {
+        left: 81.25%;
+      }
+    }
+  }
 
   &__meta {
-    width: 15%;
-    display: inline-block;
-    height: 60px;
+    position: absolute;
+    top: 6px;
+    left: 6.25%;
   }
+
   &__visual {
-    width: 80%;
-    display: inline-block;
+    width: 87.5%;
+    display: block;
+    margin: 0 auto;
     position: relative;
     height: 60px;
-    margin-bottom: -18px;
+    padding: 45px 0px;
 
     .data-vis {
       width: 100%;
-      height: 25px;
 
       &__bg,
       &__current,
       &__ROC {
         position: absolute;
-        top: 15px;
+        top: 50%;
       }
 
       &__bg {
@@ -36,7 +132,6 @@
       &__current {
         position: absolute;
         line-height: 30px;
-        top: 0;
         text-align: center;
         color: #fff;
         font-size: 12px;
@@ -45,15 +140,15 @@
         border-radius: 50%;
         background-color: #6FCF97;
         margin-left: -15px;
-        margin-top: -2px;
+        margin-top: -15px;
       }
 
       &__ROC {
         position: absolute;
-        top: 10px;
         background-color: #ccc;
         height: 8px;
         border-radius: 8px;
+        margin-top: -5px;
 
         &::after {
           display: block;

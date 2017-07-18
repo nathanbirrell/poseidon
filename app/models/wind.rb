@@ -74,6 +74,20 @@ class Wind < WeatherForecast
     return speedRating
   end
 
+  def wind_in_3_hours
+    @wind_in_3_hours ||= Wind.in_three_hours(spot_id)
+  end
+
+  def rate_of_change_direction
+    return 0 unless wind_in_3_hours
+    calculate_angle_between(wind_in_3_hours.direction, direction)
+  end
+
+  def rate_of_change_speed
+    return 0 unless wind_in_3_hours
+    wind_in_3_hours.speed - speed
+  end
+
   def rating
     weight_of_optimal_wind_direction = 0.8
     weight_of_optimal_wind_speed = 0.2
