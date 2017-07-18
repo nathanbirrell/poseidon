@@ -90,11 +90,11 @@ class Swell < WeatherForecast
 
   def rate_of_change_size
     return 0 unless swell_in_3_hours
-    size - swell_in_3_hours.size
+    swell_in_3_hours.size - size
   end
 
   def rate_of_change_direction
     return 0 unless swell_in_3_hours
-    calculate_angle_between(direction, swell_in_3_hours.direction)
+    calculate_angle_between(swell_in_3_hours.direction, direction)
   end
 end

@@ -80,12 +80,12 @@ class Wind < WeatherForecast
 
   def rate_of_change_direction
     return 0 unless wind_in_3_hours
-    calculate_angle_between(direction, wind_in_3_hours.direction)
+    calculate_angle_between(wind_in_3_hours.direction, direction)
   end
 
   def rate_of_change_speed
     return 0 unless wind_in_3_hours
-    speed - wind_in_3_hours.speed
+    wind_in_3_hours.speed - speed
   end
 
   def rating
