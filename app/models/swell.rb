@@ -52,7 +52,7 @@ class Swell < WeatherForecast
   end
 
   def size_rating
-    return 0 unless size && period
+    return 0 unless size
     weight_of_optimal_swell_height = 0.7
     #========= CALC SWELL SIZE RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
@@ -75,6 +75,17 @@ class Swell < WeatherForecast
     puts("Swell sizeRating= #{sizeRating}")
 
     return sizeRating
+  end
+
+  def period_rating
+    return 0 unless period
+    # formula y = (ax^b)-a
+    a = 1.4
+    b = 1.7
+    period_rating = (a * period**b) - a
+    period_rating = 100.0 if period_rating > 100
+    period_rating = 0.0 if period_rating.negative?
+    period_rating
   end
 
   def rating
