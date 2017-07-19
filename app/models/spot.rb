@@ -16,7 +16,6 @@
 #  tide_optimal_max_metres              :decimal(, )
 #  swell_optimal_size_min_metres        :decimal(, )
 #  swell_optimal_size_max_metres        :decimal(, )
-#  swell_optimal_period_seconds         :decimal(, )
 #  wind_optimal_strength_min_kmh        :decimal(, )
 #  wind_optimal_strength_max_kmh        :decimal(, )
 #  wave_model_lat                       :decimal(, )
