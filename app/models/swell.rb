@@ -89,9 +89,12 @@ class Swell < WeatherForecast
   end
 
   def rating
-    weight_of_optimal_swell_height = 0.7
-    weight_of_optimal_swell_direction = 0.3
-    rating = (size_rating * weight_of_optimal_swell_height) + (dir_rating * weight_of_optimal_swell_direction)
+    weight_of_optimal_swell_height = 60 / 100
+    weight_of_optimal_swell_direction = 30 / 100
+    weight_of_swell_period = 10 / 100
+    rating = (size_rating * weight_of_optimal_swell_height)
+    rating += (dir_rating * weight_of_optimal_swell_direction)
+    rating += (period_rating * weight_of_swell_period)
     rating.round(2)
   end
 
