@@ -41,7 +41,6 @@ spot = Spot.create_with(
   tide_optimal_max_metres: '1.8',
   swell_optimal_size_min_metres: '0.4',
   swell_optimal_size_max_metres: '1.6',
-  swell_optimal_period_seconds: '18.0',
   swell_optimal_direction: 225,
   swell_optimal_direction_max_variance: 50,
   wind_optimal_strength_min_kmh: '0.0',
