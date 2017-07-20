@@ -51,27 +51,34 @@ class Swell < WeatherForecast
     return dirRating
   end
 
+  def size_at_rating(rating)
+    return 0 unless size
+    # TODO transpose parabola to return size given a rating
+    # ((rating - SIZE_K_VAR) / SIZE_A_VAR) = (size - SIZE_H_VAR)**2
+
+    return 0
+  end
+
   def size_rating
     return 0 unless size
-    weight_of_optimal_swell_height = 0.7
     #========= CALC SWELL SIZE RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    sizeKVar = 100.0
-    sizeMax = spot.swell_optimal_size_max_metres
-    sizeMin = spot.swell_optimal_size_min_metres
-    sizeHVar = ((sizeMax - sizeMin)/2) + sizeMin
+    @SIZE_MAX = spot.swell_optimal_size_max_metres
+    @SIZE_MIN = spot.swell_optimal_size_min_metres
+    @SIZE_K_VAR = 100.0
+    @SIZE_H_VAR = ((@SIZE_MAX - @SIZE_MIN)/2) + @SIZE_MIN
 
     # pass in known coord to determine var a value, (sizeMin, 75)
-    sizeAVar = (75 - 100)/((sizeMin - sizeHVar)**2)
+    @SIZE_A_VAR = (75 - 100)/((@SIZE_MIN - @SIZE_H_VAR)**2)
 
-    sizeRating = sizeAVar * ((size - sizeHVar)**2) + sizeKVar
+    sizeRating = @SIZE_A_VAR * ((size - @SIZE_H_VAR)**2) + @SIZE_K_VAR
 
     if sizeRating < 0 then
       sizeRating = 0
     end
 
-    puts("Parabolic sizeAVar=#{sizeAVar} sizeHVar=#{sizeHVar} sizeRating=#{sizeRating}")
+    puts("Parabolic @SIZE_A_VAR=#{@SIZE_A_VAR} @SIZE_H_VAR=#{@SIZE_H_VAR} sizeRating=#{sizeRating}")
     puts("Swell sizeRating= #{sizeRating}")
 
     return sizeRating
