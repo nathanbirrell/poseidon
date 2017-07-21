@@ -153,25 +153,9 @@
 
       &__ROC {
         position: absolute;
-        background-color: $base;
-        height: 2px;
+        height: 0px;
+        border: 1px dashed $base;
         margin-top: 10px;
-
-        &::after {
-          display: block;
-          content: "";
-          background-color: $base;
-          height: 5px;
-          width: 2px;
-          background-size: cover;
-          margin-top: 0px;
-        }
-
-        &.--right {
-          &::after {
-            float: right;
-          }
-        }
       }
 
       &__ROC-value {
