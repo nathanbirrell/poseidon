@@ -180,7 +180,7 @@
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
             showScale: true,
-            label: 'Wind direction',
+            label: 'Wind',
             min: 0,
             max: @spot.wind_optimal_direction_max_variance,
             value: @spot.current_wind.current_variance.abs,
@@ -192,7 +192,7 @@
         %>
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
-            label: 'Wind strength',
+            label: '',
             min: @spot.wind_optimal_strength_min_kmh,
             max: @spot.wind_optimal_strength_max_kmh,
             value: @spot.current_wind.speed,
@@ -204,7 +204,7 @@
         %>
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
-            label: 'Swell direction',
+            label: 'Swell',
             min: 0,
             max: @spot.swell_optimal_direction_max_variance,
             value: @spot.current_swell.current_variance.abs,
@@ -216,7 +216,7 @@
         %>
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
-            label: 'Swell Size',
+            label: '',
             min: @spot.swell_optimal_size_min_metres,
             max: @spot.swell_optimal_size_max_metres,
             value: @spot.current_swell.size.round(2),
@@ -228,7 +228,7 @@
         %>
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
-            label: 'Tide height',
+            label: 'Tide',
             min: @spot.tide_optimal_min_metres,
             max: @spot.tide_optimal_max_metres,
             value: @spot.current_tide_height,
