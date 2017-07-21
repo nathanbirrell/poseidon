@@ -61,7 +61,7 @@
   }
 
   &__meta {
-    margin-bottom: 12px;
+    margin-bottom: 6px;
   }
 
   &__visual {
@@ -70,7 +70,9 @@
     margin: 0 auto;
     position: relative;
     height: 60px;
-    padding: 35px 0 30px 0;
+    padding: 50px 0 35px 0;
+    overflow-x: hidden;
+    overflow-y: visible;
 
     .data-vis {
       width: 100%;
@@ -171,13 +173,17 @@
 
   &__markings {
     color: $jumbo;
+    position: absolute;
+    width: 100%;
+    top: 12px;
 
     .optimum-vis__min {
-      float: left;
-
+      position: absolute;
+      left: 0;
     }
     .optimum-vis__max {
-      float: right;
+      position: absolute;
+      right: 0;
     }
   }
 
