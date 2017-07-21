@@ -233,9 +233,9 @@
             max: @spot.tide_optimal_max_metres,
             value: @spot.current_tide_height,
             unit: "m",
-            roc_value: 0.9,
-            roc: 0.9,
-            rocDirection: get_roc_direction(0.9)
+            roc_value: @spot.tide_in_x_hours(3),
+            roc: @spot.rate_of_change_tide,
+            rocDirection: get_roc_direction(@spot.rate_of_change_tide)
           }
         %>
       </div>
