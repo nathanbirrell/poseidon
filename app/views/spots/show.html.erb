@@ -180,12 +180,12 @@
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
             showScale: true,
-            label: 'Wind direction (TODO: negatives, 0 center)',
+            label: 'Wind direction',
             min: 0,
             max: @spot.wind_optimal_direction_max_variance,
             value: @spot.current_wind.current_variance.abs,
             unit: " deg",
-            roc_value: 99,
+            roc_value: @spot.current_wind.wind_in_3_hours.current_variance.abs,
             roc: @spot.current_wind.rate_of_change_direction,
             rocDirection: get_roc_direction(@spot.current_wind.rate_of_change_direction)
           }
@@ -197,19 +197,19 @@
             max: @spot.wind_optimal_strength_max_kmh,
             value: @spot.current_wind.speed,
             unit: "kph",
-            roc_value: 99,
+            roc_value: @spot.current_wind.wind_in_3_hours.speed,
             roc: @spot.current_wind.rate_of_change_speed,
             rocDirection: get_roc_direction(@spot.current_wind.rate_of_change_speed)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
-            label: 'Swell direction (TODO: negatives, 0 center)',
+            label: 'Swell direction',
             min: 0,
             max: @spot.swell_optimal_direction_max_variance,
             value: @spot.current_swell.current_variance.abs,
             unit: " deg",
-            roc_value: 99,
+            roc_value: @spot.current_swell.swell_in_3_hours.current_variance.abs,
             roc: @spot.current_swell.rate_of_change_direction,
             rocDirection: get_roc_direction(@spot.current_swell.rate_of_change_direction)
           }
@@ -221,7 +221,7 @@
             max: @spot.swell_optimal_size_max_metres,
             value: @spot.current_swell.size.round(2),
             unit: "m",
-            roc_value: 99,
+            roc_value: @spot.current_swell.swell_in_3_hours.size.round(2),
             roc: @spot.current_swell.rate_of_change_size,
             rocDirection: get_roc_direction(@spot.current_swell.rate_of_change_size)
           }

@@ -28,7 +28,7 @@
       <div class="data-vis__bg --sectors --bottom"></div>
       <% if value > min && value < max %>
         <span class="data-vis__ROC --<%= rocDirection %>" style="left: <%= rocDirection === 'right' ? ((value - min)/(max-min) * 100) : (((value - min)/(max-min) * 100) - (roc.abs)/(max-min) * 100) %>%; width: <%= (roc.abs)/(max-min) * 100 %>%;"></span>
-        <span class="data-vis__ROC-value --<%= rocDirection %>" style="left: <%= rocDirection === 'right' ? (((value - min)/(max-min) * 100) + (roc.abs)/(max-min) * 100) : (((value - min)/(max-min) * 100) - (roc.abs)/(max-min) * 100) %>%;"><%= roc_value %><%= unit %></span>
+        <span class="data-vis__ROC-value --<%= rocDirection %>" style="left: <%= rocDirection === 'right' ? (((value - min)/(max-min) * 100) + (roc.abs)/(max-min) * 100) : (((value - min)/(max-min) * 100) - (roc.abs)/(max-min) * 100) %>%;"><%= trim(roc_value) %><%= unit %></span>
         <span class="data-vis__current" style="left: <%= ((value - min)/(max-min) * 100) %>%;"><%= trim(value) %><%= unit %></span>
       <% end %>
     </div>
