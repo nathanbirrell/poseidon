@@ -86,6 +86,7 @@ window.onscroll = () => {
 const scrollBySection = (val) => {
   !spotBarInit && InitSpotToolbar();
   const num = val - 1;
-  const yOffset = offsetRelTop(sections[num].section) - 55;
+  let yOffset = offsetRelTop(sections[num].section);
+  num !== 0 ? yOffset -= 55 : yOffset -= 5;
   window.scrollTo(0, yOffset);
 }
