@@ -15,6 +15,7 @@ let revSections = [];
 let spotBarInit = false;
 
 const InitSpotToolbar = () => {
+  toolbar = document.getElementById('spot-toolbar');
   currentView = document.getElementById('current-view');
   currentBtn = document.getElementById('current-btn');
   aboutView = document.getElementById('about-view');
@@ -47,7 +48,6 @@ const offsetRelTop = (el) => {
 
 window.onscroll = () => {
   !spotBarInit && InitSpotToolbar();
-  if (!toolbar) { toolbar = document.getElementById('spot-toolbar'); }
   const pageOffset = document.body.scrollTop;
 
   if (!checkingScroll) {
@@ -71,10 +71,13 @@ window.onscroll = () => {
             }
             break;
           } else if (s.section === revSections[revSections.length - 1].section) {
-            // Clear last section if not past it
-            focusedBtn && focusedBtn.classList.remove(focusedClass);
-            focusedBtn = null;
-            focusedSection = null;
+            if (s.section !== focusedSection) {
+              // Select top most section if not past it and not already selected
+              focusedBtn && focusedBtn.classList.remove(focusedClass);
+              focusedBtn = s.button;
+              focusedSection = s.section;
+              focusedBtn.classList.add(focusedClass);
+            }
           }
         }
       }
@@ -85,8 +88,7 @@ window.onscroll = () => {
 
 const scrollBySection = (val) => {
   !spotBarInit && InitSpotToolbar();
-  const num = val - 1;
-  let yOffset = offsetRelTop(sections[num].section);
-  num !== 0 ? yOffset -= 55 : yOffset -= 5;
+  let yOffset = offsetRelTop(sections[val - 1].section);
+  !toolbar.classList.contains(fixedClass) ? yOffset -= 101 : yOffset -= 55;
   window.scrollTo(0, yOffset);
 }
