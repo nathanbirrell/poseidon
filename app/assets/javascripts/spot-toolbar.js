@@ -62,7 +62,7 @@ window.onscroll = () => {
       // Set focused toolbar section
       if (revSections.length) {
         for (let s of revSections) {
-          if (pageOffset >= (offsetRelTop(s.section) - 55)) {
+          if (pageOffset >= (offsetRelTop(s.section) - 65)) {
             if (focusedSection !== s.section) {
               focusedBtn && focusedBtn.classList.remove(focusedClass);
               focusedBtn = s.button;
@@ -86,10 +86,6 @@ window.onscroll = () => {
 const scrollBySection = (val) => {
   !spotBarInit && InitSpotToolbar();
   const num = val - 1;
-  if (focusedSection !== sections[num].section) {
-    focusedSection = sections[num].section;
-    focusedBtn = sections[num].button;
-    const yOffset = offsetRelTop(sections[num].section) - 65;
-    window.scrollTo(0, yOffset);
-  }
+  const yOffset = offsetRelTop(sections[num].section) - 55;
+  window.scrollTo(0, yOffset);
 }
