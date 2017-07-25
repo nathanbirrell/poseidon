@@ -159,7 +159,7 @@ class Spot < ApplicationRecord
     aggregate = 0.0
     aggregate += current_swell.rating * weighting_swell
     aggregate += current_wind.rating * weighting_wind
-    aggregate += current_tide_rating * weighting_tide
+    aggregate += current_tide_rating * weighting_tide unless works_on_all_tides?
     aggregate.round(0)
   end
 
