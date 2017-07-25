@@ -1,6 +1,7 @@
 let toolbar;
 const fixedClass = '--fixed';
 const focusedClass = '--focused';
+let checkingScroll = false;
 let focusedSection;
 let focusedBtn;
 let currentView;
@@ -9,7 +10,8 @@ let aboutView;
 let aboutBtn;
 let forecastView;
 let forecastBtn;
-let sections;
+let sections = [];
+let revSections = [];
 let spotBarInit = false;
 
 const InitSpotToolbar = () => {
@@ -33,6 +35,7 @@ const InitSpotToolbar = () => {
       button: forecastBtn
     }
   ];
+  revSections = sections.slice().reverse();
   spotBarInit = true;
 }
 
@@ -43,28 +46,41 @@ const offsetRelTop = (el) => {
 }
 
 window.onscroll = () => {
+  !spotBarInit && InitSpotToolbar();
   if (!toolbar) { toolbar = document.getElementById('spot-toolbar'); }
   const pageOffset = document.body.scrollTop;
 
-  // Set fixed or non fixed state
-  if ((!toolbar.classList.contains(fixedClass) && pageOffset >= 145) ||
-    (toolbar.classList.contains(fixedClass) && pageOffset < 145)) {
-    toolbar.classList.toggle(fixedClass);
-  }
+  if (!checkingScroll) {
+    checkingScroll = true;
+    window.setTimeout(() => {
+      // Set fixed or non fixed state
+      if ((!toolbar.classList.contains(fixedClass) && pageOffset >= 145) ||
+        (toolbar.classList.contains(fixedClass) && pageOffset < 145)) {
+        toolbar.classList.toggle(fixedClass);
+      }
 
-  let foundSection;
-  // Set focused toolbar section
-  for (let s of sections) {
-    if (pageOffset >= offsetRelTop(s.section)) {
-      // GO THROUGH SECTIONS IN REVERSE ORDER AND SELECT FARTHEST ONE WE HAVE PASSED
-    }
+      // Set focused toolbar section
+      if (revSections.length) {
+        for (let s of revSections) {
+          if (pageOffset >= offsetRelTop(s.section)) {
+            if (focusedSection !== s.section) {
+              focusedBtn && focusedBtn.classList.remove(focusedClass);
+              focusedBtn = s.button;
+              focusedBtn.classList.add(focusedClass);
+              focusedSection = s.section;
+            }
+            break;
+          }
+        }
+      }
+      checkingScroll = false;
+    }, 50);
   }
 }
 
 const scrollBySection = (val) => {
   !spotBarInit && InitSpotToolbar();
   const num = val - 1;
-  console.log(sections);
   if (focusedSection !== sections[num].section) {
     focusedSection = sections[num].section;
     focusedBtn = sections[num].button;
