@@ -1,0 +1,27 @@
+.spot-toolbar {
+  margin-bottom: 12px;
+  border-bottom: 1px solid $iron;
+  padding: 0px 12px;
+  background: $white-smoke;
+
+  &.--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+  }
+
+  &__item {
+    text-align: center;
+    font-size: 10px;
+    text-transform: uppercase;
+    line-height: 16px;
+    a {
+      color: $black;
+    }
+
+    &.--focused {
+      background: $iron;
+    }
+  }
+}
