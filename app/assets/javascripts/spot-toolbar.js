@@ -62,7 +62,7 @@ window.onscroll = () => {
       // Set focused toolbar section
       if (revSections.length) {
         for (let s of revSections) {
-          if (pageOffset >= offsetRelTop(s.section)) {
+          if (pageOffset >= (offsetRelTop(s.section) - 55)) {
             if (focusedSection !== s.section) {
               focusedBtn && focusedBtn.classList.remove(focusedClass);
               focusedBtn = s.button;
