@@ -28,24 +28,31 @@
   <% end %>
 
   <div class="row">
-    <div class= "small-12 columns spot-toolbar">
+    <div id="spot-toolbar" class="small-12 medium-4 columns spot-toolbar">
       <div class="row">
-        <div class="small-6 medium-9 columns">
+        <div id="current-btn" class="small-3 columns spot-toolbar__item">
+          <a onclick="scrollBySection(1)">
+            <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'activity', size: 'small'} %>
+            <span class="spot-toolbar__label">Current</span>
+          </a>
         </div>
-        <div class="small-6 medium-3 columns">
-          <div class="row">
-            <div class="small-4 columns">
-              <a href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
-                <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'map', size: 'reg'} %>
-              </a>
-            </div>
-            <div class="small-4 columns">
-              <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'share', size: 'reg'} %>
-            </div>
-            <div class="small-4 columns">
-              <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'more-vertical', size: 'reg'} %>
-            </div>
-          </div>
+        <div id="about-btn" class="small-3 columns spot-toolbar__item">
+          <a onclick="scrollBySection(2)">
+            <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'award', size: 'small'} %>
+            <span class="spot-toolbar__label">Optimums</span>
+          </a>
+        </div>
+        <div id="forecast-btn" class="small-3 columns spot-toolbar__item">
+          <a onclick="scrollBySection(3)">
+            <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'trending-up', size: 'small'} %>
+            <span class="spot-toolbar__label">Forecast</span>
+          </a>
+        </div>
+        <div class="small-3 columns spot-toolbar__item">
+          <a href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
+            <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'map', size: 'small'} %>
+            <span class="spot-toolbar__label">Location</span>
+          </a>
         </div>
       </div>
     </div>
@@ -58,7 +65,7 @@
     </div>
   <% end %>
 
-  <div class="row">
+  <div id="current-view" class="row">
     <div class="large-12 columns">
       <div class="row">
         <%= render partial: 'partials/info-card', locals: {
@@ -149,7 +156,7 @@
     </div>
   </div>
 
-  <div class="row small-collapse medium-uncollapse">
+  <div id="about-view" class="row small-collapse medium-uncollapse">
     <div class="large-12 columns">
       <div class="small-12 columns">
         <h4>About</h4>
@@ -242,7 +249,11 @@
     </div>
   </div>
 
-  <div class="row">
+  <div id="forecast-view">
+    <h3>COMING SOON</h3>
+  </div>
+
+  <div id="location-view" class="row">
     <div class="large-12 columns">
       <iframe
       width="100%"
