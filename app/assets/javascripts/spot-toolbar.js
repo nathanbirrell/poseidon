@@ -2,8 +2,8 @@ let toolbar;
 const fixedClass = '--fixed';
 const focusedClass = '--focused';
 let checkingScroll = false;
-let focusedSection;
-let focusedBtn;
+let focusedSection = null;
+let focusedBtn = null;
 let currentView;
 let currentBtn;
 let aboutView;
@@ -70,6 +70,11 @@ window.onscroll = () => {
               focusedSection = s.section;
             }
             break;
+          } else if (s.section === revSections[revSections.length - 1].section) {
+            // Clear last section if not past it
+            focusedBtn && focusedBtn.classList.remove(focusedClass);
+            focusedBtn = null;
+            focusedSection = null;
           }
         }
       }
