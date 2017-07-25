@@ -36,6 +36,12 @@ const InitSpotToolbar = () => {
       button: forecastBtn
     }
   ];
+
+  // Set first section focused on load
+  focusedBtn = sections[0].button;
+  focusedSection = sections[0].section;
+  focusedBtn.classList.add(focusedClass);
+
   revSections = sections.slice().reverse();
   spotBarInit = true;
 }
@@ -89,6 +95,6 @@ window.onscroll = () => {
 const scrollBySection = (val) => {
   !spotBarInit && InitSpotToolbar();
   let yOffset = offsetRelTop(sections[val - 1].section);
-  !toolbar.classList.contains(fixedClass) ? yOffset -= 101 : yOffset -= 55;
+  !toolbar.classList.contains(fixedClass) ? yOffset -= 114 : yOffset -= 55;
   window.scrollTo(0, yOffset);
 }
