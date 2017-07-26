@@ -6,11 +6,13 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: Alpha
-email: youremailaddress@gmail.com
-description: The Jekyll version of the Alpha theme by HTML5 UP.
+title: Poseidon - Surf forecasts Victoria
+email: nathanbirrell@gmail.com
+description: Surf like a god with data-driven, spot-specific surf recommendations.
 baseurl: "/" # the subpath of your site, e.g. /blog
-url: "https://andrewbanchich.gitlab.io" # the base hostname & protocol for your site
+url: "https://surfposeidon.io" # the base hostname & protocol for your site
+
+permalink: pretty
 
 # Logo settings
 logo-image-url:
