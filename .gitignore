@@ -83,3 +83,5 @@ node_modules
 
 # tilde files are usually backup files from a text editor
 *~
+/public/packs
+/node_modules
