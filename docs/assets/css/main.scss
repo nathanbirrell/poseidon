@@ -5,7 +5,6 @@
 @import 'functions';
 @import 'mixins';
 @import url('font-awesome.min.css');
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,300italic,400italic");
 
 /*
 	Alpha by HTML5 UP
@@ -55,7 +54,6 @@
 		font-size: 16pt;
 		font-weight: _font(weight);
 		line-height: 1.65em;
-		letter-spacing: -0.015em;
 	}
 
 	a {
@@ -94,10 +92,15 @@
 		}
 	}
 
+	h1 {
+		font-weight: bold;
+		font-size: 2.25em;
+		line-height: 1.5em;
+	}
+
 	h2 {
 		font-size: 2.25em;
 		line-height: 1.5em;
-		letter-spacing: -0.035em;
 	}
 
 	h3 {
@@ -1172,11 +1175,11 @@
 			margin-bottom: 0;
 		}
 
-		h2, h3, h4, h5, h6 {
+		h1, h2, h3, h4, h5, h6 {
 			color: #fff;
 		}
 
-		h2 {
+		h1 {
 			font-size: 3.5em;
 			line-height: 1em;
 			margin: 0 0 0.5em 0;
@@ -1186,6 +1189,11 @@
 		p {
 			font-size: 1.25em;
 			margin-bottom: 1.75em;
+		}
+
+		h1,
+		p {
+			text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 		}
 
 		input[type="submit"],
@@ -1203,6 +1211,7 @@
 
 			&:active {
 				background-color: rgba(255,255,255,0.2);
+				box-shadow: inset 1px 2px 2px rgba(0, 0, 0, 0.3);
 			}
 
 			&.special {
