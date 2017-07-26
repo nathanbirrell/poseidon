@@ -452,14 +452,12 @@
 			.features-row {
 				position: relative;
 				display: flex;
-				align-items: middle;
 				justify-content: center;
 				flex-wrap: wrap;
 
 				section {
-					padding: $box-padding;
-					width: 33%;
-					flex: 1 0 33%;
+					padding: $box-padding/2 $box-padding/3;
+					flex: 0 1 33%;
 					min-width: 260px;
 					max-width: 290px;
 
@@ -1161,12 +1159,12 @@
 /* Banner */
 
 	#banner {
-		background-attachment:	scroll,							fixed;
+		background-attachment:	fixed;
 		background-color:		#666;
-		background-image:		url('images/overlay.png'),		url('../../images/banner.jpg');
-		background-position:	top left,						center center;
-		background-repeat:		repeat,							no-repeat;
-		background-size:		auto,							cover;
+		background-image:		url('../../images/banner.jpg');
+		background-position:	center center;
+		background-repeat:		no-repeat;
+		background-size:		cover;
 		color: #fff;
 		padding: 12em 0 20em 0;
 		text-align: center;
@@ -1300,7 +1298,7 @@
 
 /* CTA */
 
-	#cta {
+	#signup {
 		background: _palette(accent2, bg);
 		color: _palette(accent2, fg);
 		padding: 3.5em 0 4em 0;
@@ -1439,17 +1437,11 @@
 			}
 
 			h2, h3, h4, h5, h6 {
-				br {
-					display: none;
-				}
 			}
 
 		/* Section/Article */
 
 			header {
-				br {
-					display: none;
-				}
 
 				&.major {
 					padding: 0 4em;
@@ -1847,7 +1839,7 @@
 
 		/* CTA */
 
-			#cta {
+			#signup {
 				padding: 2.5em 1em 3em 1em;
 			}
 

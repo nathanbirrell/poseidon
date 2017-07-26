@@ -22,17 +22,17 @@ title: Home
 <section class="box special features">
 	<div class="features-row">
 		<section>
-			<span class="icon major fa-area-chart accent2"></span>
+			<span class="icon major fa-area-chart accent1"></span>
 			<h3>Victoria’s most reliable modelling</h3>
 			<p>Check Victoria’s most reliable swell and wind modelling (from BOM and NOAA) in one place.</p>
 		</section>
 		<section>
-			<span class="icon major fa-lightbulb-o accent3"></span>
+			<span class="icon major fa-lightbulb-o accent1"></span>
 			<h3>Proprietary rating algorithm</h3>
 			<p>Say something about how special Poseidon’s proprietary surf rating algorithm is and how it’s tailored to each individual spot.</p>
 		</section>
 		<section>
-			<span class="icon major fa-user accent4"></span>
+			<span class="icon major fa-user accent1"></span>
 			<h3>Simple</h3>
 			<p>Forget ideal wave sizes, tide heights and wind directions. Our recommendations find you a suitable surf spot at a glance, so you get more time surfing.</p>
 		</section>
