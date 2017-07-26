@@ -10,15 +10,18 @@
 
     {% include head.html %}
 
-<body class="landing">
+<body>
 
     {% include header.html %}
+
+    {% if page.featured-image %}
+    <span class="image featured">
+      <img src="{{ page.featured-image }}" alt="">
+    </span>
+    {% endif %}
     
-    <div id="main" class="container">
-        {{ content }}
-    </div>
+    {{ content }}
     
-    {% include cta.html %}
     {% include footer.html %}
 
 

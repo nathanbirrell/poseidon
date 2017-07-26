@@ -83,3 +83,8 @@ node_modules
 
 # tilde files are usually backup files from a text editor
 *~
+
+# Jekyll site
+docs/_site
+docs/.sass-cache
+docs/.jekyll-metadata

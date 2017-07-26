@@ -1,19 +1,65 @@
 ---
-# You don't need to edit this file, it's empty on purpose.
-# Edit theme's home layout instead if you wanna make some changes
-# See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: default
+title: Home
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+<section class="box special">
+	<header class="major">
+		<h2>Introducing the ultimate mobile app
+		<br />
+		for doing stuff with your phone</h2>
+		<p>Blandit varius ut praesent nascetur eu penatibus nisi risus faucibus nunc ornare<br />
+		adipiscing nunc adipiscing. Condimentum turpis massa.</p>
+	</header>
+	<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
+</section>
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+<section class="box special features">
+	<div class="features-row">
+		<section>
+			<span class="icon major fa-bolt accent2"></span>
+			<h3>Magna etiam</h3>
+			<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+		</section>
+		<section>
+			<span class="icon major fa-area-chart accent3"></span>
+			<h3>Ipsum dolor</h3>
+			<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+		</section>
+	</div>
+	<div class="features-row">
+		<section>
+			<span class="icon major fa-cloud accent4"></span>
+			<h3>Sed feugiat</h3>
+			<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+		</section>
+		<section>
+			<span class="icon major fa-lock accent5"></span>
+			<h3>Enim phasellus</h3>
+			<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+		</section>
+	</div>
+</section>
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+<div class="row">
+	<div class="6u 12u(narrower)">
+		<section class="box special">
+			<span class="image featured"><img src="images/pic02.jpg" alt="" /></span>
+			<h3>Sed lorem adipiscing</h3>
+			<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+			<ul class="actions">
+				<li><a href="#" class="button alt">Learn More</a></li>
+			</ul>
+		</section>
+	</div>
+	<div class="6u 12u(narrower)">
+		<section class="box special">
+			<span class="image featured"><img src="images/pic03.jpg" alt="" /></span>
+			<h3>Accumsan integer</h3>
+			<p>Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.</p>
+			<ul class="actions">
+				<li><a href="#" class="button alt">Learn More</a></li>
+			</ul>
+		</section>
+	</div>
+</div>
