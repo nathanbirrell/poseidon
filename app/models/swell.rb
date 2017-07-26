@@ -13,6 +13,7 @@
 #
 
 class Swell < WeatherForecast
+  include Math
   belongs_to :spot
 
   def current_variance
@@ -25,63 +26,74 @@ class Swell < WeatherForecast
     self[:size] * spot.wave_model_size_coefficient
   end
 
+  def dir_at_y(rating)
+    dir_max_variance = spot.swell_optimal_direction_max_variance
+    dir_k_var = 100.0
+    dir_h_var = 0.0
+    dir_a_var = (75 - 100) / ((dir_max_variance - dir_h_var)**2)
+
+    dir_at_rating_left = (((2 * dir_a_var * dir_h_var) - Math.sqrt((-2 * dir_a_var * dir_h_var)**2 - 4 * dir_a_var * (dir_a_var * dir_h_var**2 + dir_k_var))) / (2 * dir_a_var)) + rating
+    dir_at_rating_left
+  end
+
   def dir_rating
     return 0 unless direction
-    weight_of_optimal_swell_direction = 0.3
+    # vertex quad formula y = a(x-h)^2 + k
+    # a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
+    dir_max_variance = spot.swell_optimal_direction_max_variance
+    dir_k_var = 100.0
+    dir_h_var = 0.0
 
-    #========= CALC SWELL DIRECTION RATING ==========
-    # use vertex quad formula y = a(x-h)^2 + k
-    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    dirMaxVariance = spot.swell_optimal_direction_max_variance
-    dirKVar = 100.0
-    dirHVar = 0.0
+    # pass in known coord to determin var a value, (dir_max_variance, 75)
+    dir_a_var = (75 - 100) / ((dir_max_variance - dir_h_var)**2)
 
-    # pass in known coord to determin var a value, (dirMaxVariance, 75)
-    dirAVar = (75 - 100)/((dirMaxVariance - dirHVar)**2)
+    dir_rating = dir_a_var * ((current_variance - dir_h_var)**2) + dir_k_var
 
-    dirRating = dirAVar * ((current_variance - dirHVar)**2) + dirKVar
-
-    if dirRating < 0 then
-      dirRating = 0
+    if dir_rating.negative?
+      dir_rating = 0
     end
 
-    puts("Swell direction current_variance=#{current_variance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
-    puts("Swell dirRating= #{dirRating}")
-
-    return dirRating
+    dir_rating
   end
 
   def size_at_rating(rating)
-    return 0 unless size
-    # TODO transpose parabola to return size given a rating
-    # ((rating - SIZE_K_VAR) / SIZE_A_VAR) = (size - SIZE_H_VAR)**2
+    size_max = spot.swell_optimal_size_max_metres
+    size_min = spot.swell_optimal_size_min_metres
+    size_k_var = 100.0
+    size_h_var = ((size_max - size_min) / 2) + size_min
+    size_a_var = (75 - 100) / ((size_min - size_h_var)**2)
 
-    return 0
+    q_i = 2 * size_a_var * size_h_var
+    q_ii = (-2 * size_a_var * size_h_var)**2
+    q_iii = 4 * size_a_var * (size_a_var * (size_h_var**2) + size_k_var - rating)
+    my_sqrt = q_ii - q_iii
+    s_a_r_right = (q_i - Math.sqrt(my_sqrt.to_f)) / (2 * size_a_var)
+    s_a_r_left = (q_i + Math.sqrt(my_sqrt.to_f)) / (2 * size_a_var)
+    {
+      left: s_a_r_left,
+      right: s_a_r_right
+    }
   end
 
   def size_rating
     return 0 unless size
-    #========= CALC SWELL SIZE RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
-    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    @SIZE_MAX = spot.swell_optimal_size_max_metres
-    @SIZE_MIN = spot.swell_optimal_size_min_metres
-    @SIZE_K_VAR = 100.0
-    @SIZE_H_VAR = ((@SIZE_MAX - @SIZE_MIN)/2) + @SIZE_MIN
+    # a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
+    size_max = spot.swell_optimal_size_max_metres
+    size_min = spot.swell_optimal_size_min_metres
+    size_k_var = 100.0
+    size_h_var = ((size_max - size_min) / 2) + size_min
 
     # pass in known coord to determine var a value, (sizeMin, 75)
-    @SIZE_A_VAR = (75 - 100)/((@SIZE_MIN - @SIZE_H_VAR)**2)
+    size_a_var = (75 - 100) / ((size_min - size_h_var)**2)
 
-    sizeRating = @SIZE_A_VAR * ((size - @SIZE_H_VAR)**2) + @SIZE_K_VAR
+    size_rating = size_a_var * ((size - size_h_var)**2) + size_k_var
 
-    if sizeRating < 0 then
-      sizeRating = 0
+    if size_rating.negative?
+      size_rating = 0
     end
 
-    puts("Parabolic @SIZE_A_VAR=#{@SIZE_A_VAR} @SIZE_H_VAR=#{@SIZE_H_VAR} sizeRating=#{sizeRating}")
-    puts("Swell sizeRating= #{sizeRating}")
-
-    return sizeRating
+    size_rating
   end
 
   def period_rating

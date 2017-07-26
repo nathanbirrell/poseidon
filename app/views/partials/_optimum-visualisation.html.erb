@@ -19,11 +19,12 @@
       <span class="optimum-vis__max"><%= trim(max) %></span>
     </div>
     <div class="data-vis">
-      <div class="data-vis__bg --neg --left"></div>
-      <div class="data-vis__bg --mix --left"></div>
-      <div class="data-vis__bg --pos"></div>
-      <div class="data-vis__bg --neg --right"></div>
-      <div class="data-vis__bg --mix --right"></div>
+      <div class="data-vis__bg --neg" style="left: 0%; width: <%= ((mix_min - min)/(max - min) * 100)%>%;"></div>
+      <div class="data-vis__bg --mix" style="left: <%= ((mix_min - min)/(max - min) * 100) %>%; width: <%= ((opt_min - mix_min)/(max - min) * 100)%>%;"></div>
+      <div class="data-vis__bg --pos" style="left: <%= ((opt_min - min)/(max - min) * 100) %>%; width: <%= ((opt_max - opt_min)/(max - min) * 100)%>%;"></div>
+      <div class="data-vis__bg --mix" style="left: <%= ((opt_max - min)/(max - min) * 100) %>%; width: <%= ((mix_max - opt_max)/(max - min) * 100)%>%;"></div>
+      <div class="data-vis__bg --neg" style="left: <%= ((mix_max - min)/(max - min) * 100) %>%; width: <%= ((max - mix_max)/(max - min) * 100)%>%;"></div>
+
       <!-- <div class="data-vis__bg --sectors --top"></div> -->
       <div class="data-vis__bg --sectors"></div>
       <div class="data-vis__bg --sectors --bottom"></div>

@@ -91,31 +91,13 @@
         margin-top: -8px;
 
         &.--pos {
-          width: 31.25%;
           background-color: $positive;
-          left: 34.375%;
         }
         &.--mix {
-          width: 15.625%;
           background-color: $mixed;
-
-          &.--left {
-            left: 18.75%;
-          }
-          &.--right {
-            left: 65.625%;
-          }
         }
         &.--neg {
-          width: 18.75%;
           background-color: $iron;
-
-          &.--left {
-            left: 0;
-          }
-          &.--right {
-            left: 81.25%;
-          }
         }
 
         &.--sectors {
