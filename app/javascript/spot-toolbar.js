@@ -17,7 +17,69 @@ let revSections = [];
 let spotBarInit = false;
 
 class SpotToolbar {
-  initialise() {
+  constructor () {
+    this.init.bind(this);
+    this.initScroll.bind(this);
+    this.init();
+  }
+
+  offsetRelTop(el) {
+    const top = document.body.getBoundingClientRect().top;
+    const elOffset = el.getBoundingClientRect().top;
+    return elOffset - top;
+  }
+
+  initScroll() {
+    window.onscroll = () => {
+      !spotBarInit && InitSpotToolbar();
+      const pageOffset = document.body.scrollTop;
+
+      if (!checkingScroll) {
+        checkingScroll = true;
+        window.setTimeout(() => {
+          // Set fixed or non fixed state
+          if ((!toolbar.classList.contains(fixedClass) && pageOffset >= 145) ||
+            (toolbar.classList.contains(fixedClass) && pageOffset < 145)) {
+            toolbar.classList.toggle(fixedClass);
+          }
+
+          // Set focused toolbar section
+          if (revSections.length) {
+            for (let s of revSections) {
+              if (pageOffset >= (this.offsetRelTop(s.section) - 65)) {
+                if (focusedSection !== s.section) {
+                  focusedBtn && focusedBtn.classList.remove(focusedClass);
+                  focusedBtn = s.button;
+                  focusedBtn.classList.add(focusedClass);
+                  focusedSection = s.section;
+                }
+                break;
+              } else if (s.section === revSections[revSections.length - 1].section) {
+                if (s.section !== focusedSection) {
+                  // Select top most section if not past it and not already selected
+                  focusedBtn && focusedBtn.classList.remove(focusedClass);
+                  focusedBtn = s.button;
+                  focusedSection = s.section;
+                  focusedBtn.classList.add(focusedClass);
+                }
+              }
+            }
+          }
+          checkingScroll = false;
+        }, 50);
+      }
+    }
+  }
+
+  scrollToSelector(selector, event) {
+    event.preventDefault();
+    const yOffset = !toolbar.classList.contains(fixedClass) ? -114 : -55;
+    jump(selector, {
+      offset: yOffset,
+    });
+  }
+
+  init() {
     toolbar = document.getElementById('spot-toolbar');
     currentView = document.getElementById('current-view');
     currentBtn = document.getElementById('current-btn');
@@ -47,63 +109,17 @@ class SpotToolbar {
 
     revSections = sections.slice().reverse();
     spotBarInit = true;
-    self.initScroll();
-  }
+    this.initScroll();
 
-  offsetRelTop(el) {
-    const top = document.body.getBoundingClientRect().top;
-    const elOffset = el.getBoundingClientRect().top;
-    return elOffset - top;
-  }
-
-  initScroll() {
-    window.onscroll = () => {
-      !spotBarInit && InitSpotToolbar();
-      const pageOffset = document.body.scrollTop;
-
-      if (!checkingScroll) {
-        checkingScroll = true;
-        window.setTimeout(() => {
-          // Set fixed or non fixed state
-          if ((!toolbar.classList.contains(fixedClass) && pageOffset >= 145) ||
-            (toolbar.classList.contains(fixedClass) && pageOffset < 145)) {
-            toolbar.classList.toggle(fixedClass);
-          }
-
-          // Set focused toolbar section
-          if (revSections.length) {
-            for (let s of revSections) {
-              if (pageOffset >= (offsetRelTop(s.section) - 65)) {
-                if (focusedSection !== s.section) {
-                  focusedBtn && focusedBtn.classList.remove(focusedClass);
-                  focusedBtn = s.button;
-                  focusedBtn.classList.add(focusedClass);
-                  focusedSection = s.section;
-                }
-                break;
-              } else if (s.section === revSections[revSections.length - 1].section) {
-                if (s.section !== focusedSection) {
-                  // Select top most section if not past it and not already selected
-                  focusedBtn && focusedBtn.classList.remove(focusedClass);
-                  focusedBtn = s.button;
-                  focusedSection = s.section;
-                  focusedBtn.classList.add(focusedClass);
-                }
-              }
-            }
-          }
-          checkingScroll = false;
-        }, 50);
-      }
-    }
-  }
-
-  scrollToSelector(selector) {
-    // !spotBarInit && InitSpotToolbar();
-    // let yOffset = offsetRelTop(sections[val - 1].section);
-    // !toolbar.classList.contains(fixedClass) ? yOffset -= 114 : yOffset -= 55;
-    jump(selector);
-    // window.scrollTo(0, yOffset);
+    currentBtn.addEventListener('click', (event) => {
+      this.scrollToSelector('#current-view', event);
+    });
+    aboutBtn.addEventListener('click',  (event) => {
+      this.scrollToSelector('#about-view', event);
+    });
+    forecastBtn.addEventListener('click', (event) => {
+      this.scrollToSelector('#forecast-view', event);
+    });
   }
 };
 

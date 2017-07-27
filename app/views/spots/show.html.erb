@@ -31,19 +31,19 @@
     <div id="spot-toolbar" class="small-12 medium-4 columns spot-toolbar">
       <div class="row">
         <div id="current-btn" class="small-3 columns spot-toolbar__item">
-          <a onclick="scrollToSelector('#current-view')">
+          <a>
             <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'activity', size: 'small'} %>
             <span class="spot-toolbar__label">Current</span>
           </a>
         </div>
         <div id="about-btn" class="small-3 columns spot-toolbar__item">
-          <a onclick="scrollToSelector('#about-view')">
+          <a>
             <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'award', size: 'small'} %>
             <span class="spot-toolbar__label">Optimums</span>
           </a>
         </div>
         <div id="forecast-btn" class="small-3 columns spot-toolbar__item">
-          <a onclick="scrollToSelector('#forecast-view')">
+          <a>
             <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'trending-up', size: 'small'} %>
             <span class="spot-toolbar__label">Forecast</span>
           </a>

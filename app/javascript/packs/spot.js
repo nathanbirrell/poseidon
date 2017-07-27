@@ -10,8 +10,11 @@
 
 import SpotToolbar from '../spot-toolbar';
 
+let toolbar;
+
+// Initialise script after DOM load
 document.addEventListener('DOMContentLoaded', () => {
-  SpotToolbar.init();
+  toolbar = new SpotToolbar();
 });
 
 console.log('Spot pack loaded')
