@@ -23,7 +23,7 @@
               <span><%= v[:value] %><%= v[:unit] %></span>
             <% end %>
           </p>
-          <p class="sub-text"><%= d[:subtext] %></p>
+          <p class="sub-text"><%= d[:subtext].html_safe %></p>
         </div>
       <% end %>
     </div>

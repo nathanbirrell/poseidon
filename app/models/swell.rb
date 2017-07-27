@@ -52,7 +52,7 @@ class Swell < WeatherForecast
   end
 
   def size_rating
-    return 0 unless size && period
+    return 0 unless size
     weight_of_optimal_swell_height = 0.7
     #========= CALC SWELL SIZE RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
@@ -77,10 +77,38 @@ class Swell < WeatherForecast
     return sizeRating
   end
 
+  def period_rating
+    return 0 unless period
+    # formula y = ax^b
+    a = 1.4
+    b = 1.7
+    period_rating = a * period**b
+    period_rating = 100.0 if period_rating > 100
+    period_rating = 0.0 if period_rating.negative?
+    period_rating
+  end
+
   def rating
-    weight_of_optimal_swell_height = 0.7
-    weight_of_optimal_swell_direction = 0.3
-    rating = (size_rating * weight_of_optimal_swell_height) + (dir_rating * weight_of_optimal_swell_direction)
+    weight_of_optimal_swell_height = 60 / 100
+    weight_of_optimal_swell_direction = 30 / 100
+    weight_of_swell_period = 10 / 100
+    rating = (size_rating * weight_of_optimal_swell_height)
+    rating += (dir_rating * weight_of_optimal_swell_direction)
+    rating += (period_rating * weight_of_swell_period)
     rating.round(2)
+  end
+
+  def swell_in_3_hours
+    @swell_in_3_hours ||= Swell.in_three_hours(spot_id)
+  end
+
+  def rate_of_change_size
+    return 0 unless swell_in_3_hours
+    swell_in_3_hours.size - size
+  end
+
+  def rate_of_change_direction
+    return 0 unless swell_in_3_hours
+    calculate_angle_between(swell_in_3_hours.direction, direction)
   end
 end

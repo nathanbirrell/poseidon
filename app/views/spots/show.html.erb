@@ -28,24 +28,31 @@
   <% end %>
 
   <div class="row">
-    <div class= "small-12 columns spot-toolbar">
+    <div id="spot-toolbar" class="small-12 medium-4 columns spot-toolbar">
       <div class="row">
-        <div class="small-6 medium-9 columns">
+        <div id="current-btn" class="small-3 columns spot-toolbar__item">
+          <a onclick="scrollBySection(1)">
+            <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'activity', size: 'small'} %>
+            <span class="spot-toolbar__label">Current</span>
+          </a>
         </div>
-        <div class="small-6 medium-3 columns">
-          <div class="row">
-            <div class="small-4 columns">
-              <a href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
-                <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'map', size: 'reg'} %>
-              </a>
-            </div>
-            <div class="small-4 columns">
-              <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'share', size: 'reg'} %>
-            </div>
-            <div class="small-4 columns">
-              <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'more-vertical', size: 'reg'} %>
-            </div>
-          </div>
+        <div id="about-btn" class="small-3 columns spot-toolbar__item">
+          <a onclick="scrollBySection(2)">
+            <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'award', size: 'small'} %>
+            <span class="spot-toolbar__label">Optimums</span>
+          </a>
+        </div>
+        <div id="forecast-btn" class="small-3 columns spot-toolbar__item">
+          <a onclick="scrollBySection(3)">
+            <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'trending-up', size: 'small'} %>
+            <span class="spot-toolbar__label">Forecast</span>
+          </a>
+        </div>
+        <div class="small-3 columns spot-toolbar__item">
+          <a href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
+            <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'map', size: 'small'} %>
+            <span class="spot-toolbar__label">Location</span>
+          </a>
         </div>
       </div>
     </div>
@@ -58,7 +65,7 @@
     </div>
   <% end %>
 
-  <div class="row">
+  <div id="current-view" class="row">
     <div class="large-12 columns">
       <div class="row">
         <%= render partial: 'partials/info-card', locals: {
@@ -71,19 +78,19 @@
               indicator: get_verdict(@spot.current_swell.size_rating),
               prefix: '',
               values: [{
-                value: @spot.current_swell.size.round(1),
-                unit: 'm'
+                value: m_to_ft(@spot.current_swell.size).round(1),
+                unit: 'ft'
               }],
-              subtext: 'Wave height @ TODOs'
+              subtext: "Wave height <br />@ #{trim(@spot.current_swell.period.round(0))} secs"
             },
             {
               indicator: get_verdict(@spot.current_swell.dir_rating),
               prefix: '',
               values: [{
-                value: @spot.current_swell.direction,
-                unit: '&deg;'.html_safe
+                value: degrees_to_text(@spot.current_swell.direction),
+                unit: ''
               }],
-              subtext: 'Direction'
+              subtext: "Direction <br />(#{@spot.current_swell.direction}&deg;)"
             }
           ]
         } %>
@@ -97,8 +104,8 @@
               indicator: get_verdict(@spot.current_wind.speed_rating),
               prefix: '',
               values: [{
-                value: @spot.current_wind.speed.round(1),
-                unit: 'k'
+                value: trim(kph_to_knots(@spot.current_wind.speed).round(0)),
+                unit: 'kts'
               }],
               subtext: 'Wind speed'
             },
@@ -106,10 +113,10 @@
               indicator: get_verdict(@spot.current_wind.dir_rating),
               prefix: '',
               values: [{
-                value: @spot.current_wind.direction,
-                unit: '&deg;'.html_safe
+                value: degrees_to_text(@spot.current_wind.direction),
+                unit: ''
               }],
-              subtext: 'Direction'
+              subtext: "Direction <br />(#{@spot.current_wind.direction}&deg;)"
             }
           ]
         } %>
@@ -123,7 +130,7 @@
               indicator: get_verdict(@spot.current_tide_rating),
               prefix: '',
               values: [{
-                value: @spot.current_tide_height,
+                value: @spot.current_tide_height.round(1),
                 unit: 'm'
               }],
               subtext: 'Tide height'
@@ -133,11 +140,11 @@
               prefix: '',
               values: [
                 {
-                  value: @spot.display_hours(@spot.tide_hours_remaining),
+                  value: display_hours(@spot.tide_hours_remaining),
                   unit: ':'.html_safe
                 },
                 {
-                  value: '%02d' % @spot.display_mins(@spot.tide_hours_remaining),
+                  value: '%02d' % display_mins(@spot.tide_hours_remaining),
                   unit: ''
                 },
               ],
@@ -149,7 +156,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div id="about-view" class="row small-collapse medium-uncollapse">
     <div class="large-12 columns">
       <div class="small-12 columns">
         <h4>About</h4>
@@ -169,9 +176,6 @@
           <strong>Optimal swell size:</strong>
           <%= @spot.swell_optimal_size_min_metres %> - <%= @spot.swell_optimal_size_max_metres %> metres
           <br>
-          <strong>Optimal swell period:</strong>
-          <%= @spot.swell_optimal_period_seconds %> secs
-          <br>
           <strong>Optimal tides:</strong>
           <%= "#{@spot.tide_optimal_min_metres}m to #{@spot.tide_optimal_max_metres}m" %>
           <br>
@@ -182,13 +186,14 @@
       <div class="large-6 small-12 columns">
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
-            label: 'Wind direction variance',
+            showScale: true,
+            label: 'Wind direction variance (TODO: handle negatives, make 0 center (+-45))',
             min: 0,
             max: @spot.wind_optimal_direction_max_variance,
             value: @spot.current_wind.current_variance.abs,
             unit: " deg",
-            roc: 5,
-            rocDirection: 'right'
+            roc: @spot.current_wind.rate_of_change_direction,
+            rocDirection: get_roc_direction(@spot.current_wind.rate_of_change_direction)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
@@ -198,19 +203,19 @@
             max: @spot.wind_optimal_strength_max_kmh,
             value: @spot.current_wind.speed,
             unit: "kph",
-            roc: 20,
-            rocDirection: 'left'
+            roc: @spot.current_wind.rate_of_change_speed,
+            rocDirection: get_roc_direction(@spot.current_wind.rate_of_change_speed)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
-            label: 'Swell direction variance',
+            label: 'Swell direction variance (TODO: handle negatives, make 0 center (+-45))',
             min: 0,
             max: @spot.swell_optimal_direction_max_variance,
             value: @spot.current_swell.current_variance.abs,
             unit: " deg",
-            roc: 7,
-            rocDirection: 'right'
+            roc: @spot.current_swell.rate_of_change_size,
+            rocDirection: get_roc_direction(@spot.current_swell.rate_of_change_size)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
@@ -220,8 +225,8 @@
             max: @spot.swell_optimal_size_max_metres,
             value: @spot.current_swell.size.round(2),
             unit: "m",
-            roc: 25,
-            rocDirection: 'left'
+            roc: @spot.current_swell.rate_of_change_size,
+            rocDirection: get_roc_direction(@spot.current_swell.rate_of_change_size)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
@@ -231,15 +236,19 @@
             max: @spot.tide_optimal_max_metres,
             value: @spot.current_tide_height,
             unit: "m",
-            roc: 15,
-            rocDirection: 'right'
+            roc: 0.9,
+            rocDirection: get_roc_direction(0.9)
           }
         %>
       </div>
     </div>
   </div>
 
-  <div class="row">
+  <div id="forecast-view">
+    <h3>COMING SOON</h3>
+  </div>
+
+  <div id="location-view" class="row">
     <div class="large-12 columns">
       <iframe
       width="100%"

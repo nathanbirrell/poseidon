@@ -16,7 +16,6 @@
 #  tide_optimal_max_metres              :decimal(, )
 #  swell_optimal_size_min_metres        :decimal(, )
 #  swell_optimal_size_max_metres        :decimal(, )
-#  swell_optimal_period_seconds         :decimal(, )
 #  wind_optimal_strength_min_kmh        :decimal(, )
 #  wind_optimal_strength_max_kmh        :decimal(, )
 #  wave_model_lat                       :decimal(, )
@@ -125,15 +124,14 @@ class Spot < ApplicationRecord
     return hours_remaining
   end
 
-  def display_hours(data)
-    return (data - data%1).round(0) # return a neat figure for hours, taking off any decimal
-  end
-
-  def display_mins(data)
-    return ((data % 1)*60).round(0) # get leftover hours decimal value and return neat mins display figure
+  def works_on_all_tides?
+    # if the optimal range for tide is 0 - 0, assume it works on all tides
+    tide_optimal_max_metres.zero? && tide_optimal_min_metres.zero?
   end
 
   def current_tide_rating
+    return 100 if works_on_all_tides?
+
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
     kVar = 100.0

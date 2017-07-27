@@ -63,13 +63,13 @@
     text-align: center;
 
     &.--positive {
-      background-color: #27AE60;
+      background-color: $positive;
     }
     &.--mixed {
-      background-color: #f1c04b;
+      background-color: $mixed;
     }
     &.--negative {
-      background-color: #EB5757;
+      background-color: $negative;
     }
   }
 

@@ -35,17 +35,30 @@ module SpotsHelper
   end
 
   def kph_to_knots(speed)
-    Unit.new("#{speed} kph").convert_to('knots')
+    Unit.new("#{speed} kph").convert_to('knots').scalar
   end
 
   def m_to_ft(height)
-    Unit.new("#{height} m").convert_to('ft')
+    Unit.new("#{height} m").convert_to('ft').scalar
   end
 
   def degrees_to_text(direction)
     val = ((direction/22.5) + 0.5).round(0)
     directions = ["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"]
     directions[(val % 16)]
+  end
+
+  def get_roc_direction(value)
+    return 'right' if value.positive?
+    return 'left' if value.negative?
+  end
+
+  def display_hours(data)
+    return (data - data%1).round(0) # return a neat figure for hours, taking off any decimal
+  end
+
+  def display_mins(data)
+    return ((data % 1)*60).round(0) # get leftover hours decimal value and return neat mins display figure
   end
 
   private

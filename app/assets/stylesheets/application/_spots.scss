@@ -78,10 +78,15 @@
     -moz-box-shadow: $shadow-subtle;
     box-shadow: $shadow-subtle;
 
+    @media #{$medium-up} {
+      width: 60px;
+      margin-left: auto;
+    }
+
     span {
       font-size: rem-calc(40);
       font-weight: 500;
-      margin-right: 12px;
+      margin-right: 8px;
     }
   }
 
@@ -91,7 +96,7 @@
   }
 
   @media #{$medium-up} {
-    height: 160px;
+    height: 140px;
   }
 
   h2 {
@@ -112,10 +117,4 @@
   a {
     text-decoration: underline;
   }
-}
-
-.spot-toolbar {
-  margin-bottom: 12px;
-  border-bottom: 1px solid $iron;
-  padding: 6px 12px;
 }
