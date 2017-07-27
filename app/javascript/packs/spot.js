@@ -13,7 +13,8 @@ import SpotToolbar from '../spot-toolbar';
 let toolbar;
 
 // Initialise script after DOM load
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
+  console.log('turbolinks:load');
   toolbar = new SpotToolbar();
 });
 
