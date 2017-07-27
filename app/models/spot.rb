@@ -130,7 +130,7 @@ class Spot < ApplicationRecord
   end
 
   def current_tide_rating
-    return 50 if works_on_all_tides?
+    return 100 if works_on_all_tides?
 
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
@@ -159,7 +159,7 @@ class Spot < ApplicationRecord
     aggregate = 0.0
     aggregate += current_swell.rating * weighting_swell
     aggregate += current_wind.rating * weighting_wind
-    aggregate += current_tide_rating * weighting_tide unless works_on_all_tides?
+    aggregate += current_tide_rating * weighting_tide
     aggregate.round(0)
   end
 
