@@ -124,7 +124,14 @@ class Spot < ApplicationRecord
     return hours_remaining
   end
 
+  def works_on_all_tides?
+    # if the optimal range for tide is 0 - 0, assume it works on all tides
+    tide_optimal_max_metres.zero? && tide_optimal_min_metres.zero?
+  end
+
   def current_tide_rating
+    return 100 if works_on_all_tides?
+
     # use vertex quad formula y = a(x-h)^2 + k
     # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
     kVar = 100.0
