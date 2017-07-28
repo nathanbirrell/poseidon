@@ -98,10 +98,10 @@ class Swell < WeatherForecast
 
   def period_rating
     return 0 unless period
-    # formula y = (ax^b)-a
+    # formula y = ax^b
     a = 1.4
     b = 1.7
-    period_rating = (a * period**b) - a
+    period_rating = a * period**b
     period_rating = 100.0 if period_rating > 100
     period_rating = 0.0 if period_rating.negative?
     period_rating
