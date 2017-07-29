@@ -165,13 +165,13 @@
         <h5 class="subheader"><%= @spot.description %></h5>
         <p>
           <strong>Optimal wind direction:</strong>
-          <%= @spot.wind_optimal_direction %> degrees with <%= @spot.wind_optimal_direction_max_variance %> variance
+          Between <%= @spot.wind_optimal_direction_min %> degrees and <%= @spot.wind_optimal_direction_max %> degrees
           <br>
           <strong>Optimal wind strength:</strong>
           <%= @spot.wind_optimal_strength_min_kmh %> - <%= @spot.wind_optimal_strength_max_kmh %> kmh
           <br>
           <strong>Optimal swell direction:</strong>
-          <%= @spot.swell_optimal_direction %> degrees with <%= @spot.swell_optimal_direction_max_variance %> variance
+          Between <%= @spot.swell_optimal_direction_min %> degrees and <%= @spot.swell_optimal_direction_max %> degrees
           <br>
           <strong>Optimal swell size:</strong>
           <%= @spot.swell_optimal_size_min_metres %> - <%= @spot.swell_optimal_size_max_metres %> metres
@@ -188,8 +188,8 @@
           locals: {
             showScale: true,
             label: 'Wind',
-            min: 0,
-            max: @spot.wind_optimal_direction_max_variance,
+            min: @spot.wind_optimal_direction_min,
+            max: @spot.wind_optimal_direction_max,
             mix_min: 5,
             mix_max: 35,
             opt_min: 10,
@@ -220,8 +220,8 @@
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
             label: 'Swell',
-            min: 0,
-            max: @spot.swell_optimal_direction_max_variance,
+            min: @spot.swell_optimal_direction_min,
+            max: @spot.swell_optimal_direction_max,
             mix_min: 5,
             mix_max: 35,
             opt_min: 10,

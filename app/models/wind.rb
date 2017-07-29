@@ -17,35 +17,39 @@ class Wind < WeatherForecast
   belongs_to :spot
 
   def current_variance
-    return 0 unless direction
-    calculate_angle_between(direction, spot.wind_optimal_direction)
+    # FIXME
+    # return 0 unless direction
+    # calculate_angle_between(direction, spot.wind_optimal_direction)
+    25.0
   end
 
   def dir_rating
-    return 0 unless direction
-    weight_of_optimal_wind_direction = 0.8
+    # FIXME
+    # return 0 unless direction
+    # weight_of_optimal_wind_direction = 0.8
 
-    #========= CALC WIND DIRECTION RATING ==========
-    # use vertex quad formula y = a(x-h)^2 + k
-    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    dirOptimum = spot.wind_optimal_direction
-    dirMaxVariance =  spot.wind_optimal_direction_max_variance
-    dirKVar = 100.0
-    dirHVar = 0.0
+    # #========= CALC WIND DIRECTION RATING ==========
+    # # use vertex quad formula y = a(x-h)^2 + k
+    # # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
+    # dirOptimum = spot.wind_optimal_direction
+    # dirMaxVariance =  spot.wind_optimal_direction_max_variance
+    # dirKVar = 100.0
+    # dirHVar = 0.0
 
-    # pass in known coord to determin var a value, (maxVariance, 75)
-    dirAVar = (75 - 100)/((dirMaxVariance - dirHVar)**2)
+    # # pass in known coord to determin var a value, (maxVariance, 75)
+    # dirAVar = (75 - 100)/((dirMaxVariance - dirHVar)**2)
 
-    dirRating = dirAVar * ((current_variance - dirHVar)**2) + dirKVar
+    # dirRating = dirAVar * ((current_variance - dirHVar)**2) + dirKVar
 
-    if dirRating < 0 then
-      dirRating = 0
-    end
+    # if dirRating < 0 then
+    #   dirRating = 0
+    # end
 
-    puts("Wind direction current_variance=#{current_variance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
-    puts("Wind dirRating= #{dirRating}")
+    # puts("Wind direction current_variance=#{current_variance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
+    # puts("Wind dirRating= #{dirRating}")
 
-    return dirRating
+    # return dirRating
+    100
   end
 
   def speed_at_rating(rating)
@@ -93,8 +97,10 @@ class Wind < WeatherForecast
   end
 
   def rate_of_change_direction
-    return 0 unless wind_in_3_hours
-    calculate_angle_between(wind_in_3_hours.current_variance.abs, current_variance.abs)
+    # FIXME
+    # return 0 unless wind_in_3_hours
+    # calculate_angle_between(wind_in_3_hours.current_variance.abs, current_variance.abs)
+    25.0
   end
 
   def rate_of_change_speed

@@ -17,7 +17,9 @@ class Swell < WeatherForecast
   belongs_to :spot
 
   def current_variance
-    calculate_angle_between(direction, spot.swell_optimal_direction)
+    # FIXME
+    # calculate_angle_between(direction, spot.swell_optimal_direction)
+    25.0
   end
 
   def size
@@ -27,33 +29,37 @@ class Swell < WeatherForecast
   end
 
   def dir_at_y(rating)
-    dir_max_variance = spot.swell_optimal_direction_max_variance
-    dir_k_var = 100.0
-    dir_h_var = 0.0
-    dir_a_var = (75 - 100) / ((dir_max_variance - dir_h_var)**2)
+    # FIXME
+    # dir_max_variance = spot.swell_optimal_direction_max_variance
+    # dir_k_var = 100.0
+    # dir_h_var = 0.0
+    # dir_a_var = (75 - 100) / ((dir_max_variance - dir_h_var)**2)
 
-    dir_at_rating_left = (((2 * dir_a_var * dir_h_var) - Math.sqrt((-2 * dir_a_var * dir_h_var)**2 - 4 * dir_a_var * (dir_a_var * dir_h_var**2 + dir_k_var))) / (2 * dir_a_var)) + rating
-    dir_at_rating_left
+    # dir_at_rating_left = (((2 * dir_a_var * dir_h_var) - Math.sqrt((-2 * dir_a_var * dir_h_var)**2 - 4 * dir_a_var * (dir_a_var * dir_h_var**2 + dir_k_var))) / (2 * dir_a_var)) + rating
+    # dir_at_rating_left
+    100
   end
 
   def dir_rating
+    # FIXME
     return 0 unless direction
     # vertex quad formula y = a(x-h)^2 + k
     # a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    dir_max_variance = spot.swell_optimal_direction_max_variance
-    dir_k_var = 100.0
-    dir_h_var = 0.0
+    # dir_max_variance = spot.swell_optimal_direction_max_variance
+    # dir_k_var = 100.0
+    # dir_h_var = 0.0
 
-    # pass in known coord to determin var a value, (dir_max_variance, 75)
-    dir_a_var = (75 - 100) / ((dir_max_variance - dir_h_var)**2)
+    # # pass in known coord to determin var a value, (dir_max_variance, 75)
+    # dir_a_var = (75 - 100) / ((dir_max_variance - dir_h_var)**2)
 
-    dir_rating = dir_a_var * ((current_variance - dir_h_var)**2) + dir_k_var
+    # dir_rating = dir_a_var * ((current_variance - dir_h_var)**2) + dir_k_var
 
-    if dir_rating.negative?
-      dir_rating = 0
-    end
+    # if dir_rating.negative?
+    #   dir_rating = 0
+    # end
 
-    dir_rating
+    # dir_rating
+    100
   end
 
   def size_at_rating(rating)
@@ -127,7 +133,9 @@ class Swell < WeatherForecast
   end
 
   def rate_of_change_direction
+    # FIXME
     return 0 unless swell_in_3_hours
-    calculate_angle_between(swell_in_3_hours.current_variance.abs, current_variance.abs)
+    # calculate_angle_between(swell_in_3_hours.current_variance.abs, current_variance.abs)
+    25.0
   end
 end
