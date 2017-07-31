@@ -72,8 +72,8 @@ class Spot < ApplicationRecord
     period = period*2
   end
 
-  def tide_delta_time
-    delta_time = Time.zone.now.to_i - last_tide.date_time.localtime.to_i
+  def tide_delta_time(forecastHrs)
+    delta_time = (Time.zone.now + forecastHrs.hours).to_i - last_tide.date_time.localtime.to_i
     delta_time = delta_time/60
     delta_time = delta_time/60.round(3)
   end
@@ -82,13 +82,22 @@ class Spot < ApplicationRecord
     return ((next_tide.date_time.localtime.to_i - Time.zone.now.to_i) / 60 / 60.round(3))
   end
 
-  def current_tide_height
+  # Try not to use for more than 6 hours, we will have new data by then anyway
+  def tide_in_x_hours(hours)
     if last_tide.tide_type == 'low'
-      curr_tide = (tidal_range/2)*sin((2*PI/tide_period) * tide_delta_time - PI/2) + (tidal_range/2 + low_tide.height)
+      tide_in_x = (tidal_range/2)*sin((2*PI/tide_period) * tide_delta_time(hours) - PI/2) + (tidal_range/2 + low_tide.height)
     elsif last_tide.tide_type == 'high'
-      curr_tide = (tidal_range/2)*sin((2*PI/tide_period) * tide_delta_time + PI/2) + (tidal_range/2 + low_tide.height)
+      tide_in_x = (tidal_range/2)*sin((2*PI/tide_period) * tide_delta_time(hours) + PI/2) + (tidal_range/2 + low_tide.height)
     end
-    return curr_tide.round(2)
+    return tide_in_x.round(2)
+  end
+
+  def current_tide_height
+    return tide_in_x_hours(0)
+  end
+
+  def rate_of_change_tide
+    rocTide = tide_in_x_hours(3) - current_tide_height
   end
 
   def tide_remaining_or_to

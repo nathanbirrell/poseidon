@@ -2,8 +2,7 @@
   margin-bottom: 0px;
   position: relative;
   width: 100%;
-  background-color: $aluminum;
-  color: $white;
+  color: $black;
 
   &__scale {
     position: absolute;
@@ -61,54 +60,21 @@
     }
   }
 
-  &__bg {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    opacity: 0.4;
-
-    &.--pos {
-      width: 31.25%;
-      background-color: #27AE60;
-      left: 34.375%;
-    }
-    &.--mix {
-      width: 15.625%;
-      background-color: #F2994A;
-
-      &.--left {
-        left: 18.75%;
-      }
-      &.--right {
-        left: 65.625%;
-      }
-    }
-    &.--neg {
-      width: 18.75%;
-      background-color: #EB5757;
-
-      &.--left {
-        left: 0;
-      }
-      &.--right {
-        left: 81.25%;
-      }
-    }
-  }
-
   &__meta {
-    position: absolute;
-    top: 6px;
-    left: 6.25%;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    color: $jumbo;
   }
 
   &__visual {
-    width: 87.5%;
+    width: 100%;
     display: block;
     margin: 0 auto;
     position: relative;
     height: 60px;
-    padding: 45px 0px;
+    padding: 50px 0 35px 0;
+    overflow-x: hidden;
+    overflow-y: visible;
 
     .data-vis {
       width: 100%;
@@ -121,73 +87,91 @@
       }
 
       &__bg {
-        left: 0;
-        width: 100%;
-        height: 8px;
-        background: #fff;
-        border-radius: 8px;
-        margin-top: -5px;
+        height: 16px;
+        margin-top: -8px;
+
+        &.--pos {
+          background-color: $positive;
+        }
+        &.--mix {
+          background-color: $mixed;
+        }
+        &.--neg {
+          background-color: $iron;
+        }
+
+        &.--sectors {
+          width: 106%;
+          left: -3%;
+          border: 4px dashed #F5F5F5;
+          height: 0px;
+
+          &.--top {
+            border: 17px dashed #F5F5F5;
+            margin-top: -39px;
+          }
+          &.--bottom {
+            margin-top: 0px;
+          }
+        }
       }
 
       &__current {
         position: absolute;
-        line-height: 30px;
         text-align: center;
-        color: #fff;
-        font-size: 12px;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background-color: $positive;
-        margin-left: -15px;
-        margin-top: -15px;
-      }
-
-      &__ROC {
-        position: absolute;
-        background-color: #ccc;
-        height: 8px;
-        border-radius: 8px;
-        margin-top: -5px;
+        color: $black;
+        width: 60px;
+        margin-left: -30px;
+        margin-top: -48px;
+        font-weight: 500;
 
         &::after {
           display: block;
           content: "";
-          height: 30px;
-          width: 30px;
+          height: 14px;
+          width: 14px;
           background-size: cover;
-          margin-top: -11px;
+          margin-top: -3px;
+          background-image: asset-url('icons/navigation-down--black.svg');
+          margin-left: 23px;
         }
+      }
 
-        &.--left {
-          &::after {
-            margin-left: -10px;
-            background-image: asset-url('icons/chevron-left--grey.svg');
-          }
-        }
+      &__ROC {
+        position: absolute;
+        height: 0px;
+        border: 1px dashed $base;
+        margin-top: 10px;
+      }
 
-        &.--right {
-          &::after {
-            float: right;
-            margin-right: -10px;
-            background-image: asset-url('icons/chevron-right--grey.svg');
-          }
-        }
+      &__ROC-value {
+        position: absolute;
+        text-align: center;
+        color: $jumbo;
+        width: 60px;
+        margin-left: -30px;
+        margin-top: 10px;
       }
     }
   }
 
-  &__min {
-    float: left;
-  }
-  &__max {
-    float: right;
+  &__markings {
+    color: $jumbo;
+    position: absolute;
+    width: 100%;
+    top: 12px;
+
+    .optimum-vis__min {
+      position: absolute;
+      left: 0;
+    }
+    .optimum-vis__max {
+      position: absolute;
+      right: 0;
+    }
   }
 
   &.--outside {
-    input[type=range]::-webkit-slider-thumb {
-      display: none;
-    }
     .optimum-vis__current {
       display: none;
     }
