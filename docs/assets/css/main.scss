@@ -50,7 +50,7 @@
 	}
 
 	body, input, select, textarea {
-		color: _palette(fg);
+		color: _palette(fg-bold);
 		font-family: _font(family);
 		font-size: 16pt;
 		font-weight: _font(weight);
@@ -245,7 +245,7 @@
 			p {
 				display: inline-block;
 				border-top: solid 2px _palette(border);
-				color: _palette(fg);
+				color: _palette(fg-bold);
 				margin: 1.5em 0 0 0;
 				padding: 1.5em 0 0 0;
 				font-style: normal;
