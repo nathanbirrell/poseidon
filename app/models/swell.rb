@@ -16,50 +16,51 @@ class Swell < WeatherForecast
   include Math
   belongs_to :spot
 
-  def current_variance
-    # FIXME
-    # calculate_angle_between(direction, spot.swell_optimal_direction)
-    25.0
-  end
-
   def size
     # Swell size is *always* the model size by the coefficient, thus calibrating
     #   the spot to it's nearest model reading.
     self[:size] * spot.wave_model_size_coefficient
   end
 
-  def dir_at_y(rating)
-    # FIXME
-    # dir_max_variance = spot.swell_optimal_direction_max_variance
-    # dir_k_var = 100.0
-    # dir_h_var = 0.0
-    # dir_a_var = (75 - 100) / ((dir_max_variance - dir_h_var)**2)
+  def dir_at_rating(rating)
+    dir_max = spot.swell_optimal_direction_max
+    dir_min = spot.swell_optimal_direction_min
+    dir_k_var = 100.0
+    dir_h_var = ((dir_max - dir_min) / 2) + dir_min
+    dir_a_var = (75 - 100) / ((dir_min - dir_h_var)**2)
 
-    # dir_at_rating_left = (((2 * dir_a_var * dir_h_var) - Math.sqrt((-2 * dir_a_var * dir_h_var)**2 - 4 * dir_a_var * (dir_a_var * dir_h_var**2 + dir_k_var))) / (2 * dir_a_var)) + rating
-    # dir_at_rating_left
-    100
+    q_i = 2 * dir_a_var * dir_h_var
+    q_ii = (-2 * dir_a_var * dir_h_var)**2
+    q_iii = 4 * dir_a_var * (dir_a_var * (dir_h_var**2) + dir_k_var - rating)
+    my_sqrt = q_ii - q_iii
+    s_a_r_right = (q_i - Math.sqrt(my_sqrt.to_f)) / (2 * dir_a_var)
+    s_a_r_left = (q_i + Math.sqrt(my_sqrt.to_f)) / (2 * dir_a_var)
+    {
+      left: s_a_r_left,
+      right: s_a_r_right
+    }
   end
 
   def dir_rating
-    # FIXME
     return 0 unless direction
     # vertex quad formula y = a(x-h)^2 + k
     # a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    # dir_max_variance = spot.swell_optimal_direction_max_variance
-    # dir_k_var = 100.0
-    # dir_h_var = 0.0
+    dir_max = spot.swell_optimal_direction_max
+    dir_min = spot.swell_optimal_direction_min
+    dir_k_var = 100.0
+    dir_h_var = ((dir_max - dir_min) / 2) + dir_min
 
-    # # pass in known coord to determin var a value, (dir_max_variance, 75)
-    # dir_a_var = (75 - 100) / ((dir_max_variance - dir_h_var)**2)
+    # pass in known coord to determin var a value, (dir_min, 75)
+    dir_a_var = (75 - 100) / ((dir_min - dir_h_var)**2)
 
-    # dir_rating = dir_a_var * ((current_variance - dir_h_var)**2) + dir_k_var
+    # plug in current direction as x value
+    dir_rating = dir_a_var * ((direction - dir_h_var)**2) + dir_k_var
 
-    # if dir_rating.negative?
-    #   dir_rating = 0
-    # end
+    if dir_rating.negative?
+      dir_rating = 0
+    end
 
-    # dir_rating
-    100
+    dir_rating
   end
 
   def size_at_rating(rating)
