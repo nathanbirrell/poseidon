@@ -13,10 +13,13 @@
 #
 
 class Swell < WeatherForecast
+  include Math
   belongs_to :spot
 
   def current_variance
-    calculate_angle_between(direction, spot.swell_optimal_direction)
+    # FIXME
+    # calculate_angle_between(direction, spot.swell_optimal_direction)
+    25.0
   end
 
   def size
@@ -25,56 +28,78 @@ class Swell < WeatherForecast
     self[:size] * spot.wave_model_size_coefficient
   end
 
+  def dir_at_y(rating)
+    # FIXME
+    # dir_max_variance = spot.swell_optimal_direction_max_variance
+    # dir_k_var = 100.0
+    # dir_h_var = 0.0
+    # dir_a_var = (75 - 100) / ((dir_max_variance - dir_h_var)**2)
+
+    # dir_at_rating_left = (((2 * dir_a_var * dir_h_var) - Math.sqrt((-2 * dir_a_var * dir_h_var)**2 - 4 * dir_a_var * (dir_a_var * dir_h_var**2 + dir_k_var))) / (2 * dir_a_var)) + rating
+    # dir_at_rating_left
+    100
+  end
+
   def dir_rating
+    # FIXME
     return 0 unless direction
-    weight_of_optimal_swell_direction = 0.3
+    # vertex quad formula y = a(x-h)^2 + k
+    # a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
+    # dir_max_variance = spot.swell_optimal_direction_max_variance
+    # dir_k_var = 100.0
+    # dir_h_var = 0.0
 
-    #========= CALC SWELL DIRECTION RATING ==========
-    # use vertex quad formula y = a(x-h)^2 + k
-    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    dirMaxVariance = spot.swell_optimal_direction_max_variance
-    dirKVar = 100.0
-    dirHVar = 0.0
+    # # pass in known coord to determin var a value, (dir_max_variance, 75)
+    # dir_a_var = (75 - 100) / ((dir_max_variance - dir_h_var)**2)
 
-    # pass in known coord to determin var a value, (dirMaxVariance, 75)
-    dirAVar = (75 - 100)/((dirMaxVariance - dirHVar)**2)
+    # dir_rating = dir_a_var * ((current_variance - dir_h_var)**2) + dir_k_var
 
-    dirRating = dirAVar * ((current_variance - dirHVar)**2) + dirKVar
+    # if dir_rating.negative?
+    #   dir_rating = 0
+    # end
 
-    if dirRating < 0 then
-      dirRating = 0
-    end
+    # dir_rating
+    100
+  end
 
-    puts("Swell direction current_variance=#{current_variance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
-    puts("Swell dirRating= #{dirRating}")
+  def size_at_rating(rating)
+    size_max = spot.swell_optimal_size_max_metres
+    size_min = spot.swell_optimal_size_min_metres
+    size_k_var = 100.0
+    size_h_var = ((size_max - size_min) / 2) + size_min
+    size_a_var = (75 - 100) / ((size_min - size_h_var)**2)
 
-    return dirRating
+    q_i = 2 * size_a_var * size_h_var
+    q_ii = (-2 * size_a_var * size_h_var)**2
+    q_iii = 4 * size_a_var * (size_a_var * (size_h_var**2) + size_k_var - rating)
+    my_sqrt = q_ii - q_iii
+    s_a_r_right = (q_i - Math.sqrt(my_sqrt.to_f)) / (2 * size_a_var)
+    s_a_r_left = (q_i + Math.sqrt(my_sqrt.to_f)) / (2 * size_a_var)
+    {
+      left: s_a_r_left,
+      right: s_a_r_right
+    }
   end
 
   def size_rating
     return 0 unless size
-    weight_of_optimal_swell_height = 0.7
-    #========= CALC SWELL SIZE RATING ==========
     # use vertex quad formula y = a(x-h)^2 + k
-    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    sizeKVar = 100.0
-    sizeMax = spot.swell_optimal_size_max_metres
-    sizeMin = spot.swell_optimal_size_min_metres
-    sizeHVar = ((sizeMax - sizeMin)/2) + sizeMin
+    # a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
+    size_max = spot.swell_optimal_size_max_metres
+    size_min = spot.swell_optimal_size_min_metres
+    size_k_var = 100.0
+    size_h_var = ((size_max - size_min) / 2) + size_min
 
     # pass in known coord to determine var a value, (sizeMin, 75)
-    sizeAVar = (75 - 100)/((sizeMin - sizeHVar)**2)
+    size_a_var = (75 - 100) / ((size_min - size_h_var)**2)
 
-    sizeRating = sizeAVar * ((size - sizeHVar)**2) + sizeKVar
+    size_rating = size_a_var * ((size - size_h_var)**2) + size_k_var
 
-    if sizeRating < 0 then
-      sizeRating = 0
+    if size_rating.negative?
+      size_rating = 0
     end
 
-    puts("Parabolic sizeAVar=#{sizeAVar} sizeHVar=#{sizeHVar} sizeRating=#{sizeRating}")
-    puts("Swell sizeRating= #{sizeRating}")
-
-    return sizeRating
+    size_rating
   end
 
   def period_rating
@@ -108,7 +133,9 @@ class Swell < WeatherForecast
   end
 
   def rate_of_change_direction
+    # FIXME
     return 0 unless swell_in_3_hours
-    calculate_angle_between(swell_in_3_hours.direction, direction)
+    # calculate_angle_between(swell_in_3_hours.current_variance.abs, current_variance.abs)
+    25.0
   end
 end

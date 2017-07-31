@@ -1,0 +1,15 @@
+<header id="header" class="hide {% if page.url == "/index.html" %} alt {% endif %}>"
+	<h1><a href="index.html">Alpha</a> by HTML5 UP</h1>
+	 {% include menu.html %}
+</header>
+
+
+{% if page.header != false %}
+<section id="banner">
+	<h1>POSEIDON</h1>
+	<p>Surf like a god with data-driven, spot-specific surf forecasts and recommendations.</p>
+	<ul class="actions">
+		<li><a href="#signup" class="button special">Get beta access</a></li>
+	</ul>
+</section>
+{% endif %}
