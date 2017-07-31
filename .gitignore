@@ -86,6 +86,10 @@ public/assets/
 # tilde files are usually backup files from a text editor
 *~
 
+# Javascript
+/public/packs
+/node_modules
+
 # Jekyll site
 docs/_site
 docs/.sass-cache
