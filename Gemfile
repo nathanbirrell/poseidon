@@ -23,6 +23,7 @@ gem 'high_voltage'
 gem 'countries'
 gem 'country_select'
 gem 'ruby-units'
+gem 'webpacker', '~> 2.0'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
