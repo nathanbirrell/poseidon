@@ -431,7 +431,8 @@
 	$box-padding: 3em;
 
 	.box {
-		background: #fff;
+		background: #002040;
+		color: #fff;
 		border-radius: _size(border-radius);
 		box-shadow: 0 2px 0 0 _palette(border);
 		margin: 0 0 _size(element-margin) 0;
@@ -1164,7 +1165,7 @@
 		background-attachment:	fixed;
 		// background-color:	#153C65;
 		// background: linear-gradient(178deg, #34b7f3, #153C65 95%, #153C65);
-		background: linear-gradient(178deg, #f6df6e, #24779c 95%, #24779c);
+		background: linear-gradient(180deg, #24779c, #38c8b2 95%, #38c8b2);
 		/* COlOR PALETTES
 		DUSK .bittersweet { color: #e76a65; } --> .plum { color: #3a1040; }
 		ARVO .purple-heart { color: #570ca1; } --> .robin-egg-blue { color: #38c8b2; }
@@ -1713,7 +1714,7 @@
 			body.landing {
 				#main {
 					padding: 0;
-					margin-top: 0;
+					margin-top: 8em;
 				}
 			}
 
