@@ -1,4 +1,19 @@
 class PoseidonMath
+  def normalise_degrees(degrees)
+    new_degrees = degrees
+    if new_degrees.abs > 360 then
+      if new_degrees.negative?
+        new_degrees += 360
+      else
+        new_degrees -= 360
+      end
+      normalise_degrees(new_degrees)
+    else
+      new_degrees += 360 if new_degrees.negative?
+      return new_degrees
+    end
+  end
+
   def rating_given_x(data = {})
     return 0 unless data
     # use vertex quad formula y = a(x-h)^2 + k
