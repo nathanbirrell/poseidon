@@ -81,7 +81,18 @@
                 value: m_to_ft(@spot.current_swell.size).round(1),
                 unit: 'ft'
               }],
-              subtext: "Wave height <br />@ #{trim(@spot.current_swell.period.round(0))} secs"
+              subtext: "Wave height <br />@ #{trim(@spot.current_swell.period.round(0))} secs",
+              optimum_vis: [{
+                min: @spot.current_swell.size_at_rating(30.0)[:left].round(2),
+                max: @spot.current_swell.size_at_rating(30.0)[:right].round(2),
+                mix_min: @spot.current_swell.size_at_rating(50.0)[:left].round(2),
+                mix_max: @spot.current_swell.size_at_rating(50.0)[:right].round(2),
+                opt_min: @spot.swell_optimal_size_min_metres,
+                opt_max: @spot.swell_optimal_size_max_metres,
+                value: @spot.current_swell.size.round(2),
+                roc: @spot.current_swell.rate_of_change_size,
+                roc_direction: get_roc_direction(@spot.current_swell.rate_of_change_size)
+              }]
             },
             {
               indicator: get_verdict(@spot.current_swell.dir_rating),
@@ -90,7 +101,18 @@
                 value: degrees_to_text(@spot.current_swell.direction),
                 unit: ''
               }],
-              subtext: "Direction <br />(#{@spot.current_swell.direction}&deg;)"
+              subtext: "Direction <br />(#{@spot.current_swell.direction}&deg;)",
+              optimum_vis: [{
+                min: @spot.current_swell.dir_at_rating(30.0)[:left].round(1),
+                max: @spot.current_swell.dir_at_rating(30.0)[:right].round(1),
+                mix_min: @spot.current_swell.dir_at_rating(50.0)[:left].round(1),
+                mix_max: @spot.current_swell.dir_at_rating(50.0)[:right].round(1),
+                opt_min: @spot.current_swell.dir_at_rating(75.0)[:left].round(1),
+                opt_max: @spot.current_swell.dir_at_rating(75.0)[:right].round(1),
+                value: @spot.current_swell.direction,
+                roc: @spot.current_swell.rate_of_change_direction,
+                roc_direction: get_roc_direction(@spot.current_swell.rate_of_change_direction)
+              }]
             }
           ]
         } %>
@@ -107,7 +129,18 @@
                 value: trim(kph_to_knots(@spot.current_wind.speed).round(0)),
                 unit: 'kts'
               }],
-              subtext: 'Wind speed'
+              subtext: 'Wind speed',
+              optimum_vis: [{
+                min: @spot.current_wind.speed_at_rating(30.0)[:left].round(1),
+                max: @spot.current_wind.speed_at_rating(30.0)[:right].round(1),
+                mix_min: @spot.current_wind.speed_at_rating(50.0)[:left].round(1),
+                mix_max: @spot.current_wind.speed_at_rating(50.0)[:right].round(1),
+                opt_min: @spot.wind_optimal_strength_min_kmh,
+                opt_max: @spot.wind_optimal_strength_max_kmh,
+                value: @spot.current_wind.speed,
+                roc: @spot.current_wind.rate_of_change_speed,
+                roc_direction: get_roc_direction(@spot.current_wind.rate_of_change_speed)
+              }]
             },
             {
               indicator: get_verdict(@spot.current_wind.dir_rating),
@@ -116,7 +149,18 @@
                 value: degrees_to_text(@spot.current_wind.direction),
                 unit: ''
               }],
-              subtext: "Direction <br />(#{@spot.current_wind.direction}&deg;)"
+              subtext: "Direction <br />(#{@spot.current_wind.direction}&deg;)",
+              optimum_vis: [{
+                min: @spot.current_wind.dir_at_rating(30.0)[:left].round(1),
+                max: @spot.current_wind.dir_at_rating(30.0)[:right].round(1),
+                mix_min: @spot.current_wind.dir_at_rating(50.0)[:left].round(1),
+                mix_max: @spot.current_wind.dir_at_rating(50.0)[:right].round(1),
+                opt_min: @spot.current_wind.dir_at_rating(75.0)[:left].round(1),
+                opt_max: @spot.current_wind.dir_at_rating(75.0)[:right].round(1),
+                value: @spot.current_wind.direction,
+                roc: @spot.current_wind.rate_of_change_direction,
+                roc_direction: get_roc_direction(@spot.current_wind.rate_of_change_direction)
+              }]
             }
           ]
         } %>
@@ -133,7 +177,24 @@
                 value: @spot.current_tide_height.round(1),
                 unit: 'm'
               }],
-              subtext: 'Tide height'
+              subtext: 'Tide height',
+              optimum_vis: [{
+                label: 'Tide',
+                type: 'linear',
+                min: @spot.tide_at_rating(30.0)[:left].round(2),
+                max: @spot.tide_at_rating(30.0)[:right].round(2),
+                mix_min: @spot.tide_at_rating(50.0)[:left].round(2),
+                mix_max: @spot.tide_at_rating(50.0)[:right].round(2),
+                opt_min: @spot.tide_optimal_min_metres,
+                opt_max: @spot.tide_optimal_max_metres,
+                value: @spot.current_tide_height,
+                unit: "m",
+                min_label: @spot.tide_at_rating(30.0)[:left].round(2),
+                max_label: @spot.tide_at_rating(30.0)[:right].round(2),
+                roc_value: @spot.tide_in_x_hours(3),
+                roc: @spot.rate_of_change_tide,
+                roc_direction: get_roc_direction(@spot.rate_of_change_tide)
+              }]
             },
             {
               indicator: '',

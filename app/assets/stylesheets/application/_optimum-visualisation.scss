@@ -71,10 +71,14 @@
     display: block;
     margin: 0 auto;
     position: relative;
-    height: 60px;
+    height: 12px;
     padding: 50px 0 35px 0;
     overflow-x: hidden;
     overflow-y: visible;
+
+    &.--mini {
+      padding: 18px 0 6px 0;
+    }
 
     .data-vis {
       width: 100%;
@@ -89,6 +93,11 @@
       &__bg {
         height: 16px;
         margin-top: -8px;
+
+        &.--mini {
+          height: 8px;
+          margin-top: -4px;
+        }
 
         &.--pos {
           background-color: $positive;
@@ -113,6 +122,10 @@
           &.--bottom {
             margin-top: 0px;
           }
+
+          &.--mini {
+            border: 2px dashed #F5F5F5;
+          }
         }
       }
 
@@ -135,6 +148,22 @@
           background-image: asset-url('icons/navigation-down--black.svg');
           margin-left: 23px;
         }
+
+        &.--mini {
+          width: 4px;
+          height: 4px;
+          margin-left: -2px;
+          margin-top: 0px;
+
+          &::after {
+            height: 8px;
+            width: 8px;
+            background-size: cover;
+            margin-top: -12px;
+            background-image: asset-url('icons/navigation-down--black.svg');
+            margin-left: -2px;
+          }
+        }
       }
 
       &__ROC {
@@ -142,6 +171,10 @@
         height: 0px;
         border: 1px dashed $base;
         margin-top: 10px;
+
+        &.--mini {
+          margin-top: 6px;
+        }
       }
 
       &__ROC-value {
