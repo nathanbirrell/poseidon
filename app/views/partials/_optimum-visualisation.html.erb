@@ -15,8 +15,8 @@
   <% end %>
   <div class="optimum-vis__visual">
     <div class="optimum-vis__markings">
-      <span class="optimum-vis__min"><%= trim(min) %></span>
-      <span class="optimum-vis__max"><%= trim(max) %></span>
+      <span class="optimum-vis__min"><%= min_label %></span>
+      <span class="optimum-vis__max"><%= max_label %></span>
     </div>
     <div class="data-vis">
       <div class="data-vis__bg --neg" style="left: 0%; width: <%= ((mix_min - min)/(max - min) * 100)%>%;"></div>
@@ -29,8 +29,8 @@
       <div class="data-vis__bg --sectors"></div>
       <div class="data-vis__bg --sectors --bottom"></div>
       <% if value > min && value < max %>
-        <span class="data-vis__ROC --<%= rocDirection %>" style="left: <%= rocDirection === 'right' ? ((value - min)/(max-min) * 100) : (((value - min)/(max-min) * 100) - (roc.abs)/(max-min) * 100) %>%; width: <%= (roc.abs)/(max-min) * 100 %>%;"></span>
-        <span class="data-vis__ROC-value --<%= rocDirection %>" style="left: <%= rocDirection === 'right' ? (((value - min)/(max-min) * 100) + (roc.abs)/(max-min) * 100) : (((value - min)/(max-min) * 100) - (roc.abs)/(max-min) * 100) %>%;"><%= trim(roc_value) %><%= unit %></span>
+        <span class="data-vis__ROC --<%= roc_direction %>" style="left: <%= roc_direction === 'right' ? ((value - min)/(max-min) * 100) : (((value - min)/(max-min) * 100) - (roc.abs)/(max-min) * 100) %>%; width: <%= (roc.abs)/(max-min) * 100 %>%;"></span>
+        <span class="data-vis__ROC-value --<%= roc_direction %>" style="left: <%= roc_direction === 'right' ? (((value - min)/(max-min) * 100) + (roc.abs)/(max-min) * 100) : (((value - min)/(max-min) * 100) - (roc.abs)/(max-min) * 100) %>%;"><%= trim(roc_value) %><%= unit %></span>
         <span class="data-vis__current" style="left: <%= ((value - min)/(max-min) * 100) %>%;"><%= trim(value) %><%= unit %></span>
       <% end %>
     </div>

@@ -196,9 +196,11 @@
             opt_max: @spot.wind_optimal_direction_max,
             value: @spot.current_wind.direction,
             unit: " deg",
+            min_label: degrees_to_text(@spot.current_wind.dir_at_rating(30.0)[:left].round(1)),
+            max_label: degrees_to_text(@spot.current_wind.dir_at_rating(30.0)[:right].round(1)),
             roc_value: @spot.current_wind.wind_in_3_hours.direction,
             roc: @spot.current_wind.rate_of_change_direction,
-            rocDirection: get_roc_direction(@spot.current_wind.rate_of_change_direction)
+            roc_direction: get_roc_direction(@spot.current_wind.rate_of_change_direction)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
@@ -212,9 +214,11 @@
             opt_max: @spot.wind_optimal_strength_max_kmh,
             value: @spot.current_wind.speed,
             unit: "kph",
+            min_label: @spot.current_wind.speed_at_rating(30.0)[:left].round(1),
+            max_label: @spot.current_wind.speed_at_rating(30.0)[:right].round(1),
             roc_value: @spot.current_wind.wind_in_3_hours.speed,
             roc: @spot.current_wind.rate_of_change_speed,
-            rocDirection: get_roc_direction(@spot.current_wind.rate_of_change_speed)
+            roc_direction: get_roc_direction(@spot.current_wind.rate_of_change_speed)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
@@ -228,9 +232,11 @@
             opt_max: @spot.swell_optimal_direction_max,
             value: @spot.current_swell.direction,
             unit: " deg",
+            min_label: degrees_to_text(@spot.current_swell.dir_at_rating(30.0)[:left].round(1)),
+            max_label: degrees_to_text(@spot.current_swell.dir_at_rating(30.0)[:right].round(1)),
             roc_value: @spot.current_swell.swell_in_3_hours.direction,
             roc: @spot.current_swell.rate_of_change_direction,
-            rocDirection: get_roc_direction(@spot.current_swell.rate_of_change_direction)
+            roc_direction: get_roc_direction(@spot.current_swell.rate_of_change_direction)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
@@ -244,9 +250,11 @@
             opt_max: @spot.swell_optimal_size_max_metres,
             value: @spot.current_swell.size.round(2),
             unit: "m",
+            min_label: @spot.current_swell.size_at_rating(30.0)[:left].round(2),
+            max_label: @spot.current_swell.size_at_rating(30.0)[:right].round(2),
             roc_value: @spot.current_swell.swell_in_3_hours.size.round(2),
             roc: @spot.current_swell.rate_of_change_size,
-            rocDirection: get_roc_direction(@spot.current_swell.rate_of_change_size)
+            roc_direction: get_roc_direction(@spot.current_swell.rate_of_change_size)
           }
         %>
         <%= render partial: 'partials/optimum-visualisation',
@@ -260,9 +268,11 @@
             opt_max: 0.8,
             value: @spot.current_tide_height,
             unit: "m",
+            min_label: @spot.tide_optimal_min_metres,
+            max_label: @spot.tide_optimal_max_metres,
             roc_value: @spot.tide_in_x_hours(3),
             roc: @spot.rate_of_change_tide,
-            rocDirection: get_roc_direction(@spot.rate_of_change_tide)
+            roc_direction: get_roc_direction(@spot.rate_of_change_tide)
           }
         %>
       </div>
