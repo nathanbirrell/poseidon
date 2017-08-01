@@ -164,6 +164,21 @@
     .optimum-vis__min {
       position: absolute;
       left: 0;
+
+      &.--zero {
+        width: 30px;
+        text-align: center;
+        margin-left: -15px;
+        &::after {
+          content: '';
+          height: 16px;
+          width: 2px;
+          background-color: $jumbo;
+          position: absolute;
+          top: 23px;
+          left: 14px;
+        }
+      }
     }
     .optimum-vis__max {
       position: absolute;

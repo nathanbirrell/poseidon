@@ -188,6 +188,7 @@
           locals: {
             showScale: true,
             label: 'Wind',
+            type: 'direction',
             min: @spot.current_wind.dir_at_rating(30.0)[:left].round(1),
             max: @spot.current_wind.dir_at_rating(30.0)[:right].round(1),
             mix_min: @spot.current_wind.dir_at_rating(50.0)[:left].round(1),
@@ -206,6 +207,7 @@
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
             label: '',
+            type: 'linear',
             min: @spot.current_wind.speed_at_rating(30.0)[:left].round(1),
             max: @spot.current_wind.speed_at_rating(30.0)[:right].round(1),
             mix_min: @spot.current_wind.speed_at_rating(50.0)[:left].round(1),
@@ -224,6 +226,7 @@
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
             label: 'Swell',
+            type: 'direction',
             min: @spot.current_swell.dir_at_rating(30.0)[:left].round(1),
             max: @spot.current_swell.dir_at_rating(30.0)[:right].round(1),
             mix_min: @spot.current_swell.dir_at_rating(50.0)[:left].round(1),
@@ -242,6 +245,7 @@
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
             label: '',
+            type: 'linear',
             min: @spot.current_swell.size_at_rating(30.0)[:left].round(2),
             max: @spot.current_swell.size_at_rating(30.0)[:right].round(2),
             mix_min: @spot.current_swell.size_at_rating(50.0)[:left].round(2),
@@ -263,6 +267,7 @@
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
             label: 'Tide',
+            type: 'linear',
             min: @spot.tide_at_rating(30.0)[:left].round(2),
             max: @spot.tide_at_rating(30.0)[:right].round(2),
             mix_min: @spot.tide_at_rating(50.0)[:left].round(2),

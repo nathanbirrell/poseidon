@@ -14,10 +14,6 @@
     <div class="optimum-vis__meta"><%= label %></div>
   <% end %>
   <div class="optimum-vis__visual">
-    <div class="optimum-vis__markings">
-      <span class="optimum-vis__min"><%= min_label %></span>
-      <span class="optimum-vis__max"><%= max_label %></span>
-    </div>
     <div class="data-vis">
       <div class="data-vis__bg --neg" style="left: 0%; width: <%= ((mix_min - min)/(max - min) * 100)%>%;"></div>
       <div class="data-vis__bg --mix" style="left: <%= ((mix_min - min)/(max - min) * 100) %>%; width: <%= ((opt_min - mix_min)/(max - min) * 100)%>%;"></div>
@@ -33,6 +29,14 @@
         <span class="data-vis__ROC-value --<%= roc_direction %>" style="left: <%= roc_direction === 'right' ? (((value - min)/(max-min) * 100) + (roc.abs)/(max-min) * 100) : (((value - min)/(max-min) * 100) - (roc.abs)/(max-min) * 100) %>%;"><%= trim(roc_value) %><%= unit %></span>
         <span class="data-vis__current" style="left: <%= ((value - min)/(max-min) * 100) %>%;"><%= trim(value) %><%= unit %></span>
       <% end %>
+    </div>
+    <div class="optimum-vis__markings">
+      <% if type == 'linear' && min.negative? %>
+        <span class="optimum-vis__min --zero" style="left: <%= ((0 - min)/(max - min) * 100)%>%;">0</span>
+      <% else %>
+        <span class="optimum-vis__min"><%= min_label %></span>
+      <% end %>
+      <span class="optimum-vis__max"><%= max_label %></span>
     </div>
   </div>
 </div>
