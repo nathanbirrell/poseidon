@@ -257,24 +257,28 @@
             roc_direction: get_roc_direction(@spot.current_swell.rate_of_change_size)
           }
         %>
+        <% if @spot.works_on_all_tides? %>
+          <p>This spot works on all tides. </p>
+        <% else %>
         <%= render partial: 'partials/optimum-visualisation',
           locals: {
             label: 'Tide',
-            min: @spot.tide_optimal_min_metres,
-            max: @spot.tide_optimal_max_metres,
-            mix_min: 0.4,
-            mix_max: 1.0,
-            opt_min: 0.6,
-            opt_max: 0.8,
+            min: @spot.tide_at_rating(30.0)[:left].round(2),
+            max: @spot.tide_at_rating(30.0)[:right].round(2),
+            mix_min: @spot.tide_at_rating(50.0)[:left].round(2),
+            mix_max: @spot.tide_at_rating(50.0)[:right].round(2),
+            opt_min: @spot.tide_optimal_min_metres,
+            opt_max: @spot.tide_optimal_max_metres,
             value: @spot.current_tide_height,
             unit: "m",
-            min_label: @spot.tide_optimal_min_metres,
-            max_label: @spot.tide_optimal_max_metres,
+            min_label: @spot.tide_at_rating(30.0)[:left].round(2),
+            max_label: @spot.tide_at_rating(30.0)[:right].round(2),
             roc_value: @spot.tide_in_x_hours(3),
             roc: @spot.rate_of_change_tide,
             roc_direction: get_roc_direction(@spot.rate_of_change_tide)
           }
         %>
+        <% end %>
       </div>
     </div>
   </div>

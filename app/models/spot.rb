@@ -30,6 +30,7 @@
 class Spot < ApplicationRecord
   include ActiveModel::Validations
   include Math
+  require 'poseidon_math'
 
   belongs_to :region
 
@@ -38,6 +39,10 @@ class Spot < ApplicationRecord
   has_many :swells
 
   validates :name, presence: true
+
+  def poseidon_math
+    @poseidon_math ||= PoseidonMath.new
+  end
 
   # get latest model readings
   def current_swell
@@ -138,29 +143,21 @@ class Spot < ApplicationRecord
     tide_optimal_max_metres.zero? && tide_optimal_min_metres.zero?
   end
 
+  def tide_at_rating(rating)
+    poseidon_math.value_given_rating(
+      min_x: tide_optimal_max_metres,
+      max_x: tide_optimal_min_metres,
+      rating: rating
+    )
+  end
+
   def current_tide_rating
     return 100 if works_on_all_tides?
-
-    # use vertex quad formula y = a(x-h)^2 + k
-    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    kVar = 100.0
-    max = tide_optimal_max_metres
-    min = tide_optimal_min_metres
-    hVar = ((max - min)/2) + min
-
-    # pass in known coord to determin var a value, (min, 75)
-    aVar = (75 - 100)/((min - hVar)**2)
-
-    rating = aVar * ((current_tide_height - hVar)**2) + kVar
-
-    #puts("Parabolic min=#{min} max=#{max} direction=#{direction}")
-    puts("Tide rating aVar=#{aVar} hVar=#{hVar} rating=#{rating}")
-
-    if rating < 0 then
-      rating = 0
-    end
-
-    return rating.round(2)
+    poseidon_math.rating_given_x(
+      min_x: tide_optimal_max_metres,
+      max_x: tide_optimal_min_metres,
+      x_value: current_tide_height
+    )
   end
 
   def current_potential
