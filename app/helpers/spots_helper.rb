@@ -43,8 +43,8 @@ module SpotsHelper
   end
 
   def degrees_to_text(direction)
-    val = ((direction/22.5) + 0.5).round(0)
-    directions = ["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"]
+    val = ((direction / 22.5) + 0.5).round(0)
+    directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE',  'SE',  'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
     directions[(val % 16)]
   end
 
