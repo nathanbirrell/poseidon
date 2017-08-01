@@ -30,6 +30,14 @@ LiveReload:
 
 * If you're working on the front-end, it's convenient to use [Live Reload](https://mattbrictson.com/lightning-fast-sass-reloading-in-rails). To use it, run `guard -P livereload`.
 
+Marketing site (Jekyll)
+-------------------------
+
+1. `$ cd docs`
+1. `$ gem install jekyll`
+1. `$ bundle install`
+1. `$ jekyll serve` and navigate to [http://localhost:4000/](http://localhost:4000/)
+
 Documentation and Support
 -------------------------
 
