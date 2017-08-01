@@ -28,20 +28,22 @@ class Swell < WeatherForecast
   end
 
   def dir_at_rating(rating)
-    poseidon_math.value_given_rating(
-      min_x: spot.swell_optimal_direction_max,
-      max_x: spot.swell_optimal_direction_min,
+    data = poseidon_math.normalise_degrees(
+      min_x: spot.swell_optimal_direction_min,
+      max_x: spot.swell_optimal_direction_max,
       rating: rating
     )
+    poseidon_math.value_given_rating(data)
   end
 
   def dir_rating
     return 0 unless direction
-    poseidon_math.rating_given_x(
-      min_x: spot.swell_optimal_direction_max,
-      max_x: spot.swell_optimal_direction_min,
+    data = poseidon_math.normalise_degrees(
+      min_x: spot.swell_optimal_direction_min,
+      max_x: spot.swell_optimal_direction_max,
       x_value: direction
     )
+    poseidon_math.rating_given_x(data)
   end
 
   def size_at_rating(rating)

@@ -1,17 +1,23 @@
 class PoseidonMath
-  def normalise_degrees(degrees)
-    new_degrees = degrees
-    if new_degrees.abs > 360 then
-      if new_degrees.negative?
-        new_degrees += 360
-      else
-        new_degrees -= 360
+  def normalise_degrees(data = {})
+    # Return data unless normalisation is required
+    return data unless data[:max_x] < data[:min_x]
+    max_x = data[:max_x]
+    min_x = data[:min_x]
+    x_value = data[:x_value] || nil
+
+    max_x += 360
+    if x_value
+      if (x_value >= 0 && x_value <= data[:max_x]) || x_value <= ((max_x - min_x) + 180)
+        x_value += 360
       end
-      normalise_degrees(new_degrees)
-    else
-      new_degrees += 360 if new_degrees.negative?
-      return new_degrees
     end
+    {
+      min_x: min_x,
+      max_x: max_x,
+      x_value: x_value || nil,
+      rating: data[:rating] || nil
+    }
   end
 
   def rating_given_x(data = {})

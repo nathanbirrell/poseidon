@@ -22,26 +22,28 @@ class Wind < WeatherForecast
   end
 
   def dir_at_rating(rating)
-    poseidon_math.value_given_rating(
-      min_x: spot.wind_optimal_direction_max,
-      max_x: spot.wind_optimal_direction_min,
+    data = poseidon_math.normalise_degrees(
+      min_x: spot.wind_optimal_direction_min,
+      max_x: spot.wind_optimal_direction_max,
       rating: rating
     )
+    poseidon_math.value_given_rating(data)
   end
 
   def dir_rating
     return 0 unless direction
-    poseidon_math.rating_given_x(
-      min_x: spot.wind_optimal_direction_max,
-      max_x: spot.wind_optimal_direction_min,
+    data = poseidon_math.normalise_degrees(
+      min_x: spot.wind_optimal_direction_min,
+      max_x: spot.wind_optimal_direction_max,
       x_value: direction
     )
+    poseidon_math.rating_given_x(data)
   end
 
   def speed_at_rating(rating)
     poseidon_math.value_given_rating(
-      min_x: spot.wind_optimal_strength_max_kmh,
-      max_x: spot.wind_optimal_strength_min_kmh,
+      min_x: spot.wind_optimal_strength_min_kmh,
+      max_x: spot.wind_optimal_strength_max_kmh,
       rating: rating
     )
   end
@@ -49,8 +51,8 @@ class Wind < WeatherForecast
   def speed_rating
     return 0 unless speed
     poseidon_math.rating_given_x(
-      min_x: spot.wind_optimal_strength_max_kmh,
-      max_x: spot.wind_optimal_strength_min_kmh,
+      min_x: spot.wind_optimal_strength_min_kmh,
+      max_x: spot.wind_optimal_strength_max_kmh,
       x_value: speed
     )
   end
