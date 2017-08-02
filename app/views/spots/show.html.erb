@@ -199,17 +199,26 @@
             {
               indicator: '',
               prefix: '',
-              values: [
+              values: @spot.tide_remaining_or_to == 'too_far_out' ? [
                 {
-                  value: display_hours(@spot.tide_hours_remaining),
+                  value: @spot.next_tide.date_time.strftime("%l"),
+                  unit: ':'.html_safe
+                },
+                {
+                  value: '%02d' % @spot.next_tide.date_time.strftime("%M"),
+                  unit: ''
+                }
+              ] : [
+                {
+                  value: display_mins(@spot.tide_hours_remaining),
                   unit: ':'.html_safe
                 },
                 {
                   value: '%02d' % display_mins(@spot.tide_hours_remaining),
                   unit: ''
-                },
+                }
               ],
-              subtext: 'Time till good'
+              subtext: @spot.tide_remaining_or_to == 'too_far_out' ? @spot.next_tide_subtext : @spot.tide_remaining_or_to
             }
           ]
         } %>

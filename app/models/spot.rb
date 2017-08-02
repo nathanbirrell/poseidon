@@ -73,6 +73,13 @@ class Spot < ApplicationRecord
     high_tide.height - low_tide.height
   end
 
+  def next_tide_subtext
+    output = "#{next_tide.tide_type} tide "
+    output += "(#{next_tide.date_time.strftime('%p')})"
+    output += " <br>@ #{next_tide.height}m"
+    output
+  end
+
   def tide_period
     period = next_tide.date_time.localtime.to_i - last_tide.date_time.localtime.to_i
     period /= 60 / 60
@@ -110,27 +117,30 @@ class Spot < ApplicationRecord
   end
 
   def tide_remaining_or_to
+    output = 'too_far_out'
     if current_tide_height.between?(tide_optimal_min_metres, tide_optimal_max_metres)
       if (last_tide.tide_type == 'low' && next_tide.height > tide_optimal_max_metres) ||
          (last_tide.tide_type == 'high' && next_tide.height < tide_optimal_min_metres)
-        'remaining'
+        output = 'remaining'
+      end
+    else
+      if (last_tide.tide_type == 'low' && next_tide.height > tide_optimal_min_metres) ||
+         (last_tide.tide_type == 'high' && next_tide.height < tide_optimal_max_metres)
+        output = 'till good'
       end
       nil
-    elsif (last_tide.tide_type == 'low' && next_tide.height > tide_optimal_min_metres) ||
-          (last_tide.tide_type == 'high' && next_tide.height < tide_optimal_max_metres)
-      'to'
     end
-    nil
+    output
   end
 
   def tide_hours_remaining
     return 0 unless tide_remaining_or_to
     y_value = 0
     if (tide_remaining_or_to == 'remaining' && last_tide.tide_type == 'low') ||
-       (tide_remaining_or_to == 'to' && last_tide.tide_type == 'high')
+       (tide_remaining_or_to == 'till good' && last_tide.tide_type == 'high')
       y_value = tide_optimal_max_metres
     elsif (tide_remaining_or_to == 'remaining' && last_tide.tide_type == 'high') ||
-          (tide_remaining_or_to == 'to' && last_tide.tide_type == 'low')
+          (tide_remaining_or_to == 'till good' && last_tide.tide_type == 'low')
       y_value = tide_optimal_min_metres
     end
     opt_tide_time = asin((y_value - (tidal_range/2 + low_tide.height))/(tidal_range/2)) + PI/2 # get x value part 1
