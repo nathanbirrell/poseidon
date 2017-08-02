@@ -129,7 +129,7 @@
                 value: trim(kph_to_knots(@spot.current_wind.speed).round(0)),
                 unit: 'kts'
               }],
-              subtext: 'Wind speed',
+              subtext: "Wind speed <br />(#{@spot.current_wind.speed} kph)",
               optimum_vis: [{
                 min: @spot.current_wind.speed_at_rating(30.0)[:left].round(1),
                 max: @spot.current_wind.speed_at_rating(30.0)[:right].round(1),
