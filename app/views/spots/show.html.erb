@@ -27,35 +27,32 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <div id="spot-toolbar" class="small-12 medium-4 columns spot-toolbar">
+  <div id="spot-toolbar" class="row spot-toolbar">
+    <div class="small-12 medium-4 columns">
       <div class="row">
         <div id="current-btn" class="small-3 columns spot-toolbar__item">
           <a>
-            <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'activity', size: 'small'} %>
             <span class="spot-toolbar__label">Current</span>
           </a>
         </div>
         <div id="about-btn" class="small-3 columns spot-toolbar__item">
           <a>
-            <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'award', size: 'small'} %>
             <span class="spot-toolbar__label">Optimums</span>
           </a>
         </div>
         <div id="forecast-btn" class="small-3 columns spot-toolbar__item">
           <a>
-            <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'trending-up', size: 'small'} %>
             <span class="spot-toolbar__label">Forecast</span>
           </a>
         </div>
         <div class="small-3 columns spot-toolbar__item">
-          <a href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
-            <%= render partial: 'partials/floating-icon', locals: {type: 'plain', icon: 'map', size: 'small'} %>
-            <span class="spot-toolbar__label">Location</span>
+          <a>
+            <span class="spot-toolbar__label">About</span>
           </a>
         </div>
       </div>
     </div>
+    <!-- <div class="small-0 medium-8 columns"></div> -->
   </div>
 
   <% if user_signed_in? %>
@@ -358,11 +355,14 @@
     </div>
   </div>
 
-  <div id="forecast-view">
+  <div id="forecast-view" class="row">
     <h3>COMING SOON</h3>
   </div>
 
   <div id="location-view" class="row">
+    <a href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
+      Get directions
+    </a>
     <div class="large-12 columns">
       <iframe
       width="100%"
