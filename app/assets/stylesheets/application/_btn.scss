@@ -30,3 +30,13 @@
     }
   }
 }
+
+.link {
+  color: $secondary-color;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $secondary-color;
+  }
+}
