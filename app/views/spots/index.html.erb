@@ -23,13 +23,14 @@
 
     <div class="row">
       <h3 class="columns">Current Conditions</h3>
-      <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
-        <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'full', data: 'current'} %>
+      <% if Rails.env.development? %>
+        <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
+          <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'full', data: 'current'} %>
+        <% end %>
       <% end %>
     </div>
 
     <div class="row">
-      <h3 class="columns">Collapsed</h3>
       <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
         <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'collapsed', data: 'current'} %>
       <% end %>
