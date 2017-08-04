@@ -7,6 +7,24 @@
   box-shadow: $shadow-subtle;
   margin-bottom: 12px;
 
+  &__expanded-section {
+    display: none;
+  }
+
+  &.--expanded {
+    .--hide-expanded {
+      display: none;
+    }
+    .info-card__expanded-section {
+      display: block;
+    }
+  }
+
+  .expand-button {
+    margin-left: 6px;
+    margin-bottom: 12px;
+  }
+
   &__top {
     height: 24px;
     background: $gainsboro;
