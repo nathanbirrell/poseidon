@@ -59,15 +59,16 @@
     top: 0;
     left: 0;
     font-size: 20px;
-    line-height: 70px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &__summary {
     background-color: #fff;
     padding: 10px 16px 10px 64px;
     position: relative;
-    height: 70px;
+    height: 85px;
     color: $oil;
 
     .spot-tile__name-region {
@@ -102,23 +103,19 @@
       ul li {
         display: inline;
         list-style-type: none;
-        padding: 4px 12px;
+        padding: 0px 12px;
         color: $aluminum;
-        text-transform: uppercase;
         font-size: 0.75em;
-        // min-width: 90px;
+        min-width: 85px;
       }
 
       &__label {
-        font-weight: $font-weight-medium;
-        // display: none;
-        // @media #{$medium-up} {
-        //   display: inline-block;
-        // }
+        text-transform: uppercase;
       }
 
       &__primary-datapoint {
-        // display: block;
+        display: block;
+        font-weight: $font-weight-medium;
       }
     }
 
@@ -161,6 +158,7 @@
 
   &.--mini {
     height: 8px;
-    width: 8px
+    width: 8px;
+    top: -1px;
   }
 }
