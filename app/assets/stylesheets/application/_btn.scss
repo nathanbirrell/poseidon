@@ -1,0 +1,32 @@
+.btn {
+  background: $secondary-color;
+  border-radius: 5px;
+  padding: 12px;
+  color: $white;
+  text-align: center;
+  position: relative;
+  font-size: 14px;
+  height: 40px;
+  line-height: 40px;
+
+  &:hover,
+  &:visited,
+  &:focus {
+    color: $white;
+  }
+
+  &.--icon {
+    padding-left: 40px;
+
+    &::before {
+      content: '';
+      height: 20px;
+      width: 20px;
+      display: block;
+      position: absolute;
+      background-size: contain;
+      top: 10px;
+      left: 12px;
+    }
+  }
+}

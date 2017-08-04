@@ -356,14 +356,16 @@
   </div>
 
   <div id="forecast-view" class="row">
-    <h3>COMING SOON</h3>
+    <div class="large-12 columns">
+      <h3>COMING SOON</h3>
+    </div>
   </div>
 
   <div id="location-view" class="row">
-    <a href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
-      Get directions
-    </a>
     <div class="large-12 columns">
+      <a class="btn --icon --icon-alert-triangle--white" href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
+        Get directions
+      </a>
       <iframe
       width="100%"
       height="250"
