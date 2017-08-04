@@ -20,10 +20,15 @@
           <p class="main-text --<%= d[:indicator] %>">
             <%= d[:prefix] %>
             <% d[:values].each do |v| %>
-              <span><%= v[:value] %><%= v[:unit] %></span>
+              <span><%= v[:value] %><span class="value-unit"><%= v[:unit] %></span></span>
             <% end %>
           </p>
           <p class="sub-text"><%= d[:subtext].html_safe %></p>
+          <% if d[:optimum_vis] %>
+            <% d[:optimum_vis].each do |opt| %>
+            <%= render partial: 'partials/mini-optimum-visualisation', locals: opt %>
+            <% end %>
+          <% end %>
         </div>
       <% end %>
     </div>
