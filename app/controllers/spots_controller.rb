@@ -8,6 +8,7 @@ class SpotsController < ApplicationController
   # GET /spots.json
   def index
     @spots = Spot.all
+    @is_collapsed = true
   end
 
   # GET /spots/1
