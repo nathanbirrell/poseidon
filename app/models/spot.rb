@@ -76,20 +76,22 @@ class Spot < ApplicationRecord
   def next_tide_subtext
     output = "#{next_tide.tide_type} tide "
     output += "(#{next_tide.date_time.strftime('%p')})"
-    output += " <br>@ #{next_tide.height}m"
+    output += " <br />@ #{next_tide.height}m"
     output
   end
 
   def tide_period
     period = next_tide.date_time.localtime.to_i - last_tide.date_time.localtime.to_i
-    period /= 60 / 60
+    (period /= 60.0).to_f
+    (period /= 60.0).to_f
     period *= 2
     period.round(2)
   end
 
   def tide_delta_time(forecast_hrs)
     delta_time = (Time.zone.now + forecast_hrs.hours).to_i - last_tide.date_time.localtime.to_i
-    delta_time /= 60 / 60
+    (delta_time /= 60.0).to_f
+    (delta_time /= 60.0).to_f
     delta_time.round(3)
   end
 
@@ -106,6 +108,12 @@ class Spot < ApplicationRecord
       tide_in_x = (tidal_range / 2) * sin((2 * PI / tide_period) * tide_delta_time(hours) + PI / 2) + (tidal_range / 2 + low_tide.height)
     end
     tide_in_x.round(2)
+  end
+
+  def tide_shift_rate
+    vals = %w[slow medium fast fast medium slow]
+    sixth = ((tide_delta_time(0) / (tide_period / 2)) / (1 / 6)).floor
+    vals[sixth]
   end
 
   def current_tide_height
