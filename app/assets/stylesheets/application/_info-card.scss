@@ -54,6 +54,11 @@
           font-size: rem-calc(24);
         }
 
+        span.value-unit {
+          font-size: rem-calc(20);
+          text-transform: lowercase;
+        }
+
         &::before {
           content: '';
           height: 10px;

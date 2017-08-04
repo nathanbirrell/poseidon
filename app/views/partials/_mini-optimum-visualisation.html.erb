@@ -1,0 +1,18 @@
+<div class="optimum-vis <%= value < min || value > max ? '--outside' : '--inside'%>">
+  <div class="optimum-vis__visual --mini">
+    <div class="data-vis">
+      <div class="data-vis__bg --neg --mini" style="left: 0%; width: <%= ((mix_min - min)/(max - min) * 100)%>%;"></div>
+      <div class="data-vis__bg --mix --mini" style="left: <%= ((mix_min - min)/(max - min) * 100) %>%; width: <%= ((opt_min - mix_min)/(max - min) * 100)%>%;"></div>
+      <div class="data-vis__bg --pos --mini" style="left: <%= ((opt_min - min)/(max - min) * 100) %>%; width: <%= ((opt_max - opt_min)/(max - min) * 100)%>%;"></div>
+      <div class="data-vis__bg --mix --mini" style="left: <%= ((opt_max - min)/(max - min) * 100) %>%; width: <%= ((mix_max - opt_max)/(max - min) * 100)%>%;"></div>
+      <div class="data-vis__bg --neg --mini" style="left: <%= ((mix_max - min)/(max - min) * 100) %>%; width: <%= ((max - mix_max)/(max - min) * 100)%>%;"></div>
+
+      <!-- <div class="data-vis__bg --sectors --mini"></div>
+      <div class="data-vis__bg --sectors --bottom --mini"></div> -->
+      <% if value > min && value < max %>
+        <span class="data-vis__ROC --mini --<%= roc_direction %>" style="left: <%= roc_direction === 'right' ? ((value - min)/(max-min) * 100) : (((value - min)/(max-min) * 100) - (roc.abs)/(max-min) * 100) %>%; width: <%= (roc.abs)/(max-min) * 100 %>%;"></span>
+        <span class="data-vis__current --mini" style="left: <%= ((value - min)/(max-min) * 100) %>%;"></span>
+      <% end %>
+    </div>
+  </div>
+</div>

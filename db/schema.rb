@@ -40,10 +40,10 @@ ActiveRecord::Schema.define(version: 20170728062206) do
     t.decimal "wave_model_lat"
     t.decimal "wave_model_lon"
     t.integer "willyweather_location_id"
-    t.decimal "weighting_swell", precision: 3, scale: 2
-    t.decimal "weighting_wind", precision: 3, scale: 2
-    t.decimal "weighting_tide", precision: 3, scale: 2
-    t.decimal "wave_model_size_coefficient", precision: 4, scale: 3
+    t.decimal "weighting_swell", precision: 1, scale: 2
+    t.decimal "weighting_wind", precision: 1, scale: 2
+    t.decimal "weighting_tide", precision: 1, scale: 2
+    t.decimal "wave_model_size_coefficient", precision: 1, scale: 3
     t.decimal "swell_optimal_direction_min"
     t.decimal "swell_optimal_direction_max"
     t.decimal "wind_optimal_direction_min"
