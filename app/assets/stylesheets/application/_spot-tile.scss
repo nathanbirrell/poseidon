@@ -13,7 +13,7 @@
   &__datetime {
     height: 22px;
     position: absolute;
-    right: 0;
+    right: 5px;
 
     &.--full {
       top: 15px;
@@ -101,7 +101,7 @@
       }
 
       ul li {
-        display: inline;
+        display: inline-block;
         list-style-type: none;
         padding: 0px 12px;
         color: $aluminum;
@@ -114,8 +114,11 @@
       }
 
       &__primary-datapoint {
-        display: block;
+        display: inline-block;
+        font-size: 1.1em;
         font-weight: $font-weight-medium;
+        width: 100%;
+        margin-top: -4px;
       }
     }
 
