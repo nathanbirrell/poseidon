@@ -6,12 +6,27 @@
     <% end %>
     <div class="spot-tile__summary">
       <div class="spot-tile__main-rating --<%= get_verdict(spot.current_potential) %>"><%= trim(spot.current_potential) %></div>
-      <h3><%= spot.name %></h3>
+      <div class="spot-tile__name-region">
+        <h3 class="spot-tile__name"><%= spot.name %></h3>
+      </div>
       <% if data === 'current' %>
         <div class="spot-sub-rating-group">
-          <span class="spot-sub-rating-group__item --swell --<%= get_verdict(spot.current_swell.rating) %>"><%= trim(spot.current_swell.rating.round(0)) %></span>
-          <span class="spot-sub-rating-group__item --wind --<%= get_verdict(spot.current_wind.rating) %>"><%= trim(spot.current_wind.rating.round(0)) %></span>
-          <span class="spot-sub-rating-group__item --tide --<%= get_verdict(spot.current_tide_rating) %>"><%= trim(spot.current_tide_rating.round(0)) %></span>
+          <ul>
+            <li>
+              <span class="indicator --mini --<%= get_verdict(spot.current_swell.rating) %>"></span>
+              <span class="spot-sub-rating-group__label">SWELL</span>
+              <span class="spot-sub-rating-group__primary-datapoint"><%= trim(m_to_ft(spot.current_swell.size).round(0)) %>ft</span>
+            </li>
+            <li>
+              <span class="indicator --mini --<%= get_verdict(spot.current_wind.rating) %>"></span>
+              <span class="spot-sub-rating-group__label">WIND</span>
+              <span class="spot-sub-rating-group__primary-datapoint"><%= degrees_to_text(spot.current_wind.direction) %> <%= trim(kph_to_knots(spot.current_wind.speed).round(0)) %>kt</span>
+            </li>
+            <li>
+              <span class="indicator --mini --<%= get_verdict(spot.current_tide_rating) %>"></span>
+              <span class="spot-sub-rating-group__label">TIDE</span>
+            </li>
+          </ul>
         </div>
       <% elsif data === 'forecast' %>
         <div class="spot-plan-summary">

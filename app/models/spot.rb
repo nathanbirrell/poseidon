@@ -136,7 +136,6 @@ class Spot < ApplicationRecord
          (last_tide.tide_type == 'high' && next_tide.height < tide_optimal_max_metres)
         output = 'till good'
       end
-      nil
     end
     output
   end
