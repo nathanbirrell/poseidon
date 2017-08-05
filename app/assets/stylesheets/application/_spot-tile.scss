@@ -68,7 +68,7 @@
     background-color: #fff;
     padding: 10px 16px 10px 64px;
     position: relative;
-    height: 85px;
+    height: 70px;
     color: $oil;
 
     .spot-tile__name-region {
@@ -106,19 +106,19 @@
         padding: 0px 12px;
         color: $aluminum;
         font-size: 0.75em;
-        min-width: 85px;
+        text-transform: uppercase;
+        min-width: 50px;
       }
 
       &__label {
-        text-transform: uppercase;
+        //
       }
 
       &__primary-datapoint {
         display: inline-block;
         font-size: 1.1em;
-        font-weight: $font-weight-medium;
+        // font-weight: $font-weight-medium;
         width: 100%;
-        margin-top: -4px;
       }
     }
 
