@@ -13,23 +13,17 @@
         <div class="spot-sub-rating-group">
           <ul>
             <li>
-              <span class="spot-sub-rating-group__label">
-                <span class="indicator --mini --<%= get_verdict(spot.current_swell.rating) %>"></span>
-              </span>
+              <i class="indicator --mini --<%= get_verdict(spot.current_swell.rating) %>"></i>
               <span class="spot-sub-rating-group__primary-datapoint"><%= trim(m_to_ft(spot.current_swell.size).round(0)) %> <small>ft</small></span>
             </li>
             <li>
-              <span class="spot-sub-rating-group__label">
-                <span class="indicator --mini --<%= get_verdict(spot.current_wind.rating) %>"></span>
-              </span>
+              <i class="indicator --mini --<%= get_verdict(spot.current_wind.rating) %>"></i>
               <span class="spot-sub-rating-group__primary-datapoint">
                 <%= degrees_to_text(spot.current_wind.direction) %> <%= trim(kph_to_knots(spot.current_wind.speed).round(0)) %> <small>kt</small>
               </span>
             </li>
             <li>
-              <span class="spot-sub-rating-group__label">
-                <span class="indicator --mini --<%= get_verdict(spot.current_tide_rating) %>"></span>
-              </span>
+              <i class="indicator --mini --<%= get_verdict(spot.current_tide_rating) %>"></i>
               <span class="spot-sub-rating-group__primary-datapoint"><%= tide_incoming_or_outgoing(spot.last_tide.tide_type) %> <small>Tide</small></span>
             </li>
           </ul>

@@ -110,10 +110,6 @@
         min-width: 50px;
       }
 
-      &__label {
-        //
-      }
-
       &__primary-datapoint {
         display: inline-block;
         font-size: 1.1em;
@@ -129,7 +125,8 @@
   }
 
   // These are pretty global
-  // TODO - maybe migrate into a global component?
+  // TODO - maybe migrate into a global class?
+  // ie: .background--positive .colour--positive etc.
   .--positive {
     background-color: $positive;
   }
