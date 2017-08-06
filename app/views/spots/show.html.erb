@@ -67,7 +67,7 @@
       <div class="row">
         <%= render partial: 'partials/info-card', locals: {
           title: 'Swell',
-          secondary: 'Overhead (TODO - make dynamic)',
+          secondary: feet_to_descriptive(m_to_ft(@spot.current_swell.size)),
           rating: @spot.current_swell.rating,
           datetime: @spot.current_swell.date_time,
           data: [

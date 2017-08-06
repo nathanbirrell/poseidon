@@ -62,6 +62,20 @@ module SpotsHelper
     end
   end
 
+  def feet_to_descriptive(wave_feet)
+    case wave_feet
+    when 0..1 then 'Flat'
+    when 1..3 then 'Knee-to-waist high'
+    when 3..4 then 'Chest-shoulder high'
+    when 4..5 then 'Head high'
+    when 5..6.5 then 'Overhead'
+    when 6.5..8 then 'Well overhead'
+    when 8..10 then 'Double overhead'
+    when 10..15 then 'Epic (double-to-triple overhead)'
+    else ''
+    end
+  end
+
   def get_roc_direction(value)
     return 'right' if value.positive?
     return 'left' if value.negative?
