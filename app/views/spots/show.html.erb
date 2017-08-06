@@ -67,7 +67,7 @@
       <div class="row">
         <%= render partial: 'partials/info-card', locals: {
           title: 'Swell',
-          secondary: 'Overhead',
+          secondary: 'Overhead (TODO - make dynamic)',
           rating: @spot.current_swell.rating,
           datetime: @spot.current_swell.date_time,
           data: [
@@ -127,7 +127,7 @@
         } %>
         <%= render partial: 'partials/info-card', locals: {
           title: 'Wind',
-          secondary: 'Gusty',
+          secondary: kph_to_descriptive(@spot.current_wind.speed),
           rating: @spot.current_wind.rating,
           datetime: @spot.current_wind.date_time,
           data: [
