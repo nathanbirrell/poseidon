@@ -48,6 +48,20 @@ module SpotsHelper
     directions[(val % 16)]
   end
 
+  def kph_to_descriptive(wind_kph)
+    case wind_kph
+    when 0..2 then 'Calm'
+    when 2..12 then 'Light'
+    when 12..30 then 'Moderate'
+    when 30..40 then 'Fresh'
+    when 40..62 then 'Strong'
+    when 62..87 then 'Gale'
+    when 87..117 then 'Storm'
+    when 117..135 then 'Hurricane'
+    else ''
+    end
+  end
+
   def get_roc_direction(value)
     return 'right' if value.positive?
     return 'left' if value.negative?
