@@ -1,9 +1,6 @@
 require 'rest-client'
 require 'pp'
 
-WW_API_KEY = 'MTA5MTU5MWU3NThiZjg4ZjgxMDI2Nm'
-PLANETOS_API_KEY = '36cbaff072be400096158d9f71100c61' # TODO: Move this to an environment variable, very insecure tsk tsk!
-
 # TODO: Abstract out PlanetOS API calls into an adapter OR lib? https://github.com/infinum/rails-handbook/blob/master/Design%20Patterns/Adapters.md
 namespace :forecasts do
   task :update => :environment do
@@ -31,7 +28,7 @@ def set_willyweather_location_id_if_needed((spot))
 
   # For example: https://goo.gl/HkHDgF
   response = RestClient.get(
-    "https://api.willyweather.com.au/v2/#{WW_API_KEY}/search.json",
+    "https://api.willyweather.com.au/v2/#{ENV['WILLYWEATHER_API_KEY']}/search.json",
     {
       params: {
         'lat' => spot.latitude,
@@ -142,7 +139,7 @@ def get_willyweather_forecast(spot, forecast_type)
 
   # ie: https://goo.gl/xfJKpn
   response = RestClient.get(
-    "https://api.willyweather.com.au/v2/#{WW_API_KEY}/locations/#{spot.willyweather_location_id}/weather.json",
+    "https://api.willyweather.com.au/v2/#{ENV['WILLYWEATHER_API_KEY']}/locations/#{spot.willyweather_location_id}/weather.json",
     {
       params: {
         'forecasts' => forecast_type,
@@ -160,7 +157,7 @@ def get_noaa_forecast(spot)
     'https://api.planetos.com/v1/datasets/noaa_ww3_global_1.25x1d/point',
     {
       params: {
-        'apikey' => PLANETOS_API_KEY,
+        'apikey' => ENV['PLANETOS_API_KEY'],
         'lat' => spot.wave_model_lat,
         'lon' => spot.wave_model_lon,
         'count' => '25',

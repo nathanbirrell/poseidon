@@ -94,3 +94,6 @@ public/assets/
 docs/_site
 docs/.sass-cache
 docs/.jekyll-metadata
+
+# Ignore application configuration
+/config/application.yml
