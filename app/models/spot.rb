@@ -192,4 +192,8 @@ class Spot < ApplicationRecord
     aggregate += current_tide_rating * weighting_tide
     aggregate.round(0)
   end
+
+  def self.sorted_by_current_potential
+    Spot.all.sort_by(&:current_potential).reverse
+  end
 end
