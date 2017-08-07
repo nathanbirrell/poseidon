@@ -87,6 +87,8 @@ class SpotToolbar {
     aboutBtn = document.getElementById('about-btn');
     forecastView = document.getElementById('forecast-view');
     forecastBtn = document.getElementById('forecast-btn');
+    historyView = document.getElementById('history-view');
+    historyBtn = document.getElementById('history-btn');
     sections = [
       {
         section: currentView,
@@ -99,6 +101,10 @@ class SpotToolbar {
       {
         section: forecastView,
         button: forecastBtn
+      },
+      {
+        section: historyView,
+        button: historyBtn
       }
     ];
 
@@ -119,6 +125,9 @@ class SpotToolbar {
     });
     forecastBtn.addEventListener('click', (event) => {
       this.scrollToSelector('#forecast-view', event);
+    });
+    historyBtn.addEventListener('click', (event) => {
+      this.scrollToSelector('#history-view', event);
     });
   }
 };
