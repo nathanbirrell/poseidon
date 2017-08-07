@@ -194,6 +194,6 @@ class Spot < ApplicationRecord
   end
 
   def self.sorted_by_current_potential
-    Spot.all.sort_by(&:current_potential)
+    Spot.all.sort_by(&:current_potential).reverse
   end
 end
