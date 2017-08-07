@@ -258,20 +258,21 @@
       </div>
       <div class="small-12 columns">
         <h5 class="subheader"><%= @spot.description %></h5>
+        <h4>Optimal conditions:</p>
         <p>
-          <strong>Optimal wind direction:</strong>
-          Between <%= @spot.wind_optimal_direction_min %> degrees and <%= @spot.wind_optimal_direction_max %> degrees
+          <strong>Wind direction:</strong>
+          <%= @spot.wind_optimal_direction_min %> - <%= @spot.wind_optimal_direction_max %> degrees
           <br>
-          <strong>Optimal wind strength:</strong>
+          <strong>Wind strength:</strong>
           <%= @spot.wind_optimal_strength_min_kmh %> - <%= @spot.wind_optimal_strength_max_kmh %> kmh
           <br>
-          <strong>Optimal swell direction:</strong>
-          Between <%= @spot.swell_optimal_direction_min %> degrees and <%= @spot.swell_optimal_direction_max %> degrees
+          <strong>Swell direction:</strong>
+          <%= @spot.swell_optimal_direction_min %> - <%= @spot.swell_optimal_direction_max %> degrees
           <br>
-          <strong>Optimal swell size:</strong>
+          <strong>Swell size:</strong>
           <%= @spot.swell_optimal_size_min_metres %> - <%= @spot.swell_optimal_size_max_metres %> metres
           <br>
-          <strong>Optimal tides:</strong>
+          <strong>Tides:</strong>
           <%= "#{@spot.tide_optimal_min_metres}m to #{@spot.tide_optimal_max_metres}m" %>
           <br>
           <strong>Season:</strong> <%= @spot.season %> <br>
