@@ -848,6 +848,7 @@ $small-font-color: scale-color($header-font-color, $lightness: 35%);
 // $include-html-off-canvas-classes: $include-html-classes;
 
 // $tabbar-bg: $oil;
+$tabbar-bg: $primary-color;
 // $tabbar-height: rem-calc(45);
 // $tabbar-icon-width: $tabbar-height;
 // $tabbar-line-height: $tabbar-height;
@@ -857,6 +858,8 @@ $small-font-color: scale-color($header-font-color, $lightness: 35%);
 // Off Canvas Divider Styles
 // $tabbar-left-section-border: solid 1px scale-color($tabbar-bg, $lightness: -50%);
 // $tabbar-right-section-border: $tabbar-left-section-border;
+$tabbar-left-section-border: none;
+$tabbar-right-section-border: none;
 
 
 // Off Canvas Tab Bar Headers

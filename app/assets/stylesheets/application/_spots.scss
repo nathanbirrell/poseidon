@@ -11,8 +11,6 @@
 
 .spot-banner {
   position: relative;
-  min-height: 100px;
-  max-height: 160px;
   overflow: hidden;
   background-color: $primary-color;
 
@@ -44,7 +42,6 @@
   flex-direction: row;
   align-items: flex-end;
   justify-content: flex-start;
-  height: 100px;
   padding: 12px 0;
 
   .spot-banner__rating {
