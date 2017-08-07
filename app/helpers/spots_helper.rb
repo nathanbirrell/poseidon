@@ -8,9 +8,9 @@ module SpotsHelper
   end
 
   def get_verdict(rating)
-    return 'positive' if rating > 75
+    return 'positive' if rating >= 75
+    return 'mixed' if rating >= 50
     return 'negative' if rating < 50
-    return 'mixed' if rating > 50
   end
 
   def get_verdict_colour(rating)
