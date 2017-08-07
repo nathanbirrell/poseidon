@@ -19,7 +19,26 @@ class WeatherForecast < ApplicationRecord
     where(spot_id: spot_id).where("date_time >= ?", Date.current).where('date_time <= ?', 5.day.from_now).order(date_time: :asc)
   end
 
+  def self.get_willyweather_forecast(spot, forecast_type)
+    spot.set_willyweather_location_id_if_needed
+
+    # ie: https://goo.gl/xfJKpn
+    response = RestClient.get(
+      "https://api.willyweather.com.au/v2/#{ENV['WILLYWEATHER_API_KEY']}/locations/#{spot.willyweather_location_id}/weather.json",
+      {
+        params: {
+          'forecasts' => forecast_type,
+          'days' => 5
+        }
+      }
+    )
+
+    response = JSON.parse(response)
+    response
+  end
+
   # Methods used by Swell, Wind, Tide models
+  # TODO -- delete all of these, are they still used??
 
   def calculate_angle_between(x, y)
     # Math.atan2(Math.sin(x-y), Math.cos(x-y))
