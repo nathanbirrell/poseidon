@@ -59,11 +59,6 @@
     -moz-box-shadow: $shadow-subtle;
     box-shadow: $shadow-subtle;
 
-    @media #{$medium-up} {
-      width: 60px;
-      margin-left: auto;
-    }
-
     span {
       font-size: rem-calc(40);
       font-weight: 500;
@@ -75,15 +70,21 @@
       margin-right: 8px;
       margin-left: -5px;
     }
+
+    @media #{$medium-up} {
+      width: 70px;
+      height: 70px;
+      margin-left: auto;
+      line-height: 72px;
+      .percent {
+        margin-right: 5px;
+      }
+    }
   }
 
   .spot-banner__details {
     display: inline-block;
     vertical-align: middle;
-  }
-
-  @media #{$medium-up} {
-    height: 140px;
   }
 
   h2 {
