@@ -60,7 +60,7 @@
       height: 100%;
 
       p {
-        margin-bottom: 6px;
+        margin-bottom: 0px;
       }
 
       .title {
@@ -114,6 +114,11 @@
         font-size: rem-calc(10);
         font-weight: normal;
         text-transform: uppercase;
+        margin-bottom: 6px;
+
+        &.title {
+          margin-bottom: 0px;
+        }
       }
     }
   }
