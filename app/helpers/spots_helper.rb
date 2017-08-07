@@ -1,6 +1,6 @@
 module SpotsHelper
   def tide_incoming_or_outgoing(last_tide_type)
-    if last_tide_type === 'low'
+    if last_tide_type == 'low'
       'Incoming'
     else
       'Outgoing'
@@ -27,9 +27,11 @@ module SpotsHelper
   def swell_models_table(rows)
     show_table(rows)
   end
+
   def wind_models_table(rows)
     show_table(rows)
   end
+
   def tide_models_table(rows)
     show_table(rows)
   end
@@ -44,7 +46,7 @@ module SpotsHelper
 
   def degrees_to_text(direction)
     val = ((direction / 22.5) + 0.5).round(0)
-    directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE',  'SE',  'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
+    directions = %w[N NNE NE ENE E ESE SE SSE S SSW SW WSW W WNW NW NNW]
     directions[(val % 16)]
   end
 
@@ -82,19 +84,21 @@ module SpotsHelper
   end
 
   def display_hours(data)
-    return (data - data%1).round(0) # return a neat figure for hours, taking off any decimal
+    # return a neat figure for hours, taking off any decimal
+    (data - data % 1).round(0)
   end
 
   def display_mins(data)
-    return ((data % 1)*60).round(0) # get leftover hours decimal value and return neat mins display figure
+    # get leftover hours decimal value and return neat mins display figure
+    ((data % 1) * 60).round(0)
   end
 
   private
 
   def show_table(rows_to_show)
-    columns_to_hide = ['id', 'created_at', 'updated_at', 'spot_id']
-    date_attrs = ['created_at', 'updated_at', 'date_time']
-    decimal_attrs = ['size', 'period', 'height']
+    columns_to_hide = %w[id created_at updated_at spot_id]
+    date_attrs = %w[created_at updated_at date_time]
+    decimal_attrs = %w[size period height]
 
     table = ''
     table += '<table>'
@@ -113,7 +117,7 @@ module SpotsHelper
       table += '<tr>'
       observation.attributes.each do |attr_name, attr_value|
         next if columns_to_hide.include? attr_name
-        attr_value = attr_value.localtime.strftime("%a, %e %b %Y %H:%M") if date_attrs.include? attr_name
+        attr_value = attr_value.localtime.strftime('%a, %e %b %Y %H:%M') if date_attrs.include? attr_name
         attr_value = attr_value.round(2) if decimal_attrs.include? attr_name
         table += "<td>#{attr_value}</td>"
       end
