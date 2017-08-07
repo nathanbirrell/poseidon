@@ -12,6 +12,8 @@ let aboutView;
 let aboutBtn;
 let forecastView;
 let forecastBtn;
+let historyView;
+let historyBtn;
 let sections = [];
 let revSections = [];
 let spotBarInit = false;
