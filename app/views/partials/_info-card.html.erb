@@ -17,7 +17,8 @@
       </div>
       <% data.each do |d| %>
         <div class="small-4 columns datapoint">
-          <p class="main-text --<%= d[:indicator] %>">
+          <p class="title sub-text --<%= d[:indicator] %>"><%= d[:title] %></p>
+          <p class="main-text">
             <%= d[:prefix] %>
             <% d[:values].each do |v| %>
               <span><%= v[:value] %><span class="value-unit"><%= v[:unit] %></span></span>

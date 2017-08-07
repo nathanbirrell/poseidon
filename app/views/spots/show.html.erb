@@ -10,13 +10,11 @@
 <% else %>
   <% content_for :before_main do %>
     <div class="spot-banner --<%= get_verdict(@spot.current_potential) %>">
-      <!-- <div class="spot-banner__image-wrapper">
-        <img alt="slide image" src="<%= @spot.image %>">
-      </div> -->
       <div class="row spot-banner__content">
         <div class="small-12 columns text-left">
           <div class="spot-banner__rating">
             <span><%= trim(@spot.current_potential) %></span>
+            <span class="percent">%</span>
           </div>
           <div class="spot-banner__details">
             <h2><%= @spot.name %></h2>
@@ -28,7 +26,7 @@
   <% end %>
 
   <div id="spot-toolbar" class="row spot-toolbar">
-    <div class="small-12 medium-4 columns">
+    <div class="small-12 medium-5 columns">
       <div class="row">
         <div id="current-btn" class="small-3 columns spot-toolbar__item">
           <a>
@@ -72,13 +70,14 @@
           datetime: @spot.current_swell.date_time,
           data: [
             {
+              title: 'Wave height',
               indicator: get_verdict(@spot.current_swell.size_rating),
               prefix: '',
               values: [{
                 value: m_to_ft(@spot.current_swell.size).round(1),
                 unit: 'ft'
               }],
-              subtext: "Wave height <br />@ #{trim(@spot.current_swell.period.round(0))} secs",
+              subtext: "@ #{trim(@spot.current_swell.period.round(0))} secs",
               optimum_vis: [{
                 label: '',
                 type: 'linear',
@@ -98,15 +97,16 @@
               }]
             },
             {
+              title: 'Direction',
               indicator: get_verdict(@spot.current_swell.dir_rating),
               prefix: '',
               values: [{
                 value: degrees_to_text(@spot.current_swell.direction),
                 unit: ''
               }],
-              subtext: "Direction <br />(#{@spot.current_swell.direction}&deg;)",
+              subtext: "#{@spot.current_swell.direction}&deg;",
               optimum_vis: [{
-                label: 'Swell',
+                label: '',
                 type: 'direction',
                 min: @spot.current_swell.dir_at_rating(30.0)[:left].round(1),
                 max: @spot.current_swell.dir_at_rating(30.0)[:right].round(1),
@@ -132,13 +132,14 @@
           datetime: @spot.current_wind.date_time,
           data: [
             {
+              title: 'Wind speed',
               indicator: get_verdict(@spot.current_wind.speed_rating),
               prefix: '',
               values: [{
                 value: trim(kph_to_knots(@spot.current_wind.speed).round(0)),
                 unit: 'kts'
               }],
-              subtext: "Wind speed <br />(#{@spot.current_wind.speed} kph)",
+              subtext: "#{@spot.current_wind.speed} kph",
               optimum_vis: [{
                 label: '',
                 type: 'linear',
@@ -158,15 +159,16 @@
               }]
             },
             {
+              title: 'Direction',
               indicator: get_verdict(@spot.current_wind.dir_rating),
               prefix: '',
               values: [{
                 value: degrees_to_text(@spot.current_wind.direction),
                 unit: ''
               }],
-              subtext: "Direction <br />(#{@spot.current_wind.direction}&deg;)",
+              subtext: "#{@spot.current_wind.direction}&deg;",
               optimum_vis: [{
-                label: 'Wind',
+                label: '',
                 type: 'direction',
                 min: @spot.current_wind.dir_at_rating(30.0)[:left].round(1),
                 max: @spot.current_wind.dir_at_rating(30.0)[:right].round(1),
@@ -192,15 +194,16 @@
           datetime: Time.zone.now,
           data: [
             {
+              title: 'Tide height',
               indicator: get_verdict(@spot.current_tide_rating),
               prefix: '',
               values: [{
                 value: @spot.current_tide_height.round(1),
                 unit: 'm'
               }],
-              subtext: "Tide height <br /> #{@spot.tide_shift_rate} shift",
+              subtext: "#{@spot.tide_shift_rate} shift",
               optimum_vis: [{
-                label: 'Tide',
+                label: '',
                 type: 'linear',
                 min: @spot.tide_at_rating(30.0)[:left].round(2),
                 max: @spot.tide_at_rating(30.0)[:right].round(2),
@@ -218,6 +221,7 @@
               }]
             },
             {
+              title: 'Timing',
               indicator: '',
               prefix: '',
               values: @spot.tide_remaining_or_to == 'too_far_out' ? [

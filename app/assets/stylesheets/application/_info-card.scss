@@ -21,6 +21,8 @@
   }
 
   .expand-button {
+    position: absolute;
+    bottom: 0;
     margin-left: 6px;
     margin-bottom: 12px;
   }
@@ -61,21 +63,8 @@
         margin-bottom: 6px;
       }
 
-      .main-text {
-        font-size: 0px;
-        font-weight: bold;
+      .title {
         position: relative;
-
-        // NOTE: IMPORTANT! THIS WILL STOP ANY TEXT NOT IN A SPAN FROM APPEARING.
-        // It is a fix to hide any unintentional whitespace not inside the spans
-        span {
-          font-size: rem-calc(24);
-        }
-
-        span.value-unit {
-          font-size: rem-calc(20);
-          text-transform: lowercase;
-        }
 
         &::before {
           content: '';
@@ -83,7 +72,7 @@
           width: 10px;
           border-radius: 10px;
           position: absolute;
-          top: 0;
+          top: 2px;
           left: 0;
         }
 
@@ -101,6 +90,23 @@
           &::before {
             background-color: #EB5757;
           }
+        }
+      }
+
+      .main-text {
+        font-size: 0px;
+        font-weight: bold;
+        position: relative;
+
+        // NOTE: IMPORTANT! THIS WILL STOP ANY TEXT NOT IN A SPAN FROM APPEARING.
+        // It is a fix to hide any unintentional whitespace not inside the spans
+        span {
+          font-size: rem-calc(24);
+        }
+
+        span.value-unit {
+          font-size: rem-calc(20);
+          text-transform: lowercase;
         }
       }
 
