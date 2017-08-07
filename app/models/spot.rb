@@ -150,7 +150,10 @@ class Spot < ApplicationRecord
           (tide_remaining_or_to == 'till good' && last_tide.tide_type == 'low')
       y_value = tide_optimal_min_metres
     end
-    opt_tide_time = asin((y_value - (tidal_range/2 + low_tide.height))/(tidal_range/2)) + PI/2 # get x value part 1
+    blah = (y_value - (tidal_range / 2 + low_tide.height)) / (tidal_range / 2)
+    blah = blah.to_f
+    opt_tide_time = asin(blah) # get x value part 1
+    opt_tide_time += (PI / 2).to_f
     opt_tide_time /= (2 * PI / tide_period) # get x value part 2
     opt_tide_time = opt_tide_time * 60 * 60 # transform hours to seconds
     opt_tide_time = opt_tide_time.round(0) # round to nearest second
