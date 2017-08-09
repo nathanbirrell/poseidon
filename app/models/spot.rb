@@ -40,6 +40,16 @@ class Spot < ApplicationRecord
 
   validates :name, presence: true
 
+  class << self
+    def fetch_forecasts
+      Spot.all.each do |spot|
+        Swell.fetch_forecasts(spot)
+        Wind.fetch_forecasts(spot)
+        Tide.fetch_forecasts(spot)
+      end
+    end
+  end
+
   def poseidon_math
     @poseidon_math ||= PoseidonMath.new
   end
@@ -191,6 +201,26 @@ class Spot < ApplicationRecord
     aggregate += current_wind.rating * weighting_wind
     aggregate += current_tide_rating * weighting_tide
     aggregate.round(0)
+  end
+
+  def set_willyweather_location_id_if_needed
+    return if willyweather_location_id
+
+    # TODO: please refactor me into a WillyWeather client under /lib :)
+    # For example: https://goo.gl/HkHDgF
+    response = RestClient.get(
+      "https://api.willyweather.com.au/v2/#{ENV['WILLYWEATHER_API_KEY']}/search.json",
+      {
+        params: {
+          'lat' => latitude,
+          'lng' => longitude,
+          'units' => 'distance:km'
+        }
+      }
+    )
+
+    willyweather_location_id = JSON.parse(response)['location']['id'].to_s
+    self.save
   end
 
   def self.sorted_by_current_potential

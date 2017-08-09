@@ -15,6 +15,7 @@ Getting Started
 1. Clone this repo - `git clone git@github.com:nathanbirrell/poseidon.git poseidon`
 1. Install project dependencies - `cd poseidon; bundle install`. [Note if you have an issue with the `pg` gem, make sure you run `brew install postgresql` and `bundle` again.]
 1. Create, set-up and seed database with `rails db:create db:schema:load db:seed`
+1. Find a [template](https://poseidonweb.slack.com/archives/C3X92NSA1/p1502094031661986) `config/application.yml` file for your environment variables (handled by Figaro)
 1. If you like, load some model data for the seed spots with `rails forecasts:update`
 1. Start the Rails server to confirm all is working `rails server`
 1. Install Rubocop and the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) ([Atom](https://fmcgeough.wordpress.com/2015/11/14/using-rubocop-in-atom/), [RubyMine](#TODO))
