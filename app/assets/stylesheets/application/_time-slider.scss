@@ -7,6 +7,14 @@
   border-top: 1px solid $iron;
   z-index: 999;
 
+  &__graph {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.18;
+    z-index: 1;
+  }
+
   &__value {
     display: inline-block;
     padding: 12px;
@@ -56,9 +64,14 @@
     vertical-align: middle;
     height: 60px;
     margin-bottom: -6px;
+    position: relative;
 
     @media #{$medium-up} {
       padding: 12px 24px;
+    }
+
+    .input {
+      z-index: 2;
     }
 
     // OVERRIDE DEFAULT STYLES
