@@ -17,6 +17,58 @@ class Swell < WeatherForecast
   require 'poseidon_math'
   belongs_to :spot
 
+  class << self
+    # TODO: Retrieve swell data via Willyweather as well for consistency?
+    #   Willyweather also uses NOAA. OR fetch from ECWMF.
+    def fetch_forecasts(spot)
+      # example response: https://goo.gl/yyL27S
+      response = get_noaa_forecast(spot)
+      entries = response['entries']
+
+      entries.each do |entry|
+        save_swell_forecast_entry(spot.id, entry)
+      end
+    end
+
+    private
+
+    def get_noaa_forecast(spot)
+      response = RestClient.get(
+        'https://api.planetos.com/v1/datasets/noaa_ww3_global_1.25x1d/point',
+        {
+          params: {
+            'apikey' => ENV['PLANETOS_API_KEY'],
+            'lat' => spot.wave_model_lat,
+            'lon' => spot.wave_model_lon,
+            'count' => '25',
+            'context' => 'reftime_time_lat_lon'
+          }
+        }
+      )
+
+      response = JSON.parse(response)
+      response
+    end
+
+    def save_swell_forecast_entry(spot_id, entry)
+      datetime = DateTime.parse(entry["axes"]["time"]) # DateTime provided in UTC :)
+
+      swell_entry = Swell.where(
+        date_time: datetime,
+        spot_id: spot_id
+      ).first_or_initialize
+
+      swell_entry.size = entry["data"]["Significant_height_of_combined_wind_waves_and_swell_surface"]
+      swell_entry.period = entry["data"]["Primary_wave_mean_period_surface"]
+      swell_entry.direction = entry["data"]["Primary_wave_direction_surface"]
+      # TODO: we should probably store these fields, need to create the cols first though
+      # swell_entry.axes_reftime = DateTime.parse(entry["axes"]["reftime"])
+      # swell_entry.axes_lat = entry["axes"]["latitude"]
+      # swell_entry.axes_lon = entry["axes"]["longitude"]
+      swell_entry.save
+    end
+  end
+
   def poseidon_math
     @poseidon_math ||= PoseidonMath.new
   end

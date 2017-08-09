@@ -24,6 +24,7 @@ gem 'countries'
 gem 'country_select'
 gem 'ruby-units'
 gem 'webpacker', '~> 2.0'
+gem 'figaro'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
