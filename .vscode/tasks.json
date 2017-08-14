@@ -11,14 +11,6 @@
                 "kind": "build",
                 "isDefault": true
             }
-        },
-        {
-            "taskName": "Rails logs",
-            "command": "powder log",
-            "type": "shell",
-            "group": {
-                "kind": "log"
-            }
         }
     ]
 }
