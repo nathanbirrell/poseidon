@@ -1,6 +1,6 @@
 module SpotsHelper
   def tide_incoming_or_outgoing(last_tide_type)
-    if last_tide_type === 'low'
+    if last_tide_type == 'low'
       'Incoming'
     else
       'Outgoing'
@@ -8,9 +8,9 @@ module SpotsHelper
   end
 
   def get_verdict(rating)
-    return 'positive' if rating > 75
+    return 'positive' if rating >= 75
+    return 'mixed' if rating >= 50
     return 'negative' if rating < 50
-    return 'mixed' if rating > 50
   end
 
   def get_verdict_colour(rating)
@@ -27,9 +27,11 @@ module SpotsHelper
   def swell_models_table(rows)
     show_table(rows)
   end
+
   def wind_models_table(rows)
     show_table(rows)
   end
+
   def tide_models_table(rows)
     show_table(rows)
   end
@@ -44,8 +46,36 @@ module SpotsHelper
 
   def degrees_to_text(direction)
     val = ((direction / 22.5) + 0.5).round(0)
-    directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE',  'SE',  'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
+    directions = %w[N NNE NE ENE E ESE SE SSE S SSW SW WSW W WNW NW NNW]
     directions[(val % 16)]
+  end
+
+  def kph_to_descriptive(wind_kph)
+    case wind_kph
+    when 0..2 then 'Calm'
+    when 2..12 then 'Light'
+    when 12..30 then 'Moderate'
+    when 30..40 then 'Fresh'
+    when 40..62 then 'Strong'
+    when 62..87 then 'Gale'
+    when 87..117 then 'Storm'
+    when 117..135 then 'Hurricane'
+    else ''
+    end
+  end
+
+  def feet_to_descriptive(wave_feet)
+    case wave_feet
+    when 0..1 then 'Flat'
+    when 1..3 then 'Knee-to-waist high'
+    when 3..4 then 'Chest-shoulder high'
+    when 4..5 then 'Head high'
+    when 5..6.5 then 'Overhead'
+    when 6.5..8 then 'Well overhead'
+    when 8..10 then 'Double overhead'
+    when 10..15 then 'Epic (double-to-triple overhead)'
+    else ''
+    end
   end
 
   def get_roc_direction(value)
@@ -54,19 +84,21 @@ module SpotsHelper
   end
 
   def display_hours(data)
-    return (data - data%1).round(0) # return a neat figure for hours, taking off any decimal
+    # return a neat figure for hours, taking off any decimal
+    (data - data % 1).round(0)
   end
 
   def display_mins(data)
-    return ((data % 1)*60).round(0) # get leftover hours decimal value and return neat mins display figure
+    # get leftover hours decimal value and return neat mins display figure
+    ((data % 1) * 60).round(0)
   end
 
   private
 
   def show_table(rows_to_show)
-    columns_to_hide = ['id', 'created_at', 'updated_at', 'spot_id']
-    date_attrs = ['created_at', 'updated_at', 'date_time']
-    decimal_attrs = ['size', 'period', 'height']
+    columns_to_hide = %w[id created_at updated_at spot_id]
+    date_attrs = %w[created_at updated_at date_time]
+    decimal_attrs = %w[size period height]
 
     table = ''
     table += '<table>'
@@ -85,7 +117,7 @@ module SpotsHelper
       table += '<tr>'
       observation.attributes.each do |attr_name, attr_value|
         next if columns_to_hide.include? attr_name
-        attr_value = attr_value.localtime.strftime("%a, %e %b %Y %H:%M") if date_attrs.include? attr_name
+        attr_value = attr_value.localtime.strftime('%a, %e %b %Y %H:%M') if date_attrs.include? attr_name
         attr_value = attr_value.round(2) if decimal_attrs.include? attr_name
         table += "<td>#{attr_value}</td>"
       end

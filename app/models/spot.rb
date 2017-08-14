@@ -40,6 +40,16 @@ class Spot < ApplicationRecord
 
   validates :name, presence: true
 
+  class << self
+    def fetch_forecasts
+      Spot.all.each do |spot|
+        Swell.fetch_forecasts(spot)
+        Wind.fetch_forecasts(spot)
+        Tide.fetch_forecasts(spot)
+      end
+    end
+  end
+
   def poseidon_math
     @poseidon_math ||= PoseidonMath.new
   end
@@ -136,7 +146,6 @@ class Spot < ApplicationRecord
          (last_tide.tide_type == 'high' && next_tide.height < tide_optimal_max_metres)
         output = 'till good'
       end
-      nil
     end
     output
   end
@@ -151,7 +160,10 @@ class Spot < ApplicationRecord
           (tide_remaining_or_to == 'till good' && last_tide.tide_type == 'low')
       y_value = tide_optimal_min_metres
     end
-    opt_tide_time = asin((y_value - (tidal_range/2 + low_tide.height))/(tidal_range/2)) + PI/2 # get x value part 1
+    blah = (y_value - (tidal_range / 2 + low_tide.height)) / (tidal_range / 2)
+    blah = blah.to_f
+    opt_tide_time = asin(blah) # get x value part 1
+    opt_tide_time += (PI / 2).to_f
     opt_tide_time /= (2 * PI / tide_period) # get x value part 2
     opt_tide_time = opt_tide_time * 60 * 60 # transform hours to seconds
     opt_tide_time = opt_tide_time.round(0) # round to nearest second
@@ -189,5 +201,29 @@ class Spot < ApplicationRecord
     aggregate += current_wind.rating * weighting_wind
     aggregate += current_tide_rating * weighting_tide
     aggregate.round(0)
+  end
+
+  def set_willyweather_location_id_if_needed
+    return if willyweather_location_id
+
+    # TODO: please refactor me into a WillyWeather client under /lib :)
+    # For example: https://goo.gl/HkHDgF
+    response = RestClient.get(
+      "https://api.willyweather.com.au/v2/#{ENV['WILLYWEATHER_API_KEY']}/search.json",
+      {
+        params: {
+          'lat' => latitude,
+          'lng' => longitude,
+          'units' => 'distance:km'
+        }
+      }
+    )
+
+    willyweather_location_id = JSON.parse(response)['location']['id'].to_s
+    self.save
+  end
+
+  def self.sorted_by_current_potential
+    Spot.all.sort_by(&:current_potential).reverse
   end
 end

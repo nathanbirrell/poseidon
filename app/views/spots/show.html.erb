@@ -10,13 +10,11 @@
 <% else %>
   <% content_for :before_main do %>
     <div class="spot-banner --<%= get_verdict(@spot.current_potential) %>">
-      <!-- <div class="spot-banner__image-wrapper">
-        <img alt="slide image" src="<%= @spot.image %>">
-      </div> -->
       <div class="row spot-banner__content">
         <div class="small-12 columns text-left">
           <div class="spot-banner__rating">
             <span><%= trim(@spot.current_potential) %></span>
+            <span class="percent">%</span>
           </div>
           <div class="spot-banner__details">
             <h2><%= @spot.name %></h2>
@@ -28,7 +26,7 @@
   <% end %>
 
   <div id="spot-toolbar" class="row spot-toolbar">
-    <div class="small-12 medium-4 columns">
+    <div class="small-12 medium-5 columns">
       <div class="row">
         <div id="current-btn" class="small-3 columns spot-toolbar__item">
           <a>
@@ -37,7 +35,7 @@
         </div>
         <div id="about-btn" class="small-3 columns spot-toolbar__item">
           <a>
-            <span class="spot-toolbar__label">Optimums</span>
+            <span class="spot-toolbar__label">About</span>
           </a>
         </div>
         <div id="forecast-btn" class="small-3 columns spot-toolbar__item">
@@ -45,9 +43,9 @@
             <span class="spot-toolbar__label">Forecast</span>
           </a>
         </div>
-        <div class="small-3 columns spot-toolbar__item">
+        <div id="history-btn" class="small-3 columns spot-toolbar__item">
           <a>
-            <span class="spot-toolbar__label">About</span>
+            <span class="spot-toolbar__label">History</span>
           </a>
         </div>
       </div>
@@ -67,19 +65,22 @@
       <div class="row">
         <%= render partial: 'partials/info-card', locals: {
           title: 'Swell',
-          secondary: 'Overhead',
+          secondary: feet_to_descriptive(m_to_ft(@spot.current_swell.size)),
           rating: @spot.current_swell.rating,
           datetime: @spot.current_swell.date_time,
           data: [
             {
+              title: 'Wave height',
               indicator: get_verdict(@spot.current_swell.size_rating),
               prefix: '',
               values: [{
                 value: m_to_ft(@spot.current_swell.size).round(1),
                 unit: 'ft'
               }],
-              subtext: "Wave height <br />@ #{trim(@spot.current_swell.period.round(0))} secs",
+              subtext: "@ #{trim(@spot.current_swell.period.round(0))} secs",
               optimum_vis: [{
+                label: '',
+                type: 'linear',
                 min: @spot.current_swell.size_at_rating(30.0)[:left].round(2),
                 max: @spot.current_swell.size_at_rating(30.0)[:right].round(2),
                 mix_min: @spot.current_swell.size_at_rating(50.0)[:left].round(2),
@@ -87,19 +88,26 @@
                 opt_min: @spot.swell_optimal_size_min_metres,
                 opt_max: @spot.swell_optimal_size_max_metres,
                 value: @spot.current_swell.size.round(2),
+                unit: "m",
+                min_label: @spot.current_swell.size_at_rating(30.0)[:left].round(2),
+                max_label: @spot.current_swell.size_at_rating(30.0)[:right].round(2),
+                roc_value: @spot.current_swell.swell_in_3_hours.size.round(2),
                 roc: @spot.current_swell.rate_of_change_size,
                 roc_direction: get_roc_direction(@spot.current_swell.rate_of_change_size)
               }]
             },
             {
+              title: 'Direction',
               indicator: get_verdict(@spot.current_swell.dir_rating),
               prefix: '',
               values: [{
                 value: degrees_to_text(@spot.current_swell.direction),
                 unit: ''
               }],
-              subtext: "Direction <br />(#{@spot.current_swell.direction}&deg;)",
+              subtext: "#{@spot.current_swell.direction}&deg;",
               optimum_vis: [{
+                label: '',
+                type: 'direction',
                 min: @spot.current_swell.dir_at_rating(30.0)[:left].round(1),
                 max: @spot.current_swell.dir_at_rating(30.0)[:right].round(1),
                 mix_min: @spot.current_swell.dir_at_rating(50.0)[:left].round(1),
@@ -107,6 +115,10 @@
                 opt_min: @spot.current_swell.dir_at_rating(75.0)[:left].round(1),
                 opt_max: @spot.current_swell.dir_at_rating(75.0)[:right].round(1),
                 value: @spot.current_swell.direction,
+                unit: " deg",
+                min_label: degrees_to_text(@spot.current_swell.dir_at_rating(30.0)[:left].round(1)),
+                max_label: degrees_to_text(@spot.current_swell.dir_at_rating(30.0)[:right].round(1)),
+                roc_value: @spot.current_swell.swell_in_3_hours.direction,
                 roc: @spot.current_swell.rate_of_change_direction,
                 roc_direction: get_roc_direction(@spot.current_swell.rate_of_change_direction)
               }]
@@ -115,19 +127,22 @@
         } %>
         <%= render partial: 'partials/info-card', locals: {
           title: 'Wind',
-          secondary: 'Gusty',
+          secondary: kph_to_descriptive(@spot.current_wind.speed),
           rating: @spot.current_wind.rating,
           datetime: @spot.current_wind.date_time,
           data: [
             {
+              title: 'Wind speed',
               indicator: get_verdict(@spot.current_wind.speed_rating),
               prefix: '',
               values: [{
                 value: trim(kph_to_knots(@spot.current_wind.speed).round(0)),
                 unit: 'kts'
               }],
-              subtext: "Wind speed <br />(#{@spot.current_wind.speed} kph)",
+              subtext: "#{@spot.current_wind.speed} kph",
               optimum_vis: [{
+                label: '',
+                type: 'linear',
                 min: @spot.current_wind.speed_at_rating(30.0)[:left].round(1),
                 max: @spot.current_wind.speed_at_rating(30.0)[:right].round(1),
                 mix_min: @spot.current_wind.speed_at_rating(50.0)[:left].round(1),
@@ -135,19 +150,26 @@
                 opt_min: @spot.wind_optimal_strength_min_kmh,
                 opt_max: @spot.wind_optimal_strength_max_kmh,
                 value: @spot.current_wind.speed,
+                unit: "kph",
+                min_label: @spot.current_wind.speed_at_rating(30.0)[:left].round(1),
+                max_label: @spot.current_wind.speed_at_rating(30.0)[:right].round(1),
+                roc_value: @spot.current_wind.wind_in_3_hours.speed,
                 roc: @spot.current_wind.rate_of_change_speed,
                 roc_direction: get_roc_direction(@spot.current_wind.rate_of_change_speed)
               }]
             },
             {
+              title: 'Direction',
               indicator: get_verdict(@spot.current_wind.dir_rating),
               prefix: '',
               values: [{
                 value: degrees_to_text(@spot.current_wind.direction),
                 unit: ''
               }],
-              subtext: "Direction <br />(#{@spot.current_wind.direction}&deg;)",
+              subtext: "#{@spot.current_wind.direction}&deg;",
               optimum_vis: [{
+                label: '',
+                type: 'direction',
                 min: @spot.current_wind.dir_at_rating(30.0)[:left].round(1),
                 max: @spot.current_wind.dir_at_rating(30.0)[:right].round(1),
                 mix_min: @spot.current_wind.dir_at_rating(50.0)[:left].round(1),
@@ -155,6 +177,10 @@
                 opt_min: @spot.current_wind.dir_at_rating(75.0)[:left].round(1),
                 opt_max: @spot.current_wind.dir_at_rating(75.0)[:right].round(1),
                 value: @spot.current_wind.direction,
+                unit: " deg",
+                min_label: degrees_to_text(@spot.current_wind.dir_at_rating(30.0)[:left].round(1)),
+                max_label: degrees_to_text(@spot.current_wind.dir_at_rating(30.0)[:right].round(1)),
+                roc_value: @spot.current_wind.wind_in_3_hours.direction,
                 roc: @spot.current_wind.rate_of_change_direction,
                 roc_direction: get_roc_direction(@spot.current_wind.rate_of_change_direction)
               }]
@@ -168,15 +194,16 @@
           datetime: Time.zone.now,
           data: [
             {
+              title: 'Tide height',
               indicator: get_verdict(@spot.current_tide_rating),
               prefix: '',
               values: [{
                 value: @spot.current_tide_height.round(1),
                 unit: 'm'
               }],
-              subtext: "Tide height <br /> #{@spot.tide_shift_rate} shift",
+              subtext: "#{@spot.tide_shift_rate} shift",
               optimum_vis: [{
-                label: 'Tide',
+                label: '',
                 type: 'linear',
                 min: @spot.tide_at_rating(30.0)[:left].round(2),
                 max: @spot.tide_at_rating(30.0)[:right].round(2),
@@ -194,6 +221,7 @@
               }]
             },
             {
+              title: 'Timing',
               indicator: '',
               prefix: '',
               values: @spot.tide_remaining_or_to == 'too_far_out' ? [
@@ -228,136 +256,41 @@
       <div class="small-12 columns">
         <h4>About</h4>
       </div>
-      <div class="large-6 small-12 columns">
+      <div class="small-12 columns">
         <h5 class="subheader"><%= @spot.description %></h5>
+        <h4>Optimal conditions:</p>
         <p>
-          <strong>Optimal wind direction:</strong>
-          Between <%= @spot.wind_optimal_direction_min %> degrees and <%= @spot.wind_optimal_direction_max %> degrees
+          <strong>Wind direction:</strong>
+          <%= @spot.wind_optimal_direction_min %> - <%= @spot.wind_optimal_direction_max %> degrees
           <br>
-          <strong>Optimal wind strength:</strong>
+          <strong>Wind strength:</strong>
           <%= @spot.wind_optimal_strength_min_kmh %> - <%= @spot.wind_optimal_strength_max_kmh %> kmh
           <br>
-          <strong>Optimal swell direction:</strong>
-          Between <%= @spot.swell_optimal_direction_min %> degrees and <%= @spot.swell_optimal_direction_max %> degrees
+          <strong>Swell direction:</strong>
+          <%= @spot.swell_optimal_direction_min %> - <%= @spot.swell_optimal_direction_max %> degrees
           <br>
-          <strong>Optimal swell size:</strong>
+          <strong>Swell size:</strong>
           <%= @spot.swell_optimal_size_min_metres %> - <%= @spot.swell_optimal_size_max_metres %> metres
           <br>
-          <strong>Optimal tides:</strong>
+          <strong>Tides:</strong>
           <%= "#{@spot.tide_optimal_min_metres}m to #{@spot.tide_optimal_max_metres}m" %>
           <br>
           <strong>Season:</strong> <%= @spot.season %> <br>
           <strong>Lat/long: </strong> <%= @spot.latitude %>, <%= @spot.longitude %>
         </p>
       </div>
-      <div class="large-6 small-12 columns">
-        <%= render partial: 'partials/optimum-visualisation',
-          locals: {
-            showScale: true,
-            label: 'Wind',
-            type: 'direction',
-            min: @spot.current_wind.dir_at_rating(30.0)[:left].round(1),
-            max: @spot.current_wind.dir_at_rating(30.0)[:right].round(1),
-            mix_min: @spot.current_wind.dir_at_rating(50.0)[:left].round(1),
-            mix_max: @spot.current_wind.dir_at_rating(50.0)[:right].round(1),
-            opt_min: @spot.current_wind.dir_at_rating(75.0)[:left].round(1),
-            opt_max: @spot.current_wind.dir_at_rating(75.0)[:right].round(1),
-            value: @spot.current_wind.direction,
-            unit: " deg",
-            min_label: degrees_to_text(@spot.current_wind.dir_at_rating(30.0)[:left].round(1)),
-            max_label: degrees_to_text(@spot.current_wind.dir_at_rating(30.0)[:right].round(1)),
-            roc_value: @spot.current_wind.wind_in_3_hours.direction,
-            roc: @spot.current_wind.rate_of_change_direction,
-            roc_direction: get_roc_direction(@spot.current_wind.rate_of_change_direction)
-          }
-        %>
-        <%= render partial: 'partials/optimum-visualisation',
-          locals: {
-            label: '',
-            type: 'linear',
-            min: @spot.current_wind.speed_at_rating(30.0)[:left].round(1),
-            max: @spot.current_wind.speed_at_rating(30.0)[:right].round(1),
-            mix_min: @spot.current_wind.speed_at_rating(50.0)[:left].round(1),
-            mix_max: @spot.current_wind.speed_at_rating(50.0)[:right].round(1),
-            opt_min: @spot.wind_optimal_strength_min_kmh,
-            opt_max: @spot.wind_optimal_strength_max_kmh,
-            value: @spot.current_wind.speed,
-            unit: "kph",
-            min_label: @spot.current_wind.speed_at_rating(30.0)[:left].round(1),
-            max_label: @spot.current_wind.speed_at_rating(30.0)[:right].round(1),
-            roc_value: @spot.current_wind.wind_in_3_hours.speed,
-            roc: @spot.current_wind.rate_of_change_speed,
-            roc_direction: get_roc_direction(@spot.current_wind.rate_of_change_speed)
-          }
-        %>
-        <%= render partial: 'partials/optimum-visualisation',
-          locals: {
-            label: 'Swell',
-            type: 'direction',
-            min: @spot.current_swell.dir_at_rating(30.0)[:left].round(1),
-            max: @spot.current_swell.dir_at_rating(30.0)[:right].round(1),
-            mix_min: @spot.current_swell.dir_at_rating(50.0)[:left].round(1),
-            mix_max: @spot.current_swell.dir_at_rating(50.0)[:right].round(1),
-            opt_min: @spot.current_swell.dir_at_rating(75.0)[:left].round(1),
-            opt_max: @spot.current_swell.dir_at_rating(75.0)[:right].round(1),
-            value: @spot.current_swell.direction,
-            unit: " deg",
-            min_label: degrees_to_text(@spot.current_swell.dir_at_rating(30.0)[:left].round(1)),
-            max_label: degrees_to_text(@spot.current_swell.dir_at_rating(30.0)[:right].round(1)),
-            roc_value: @spot.current_swell.swell_in_3_hours.direction,
-            roc: @spot.current_swell.rate_of_change_direction,
-            roc_direction: get_roc_direction(@spot.current_swell.rate_of_change_direction)
-          }
-        %>
-        <%= render partial: 'partials/optimum-visualisation',
-          locals: {
-            label: '',
-            type: 'linear',
-            min: @spot.current_swell.size_at_rating(30.0)[:left].round(2),
-            max: @spot.current_swell.size_at_rating(30.0)[:right].round(2),
-            mix_min: @spot.current_swell.size_at_rating(50.0)[:left].round(2),
-            mix_max: @spot.current_swell.size_at_rating(50.0)[:right].round(2),
-            opt_min: @spot.swell_optimal_size_min_metres,
-            opt_max: @spot.swell_optimal_size_max_metres,
-            value: @spot.current_swell.size.round(2),
-            unit: "m",
-            min_label: @spot.current_swell.size_at_rating(30.0)[:left].round(2),
-            max_label: @spot.current_swell.size_at_rating(30.0)[:right].round(2),
-            roc_value: @spot.current_swell.swell_in_3_hours.size.round(2),
-            roc: @spot.current_swell.rate_of_change_size,
-            roc_direction: get_roc_direction(@spot.current_swell.rate_of_change_size)
-          }
-        %>
-        <% if @spot.works_on_all_tides? %>
-          <p>This spot works on all tides. </p>
-        <% else %>
-        <%= render partial: 'partials/optimum-visualisation',
-          locals: {
-            label: 'Tide',
-            type: 'linear',
-            min: @spot.tide_at_rating(30.0)[:left].round(2),
-            max: @spot.tide_at_rating(30.0)[:right].round(2),
-            mix_min: @spot.tide_at_rating(50.0)[:left].round(2),
-            mix_max: @spot.tide_at_rating(50.0)[:right].round(2),
-            opt_min: @spot.tide_optimal_min_metres,
-            opt_max: @spot.tide_optimal_max_metres,
-            value: @spot.current_tide_height,
-            unit: "m",
-            min_label: @spot.tide_at_rating(30.0)[:left].round(2),
-            max_label: @spot.tide_at_rating(30.0)[:right].round(2),
-            roc_value: @spot.tide_in_x_hours(3),
-            roc: @spot.rate_of_change_tide,
-            roc_direction: get_roc_direction(@spot.rate_of_change_tide)
-          }
-        %>
-        <% end %>
-      </div>
     </div>
   </div>
 
   <div id="forecast-view" class="row">
     <div class="large-12 columns">
-      <h3>COMING SOON</h3>
+      <h3>FORECASTS COMING SOON</h3>
+    </div>
+  </div>
+
+  <div id="history-view" class="row">
+    <div class="large-12 columns">
+      <h3>HISTORY COMING SOON</h3>
     </div>
   </div>
 

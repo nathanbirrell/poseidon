@@ -7,7 +7,8 @@ class SpotsController < ApplicationController
   # GET /spots
   # GET /spots.json
   def index
-    @spots = Spot.all
+    @spots = Spot.sorted_by_current_potential
+    @is_collapsed = true
   end
 
   # GET /spots/1
