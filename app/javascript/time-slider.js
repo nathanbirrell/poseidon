@@ -1,4 +1,4 @@
-const myData = [10, 25, 15, 30, 60, 95, 70, 60, 40, 80, 60, 75];
+const myData = [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100];
 const containerElement = document.querySelector('#time-slider__input');
 
 class TimeSlider {
@@ -8,7 +8,7 @@ class TimeSlider {
   }
 
   initGraph() {
-    var width = 295,
+    var width = 271,
       height = 60;
 
     var svg = d3.select('#time-slider__input').append('svg')

@@ -10,9 +10,10 @@
   &__graph {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 14px;
     opacity: 0.18;
     z-index: 1;
+    pointer-events: none;
   }
 
   &__value {
