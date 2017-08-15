@@ -122,8 +122,8 @@ $mixed: #F2994A;
 $negative: #CCCCCC;
 
 // We use these as default colors throughout
-$primary-color: #2D9CDB;
-$secondary-color: #e7e7e7;
+$primary-color: #0D659D;
+$secondary-color: #2278F1;
 $alert-color: #EB5757;
 $fail-color: #EB5757;
 $success-color: #27AE60;
@@ -133,7 +133,7 @@ $info-color: #a0d3e8;
 $shadow-subtle: -3px 3px 10px -0px rgba(0,0,0,0.1);
 
 // We use these to control various global styles
-$body-bg: $white-smoke;
+$body-bg: $ghost;
 $body-font-color: $jet;
 $body-font-family: $font-family-sans-serif;
 $body-font-weight: $font-weight-normal;
@@ -252,8 +252,8 @@ $h6-font-reduction: 0;
 // $subheader-bottom-margin: .5rem;
 
 // A general <small> styling
-// $small-font-size: 60%;
-// $small-font-color: scale-color($header-font-color, $lightness: 35%);
+$small-font-size: 60%;
+$small-font-color: scale-color($header-font-color, $lightness: 35%);
 
 // We use these to style paragraphs
 // $paragraph-font-family: inherit;
@@ -848,6 +848,7 @@ $h6-font-reduction: 0;
 // $include-html-off-canvas-classes: $include-html-classes;
 
 // $tabbar-bg: $oil;
+$tabbar-bg: $primary-color;
 // $tabbar-height: rem-calc(45);
 // $tabbar-icon-width: $tabbar-height;
 // $tabbar-line-height: $tabbar-height;
@@ -857,6 +858,8 @@ $h6-font-reduction: 0;
 // Off Canvas Divider Styles
 // $tabbar-left-section-border: solid 1px scale-color($tabbar-bg, $lightness: -50%);
 // $tabbar-right-section-border: $tabbar-left-section-border;
+$tabbar-left-section-border: none;
+$tabbar-right-section-border: none;
 
 
 // Off Canvas Tab Bar Headers

@@ -14,64 +14,81 @@
 
 class Wind < WeatherForecast
   # default_scope { order(date_time: :desc) }
+  require 'poseidon_math'
   belongs_to :spot
 
-  def current_variance
-    return 0 unless direction
-    calculate_angle_between(direction, spot.wind_optimal_direction)
+  class << self
+    def fetch_forecasts(spot)
+      response = get_willyweather_forecast(spot, 'wind')
+      location_info = response['location']
+      days = response['forecasts']['wind']['days']
+
+      days.each do |day|
+        forecasts = day['entries']
+        forecasts.each do |forecast|
+          save_wind_forecast_entry(spot.id, forecast, location_info['timeZone'])
+        end
+      end
+    end
+
+    private
+
+    def save_wind_forecast_entry(spot_id, forecast, spot_timezone)
+      Time.zone = spot_timezone # Willyweather provides datetimes in the timezone of the location, we need to parse it into UTC
+      forecast_datetime = Time.zone.parse(forecast['dateTime'])
+      Time.zone = Rails.application.config.time_zone # Reset back to config setting
+
+      wind_record = Wind.where(
+        date_time: forecast_datetime.utc,
+        spot_id: spot_id
+      ).first_or_initialize
+
+      wind_record.speed = forecast['speed']
+      wind_record.direction = forecast['direction']
+      wind_record.direction_text = forecast['directionText']
+
+      wind_record.save
+    end
+  end
+
+  def poseidon_math
+    @poseidon_math ||= PoseidonMath.new
+  end
+
+  def dir_at_rating(rating)
+    data = poseidon_math.normalise_degrees(
+      min_x: spot.wind_optimal_direction_min,
+      max_x: spot.wind_optimal_direction_max,
+      rating: rating
+    )
+    poseidon_math.value_given_rating(data)
   end
 
   def dir_rating
     return 0 unless direction
-    weight_of_optimal_wind_direction = 0.8
+    data = poseidon_math.normalise_degrees(
+      min_x: spot.wind_optimal_direction_min,
+      max_x: spot.wind_optimal_direction_max,
+      x_value: direction
+    )
+    poseidon_math.rating_given_x(data)
+  end
 
-    #========= CALC WIND DIRECTION RATING ==========
-    # use vertex quad formula y = a(x-h)^2 + k
-    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    dirOptimum = spot.wind_optimal_direction
-    dirMaxVariance =  spot.wind_optimal_direction_max_variance
-    dirKVar = 100.0
-    dirHVar = 0.0
-
-    # pass in known coord to determin var a value, (maxVariance, 75)
-    dirAVar = (75 - 100)/((dirMaxVariance - dirHVar)**2)
-
-    dirRating = dirAVar * ((current_variance - dirHVar)**2) + dirKVar
-
-    if dirRating < 0 then
-      dirRating = 0
-    end
-
-    puts("Wind direction current_variance=#{current_variance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
-    puts("Wind dirRating= #{dirRating}")
-
-    return dirRating
+  def speed_at_rating(rating)
+    poseidon_math.value_given_rating(
+      min_x: spot.wind_optimal_strength_min_kmh,
+      max_x: spot.wind_optimal_strength_max_kmh,
+      rating: rating
+    )
   end
 
   def speed_rating
     return 0 unless speed
-    weight_of_optimal_wind_speed = 0.2
-    #========= CALC WIND SPEED RATING ==========
-    # use vertex quad formula y = a(x-h)^2 + k
-    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    speedKVar = 100.0
-    speedMax = spot.wind_optimal_strength_max_kmh
-    speedMin = spot.wind_optimal_strength_min_kmh
-    speedHVar = ((speedMax - speedMin)/2) + speedMin
-
-    # pass in known coord to determine var a value, (speedMin, 75)
-    speedAVar = (75 - 100)/((speedMin - speedHVar)**2)
-
-    speedRating = speedAVar * ((speed - speedHVar)**2) + speedKVar
-
-    puts("Wind speed speedAVar=#{speedAVar} speedHVar=#{speedHVar} speedRating=#{speedRating}")
-    puts("Wind speedRating= #{speedRating}")
-
-    if speedRating < 0 then
-      speedRating = 0
-    end
-
-    return speedRating
+    poseidon_math.rating_given_x(
+      min_x: spot.wind_optimal_strength_min_kmh,
+      max_x: spot.wind_optimal_strength_max_kmh,
+      x_value: speed
+    )
   end
 
   def wind_in_3_hours
@@ -79,8 +96,10 @@ class Wind < WeatherForecast
   end
 
   def rate_of_change_direction
-    return 0 unless wind_in_3_hours
-    calculate_angle_between(wind_in_3_hours.direction, direction)
+    # FIXME
+    # return 0 unless wind_in_3_hours
+    # calculate_angle_between(wind_in_3_hours.current_variance.abs, current_variance.abs)
+    25.0
   end
 
   def rate_of_change_speed

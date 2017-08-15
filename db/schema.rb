@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170717221107) do
+ActiveRecord::Schema.define(version: 20170728062206) do
 
   create_table "regions", force: :cascade do |t|
     t.string "name"
@@ -40,14 +40,14 @@ ActiveRecord::Schema.define(version: 20170717221107) do
     t.decimal "wave_model_lat"
     t.decimal "wave_model_lon"
     t.integer "willyweather_location_id"
-    t.decimal "swell_optimal_direction"
-    t.decimal "swell_optimal_direction_max_variance"
-    t.decimal "wind_optimal_direction"
-    t.decimal "wind_optimal_direction_max_variance"
-    t.decimal "weighting_swell", precision: 3, scale: 2
-    t.decimal "weighting_wind", precision: 3, scale: 2
-    t.decimal "weighting_tide", precision: 3, scale: 2
-    t.decimal "wave_model_size_coefficient", precision: 4, scale: 3
+    t.decimal "weighting_swell", precision: 1, scale: 2
+    t.decimal "weighting_wind", precision: 1, scale: 2
+    t.decimal "weighting_tide", precision: 1, scale: 2
+    t.decimal "wave_model_size_coefficient", precision: 1, scale: 3
+    t.decimal "swell_optimal_direction_min"
+    t.decimal "swell_optimal_direction_max"
+    t.decimal "wind_optimal_direction_min"
+    t.decimal "wind_optimal_direction_max"
     t.index ["region_id"], name: "index_spots_on_region_id"
   end
 

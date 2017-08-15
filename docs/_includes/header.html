@@ -3,6 +3,8 @@
 	 {% include menu.html %}
 </header>
 
+
+{% if page.header != false %}
 <section id="banner">
 	<h1>POSEIDON</h1>
 	<p>Surf like a god with data-driven, spot-specific surf forecasts and recommendations.</p>
@@ -17,3 +19,4 @@
 		<div class="wave wave_5"></div>
 	</div>
 </section>
+{% endif %}

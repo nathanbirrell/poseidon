@@ -7,7 +7,7 @@
       </span>
     </div>
 
-    <div class="info-card__body row">
+    <div class="row info-card__body">
       <div class="small-4 columns">
         <% if rating <= 30.0 %>
           <%= render partial: 'partials/floating-icon',  locals: {type: 'negative', icon: 'alert-triangle--white', size: 'xlg'} %>
@@ -17,15 +17,35 @@
       </div>
       <% data.each do |d| %>
         <div class="small-4 columns datapoint">
-          <p class="main-text --<%= d[:indicator] %>">
+          <p class="title sub-text --<%= d[:indicator] %>"><%= d[:title] %></p>
+          <p class="main-text">
             <%= d[:prefix] %>
             <% d[:values].each do |v| %>
-              <span><%= v[:value] %><%= v[:unit] %></span>
+              <span><%= v[:value] %><span class="value-unit"><%= v[:unit] %></span></span>
             <% end %>
           </p>
           <p class="sub-text"><%= d[:subtext].html_safe %></p>
+          <% if d[:optimum_vis] %>
+            <% d[:optimum_vis].each do |opt| %>
+            <div class="--hide-expanded">
+              <%= render partial: 'partials/mini-optimum-visualisation', locals: opt %>
+            </div>
+            <% end %>
+          <% end %>
         </div>
       <% end %>
     </div>
+    <div class="row info-card__expanded-section">
+      <div class="small-11 small-centered columns">
+        <% data.each do |d| %>
+          <% if d[:optimum_vis] %>
+            <% d[:optimum_vis].each do |opt| %>
+              <%= render partial: 'partials/optimum-visualisation', locals: opt %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <a class="link expand-button fn-expand-info-card">Show more</a>
   </div>
 </div>

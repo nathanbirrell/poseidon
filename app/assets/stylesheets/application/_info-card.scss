@@ -7,6 +7,26 @@
   box-shadow: $shadow-subtle;
   margin-bottom: 12px;
 
+  &__expanded-section {
+    display: none;
+  }
+
+  &.--expanded {
+    .--hide-expanded {
+      display: none;
+    }
+    .info-card__expanded-section {
+      display: block;
+    }
+  }
+
+  .expand-button {
+    position: absolute;
+    bottom: 0;
+    margin-left: 6px;
+    margin-bottom: 12px;
+  }
+
   &__top {
     height: 24px;
     background: $gainsboro;
@@ -40,19 +60,11 @@
       height: 100%;
 
       p {
-        margin-bottom: 6px;
+        margin-bottom: 0px;
       }
 
-      .main-text {
-        font-size: 0px;
-        font-weight: bold;
+      .title {
         position: relative;
-
-        // NOTE: IMPORTANT! THIS WILL STOP ANY TEXT NOT IN A SPAN FROM APPEARING.
-        // It is a fix to hide any unintentional whitespace not inside the spans
-        span {
-          font-size: rem-calc(24);
-        }
 
         &::before {
           content: '';
@@ -60,7 +72,7 @@
           width: 10px;
           border-radius: 10px;
           position: absolute;
-          top: 0;
+          top: 2px;
           left: 0;
         }
 
@@ -81,10 +93,32 @@
         }
       }
 
+      .main-text {
+        font-size: 0px;
+        font-weight: bold;
+        position: relative;
+
+        // NOTE: IMPORTANT! THIS WILL STOP ANY TEXT NOT IN A SPAN FROM APPEARING.
+        // It is a fix to hide any unintentional whitespace not inside the spans
+        span {
+          font-size: rem-calc(24);
+        }
+
+        span.value-unit {
+          font-size: rem-calc(20);
+          text-transform: lowercase;
+        }
+      }
+
       .sub-text {
         font-size: rem-calc(10);
         font-weight: normal;
         text-transform: uppercase;
+        margin-bottom: 6px;
+
+        &.title {
+          margin-bottom: 0px;
+        }
       }
     }
   }

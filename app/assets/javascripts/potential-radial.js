@@ -60,13 +60,13 @@ var ready = function() {
     var numberText = track.append('text')
       .attr('class', 'radial-progress__text')
       .attr('text-anchor', 'middle')
-      .attr('dy', '.85rem');
+      .attr('dy', '.70rem');
 
     function update(progress) {
       //update position of endAngle
       value.attr('d', circle.endAngle(endAngle * progress));
       //update text value
-      numberText.text(formatText(progress * 100));
+      numberText.text(formatText(progress * 100) + '%');
     }
 
     (function iterate() {

@@ -13,10 +13,64 @@
 #
 
 class Swell < WeatherForecast
+  include Math
+  require 'poseidon_math'
   belongs_to :spot
 
-  def current_variance
-    calculate_angle_between(direction, spot.swell_optimal_direction)
+  class << self
+    # TODO: Retrieve swell data via Willyweather as well for consistency?
+    #   Willyweather also uses NOAA. OR fetch from ECWMF.
+    def fetch_forecasts(spot)
+      # example response: https://goo.gl/yyL27S
+      response = get_noaa_forecast(spot)
+      entries = response['entries']
+
+      entries.each do |entry|
+        save_swell_forecast_entry(spot.id, entry)
+      end
+    end
+
+    private
+
+    def get_noaa_forecast(spot)
+      response = RestClient.get(
+        'https://api.planetos.com/v1/datasets/noaa_ww3_global_1.25x1d/point',
+        {
+          params: {
+            'apikey' => ENV['PLANETOS_API_KEY'],
+            'lat' => spot.wave_model_lat,
+            'lon' => spot.wave_model_lon,
+            'count' => '25',
+            'context' => 'reftime_time_lat_lon'
+          }
+        }
+      )
+
+      response = JSON.parse(response)
+      response
+    end
+
+    def save_swell_forecast_entry(spot_id, entry)
+      datetime = DateTime.parse(entry["axes"]["time"]) # DateTime provided in UTC :)
+
+      swell_entry = Swell.where(
+        date_time: datetime,
+        spot_id: spot_id
+      ).first_or_initialize
+
+      swell_entry.size = entry["data"]["Significant_height_of_combined_wind_waves_and_swell_surface"]
+      swell_entry.period = entry["data"]["Primary_wave_mean_period_surface"]
+      swell_entry.direction = entry["data"]["Primary_wave_direction_surface"]
+      # TODO: we should probably store these fields, need to create the cols first though
+      # swell_entry.axes_reftime = DateTime.parse(entry["axes"]["reftime"])
+      # swell_entry.axes_lat = entry["axes"]["latitude"]
+      # swell_entry.axes_lon = entry["axes"]["longitude"]
+      swell_entry.save
+    end
+  end
+
+  def poseidon_math
+    @poseidon_math ||= PoseidonMath.new
   end
 
   def size
@@ -25,56 +79,40 @@ class Swell < WeatherForecast
     self[:size] * spot.wave_model_size_coefficient
   end
 
+  def dir_at_rating(rating)
+    data = poseidon_math.normalise_degrees(
+      min_x: spot.swell_optimal_direction_min,
+      max_x: spot.swell_optimal_direction_max,
+      rating: rating
+    )
+    poseidon_math.value_given_rating(data)
+  end
+
   def dir_rating
     return 0 unless direction
-    weight_of_optimal_swell_direction = 0.3
+    data = poseidon_math.normalise_degrees(
+      min_x: spot.swell_optimal_direction_min,
+      max_x: spot.swell_optimal_direction_max,
+      x_value: direction
+    )
+    poseidon_math.rating_given_x(data)
+  end
 
-    #========= CALC SWELL DIRECTION RATING ==========
-    # use vertex quad formula y = a(x-h)^2 + k
-    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    dirMaxVariance = spot.swell_optimal_direction_max_variance
-    dirKVar = 100.0
-    dirHVar = 0.0
-
-    # pass in known coord to determin var a value, (dirMaxVariance, 75)
-    dirAVar = (75 - 100)/((dirMaxVariance - dirHVar)**2)
-
-    dirRating = dirAVar * ((current_variance - dirHVar)**2) + dirKVar
-
-    if dirRating < 0 then
-      dirRating = 0
-    end
-
-    puts("Swell direction current_variance=#{current_variance} dirAVar=#{dirAVar} dirHVar=#{dirHVar} dirRating=#{dirRating}")
-    puts("Swell dirRating= #{dirRating}")
-
-    return dirRating
+  def size_at_rating(rating)
+    poseidon_math.value_given_rating(
+      min_x: spot.swell_optimal_size_min_metres,
+      max_x: spot.swell_optimal_size_max_metres,
+      rating: rating
+    )
   end
 
   def size_rating
     return 0 unless size
-    weight_of_optimal_swell_height = 0.7
-    #========= CALC SWELL SIZE RATING ==========
-    # use vertex quad formula y = a(x-h)^2 + k
-    # where a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
-    sizeKVar = 100.0
-    sizeMax = spot.swell_optimal_size_max_metres
-    sizeMin = spot.swell_optimal_size_min_metres
-    sizeHVar = ((sizeMax - sizeMin)/2) + sizeMin
-
-    # pass in known coord to determine var a value, (sizeMin, 75)
-    sizeAVar = (75 - 100)/((sizeMin - sizeHVar)**2)
-
-    sizeRating = sizeAVar * ((size - sizeHVar)**2) + sizeKVar
-
-    if sizeRating < 0 then
-      sizeRating = 0
-    end
-
-    puts("Parabolic sizeAVar=#{sizeAVar} sizeHVar=#{sizeHVar} sizeRating=#{sizeRating}")
-    puts("Swell sizeRating= #{sizeRating}")
-
-    return sizeRating
+    poseidon_math.rating_given_x(
+      min_x: spot.swell_optimal_size_min_metres,
+      max_x: spot.swell_optimal_size_max_metres,
+      x_value: size
+    )
   end
 
   def period_rating
@@ -108,7 +146,9 @@ class Swell < WeatherForecast
   end
 
   def rate_of_change_direction
+    # FIXME
     return 0 unless swell_in_3_hours
-    calculate_angle_between(swell_in_3_hours.direction, direction)
+    # calculate_angle_between(swell_in_3_hours.current_variance.abs, current_variance.abs)
+    25.0
   end
 end

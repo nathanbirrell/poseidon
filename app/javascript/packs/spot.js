@@ -9,13 +9,19 @@
 
 
 import SpotToolbar from '../spot-toolbar';
+import SpotInfoCard from '../spot-info-card';
+import TimeSlider from '../time-slider';
 
 let toolbar;
+let infoCard;
+let timeSlider;
 
 // Initialise script after DOM load
 document.addEventListener('turbolinks:load', () => {
   console.log('turbolinks:load');
   toolbar = new SpotToolbar();
+  infoCard = new SpotInfoCard();
+  timeSlider = new TimeSlider();
 });
 
 console.log('Spot pack loaded')
