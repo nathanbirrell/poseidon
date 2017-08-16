@@ -21,7 +21,6 @@
       <div class="data-vis__bg --mix" style="left: <%= ((opt_max - min)/(max - min) * 100) %>%; width: <%= ((mix_max - opt_max)/(max - min) * 100)%>%;"></div>
       <div class="data-vis__bg --neg" style="left: <%= ((mix_max - min)/(max - min) * 100) %>%; width: <%= ((max - mix_max)/(max - min) * 100)%>%;"></div>
 
-      <!-- <div class="data-vis__bg --sectors --top"></div> -->
       <div class="data-vis__bg --sectors"></div>
       <div class="data-vis__bg --sectors --bottom"></div>
       <% if value > min && value < max %>
