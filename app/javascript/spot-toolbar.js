@@ -103,12 +103,12 @@ class SpotToolbar extends React.Component {
     }
 
     return (
-      <div id="spot-toolbar" className={"row spot-toolbar " + (this.state.fixed ? "--fixed" : null)}>
+      <div id="spot-toolbar" className={"row spot-toolbar " + (this.state.fixed ? '--fixed' : '')}>
         <div className="small-12 medium-5 columns">
           <div className="row">
             {this.props.items.map((i, j) => {
               return (
-                <div key={j} id={`${i.id}-btn`} className={"small-3 columns spot-toolbar__item " + (i.id === this.state.focusedId ? "--focused" : null)} onClick={() => { this.scrollToSection(j) }}>
+                <div key={j} id={`${i.id}-btn`} className={"small-3 columns spot-toolbar__item " + (i.id === this.state.focusedId ? '--focused' : '')} onClick={() => { this.scrollToSection(j) }}>
                   <a>
                     <span className="spot-toolbar__label">{i.label}</span>
                   </a>
