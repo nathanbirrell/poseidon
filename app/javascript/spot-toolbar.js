@@ -15,13 +15,22 @@ class SpotToolbar extends React.Component {
     };
 
     this.generateSections = this.generateSections.bind(this);
-    this.initScroll = this.initScroll.bind(this);
+    this.checkScroll = this.checkScroll.bind(this);
   }
 
   componentDidMount() {
     sections = this.generateSections();
     revSections = sections.slice().reverse();
-    this.initScroll();
+    this.checkScroll();
+
+    window.onscroll = () => {
+      if (!checkingScroll) {
+        checkingScroll = true;
+        window.setTimeout(() => {
+          this.checkScroll();
+        }, 25);
+      }
+    }
   }
 
   offsetRelTop(el) {
@@ -42,46 +51,38 @@ class SpotToolbar extends React.Component {
     });
   }
 
-  initScroll() {
-    window.onscroll = () => {
-      const pageOffset = document.body.scrollTop;
+  checkScroll() {
+    const pageOffset = document.body.scrollTop;
+    // Set fixed or non fixed state
+    if ((!this.state.fixed && pageOffset >= 145) ||
+      (this.state.fixed && pageOffset < 145)) {
+        this.setState({
+          fixed: !this.state.fixed,
+        });
+    }
 
-      if (!checkingScroll) {
-        checkingScroll = true;
-        window.setTimeout(() => {
-          // Set fixed or non fixed state
-          if ((!this.state.fixed && pageOffset >= 145) ||
-            (this.state.fixed && pageOffset < 145)) {
-              this.setState({
-                fixed: !this.state.fixed,
-              });
+    // Set focused toolbar section
+    if (revSections.length) {
+      for (let s of revSections) {
+        if (pageOffset >= (this.offsetRelTop(s.el) - 65)) {
+          if (this.state.focusedId !== s.id) {
+            this.setState({
+              focusedId: s.id,
+            });
           }
-
-          // Set focused toolbar section
-          if (revSections.length) {
-            for (let s of revSections) {
-              if (pageOffset >= (this.offsetRelTop(s.el) - 65)) {
-                if (this.state.focusedId !== s.id) {
-                  this.setState({
-                    focusedId: s.id,
-                  });
-                }
-                break;
-              } else if (s.id === revSections[revSections.length - 1].id) {
-                if (this.state.focusedId !== s.id) {
-                  // Select top most section if not past it and not already selected
-                  this.setState({
-                    focusedId: s.id,
-                    fixed: false,
-                  });
-                }
-              }
-            }
+          break;
+        } else if (s.id === revSections[revSections.length - 1].id) {
+          if (this.state.focusedId !== s.id) {
+            // Select top most section if not past it and not already selected
+            this.setState({
+              focusedId: s.id,
+              fixed: false,
+            });
           }
-          checkingScroll = false;
-        }, 25);
+        }
       }
     }
+    checkingScroll = false;
   }
 
   scrollToSection(number, event) {
