@@ -5,6 +5,16 @@ import MiniOptimumVisual from './mini-optimum-visual';
 import OptimumVisual from './optimum-visual';
 
 class SpotInfoCard extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      expanded: false,
+    };
+
+    this._renderExpandedSection = this._renderExpandedSection.bind(this);
+  }
+
   _renderDatapoints() {
     if (this.props.data) {
       return this.props.data.map((d, i) => {
@@ -39,6 +49,7 @@ class SpotInfoCard extends React.Component {
       return (
         <div className="row info-card__expanded-section">
           <div className="small-11 small-centered columns">
+            <h4>Hey, I am expanded now</h4>
             {this.props.data.map((d, i) => {
               {d.optimum_vis ?
                 d.optimum_vis.map((opt, k) => {
@@ -54,10 +65,16 @@ class SpotInfoCard extends React.Component {
     }
   }
 
+  toggleExpanded() {
+    this.setState({
+      expanded: !this.state.expanded,
+    });
+  }
+
   render() {
     return (
       <div className="small-12 medium-6 large-4 columns">
-        <div className="info-card">
+        <div className={"info-card " + (this.state.expanded ? '--expanded' : '')}>
           <div className="info-card__top --<%= get_verdict(rating) %>">
             <h3>{this.props.title}</h3>
             <span className="text-right">
@@ -74,7 +91,7 @@ class SpotInfoCard extends React.Component {
             {this._renderDatapoints()}
             {this._renderExpandedSection()}
           </div>
-          <a className="link expand-button fn-expand-info-card">Show more</a>
+          <a className="link expand-button" onClick={() => {this.toggleExpanded()}}>{this.state.expanded ? 'Show less' : 'Show more'}</a>
         </div>
       </div>
     );
