@@ -235,4 +235,59 @@ class Spot < ApplicationRecord
   def self.sorted_by_current_potential
     Spot.all.sort_by(&:current_potential).reverse
   end
+
+  def optimals
+    spot_optimals = {}
+    spot_optimals[:swell] = get_optimal_swell
+    spot_optimals[:wind] = get_optimal_wind
+    spot_optimals[:tide] = get_optimal_tide
+    spot_optimals
+  end
+
+  private
+
+  # TODO: REFACTOR ALL OF THESE, bring size_at_rating here, no need for it inside the Swell model (same for all of these optimals)
+  # TODO: also consider: 1 -moving these methods out for tidiness reasons or 2 - Make Optimals an abstract model with these methods
+
+  def get_optimal_swell
+    swell_in_3_hours = Swell.in_three_hours(id)
+    {
+      size: {
+        type: 'linear',
+        min: current_swell.size_at_rating(30.0)[:left].round(2),
+        max: current_swell.size_at_rating(30.0)[:right].round(2),
+        mixed_min: current_swell.size_at_rating(50.0)[:left].round(2),
+        mixed_max: current_swell.size_at_rating(50.0)[:right].round(2),
+        optimal_min: swell_optimal_size_min_metres,
+        optimal_max: swell_optimal_size_max_metres,
+        in_3_hours: swell_in_3_hours.size.round(2)
+      },
+      direction: {
+        type: 'direction',
+        min: current_swell.dir_at_rating(30.0)[:left].round(1),
+        max: current_swell.dir_at_rating(30.0)[:right].round(1),
+        mixed_min: current_swell.dir_at_rating(50.0)[:left].round(1),
+        mixed_max: current_swell.dir_at_rating(50.0)[:right].round(1),
+        optimal_min: swell_optimal_direction_min,
+        optimal_max: swell_optimal_direction_max,
+        in_3_hours: swell_in_3_hours.direction
+      }
+    }
+  end
+  def get_optimal_wind
+    {
+      speed: {},
+      direction: {}
+    }
+  end
+  def get_optimal_tide
+    {
+      height: {
+        todo: 'todo'
+      },
+      timing: {
+        todo: 'todo'
+      }
+    }
+  end
 end
