@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import SpotInfoCard from './spot-info-card-react';
 import SpotTimeSlider from './spot-time-slider';
-import SpotToolbar from './spot-toolbar-react';
+import SpotToolbar from './spot-toolbar';
 
 class SpotContainer extends React.Component {
   constructor (props) {
