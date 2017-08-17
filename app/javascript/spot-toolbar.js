@@ -53,7 +53,7 @@ class SpotToolbar extends React.Component {
           if ((!this.state.fixed && pageOffset >= 145) ||
             (this.state.fixed && pageOffset < 145)) {
               this.setState({
-                fixed: true,
+                fixed: !this.state.fixed,
               });
           }
 
@@ -72,13 +72,14 @@ class SpotToolbar extends React.Component {
                   // Select top most section if not past it and not already selected
                   this.setState({
                     focusedId: s.id,
+                    fixed: false,
                   });
                 }
               }
             }
           }
           checkingScroll = false;
-        }, 50);
+        }, 25);
       }
     }
   }
@@ -89,7 +90,7 @@ class SpotToolbar extends React.Component {
   }
 
   scrollToSelector(selector) {
-    const yOffset = this.state.fixed ? -114 : -55;
+    const yOffset = this.state.fixed ? -55 : -115;
     jump(selector, {
       offset: yOffset,
     });

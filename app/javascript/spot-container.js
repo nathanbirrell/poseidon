@@ -66,7 +66,7 @@ class SpotContainer extends React.Component {
             label: 'History',
           }
         ]}/>
-        <div id="current-section">
+        <div id="current-section" className="row">
           <SpotInfoCard
             title='Swell'
             secondary='secondary_here'
