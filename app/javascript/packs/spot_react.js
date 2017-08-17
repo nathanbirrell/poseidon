@@ -6,6 +6,6 @@ import SpotContainer from '../spot-container';
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <SpotContainer />,
-    document.body.appendChild(document.createElement('div')),
+    document.getElementById('main').appendChild(document.createElement('div')),
   )
 })
