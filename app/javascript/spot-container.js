@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import SpotInfoCard from './spot-info-card-react';
 import SpotTimeSlider from './spot-time-slider';
@@ -73,7 +74,7 @@ class SpotContainer extends React.Component {
             title='Swell'
             secondary='secondary_here'
             rating={99}
-            datetime={current_swell.date_time}
+            date_time={moment(current_swell.date_time).format("h:mm a")}
             data={[
               {
                 title: 'Wave height',
@@ -107,7 +108,7 @@ class SpotContainer extends React.Component {
             title='Wind'
             secondary='secondary_here'
             rating={99}
-            datetime={current_wind.date_time}
+            date_time={moment(current_wind.date_time).format("h:mm a")}
             data={[
               {
                 title: 'Wind speed',
@@ -141,7 +142,7 @@ class SpotContainer extends React.Component {
             title='Tide'
             secondary='secondary_here'
             rating={99}
-            datetime={current_wind.date_time}
+            date_time={moment().format("h:mm a")}
             data={[
               {
                 title: 'Tide height',
@@ -161,7 +162,7 @@ class SpotContainer extends React.Component {
                 indicator: '',
                 prefix: '',
                 values: [{
-                  value: this.state.data.next_tide.date_time,
+                  value: moment(this.state.data.next_tide.date_time).format("h:mm a"),
                   unit: '',
                 }],
                 subtext: `Next tide`,
