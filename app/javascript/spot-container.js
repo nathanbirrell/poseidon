@@ -135,7 +135,40 @@ class SpotContainer extends React.Component {
               }
             ]}
           />
-          <SpotInfoCard title='Tide' />
+          <SpotInfoCard
+            title='Tide'
+            secondary='secondary_here'
+            rating={99}
+            datetime={current_wind.date_time}
+            data={[
+              {
+                title: 'Tide height',
+                indicator: 'indicator_here',
+                prefix: '',
+                values: [{
+                  value: this.state.data.current_tide_height,
+                  unit: 'm',
+                }],
+                subtext: `${this.state.data.tide_shift_rate} shift`,
+                optimum_vis: [
+
+                ]
+              },
+              {
+                title: 'Timing',
+                indicator: '',
+                prefix: '',
+                values: [{
+                  value: this.state.data.next_tide.date_time,
+                  unit: '',
+                }],
+                subtext: `Next tide`,
+                optimum_vis: [
+
+                ]
+              }
+            ]}
+          />
         </div>
         <div id="about-section" className="row small-collapse medium-uncollapse">
           <div className="large-12 columns">
