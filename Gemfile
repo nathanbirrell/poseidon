@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 ruby '2.3.3'
+
 gem 'rails', '~> 5.1.2'
 gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
@@ -44,6 +45,7 @@ group :development do
   gem "guard-livereload",  :require => false
   gem "rack-livereload"
   gem "rb-fsevent",        :require => false
+  gem "foreman"
 end
 
 group :test do
