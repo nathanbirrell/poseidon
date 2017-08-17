@@ -7,17 +7,13 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-
-import SpotToolbar from '../spot-toolbar';
 import SpotInfoCard from '../spot-info-card';
 
-let toolbar;
 let infoCard;
 
 // Initialise script after DOM load
 document.addEventListener('turbolinks:load', () => {
   console.log('turbolinks:load');
-  toolbar = new SpotToolbar();
   infoCard = new SpotInfoCard();
 });
 

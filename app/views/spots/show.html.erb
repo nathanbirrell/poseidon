@@ -25,34 +25,6 @@
     </div>
   <% end %>
 
-  <div id="spot-toolbar" class="row spot-toolbar">
-    <div class="small-12 medium-5 columns">
-      <div class="row">
-        <div id="current-btn" class="small-3 columns spot-toolbar__item">
-          <a>
-            <span class="spot-toolbar__label">Current</span>
-          </a>
-        </div>
-        <div id="about-btn" class="small-3 columns spot-toolbar__item">
-          <a>
-            <span class="spot-toolbar__label">About</span>
-          </a>
-        </div>
-        <div id="forecast-btn" class="small-3 columns spot-toolbar__item">
-          <a>
-            <span class="spot-toolbar__label">Forecast</span>
-          </a>
-        </div>
-        <div id="history-btn" class="small-3 columns spot-toolbar__item">
-          <a>
-            <span class="spot-toolbar__label">History</span>
-          </a>
-        </div>
-      </div>
-    </div>
-    <!-- <div class="small-0 medium-8 columns"></div> -->
-  </div>
-
   <% if user_signed_in? %>
     <div class="text-center">
       Admin actions: <br>
@@ -251,66 +223,7 @@
     </div>
   </div>
 
-  <div id="about-view" class="row small-collapse medium-uncollapse">
-    <div class="large-12 columns">
-      <div class="small-12 columns">
-        <h4>About</h4>
-      </div>
-      <div class="small-12 columns">
-        <h5 class="subheader"><%= @spot.description %></h5>
-        <h4>Optimal conditions:</p>
-        <p>
-          <strong>Wind direction:</strong>
-          <%= @spot.wind_optimal_direction_min %> - <%= @spot.wind_optimal_direction_max %> degrees
-          <br>
-          <strong>Wind strength:</strong>
-          <%= @spot.wind_optimal_strength_min_kmh %> - <%= @spot.wind_optimal_strength_max_kmh %> kmh
-          <br>
-          <strong>Swell direction:</strong>
-          <%= @spot.swell_optimal_direction_min %> - <%= @spot.swell_optimal_direction_max %> degrees
-          <br>
-          <strong>Swell size:</strong>
-          <%= @spot.swell_optimal_size_min_metres %> - <%= @spot.swell_optimal_size_max_metres %> metres
-          <br>
-          <strong>Tides:</strong>
-          <%= "#{@spot.tide_optimal_min_metres}m to #{@spot.tide_optimal_max_metres}m" %>
-          <br>
-          <strong>Season:</strong> <%= @spot.season %> <br>
-          <strong>Lat/long: </strong> <%= @spot.latitude %>, <%= @spot.longitude %>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div id="forecast-view" class="row">
-    <div class="large-12 columns">
-      <h3>FORECASTS COMING SOON</h3>
-    </div>
-  </div>
-
-  <div id="history-view" class="row">
-    <div class="large-12 columns">
-      <h3>HISTORY COMING SOON</h3>
-    </div>
-  </div>
-
-  <div id="location-view" class="row">
-    <div class="large-12 columns">
-      <a class="btn --icon --icon-alert-triangle--white" href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
-        Get directions
-      </a>
-      <iframe
-      width="100%"
-      height="250"
-      frameborder="0" style="border:0"
-      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDVFmco07GE43aqioYPI5Ccfl_DJlGkBJo
-        &q=loc:<%= @spot.latitude %>+<%= @spot.longitude %>&zoom=15" allowfullscreen>
-      </iframe>
-    </div>
-  </div>
-
-
-  <div class="row">
+  <!-- <div class="row">
     <div class="small-12 medium-4 columns">
       <h3><%= "Swell Models for #{@spot.name}" %></h3>
       <%= swell_models_table(@forecasts_swells) %>
@@ -323,5 +236,5 @@
       <h3><%= "Tide Models for #{@spot.name}" %></h3>
       <%= tide_models_table(@forecasts_tides) %>
     </div>
-  </div>
+  </div> -->
 <% end %>
