@@ -274,19 +274,44 @@ class Spot < ApplicationRecord
       }
     }
   end
+
   def get_optimal_wind
+    wind_in_3_hours = Wind.in_three_hours(id)
     {
-      speed: {},
-      direction: {}
+      speed: {
+        type: 'linear',
+        min: current_wind.speed_at_rating(30.0)[:left].round(1),
+        max: current_wind.speed_at_rating(30.0)[:right].round(1),
+        mixed_min: current_wind.speed_at_rating(50.0)[:left].round(1),
+        mixed_max: current_wind.speed_at_rating(50.0)[:right].round(1),
+        optimal_min: wind_optimal_strength_min_kmh,
+        optimal_max: wind_optimal_strength_max_kmh,
+        in_3_hours: wind_in_3_hours.speed
+      },
+      direction: {
+        type: 'direction',
+        min: current_wind.dir_at_rating(30.0)[:left].round(1),
+        max: current_wind.dir_at_rating(30.0)[:right].round(1),
+        mixed_min: current_wind.dir_at_rating(50.0)[:left].round(1),
+        mixed_max: current_wind.dir_at_rating(50.0)[:right].round(1),
+        optimal_min: tide_optimal_min_metres,
+        optimal_max: tide_optimal_max_metres,
+        in_3_hours: wind_in_3_hours.direction
+      }
     }
   end
+
   def get_optimal_tide
     {
       height: {
-        todo: 'todo'
-      },
-      timing: {
-        todo: 'todo'
+        type: 'linear',
+        min: tide_at_rating(30.0)[:left].round(1),
+        max: tide_at_rating(30.0)[:right].round(1),
+        mixed_min: tide_at_rating(50.0)[:left].round(1),
+        mixed_max: tide_at_rating(50.0)[:right].round(1),
+        optimal_min: tide_optimal_min_metres,
+        optimal_max: tide_optimal_max_metres,
+        in_3_hours: tide_in_x_hours(3)
       }
     }
   end
