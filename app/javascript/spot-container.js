@@ -158,14 +158,14 @@ class SpotContainer extends React.Component {
                 ]
               },
               {
-                title: 'Timing',
+                title: 'Next tide',
                 indicator: '',
                 prefix: '',
                 values: [{
                   value: moment(this.state.data.next_tide.date_time).format("h:mm a"),
                   unit: '',
                 }],
-                subtext: `Next tide`,
+                subtext: moment(this.state.data.next_tide.date_time).fromNow(),
                 optimum_vis: [
 
                 ]
