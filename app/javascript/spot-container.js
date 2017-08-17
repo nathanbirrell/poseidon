@@ -5,6 +5,8 @@ import SpotInfoCard from './spot-info-card-react';
 import SpotTimeSlider from './spot-time-slider';
 import SpotToolbar from './spot-toolbar';
 
+import MathUtil from 'math-util.js';
+
 class SpotContainer extends React.Component {
   constructor (props) {
     super(props);
@@ -78,10 +80,10 @@ class SpotContainer extends React.Component {
                 indicator: 'indicator_here',
                 prefix: '',
                 values: [{
-                  value: current_swell.size,
+                  value: MathUtil.round(current_swell.size, 1),
                   unit: 'm',
                 }],
-                subtext: `@ ${current_swell.period}`,
+                subtext: `@ ${MathUtil.round(current_swell.period, 1)}`,
                 optimum_vis: [
 
                 ]
@@ -112,7 +114,7 @@ class SpotContainer extends React.Component {
                 indicator: 'indicator_here',
                 prefix: '',
                 values: [{
-                  value: current_wind.speed,
+                  value: MathUtil.round(current_wind.speed, 0),
                   unit: 'kts',
                 }],
                 subtext: `${current_wind.speed} kph`,
