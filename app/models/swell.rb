@@ -30,6 +30,13 @@ class Swell < WeatherForecast
       end
     end
 
+    def as_json(options = { })
+      h = super(options)
+      h[:size] = size
+      h[:rating] = rating
+      super h
+    end
+
     private
 
     def get_noaa_forecast(spot)
@@ -75,7 +82,7 @@ class Swell < WeatherForecast
     self[:size] * spot.wave_model_size_coefficient
   end
 
-  def dir_rating
+  def direction_rating
     return 0 unless direction
     data = poseidon_math.normalise_degrees(
       min_x: spot.swell_optimal_direction_min,
@@ -110,13 +117,9 @@ class Swell < WeatherForecast
     weight_of_optimal_swell_direction = 30 / 100
     weight_of_swell_period = 10 / 100
     rating = (size_rating * weight_of_optimal_swell_height)
-    rating += (dir_rating * weight_of_optimal_swell_direction)
+    rating += (direction_rating * weight_of_optimal_swell_direction)
     rating += (period_rating * weight_of_swell_period)
     rating.round(2)
-  end
-
-  def swell_in_3_hours
-    @swell_in_3_hours ||= Swell.in_three_hours(spot_id)
   end
 
   def poseidon_math

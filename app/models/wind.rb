@@ -50,7 +50,7 @@ class Wind < WeatherForecast
     end
   end
 
-  def dir_rating
+  def direction_rating
     return 0 unless direction
     data = poseidon_math.normalise_degrees(
       min_x: spot.wind_optimal_direction_min,
@@ -69,20 +69,10 @@ class Wind < WeatherForecast
     )
   end
 
-  # TODO: make me a class-level method
-  def wind_in_3_hours
-    @wind_in_3_hours ||= Wind.in_three_hours(spot_id)
-  end
-
-  def rate_of_change_speed
-    return 0 unless wind_in_3_hours
-    wind_in_3_hours.speed - speed
-  end
-
   def rating
     weight_of_optimal_wind_direction = 0.8
     weight_of_optimal_wind_speed = 0.2
-    rating = (dir_rating * weight_of_optimal_wind_direction) + (speed_rating * weight_of_optimal_wind_speed)
+    rating = (direction_rating * weight_of_optimal_wind_direction) + (speed_rating * weight_of_optimal_wind_speed)
     rating.round(2)
   end
 

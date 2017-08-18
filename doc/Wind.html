@@ -176,7 +176,7 @@ updated_at     :datetime         not null</code></pre>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#dir_rating-instance_method" title="#dir_rating (instance method)">#<strong>dir_rating</strong>  &#x21d2; Object </a>
+      <a href="#direction_rating-instance_method" title="#direction_rating (instance method)">#<strong>direction_rating</strong>  &#x21d2; Object </a>
     
 
     
@@ -199,28 +199,6 @@ updated_at     :datetime         not null</code></pre>
   <span class="summary_signature">
     
       <a href="#poseidon_math-instance_method" title="#poseidon_math (instance method)">#<strong>poseidon_math</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#rate_of_change_speed-instance_method" title="#rate_of_change_speed (instance method)">#<strong>rate_of_change_speed</strong>  &#x21d2; Object </a>
     
 
     
@@ -279,30 +257,6 @@ updated_at     :datetime         not null</code></pre>
 
   
     <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#wind_in_3_hours-instance_method" title="#wind_in_3_hours (instance method)">#<strong>wind_in_3_hours</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>TODO: make me a class-level method.</p>
-</div></span>
   
 </li>
 
@@ -389,9 +343,9 @@ updated_at     :datetime         not null</code></pre>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="dir_rating-instance_method">
+  <h3 class="signature first" id="direction_rating-instance_method">
   
-    #<strong>dir_rating</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>direction_rating</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -416,7 +370,7 @@ updated_at     :datetime         not null</code></pre>
     <td>
       <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 53</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_dir_rating'>dir_rating</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_direction_rating'>direction_rating</span>
   <span class='kw'>return</span> <span class='int'>0</span> <span class='kw'>unless</span> <span class='id identifier rubyid_direction'>direction</span>
   <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_poseidon_math'>poseidon_math</span><span class='period'>.</span><span class='id identifier rubyid_normalise_degrees'>normalise_degrees</span><span class='lparen'>(</span>
     <span class='label'>min_x:</span> <span class='id identifier rubyid_spot'>spot</span><span class='period'>.</span><span class='id identifier rubyid_wind_optimal_direction_min'>wind_optimal_direction_min</span><span class='comma'>,</span>
@@ -445,47 +399,15 @@ updated_at     :datetime         not null</code></pre>
       <pre class="lines">
 
 
-89
-90
-91</pre>
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_poseidon_math'>poseidon_math</span>
   <span class='ivar'>@poseidon_math</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="PoseidonMath.html" title="PoseidonMath (class)">PoseidonMath</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="rate_of_change_speed-instance_method">
-  
-    #<strong>rate_of_change_speed</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-77
-78
-79
-80</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 77</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_rate_of_change_speed'>rate_of_change_speed</span>
-  <span class='kw'>return</span> <span class='int'>0</span> <span class='kw'>unless</span> <span class='id identifier rubyid_wind_in_3_hours'>wind_in_3_hours</span>
-  <span class='id identifier rubyid_wind_in_3_hours'>wind_in_3_hours</span><span class='period'>.</span><span class='id identifier rubyid_speed'>speed</span> <span class='op'>-</span> <span class='id identifier rubyid_speed'>speed</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -507,20 +429,20 @@ updated_at     :datetime         not null</code></pre>
       <pre class="lines">
 
 
-82
-83
-84
-85
-86
-87</pre>
+72
+73
+74
+75
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rating'>rating</span>
   <span class='id identifier rubyid_weight_of_optimal_wind_direction'>weight_of_optimal_wind_direction</span> <span class='op'>=</span> <span class='float'>0.8</span>
   <span class='id identifier rubyid_weight_of_optimal_wind_speed'>weight_of_optimal_wind_speed</span> <span class='op'>=</span> <span class='float'>0.2</span>
-  <span class='id identifier rubyid_rating'>rating</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_dir_rating'>dir_rating</span> <span class='op'>*</span> <span class='id identifier rubyid_weight_of_optimal_wind_direction'>weight_of_optimal_wind_direction</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_speed_rating'>speed_rating</span> <span class='op'>*</span> <span class='id identifier rubyid_weight_of_optimal_wind_speed'>weight_of_optimal_wind_speed</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rating'>rating</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_direction_rating'>direction_rating</span> <span class='op'>*</span> <span class='id identifier rubyid_weight_of_optimal_wind_direction'>weight_of_optimal_wind_direction</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_speed_rating'>speed_rating</span> <span class='op'>*</span> <span class='id identifier rubyid_weight_of_optimal_wind_speed'>weight_of_optimal_wind_speed</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_rating'>rating</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -568,53 +490,12 @@ updated_at     :datetime         not null</code></pre>
 </table>
 </div>
     
-      <div class="method_details ">
-  <h3 class="signature " id="wind_in_3_hours-instance_method">
-  
-    #<strong>wind_in_3_hours</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>TODO: make me a class-level method</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-73
-74
-75</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 73</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_wind_in_3_hours'>wind_in_3_hours</span>
-  <span class='ivar'>@wind_in_3_hours</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="" title="Wind (class)">Wind</a></span></span><span class='period'>.</span><span class='id identifier rubyid_in_three_hours'><span class='object_link'><a href="WeatherForecast.html#in_three_hours-class_method" title="WeatherForecast.in_three_hours (method)">in_three_hours</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_spot_id'>spot_id</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Fri Aug 18 18:59:27 2017 by
+  Generated on Fri Aug 18 20:30:19 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.3.3).
 </div>
