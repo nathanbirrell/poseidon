@@ -80,7 +80,7 @@ class SpotContainer extends React.Component {
         <div id="current-section" className="row">
           <SpotInfoCard
             title='Swell'
-            secondary='secondary_here'
+            secondary={SpotUtil.swellFeetToDescription(SpotUtil.metresToFeet(current_swell.size))}
             rating={99}
             date_time={moment(current_swell.date_time).format("h:mm a")}
             data={[
@@ -114,7 +114,7 @@ class SpotContainer extends React.Component {
           />
           <SpotInfoCard
             title='Wind'
-            secondary='secondary_here'
+            secondary={SpotUtil.windKphToDescription(current_wind.speed)}
             rating={99}
             date_time={moment(current_wind.date_time).format("h:mm a")}
             data={[
