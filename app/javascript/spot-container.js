@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import MathUtil from 'math-util.js';
+import SpotUtil from 'spot-util.js';
 
 import SpotBanner from './spot-banner';
 import SpotToolbar from './spot-toolbar';
@@ -88,10 +89,10 @@ class SpotContainer extends React.Component {
                 indicator: 'indicator_here',
                 prefix: '',
                 values: [{
-                  value: MathUtil.round(current_swell.size, 1),
-                  unit: 'm',
+                  value: MathUtil.round(SpotUtil.metresToFeet(current_swell.size), 1),
+                  unit: 'ft',
                 }],
-                subtext: `@ ${MathUtil.round(current_swell.period, 1)}`,
+                subtext: `@ ${MathUtil.round(current_swell.period, 1)} seconds`,
                 optimum_vis: [
 
                 ]
@@ -101,10 +102,10 @@ class SpotContainer extends React.Component {
                 indicator: 'indicator_here',
                 prefix: '',
                 values: [{
-                  value: current_swell.direction,
+                  value: SpotUtil.degreesToText(current_swell.direction),
                   unit: '',
                 }],
-                subtext: `@ ${current_swell.direction}`,
+                subtext: `${current_swell.direction} deg`,
                 optimum_vis: [
 
                 ]
@@ -122,7 +123,7 @@ class SpotContainer extends React.Component {
                 indicator: 'indicator_here',
                 prefix: '',
                 values: [{
-                  value: MathUtil.round(current_wind.speed, 0),
+                  value: MathUtil.round(SpotUtil.kphToKnots(current_wind.speed), 0),
                   unit: 'kts',
                 }],
                 subtext: `${current_wind.speed} kph`,
@@ -135,7 +136,7 @@ class SpotContainer extends React.Component {
                 indicator: 'indicator_here',
                 prefix: '',
                 values: [{
-                  value: current_wind.direction,
+                  value:  SpotUtil.degreesToText(current_wind.direction),
                   unit: '',
                 }],
                 subtext: `${current_wind.direction} deg`,
@@ -148,7 +149,7 @@ class SpotContainer extends React.Component {
           <SpotInfoCard
             title='Tide'
             secondary='secondary_here'
-            rating={99}
+            rating={MathUtil.round(this.state.data.current_tide_rating, 0)}
             date_time={moment().format("h:mm a")}
             data={[
               {

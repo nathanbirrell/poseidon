@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SpotUtil from 'spot-util.js';
+
 import MiniOptimumVisual from './mini-optimum-visual';
 import OptimumVisual from './optimum-visual';
 
@@ -75,7 +77,7 @@ class SpotInfoCard extends React.Component {
     return (
       <div className="small-12 medium-6 large-4 columns">
         <div className={"info-card " + (this.state.expanded ? '--expanded' : '')}>
-          <div className="info-card__top --<%= get_verdict(rating) %>">
+          <div className={`info-card__top --${SpotUtil.getVerdict(this.props.rating)}`}>
             <h3>{this.props.title}</h3>
             <span className="text-right">
               {this.props.secondary} @ {this.props.date_time}
