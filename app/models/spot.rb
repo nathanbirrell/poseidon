@@ -235,4 +235,84 @@ class Spot < ApplicationRecord
   def self.sorted_by_current_potential
     Spot.all.sort_by(&:current_potential).reverse
   end
+
+  def optimals
+    spot_optimals = {}
+    spot_optimals[:swell] = get_optimal_swell
+    spot_optimals[:wind] = get_optimal_wind
+    spot_optimals[:tide] = get_optimal_tide
+    spot_optimals
+  end
+
+  private
+
+  # TODO: REFACTOR ALL OF THESE, bring size_at_rating here, no need for it inside the Swell model (same for all of these optimals)
+  # TODO: also consider: 1 -moving these methods out for tidiness reasons or 2 - Make Optimals an abstract model with these methods
+
+  def get_optimal_swell
+    swell_in_3_hours = Swell.in_three_hours(id)
+    {
+      size: {
+        type: 'linear',
+        min: current_swell.size_at_rating(30.0)[:left].round(2),
+        max: current_swell.size_at_rating(30.0)[:right].round(2),
+        mixed_min: current_swell.size_at_rating(50.0)[:left].round(2),
+        mixed_max: current_swell.size_at_rating(50.0)[:right].round(2),
+        optimal_min: swell_optimal_size_min_metres,
+        optimal_max: swell_optimal_size_max_metres,
+        in_3_hours: swell_in_3_hours.size.round(2)
+      },
+      direction: {
+        type: 'direction',
+        min: current_swell.dir_at_rating(30.0)[:left].round(1),
+        max: current_swell.dir_at_rating(30.0)[:right].round(1),
+        mixed_min: current_swell.dir_at_rating(50.0)[:left].round(1),
+        mixed_max: current_swell.dir_at_rating(50.0)[:right].round(1),
+        optimal_min: swell_optimal_direction_min,
+        optimal_max: swell_optimal_direction_max,
+        in_3_hours: swell_in_3_hours.direction
+      }
+    }
+  end
+
+  def get_optimal_wind
+    wind_in_3_hours = Wind.in_three_hours(id)
+    {
+      speed: {
+        type: 'linear',
+        min: current_wind.speed_at_rating(30.0)[:left].round(1),
+        max: current_wind.speed_at_rating(30.0)[:right].round(1),
+        mixed_min: current_wind.speed_at_rating(50.0)[:left].round(1),
+        mixed_max: current_wind.speed_at_rating(50.0)[:right].round(1),
+        optimal_min: wind_optimal_strength_min_kmh,
+        optimal_max: wind_optimal_strength_max_kmh,
+        in_3_hours: wind_in_3_hours.speed
+      },
+      direction: {
+        type: 'direction',
+        min: current_wind.dir_at_rating(30.0)[:left].round(1),
+        max: current_wind.dir_at_rating(30.0)[:right].round(1),
+        mixed_min: current_wind.dir_at_rating(50.0)[:left].round(1),
+        mixed_max: current_wind.dir_at_rating(50.0)[:right].round(1),
+        optimal_min: tide_optimal_min_metres,
+        optimal_max: tide_optimal_max_metres,
+        in_3_hours: wind_in_3_hours.direction
+      }
+    }
+  end
+
+  def get_optimal_tide
+    {
+      height: {
+        type: 'linear',
+        min: tide_at_rating(30.0)[:left].round(1),
+        max: tide_at_rating(30.0)[:right].round(1),
+        mixed_min: tide_at_rating(50.0)[:left].round(1),
+        mixed_max: tide_at_rating(50.0)[:right].round(1),
+        optimal_min: tide_optimal_min_metres,
+        optimal_max: tide_optimal_max_metres,
+        in_3_hours: tide_in_x_hours(3)
+      }
+    }
+  end
 end
