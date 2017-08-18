@@ -148,7 +148,7 @@ class SpotContainer extends React.Component {
           />
           <SpotInfoCard
             title='Tide'
-            secondary='secondary_here'
+            secondary={SpotUtil.tideDescription(this.state.data.last_tide_type)}
             rating={MathUtil.round(this.state.data.current_tide_rating, 0)}
             date_time={moment().format("h:mm a")}
             data={[
