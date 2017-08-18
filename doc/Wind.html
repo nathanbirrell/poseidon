@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Wind
+  
+    &mdash; Documentation by YARD 0.9.9
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "Wind";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index (W)</a> &raquo;
+    
+    
+    <span class="title">Wind</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Wind
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="WeatherForecast.html" title="WeatherForecast (class)">WeatherForecast</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActiveRecord::Base</li>
+          
+            <li class="next"><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></li>
+          
+            <li class="next"><span class='object_link'><a href="WeatherForecast.html" title="WeatherForecast (class)">WeatherForecast</a></span></li>
+          
+            <li class="next">Wind</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>app/models/wind.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<h2 id="label-Schema+Information">Schema Information</h2>
+
+<p>Table name: winds</p>
+
+<pre class="code ruby"><code class="ruby">id             :integer          not null, primary key
+speed          :decimal(, )
+direction      :integer
+direction_text :string
+date_time      :datetime
+spot_id        :integer
+created_at     :datetime         not null
+updated_at     :datetime         not null</code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#fetch_forecasts-class_method" title="fetch_forecasts (class method)">.<strong>fetch_forecasts</strong>(spot)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#dir_rating-instance_method" title="#dir_rating (instance method)">#<strong>dir_rating</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#poseidon_math-instance_method" title="#poseidon_math (instance method)">#<strong>poseidon_math</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rate_of_change_speed-instance_method" title="#rate_of_change_speed (instance method)">#<strong>rate_of_change_speed</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rating-instance_method" title="#rating (instance method)">#<strong>rating</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#speed_rating-instance_method" title="#speed_rating (instance method)">#<strong>speed_rating</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wind_in_3_hours-instance_method" title="#wind_in_3_hours (instance method)">#<strong>wind_in_3_hours</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>TODO: make me a class-level method.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="WeatherForecast.html" title="WeatherForecast (class)">WeatherForecast</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="WeatherForecast.html#calculate_angle_between-instance_method" title="WeatherForecast#calculate_angle_between (method)">#calculate_angle_between</a></span>, <span class='object_link'><a href="WeatherForecast.html#current-class_method" title="WeatherForecast.current (method)">current</a></span>, <span class='object_link'><a href="WeatherForecast.html#five_day_forecast-class_method" title="WeatherForecast.five_day_forecast (method)">five_day_forecast</a></span>, <span class='object_link'><a href="WeatherForecast.html#get_willyweather_forecast-class_method" title="WeatherForecast.get_willyweather_forecast (method)">get_willyweather_forecast</a></span>, <span class='object_link'><a href="WeatherForecast.html#in_three_hours-class_method" title="WeatherForecast.in_three_hours (method)">in_three_hours</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="fetch_forecasts-class_method">
+  
+    .<strong>fetch_forecasts</strong>(spot)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 20</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch_forecasts'>fetch_forecasts</span><span class='lparen'>(</span><span class='id identifier rubyid_spot'>spot</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_get_willyweather_forecast'>get_willyweather_forecast</span><span class='lparen'>(</span><span class='id identifier rubyid_spot'>spot</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wind</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_location_info'>location_info</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>location</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_days'>days</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>forecasts</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wind</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>days</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_days'>days</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_day'>day</span><span class='op'>|</span>
+    <span class='id identifier rubyid_forecasts'>forecasts</span> <span class='op'>=</span> <span class='id identifier rubyid_day'>day</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>entries</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_forecasts'>forecasts</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_forecast'>forecast</span><span class='op'>|</span>
+      <span class='id identifier rubyid_save_wind_forecast_entry'>save_wind_forecast_entry</span><span class='lparen'>(</span><span class='id identifier rubyid_spot'>spot</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_forecast'>forecast</span><span class='comma'>,</span> <span class='id identifier rubyid_location_info'>location_info</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>timeZone</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="dir_rating-instance_method">
+  
+    #<strong>dir_rating</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55
+56
+57
+58
+59
+60
+61</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 53</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_dir_rating'>dir_rating</span>
+  <span class='kw'>return</span> <span class='int'>0</span> <span class='kw'>unless</span> <span class='id identifier rubyid_direction'>direction</span>
+  <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_poseidon_math'>poseidon_math</span><span class='period'>.</span><span class='id identifier rubyid_normalise_degrees'>normalise_degrees</span><span class='lparen'>(</span>
+    <span class='label'>min_x:</span> <span class='id identifier rubyid_spot'>spot</span><span class='period'>.</span><span class='id identifier rubyid_wind_optimal_direction_min'>wind_optimal_direction_min</span><span class='comma'>,</span>
+    <span class='label'>max_x:</span> <span class='id identifier rubyid_spot'>spot</span><span class='period'>.</span><span class='id identifier rubyid_wind_optimal_direction_max'>wind_optimal_direction_max</span><span class='comma'>,</span>
+    <span class='label'>x_value:</span> <span class='id identifier rubyid_direction'>direction</span>
+  <span class='rparen'>)</span>
+  <span class='id identifier rubyid_poseidon_math'>poseidon_math</span><span class='period'>.</span><span class='id identifier rubyid_rating_given_x'>rating_given_x</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="poseidon_math-instance_method">
+  
+    #<strong>poseidon_math</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+89
+90
+91</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 89</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_poseidon_math'>poseidon_math</span>
+  <span class='ivar'>@poseidon_math</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="PoseidonMath.html" title="PoseidonMath (class)">PoseidonMath</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="rate_of_change_speed-instance_method">
+  
+    #<strong>rate_of_change_speed</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+77
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 77</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_rate_of_change_speed'>rate_of_change_speed</span>
+  <span class='kw'>return</span> <span class='int'>0</span> <span class='kw'>unless</span> <span class='id identifier rubyid_wind_in_3_hours'>wind_in_3_hours</span>
+  <span class='id identifier rubyid_wind_in_3_hours'>wind_in_3_hours</span><span class='period'>.</span><span class='id identifier rubyid_speed'>speed</span> <span class='op'>-</span> <span class='id identifier rubyid_speed'>speed</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="rating-instance_method">
+  
+    #<strong>rating</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+82
+83
+84
+85
+86
+87</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 82</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_rating'>rating</span>
+  <span class='id identifier rubyid_weight_of_optimal_wind_direction'>weight_of_optimal_wind_direction</span> <span class='op'>=</span> <span class='float'>0.8</span>
+  <span class='id identifier rubyid_weight_of_optimal_wind_speed'>weight_of_optimal_wind_speed</span> <span class='op'>=</span> <span class='float'>0.2</span>
+  <span class='id identifier rubyid_rating'>rating</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_dir_rating'>dir_rating</span> <span class='op'>*</span> <span class='id identifier rubyid_weight_of_optimal_wind_direction'>weight_of_optimal_wind_direction</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='id identifier rubyid_speed_rating'>speed_rating</span> <span class='op'>*</span> <span class='id identifier rubyid_weight_of_optimal_wind_speed'>weight_of_optimal_wind_speed</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_rating'>rating</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="speed_rating-instance_method">
+  
+    #<strong>speed_rating</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63
+64
+65
+66
+67
+68
+69
+70</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 63</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_speed_rating'>speed_rating</span>
+  <span class='kw'>return</span> <span class='int'>0</span> <span class='kw'>unless</span> <span class='id identifier rubyid_speed'>speed</span>
+  <span class='id identifier rubyid_poseidon_math'>poseidon_math</span><span class='period'>.</span><span class='id identifier rubyid_rating_given_x'>rating_given_x</span><span class='lparen'>(</span>
+    <span class='label'>min_x:</span> <span class='id identifier rubyid_spot'>spot</span><span class='period'>.</span><span class='id identifier rubyid_wind_optimal_strength_min_kmh'>wind_optimal_strength_min_kmh</span><span class='comma'>,</span>
+    <span class='label'>max_x:</span> <span class='id identifier rubyid_spot'>spot</span><span class='period'>.</span><span class='id identifier rubyid_wind_optimal_strength_max_kmh'>wind_optimal_strength_max_kmh</span><span class='comma'>,</span>
+    <span class='label'>x_value:</span> <span class='id identifier rubyid_speed'>speed</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="wind_in_3_hours-instance_method">
+  
+    #<strong>wind_in_3_hours</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>TODO: make me a class-level method</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+73
+74
+75</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/wind.rb', line 73</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_wind_in_3_hours'>wind_in_3_hours</span>
+  <span class='ivar'>@wind_in_3_hours</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="" title="Wind (class)">Wind</a></span></span><span class='period'>.</span><span class='id identifier rubyid_in_three_hours'><span class='object_link'><a href="WeatherForecast.html#in_three_hours-class_method" title="WeatherForecast.in_three_hours (method)">in_three_hours</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_spot_id'>spot_id</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Fri Aug 18 18:56:07 2017 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.9 (ruby-2.3.3).
+</div>
+
+    </div>
+  </body>
+</html>
