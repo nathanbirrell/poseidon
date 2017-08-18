@@ -8,23 +8,6 @@
   <p>No forecast data available for this spot.</p>
   <p>Please run a <code>rails forecasts:update</code> then refresh.</p>
 <% else %>
-  <% content_for :before_main do %>
-    <div class="spot-banner --<%= get_verdict(@spot.current_potential) %>">
-      <div class="row spot-banner__content">
-        <div class="small-12 columns text-left">
-          <div class="spot-banner__rating">
-            <span><%= trim(@spot.current_potential) %></span>
-            <span class="percent">%</span>
-          </div>
-          <div class="spot-banner__details">
-            <h2><%= @spot.name %></h2>
-            <span><%= link_to @region.name, @region %>, <%= @region.state %></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-
   <% if user_signed_in? %>
     <div class="text-center">
       Admin actions: <br>

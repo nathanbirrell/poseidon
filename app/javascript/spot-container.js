@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
+import MathUtil from 'math-util.js';
+
+import SpotBanner from './spot-banner';
+import SpotToolbar from './spot-toolbar';
 import SpotInfoCard from './spot-info-card-react';
 import SpotTimeSlider from './spot-time-slider';
-import SpotToolbar from './spot-toolbar';
-
-import MathUtil from 'math-util.js';
 
 class SpotContainer extends React.Component {
   constructor (props) {
@@ -51,6 +52,12 @@ class SpotContainer extends React.Component {
 
     return(
       <div>
+        <SpotBanner
+          current_potential={MathUtil.round(this.state.data.current_potential, 0)}
+          name={this.state.data.name}
+          region_name='region_name'
+          region_state='region_state'
+        />
         <SpotToolbar items={[
           {
             id: 'current',
