@@ -254,20 +254,42 @@ class SpotContainer extends React.Component {
             <div className="small-12 columns">
               <h5 className="subheader">{this.state.data.description}</h5>
               <h4>Optimal conditions:</h4>
-              <p>
-                <strong>Wind direction:</strong> {this.state.data.wind_optimal_direction_min} - {this.state.data.wind_optimal_direction_max} degrees
-                <br />
-                <strong>Wind strength:</strong> {this.state.data.wind_optimal_strength_min_kmh} - {this.state.data.wind_optimal_strength_max_kmh} kmh
-                <br />
-                <strong>Swell direction:</strong> {this.state.data.swell_optimal_direction_min} - {this.state.data.swell_optimal_direction_max} degrees
-                <br />
-                <strong>Swell size:</strong> {this.state.data.swell_optimal_size_min_metres} - {this.state.data.swell_optimal_size_max_metres} metres
-                <br />
-                <strong>Tides:</strong> {this.state.tide_optimal_min_metres} - {this.state.tide_optimal_max_metres} metres
-                <br />
-                <strong>Season:</strong> {this.state.data.season} <br />
-                <strong>Lat/long: </strong> {this.state.data.latitude}, {this.state.data.longitude}
-              </p>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Factor</th>
+                    <th>Optimal min</th>
+                    <th>Optimal max</th>
+                  </tr>
+                  <tr>
+                    <td><strong>Swell size:</strong></td>
+                    <td>{this.state.data.swell_optimal_size_min_metres} m</td>
+                    <td>{this.state.data.swell_optimal_size_max_metres} m</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Swell direction:</strong></td>
+                    <td>{this.state.data.swell_optimal_direction_min} deg</td>
+                    <td>{this.state.data.swell_optimal_direction_max} deg</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Wind strength:</strong></td>
+                    <td>{this.state.data.wind_optimal_strength_min_kmh} kph</td>
+                    <td>{this.state.data.wind_optimal_strength_max_kmh} kph</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Wind direction:</strong></td>
+                    <td>{this.state.data.wind_optimal_direction_min} deg</td>
+                    <td>{this.state.data.wind_optimal_direction_max} deg</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Tide height:</strong></td>
+                    <td>{this.state.data.tide_optimal_min_metres} m</td>
+                    <td>{this.state.data.tide_optimal_max_metres} m</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p><strong>Season:</strong> {this.state.data.season}</p>
+              <p><strong>Lat/long: </strong> {this.state.data.latitude}, {this.state.data.longitude}</p>
             </div>
           </div>
           <div id="location-view" className="row">
