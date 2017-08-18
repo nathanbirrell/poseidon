@@ -38,5 +38,6 @@ json.extract! spot,
     :tide_hours_remaining,
     :tide_shift_rate,
     :time_till_next_tide_hours,
-    :optimals
+    :optimals,
+    :region
 json.url spot_url(spot, format: :json)

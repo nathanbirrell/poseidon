@@ -254,20 +254,20 @@ class Spot < ApplicationRecord
     {
       size: {
         type: 'linear',
-        min: current_swell.size_at_rating(30.0)[:left].round(2),
-        max: current_swell.size_at_rating(30.0)[:right].round(2),
-        mixed_min: current_swell.size_at_rating(50.0)[:left].round(2),
-        mixed_max: current_swell.size_at_rating(50.0)[:right].round(2),
+        min: swell_size_at_rating(30.0)[:left].round(2),
+        max: swell_size_at_rating(30.0)[:right].round(2),
+        mixed_min: swell_size_at_rating(50.0)[:left].round(2),
+        mixed_max: swell_size_at_rating(50.0)[:right].round(2),
         optimal_min: swell_optimal_size_min_metres,
         optimal_max: swell_optimal_size_max_metres,
         in_3_hours: swell_in_3_hours.size.round(2)
       },
       direction: {
         type: 'direction',
-        min: current_swell.dir_at_rating(30.0)[:left].round(1),
-        max: current_swell.dir_at_rating(30.0)[:right].round(1),
-        mixed_min: current_swell.dir_at_rating(50.0)[:left].round(1),
-        mixed_max: current_swell.dir_at_rating(50.0)[:right].round(1),
+        min: swell_dir_at_rating(30.0)[:left].round(1),
+        max: swell_dir_at_rating(30.0)[:right].round(1),
+        mixed_min: swell_dir_at_rating(50.0)[:left].round(1),
+        mixed_max: swell_dir_at_rating(50.0)[:right].round(1),
         optimal_min: swell_optimal_direction_min,
         optimal_max: swell_optimal_direction_max,
         in_3_hours: swell_in_3_hours.direction
@@ -280,20 +280,20 @@ class Spot < ApplicationRecord
     {
       speed: {
         type: 'linear',
-        min: current_wind.speed_at_rating(30.0)[:left].round(1),
-        max: current_wind.speed_at_rating(30.0)[:right].round(1),
-        mixed_min: current_wind.speed_at_rating(50.0)[:left].round(1),
-        mixed_max: current_wind.speed_at_rating(50.0)[:right].round(1),
+        min: wind_speed_at_rating(30.0)[:left].round(1),
+        max: wind_speed_at_rating(30.0)[:right].round(1),
+        mixed_min: wind_speed_at_rating(50.0)[:left].round(1),
+        mixed_max: wind_speed_at_rating(50.0)[:right].round(1),
         optimal_min: wind_optimal_strength_min_kmh,
         optimal_max: wind_optimal_strength_max_kmh,
         in_3_hours: wind_in_3_hours.speed
       },
       direction: {
         type: 'direction',
-        min: current_wind.dir_at_rating(30.0)[:left].round(1),
-        max: current_wind.dir_at_rating(30.0)[:right].round(1),
-        mixed_min: current_wind.dir_at_rating(50.0)[:left].round(1),
-        mixed_max: current_wind.dir_at_rating(50.0)[:right].round(1),
+        min: wind_dir_at_rating(30.0)[:left].round(1),
+        max: wind_dir_at_rating(30.0)[:right].round(1),
+        mixed_min: wind_dir_at_rating(50.0)[:left].round(1),
+        mixed_max: wind_dir_at_rating(50.0)[:right].round(1),
         optimal_min: tide_optimal_min_metres,
         optimal_max: tide_optimal_max_metres,
         in_3_hours: wind_in_3_hours.direction
@@ -314,5 +314,39 @@ class Spot < ApplicationRecord
         in_3_hours: tide_in_x_hours(3)
       }
     }
+  end
+
+  def swell_size_at_rating(rating)
+    poseidon_math.value_given_rating(
+      min_x: swell_optimal_size_min_metres,
+      max_x: swell_optimal_size_max_metres,
+      rating: rating
+    )
+  end
+
+  def swell_dir_at_rating(rating)
+    data = poseidon_math.normalise_degrees(
+      min_x: swell_optimal_direction_min,
+      max_x: swell_optimal_direction_max,
+      rating: rating
+    )
+    poseidon_math.value_given_rating(data)
+  end
+
+  def wind_dir_at_rating(rating)
+    data = poseidon_math.normalise_degrees(
+      min_x: wind_optimal_direction_min,
+      max_x: wind_optimal_direction_max,
+      rating: rating
+    )
+    poseidon_math.value_given_rating(data)
+  end
+
+  def wind_speed_at_rating(rating)
+    poseidon_math.value_given_rating(
+      min_x: wind_optimal_strength_min_kmh,
+      max_x: wind_optimal_strength_max_kmh,
+      rating: rating
+    )
   end
 end

@@ -14,7 +14,6 @@
 
 class Wind < WeatherForecast
   # default_scope { order(date_time: :desc) }
-  require 'poseidon_math'
   belongs_to :spot
 
   class << self
@@ -51,19 +50,6 @@ class Wind < WeatherForecast
     end
   end
 
-  def poseidon_math
-    @poseidon_math ||= PoseidonMath.new
-  end
-
-  def dir_at_rating(rating)
-    data = poseidon_math.normalise_degrees(
-      min_x: spot.wind_optimal_direction_min,
-      max_x: spot.wind_optimal_direction_max,
-      rating: rating
-    )
-    poseidon_math.value_given_rating(data)
-  end
-
   def dir_rating
     return 0 unless direction
     data = poseidon_math.normalise_degrees(
@@ -72,14 +58,6 @@ class Wind < WeatherForecast
       x_value: direction
     )
     poseidon_math.rating_given_x(data)
-  end
-
-  def speed_at_rating(rating)
-    poseidon_math.value_given_rating(
-      min_x: spot.wind_optimal_strength_min_kmh,
-      max_x: spot.wind_optimal_strength_max_kmh,
-      rating: rating
-    )
   end
 
   def speed_rating
@@ -91,15 +69,9 @@ class Wind < WeatherForecast
     )
   end
 
+  # TODO: make me a class-level method
   def wind_in_3_hours
     @wind_in_3_hours ||= Wind.in_three_hours(spot_id)
-  end
-
-  def rate_of_change_direction
-    # FIXME
-    # return 0 unless wind_in_3_hours
-    # calculate_angle_between(wind_in_3_hours.current_variance.abs, current_variance.abs)
-    25.0
   end
 
   def rate_of_change_speed
@@ -112,5 +84,9 @@ class Wind < WeatherForecast
     weight_of_optimal_wind_speed = 0.2
     rating = (dir_rating * weight_of_optimal_wind_direction) + (speed_rating * weight_of_optimal_wind_speed)
     rating.round(2)
+  end
+
+  def poseidon_math
+    @poseidon_math ||= PoseidonMath.new
   end
 end
