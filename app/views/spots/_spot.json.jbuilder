@@ -25,7 +25,6 @@ json.extract! spot,
     :weighting_wind,
     :weighting_tide,
     :wave_model_size_coefficient,
-    :current_swell,
     :current_wind,
     :last_tide,
     :next_tide,
@@ -41,3 +40,6 @@ json.extract! spot,
     :optimals,
     :region
 json.url spot_url(spot, format: :json)
+
+# TODO -- add the rest of attributes here, do the same for wind and tide. Finally got virtual attributes working! 🎉
+json.current_swell spot.current_swell.to_builder

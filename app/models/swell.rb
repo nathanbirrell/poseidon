@@ -13,7 +13,6 @@
 #
 
 class Swell < WeatherForecast
-  include Math
   require 'poseidon_math'
   belongs_to :spot
 
@@ -28,13 +27,6 @@ class Swell < WeatherForecast
       entries.each do |entry|
         save_swell_forecast_entry(spot.id, entry)
       end
-    end
-
-    def as_json(options = { })
-      h = super(options)
-      h[:size] = size
-      h[:rating] = rating
-      super h
     end
 
     private
@@ -120,6 +112,13 @@ class Swell < WeatherForecast
     rating += (direction_rating * weight_of_optimal_swell_direction)
     rating += (period_rating * weight_of_swell_period)
     rating.round(2)
+  end
+
+  def to_builder
+    Jbuilder.new do |swell|
+      swell.size size
+      swell.rating rating
+    end
   end
 
   def poseidon_math

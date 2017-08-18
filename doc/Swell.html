@@ -93,11 +93,6 @@
   
   
   
-  <dl>
-      <dt>Includes:</dt>
-      <dd>Math</dd>
-  </dl>
-  
   
 
   
@@ -146,28 +141,6 @@ spot_id    :integer</code></pre>
     </h2>
 
     <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#as_json-class_method" title="as_json (class method)">.<strong>as_json</strong>(options = { })  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
       
         <li class="public ">
   <span class="summary_signature">
@@ -335,11 +308,32 @@ Willyweather also uses NOAA.</p>
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_builder-instance_method" title="#to_builder (instance method)">#<strong>to_builder</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
     </ul>
   
 
 
-  
   
   
   
@@ -364,43 +358,7 @@ Willyweather also uses NOAA.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="as_json-class_method">
-  
-    .<strong>as_json</strong>(options = { })  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-33
-34
-35
-36
-37
-38</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 33</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_as_json'>as_json</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_h'>h</span> <span class='op'>=</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='symbol'>:size</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_size'>size</span>
-  <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='symbol'>:rating</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_rating'>rating</span>
-  <span class='kw'>super</span> <span class='id identifier rubyid_h'>h</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="fetch_forecasts-class_method">
+  <h3 class="signature first" id="fetch_forecasts-class_method">
   
     .<strong>fetch_forecasts</strong>(spot)  &#x21d2; <tt>Object</tt> 
   
@@ -427,6 +385,7 @@ Willyweather also uses NOAA.</p>
       <pre class="lines">
 
 
+22
 23
 24
 25
@@ -434,11 +393,10 @@ Willyweather also uses NOAA.</p>
 27
 28
 29
-30
-31</pre>
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_forecasts'>fetch_forecasts</span><span class='lparen'>(</span><span class='id identifier rubyid_spot'>spot</span><span class='rparen'>)</span>
   <span class='comment'># example response: https://goo.gl/yyL27S
@@ -475,18 +433,18 @@ Willyweather also uses NOAA.</p>
       <pre class="lines">
 
 
-85
-86
-87
-88
-89
-90
-91
-92
-93</pre>
+77
+78
+79
+80
+81
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_direction_rating'>direction_rating</span>
   <span class='kw'>return</span> <span class='int'>0</span> <span class='kw'>unless</span> <span class='id identifier rubyid_direction'>direction</span>
@@ -517,19 +475,19 @@ Willyweather also uses NOAA.</p>
       <pre class="lines">
 
 
+96
+97
+98
+99
+100
+101
+102
+103
 104
-105
-106
-107
-108
-109
-110
-111
-112
-113</pre>
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_period_rating'>period_rating</span>
   <span class='kw'>return</span> <span class='int'>0</span> <span class='kw'>unless</span> <span class='id identifier rubyid_period'>period</span>
@@ -561,12 +519,12 @@ Willyweather also uses NOAA.</p>
       <pre class="lines">
 
 
+124
 125
-126
-127</pre>
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_poseidon_math'>poseidon_math</span>
   <span class='ivar'>@poseidon_math</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="PoseidonMath.html" title="PoseidonMath (class)">PoseidonMath</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -591,18 +549,18 @@ Willyweather also uses NOAA.</p>
       <pre class="lines">
 
 
-115
-116
-117
-118
-119
-120
-121
-122
-123</pre>
+107
+108
+109
+110
+111
+112
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rating'>rating</span>
   <span class='id identifier rubyid_weight_of_optimal_swell_height'>weight_of_optimal_swell_height</span> <span class='op'>=</span> <span class='int'>60</span> <span class='op'>/</span> <span class='int'>100</span>
@@ -633,14 +591,14 @@ Willyweather also uses NOAA.</p>
       <pre class="lines">
 
 
-79
-80
-81
-82
-83</pre>
+71
+72
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_size'>size</span>
   <span class='comment'># Swell size is *always* the model size by the coefficient, thus calibrating
@@ -667,17 +625,17 @@ Willyweather also uses NOAA.</p>
       <pre class="lines">
 
 
-95
-96
-97
-98
-99
-100
-101
-102</pre>
+87
+88
+89
+90
+91
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_size_rating'>size_rating</span>
   <span class='kw'>return</span> <span class='int'>0</span> <span class='kw'>unless</span> <span class='id identifier rubyid_size'>size</span>
@@ -692,12 +650,48 @@ Willyweather also uses NOAA.</p>
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="to_builder-instance_method">
+  
+    #<strong>to_builder</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+117
+118
+119
+120
+121
+122</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/swell.rb', line 117</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_builder'>to_builder</span>
+  <span class='const'>Jbuilder</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_swell'>swell</span><span class='op'>|</span>
+    <span class='id identifier rubyid_swell'>swell</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='id identifier rubyid_size'>size</span>
+    <span class='id identifier rubyid_swell'>swell</span><span class='period'>.</span><span class='id identifier rubyid_rating'>rating</span> <span class='id identifier rubyid_rating'>rating</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Fri Aug 18 20:47:18 2017 by
+  Generated on Fri Aug 18 21:11:01 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.3.3).
 </div>
