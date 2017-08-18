@@ -46,6 +46,7 @@ class SpotContainer extends React.Component {
 
     const current_swell = this.state.data.current_swell;
     const current_wind = this.state.data.current_wind;
+    const optimals = this.state.data.optimals;
 
     const mapIframeStyle = {
       border: '0'
@@ -93,9 +94,21 @@ class SpotContainer extends React.Component {
                   unit: 'ft',
                 }],
                 subtext: `@ ${MathUtil.round(current_swell.period, 1)} seconds`,
-                optimum_vis: [
-
-                ]
+                optimum_vis: [{
+                  label: '',
+                  type: 'linear',
+                  min: optimals.swell.size.min,
+                  max: optimals.swell.size.max,
+                  mix_min: optimals.swell.size.mixed_min,
+                  mix_max: optimals.swell.size.mixed_max,
+                  opt_min: optimals.swell.size.optimal_min,
+                  opt_max: optimals.swell.size.optimal_max,
+                  value: current_swell.size,
+                  unit: "m",
+                  roc_value: optimals.swell.size.in_3_hours,
+                  roc: (optimals.swell.size.in_3_hours - current_swell.size),
+                  roc_direction: SpotUtil.getRocDirection(optimals.swell.size.in_3_hours - current_swell.size),
+                }]
               },
               {
                 title: 'Direction',
@@ -106,9 +119,23 @@ class SpotContainer extends React.Component {
                   unit: '',
                 }],
                 subtext: `${current_swell.direction} deg`,
-                optimum_vis: [
-
-                ]
+                optimum_vis: [{
+                  label: '',
+                  type: 'direction',
+                  min: optimals.swell.direction.min,
+                  max: optimals.swell.direction.max,
+                  mix_min: optimals.swell.direction.mixed_min,
+                  mix_max: optimals.swell.direction.mixed_max,
+                  opt_min: optimals.swell.direction.optimal_min,
+                  opt_max: optimals.swell.direction.optimal_max,
+                  value: current_swell.direction,
+                  unit: "m",
+                  min_label: SpotUtil.degreesToText(optimals.swell.direction.min),
+                  max_label: SpotUtil.degreesToText(optimals.swell.direction.max),
+                  roc_value: optimals.swell.direction.in_3_hours,
+                  roc: (optimals.swell.direction.in_3_hours - current_swell.direction),
+                  roc_direction: SpotUtil.getRocDirection(optimals.swell.direction.in_3_hours - current_swell.direction),
+                }]
               }
             ]}
           />
@@ -127,9 +154,21 @@ class SpotContainer extends React.Component {
                   unit: 'kts',
                 }],
                 subtext: `${current_wind.speed} kph`,
-                optimum_vis: [
-
-                ]
+                optimum_vis: [{
+                  label: '',
+                  type: 'linear',
+                  min: optimals.wind.speed.min,
+                  max: optimals.wind.speed.max,
+                  mix_min: optimals.wind.speed.mixed_min,
+                  mix_max: optimals.wind.speed.mixed_max,
+                  opt_min: optimals.wind.speed.optimal_min,
+                  opt_max: optimals.wind.speed.optimal_max,
+                  value: current_wind.speed,
+                  unit: "m",
+                  roc_value: optimals.wind.speed.in_3_hours,
+                  roc: (optimals.wind.speed.in_3_hours - current_wind.speed),
+                  roc_direction: SpotUtil.getRocDirection(optimals.wind.speed.in_3_hours - current_wind.speed),
+                }]
               },
               {
                 title: 'Direction',
@@ -140,9 +179,23 @@ class SpotContainer extends React.Component {
                   unit: '',
                 }],
                 subtext: `${current_wind.direction} deg`,
-                optimum_vis: [
-
-                ]
+                optimum_vis: [{
+                  label: '',
+                  type: 'direction',
+                  min: optimals.wind.direction.min,
+                  max: optimals.wind.direction.max,
+                  mix_min: optimals.wind.direction.mixed_min,
+                  mix_max: optimals.wind.direction.mixed_max,
+                  opt_min: optimals.wind.direction.optimal_min,
+                  opt_max: optimals.wind.direction.optimal_max,
+                  value: current_wind.direction,
+                  unit: "m",
+                  min_label: SpotUtil.degreesToText(optimals.wind.direction.min),
+                  max_label: SpotUtil.degreesToText(optimals.wind.direction.max),
+                  roc_value: optimals.wind.direction.in_3_hours,
+                  roc: (optimals.wind.direction.in_3_hours - current_wind.direction),
+                  roc_direction: SpotUtil.getRocDirection(optimals.wind.direction.in_3_hours - current_wind.direction),
+                }]
               }
             ]}
           />
@@ -154,16 +207,28 @@ class SpotContainer extends React.Component {
             data={[
               {
                 title: 'Tide height',
-                indicator: 'indicator_here',
+                indicator: SpotUtil.getVerdict(this.state.data.current_tide_rating),
                 prefix: '',
                 values: [{
                   value: this.state.data.current_tide_height,
                   unit: 'm',
                 }],
                 subtext: `${this.state.data.tide_shift_rate} shift`,
-                optimum_vis: [
-
-                ]
+                optimum_vis: [{
+                  label: '',
+                  type: 'linear',
+                  min: optimals.tide.height.min,
+                  max: optimals.tide.height.max,
+                  mix_min: optimals.tide.height.mixed_min,
+                  mix_max: optimals.tide.height.mixed_max,
+                  opt_min: optimals.tide.height.optimal_min,
+                  opt_max: optimals.tide.height.optimal_max,
+                  value: this.state.data.current_tide_height,
+                  unit: "m",
+                  roc_value: optimals.tide.height.in_3_hours,
+                  roc: (optimals.tide.height.in_3_hours - this.state.data.current_tide_height),
+                  roc_direction: SpotUtil.getRocDirection(optimals.tide.height.in_3_hours - this.state.data.current_tide_height),
+                }]
               },
               {
                 title: 'Next tide',

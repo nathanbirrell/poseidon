@@ -64,6 +64,10 @@ class SpotUtil {
   static tideDescription(last_tide_type) {
     return last_tide_type === 'low' ? 'Incoming' : 'Outgoing';
   }
+
+  static getRocDirection(value) {
+    return value > 0 ? 'right' : 'left';
+  }
 }
 
 export default SpotUtil;

@@ -22,7 +22,7 @@ class SpotInfoCard extends React.Component {
       return this.props.data.map((d, i) => {
         return (
           <div className="small-4 columns datapoint" key={i}>
-            <p className="title sub-text --<%= d[:indicator] %>">{d.title}</p>
+            <p className={`title sub-text --${d.indicator}`}>{d.title}</p>
             <p className="main-text">
               {d.prefix}
               {d.values && d.values.map((v, j) => {
@@ -33,13 +33,13 @@ class SpotInfoCard extends React.Component {
             </p>
             <p className="sub-text">{d.subtext}</p>
 
-            {d.optimum_vis ?
-              d.optimum_vis.map((opt, k) => {
+            {d.optimum_vis.map((opt, k) => {
+              return (
                 <div className="--hide-expanded" key={k}>
                   <MiniOptimumVisual data={opt}/>
                 </div>
-              })
-            : null}
+              );
+            })}
           </div>
         );
       });
@@ -51,15 +51,14 @@ class SpotInfoCard extends React.Component {
       return (
         <div className="row info-card__expanded-section">
           <div className="small-11 small-centered columns">
-            <h4>Hey, I am expanded now</h4>
             {this.props.data.map((d, i) => {
-              {d.optimum_vis ?
-                d.optimum_vis.map((opt, k) => {
-                  <div key={k}>
-                    <OptimumVisual data={opt}/>
-                  </div>
+                return d.optimum_vis.map((opt, k) => {
+                  return (
+                    <div key={k}>
+                      <OptimumVisual data={opt}/>
+                    </div>
+                  );
                 })
-              : null}
             })}
           </div>
         </div>

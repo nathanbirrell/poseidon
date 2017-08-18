@@ -7,41 +7,43 @@ class MiniOptimumVisual extends React.Component {
       return null;
     }
 
+    console.log('MiniOptimumVisual', this.props.data);
+
     const data = this.props.data;
 
     const leftNegStyle = {
       left: 0,
-      width: (data.mix_min - data.min)/(data.max - data.min) * 100,
+      width: `${(data.mix_min - data.min)/(data.max - data.min) * 100}%`,
     };
     const leftMixStyle = {
-      left: (data.mix_min - data.min)/(data.max - data.min) * 100,
-      width: (data.opt_min - data.mix_min)/(data.max - data.min) * 100,
+      left: `${(data.mix_min - data.min)/(data.max - data.min) * 100}%`,
+      width: `${(data.opt_min - data.mix_min)/(data.max - data.min) * 100}%`,
     };
     const posStyle = {
-      left: (data.opt_min - data.min)/(data.max - data.min) * 100,
-      width: (data.opt_max - data.opt_min)/(data.max - data.min) * 100,
+      left: `${(data.opt_min - data.min)/(data.max - data.min) * 100}%`,
+      width: `${(data.opt_max - data.opt_min)/(data.max - data.min) * 100}%`,
     };
     const rightMixStyle = {
-      left: (data.opt_max - data.min)/(data.max - data.min) * 100,
-      width: (data.mix_max - data.opt_max)/(data.max - data.min) * 100,
+      left: `${(data.opt_max - data.min)/(data.max - data.min) * 100}%`,
+      width: `${(data.mix_max - data.opt_max)/(data.max - data.min) * 100}%`,
     };
     const rightNegStyle = {
-      left: (data.mix_max - data.min)/(data.max - data.min) * 100,
-      width: (data.max - data.mix_max)/(data.max - data.min) * 100,
+      left: `${(data.mix_max - data.min)/(data.max - data.min) * 100}%`,
+      width: `${(data.max - data.mix_max)/(data.max - data.min) * 100}%`,
     };
 
     const currentStyle = {
-      left: (value - min)/(max-min) * 100,
+      left: `${(data.value - data.min)/(data.max-data.min) * 100}%`,
     };
     let rocLeft;
-    if (rocDirection === 'right') {
-      rocLeft = currentLeft;
+    if (data.roc_direction === 'right') {
+      rocLeft = currentStyle.left;
     } else {
-      rocLeft = (((value - min)/(max-min) * 100) - (roc.abs)/(max-min) * 100);
+      rocLeft = `${(((data.value - data.min)/(data.max-data.min) * 100) - (Math.abs(data.roc))/(data.max-data.min) * 100)}%`;
     }
     const rocStyle = {
       left: rocLeft,
-      width: (roc.abs)/(max-min) * 100,
+      width: `${(Math.abs(data.roc))/(data.max-data.min) * 100}%`,
     };
 
     return (
@@ -57,13 +59,12 @@ class MiniOptimumVisual extends React.Component {
             {data.value > data.min && data.value < data.max ?
               <div>
                 <span className="data-vis__ROC --mini --<%= roc_direction %>" style={rocStyle}></span>
-                <span className="data-vis__current --mini" style={currentLeft}></span>
+                <span className="data-vis__current --mini" style={currentStyle}></span>
               </div>
             : null}
           </div>
         </div>
       </div>
-
     );
   }
 }
