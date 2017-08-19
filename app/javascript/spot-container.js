@@ -81,7 +81,7 @@ class SpotContainer extends React.Component {
           <SpotInfoCard
             title='Swell'
             secondary={SpotUtil.swellFeetToDescription(SpotUtil.metresToFeet(current_swell.size))}
-            rating={99}
+            rating={MathUtil.round(current_swell.rating, 0)}
             date_time={moment(current_swell.date_time).format("h:mm a")}
             data={[
               {
@@ -102,7 +102,7 @@ class SpotContainer extends React.Component {
                   mix_max: optimals.swell.size.mixed_max,
                   opt_min: optimals.swell.size.optimal_min,
                   opt_max: optimals.swell.size.optimal_max,
-                  value: current_swell.size,
+                  value: MathUtil.round(current_swell.size, 1),
                   unit: "m",
                   roc_value: optimals.swell.size.in_3_hours,
                   roc: (optimals.swell.size.in_3_hours - current_swell.size),
