@@ -19,7 +19,7 @@ class SpotBanner extends React.Component {
             </div>
             <div className="spot-banner__details">
               <h2>{this.props.name}</h2>
-              <span>{this.props.region_name}, {this.props.region_state}</span>
+              <span><a href={`/regions/${this.props.region.id}`}>{this.props.region.name}</a>, {this.props.region.state}</span>
             </div>
           </div>
         </div>
@@ -31,15 +31,13 @@ class SpotBanner extends React.Component {
 SpotBanner.defaultProps = {
   current_potential: null,
   name: null,
-  region_name: null,
-  region_state: null,
+  region: null,
 };
 
 SpotBanner.PropTypes = {
   current_potential: PropTypes.string,
   name: PropTypes.string,
-  region_name: PropTypes.string,
-  region_state: PropTypes.string,
+  region_name: PropTypes.object,
 };
 
 export default SpotBanner;

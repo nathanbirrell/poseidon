@@ -57,8 +57,7 @@ class SpotContainer extends React.Component {
         <SpotBanner
           current_potential={MathUtil.round(this.state.data.current_potential, 0)}
           name={this.state.data.name}
-          region_name='region_name'
-          region_state='region_state'
+          region={this.state.data.region}
         />
         <SpotToolbar items={[
           {
