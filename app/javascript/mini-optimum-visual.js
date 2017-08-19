@@ -7,8 +7,6 @@ class MiniOptimumVisual extends React.Component {
       return null;
     }
 
-    console.log('MiniOptimumVisual', this.props.data);
-
     const data = this.props.data;
 
     const leftNegStyle = {
