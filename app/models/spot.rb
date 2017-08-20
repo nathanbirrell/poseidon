@@ -52,10 +52,9 @@ class Spot < ApplicationRecord
         Tide.fetch_forecasts(spot)
       end
     end
-  end
-
-  def poseidon_math
-    @poseidon_math ||= PoseidonMath.new
+    def sorted_by_current_potential
+      Spot.all.sort_by(&:current_potential).reverse
+    end
   end
 
   # get latest model readings
@@ -156,6 +155,7 @@ class Spot < ApplicationRecord
   end
 
   def tide_hours_remaining
+    # FIXME: REDO THIS METHOD
     # return 0 unless tide_remaining_or_to
     # y_value = 0
     # if (tide_remaining_or_to == 'remaining' && last_tide.tide_type == 'low') ||
@@ -230,10 +230,6 @@ class Spot < ApplicationRecord
 
     self.willyweather_location_id = JSON.parse(response)['location']['id'].to_s
     self.save
-  end
-
-  def self.sorted_by_current_potential
-    Spot.all.sort_by(&:current_potential).reverse
   end
 
   def optimals
@@ -348,5 +344,9 @@ class Spot < ApplicationRecord
       max_x: wind_optimal_strength_max_kmh,
       rating: rating
     )
+  end
+
+  def poseidon_math
+    @poseidon_math ||= PoseidonMath.new
   end
 end

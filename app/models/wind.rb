@@ -76,6 +76,19 @@ class Wind < WeatherForecast
     rating.round(2)
   end
 
+  def to_builder
+    Jbuilder.new do |wind|
+      wind.id id
+      wind.speed speed
+      wind.direction direction
+      wind.direction_text direction_text
+      wind.date_time date_time
+      wind.direction_rating direction_rating
+      wind.speed_rating speed_rating
+      wind.rating rating
+    end
+  end
+
   def poseidon_math
     @poseidon_math ||= PoseidonMath.new
   end

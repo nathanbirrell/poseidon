@@ -1,45 +1,40 @@
-json.extract! spot,
+json.(
+    spot,
+    :id,
     :name,
     :description,
     :season,
-    :created_at,
-    :updated_at,
     :latitude,
     :longitude,
     :image,
     :region_id,
-    :tide_optimal_min_metres,
-    :tide_optimal_max_metres,
-    :swell_optimal_size_min_metres,
-    :swell_optimal_size_max_metres,
-    :swell_optimal_direction_min,
-    :swell_optimal_direction_max,
-    :wind_optimal_strength_min_kmh,
-    :wind_optimal_strength_max_kmh,
-    :wind_optimal_direction_min,
-    :wind_optimal_direction_max,
     :wave_model_lat,
     :wave_model_lon,
-    :willyweather_location_id,
     :weighting_swell,
     :weighting_wind,
     :weighting_tide,
     :wave_model_size_coefficient,
-    :current_wind,
+    # methods:
+    :optimals,
     :last_tide,
     :next_tide,
-    :works_on_all_tides?,
-    :current_tide_rating,
-    :current_potential,
+    :low_tide,
+    :high_tide,
+    :tidal_range,
+    :next_tide_subtext,
+    :tide_period,
+    :time_till_next_tide_hours,
+    :tide_shift_rate,
     :current_tide_height,
     :rate_of_change_tide,
     :tide_remaining_or_to,
     :tide_hours_remaining,
-    :tide_shift_rate,
-    :time_till_next_tide_hours,
-    :optimals,
-    :region
+    :works_on_all_tides?,
+    :current_tide_rating,
+    :current_potential
+)
+
 json.url spot_url(spot, format: :json)
 
-# TODO -- add the rest of attributes here, do the same for wind and tide. Finally got virtual attributes working! 🎉
 json.current_swell spot.current_swell.to_builder
+json.current_wind spot.current_wind.to_builder
