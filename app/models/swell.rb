@@ -116,8 +116,15 @@ class Swell < WeatherForecast
 
   def to_builder
     Jbuilder.new do |swell|
+      swell.id id
       swell.size size
+      swell.period period
+      swell.direction direction
+      swell.date_time date_time
       swell.rating rating
+      swell.direction_rating direction_rating
+      swell.size_rating size_rating
+      swell.period_rating period_rating
     end
   end
 
