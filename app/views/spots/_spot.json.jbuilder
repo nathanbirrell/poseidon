@@ -29,6 +29,7 @@ json.(
     :rate_of_change_tide,
     :tide_remaining_or_to,
     :tide_hours_remaining,
+    :region,
     :works_on_all_tides?,
     :current_tide_rating,
     :current_potential
