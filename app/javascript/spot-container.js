@@ -86,7 +86,7 @@ class SpotContainer extends React.Component {
             data={[
               {
                 title: 'Wave height',
-                indicator: 'indicator_here',
+                indicator: SpotUtil.getVerdict(current_swell.size_rating),
                 prefix: '',
                 values: [{
                   value: MathUtil.round(SpotUtil.metresToFeet(current_swell.size), 1),
@@ -111,7 +111,7 @@ class SpotContainer extends React.Component {
               },
               {
                 title: 'Direction',
-                indicator: 'indicator_here',
+                indicator: SpotUtil.getVerdict(current_swell.direction_rating),
                 prefix: '',
                 values: [{
                   value: SpotUtil.degreesToText(current_swell.direction),
@@ -141,12 +141,12 @@ class SpotContainer extends React.Component {
           <SpotInfoCard
             title='Wind'
             secondary={SpotUtil.windKphToDescription(current_wind.speed)}
-            rating={99}
+            rating={MathUtil.round(current_wind.rating, 0)}
             date_time={moment(current_wind.date_time).format("h:mm a")}
             data={[
               {
                 title: 'Wind speed',
-                indicator: 'indicator_here',
+                indicator: SpotUtil.getVerdict(current_wind.speed_rating),
                 prefix: '',
                 values: [{
                   value: MathUtil.round(SpotUtil.kphToKnots(current_wind.speed), 0),
@@ -171,7 +171,7 @@ class SpotContainer extends React.Component {
               },
               {
                 title: 'Direction',
-                indicator: 'indicator_here',
+                indicator: SpotUtil.getVerdict(current_wind.direction_rating),
                 prefix: '',
                 values: [{
                   value:  SpotUtil.degreesToText(current_wind.direction),
