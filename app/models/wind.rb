@@ -13,19 +13,19 @@
 #
 
 class Wind < WeatherForecast
+  require 'willyweather_client'
   # default_scope { order(date_time: :desc) }
   belongs_to :spot
 
   class << self
     def fetch_forecasts(spot)
-      response = get_willyweather_forecast(spot, 'wind')
-      location_info = response['location']
-      days = response['forecasts']['wind']['days']
+      spot.set_willyweather_location_id_if_needed # TODO - move into WW client too
 
-      days.each do |day|
-        forecasts = day['entries']
-        forecasts.each do |forecast|
-          save_wind_forecast_entry(spot.id, forecast, location_info['timeZone'])
+      wind = WillyWeather::Wind.fetch(spot.willyweather_location_id)
+
+      wind.forecasts.each do |day|
+        day['entries'].each do |forecast|
+          save_wind_forecast_entry(spot_id, forecast, wind.location['timeZone'])
         end
       end
     end
