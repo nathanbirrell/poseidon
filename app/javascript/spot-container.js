@@ -44,24 +44,27 @@ class SpotContainer extends React.Component {
       return (
         <div>
           <SpotBanner isBusy />
-          <SpotToolbar items={[
-            {
-              id: 'current',
-              label: 'Current',
-            },
-            {
-              id: 'about',
-              label: 'About',
-            },
-            {
-              id: 'forecast',
-              label: 'Forecast',
-            },
-            {
-              id: 'history',
-              label: 'History',
-            }
-          ]}/>
+          <SpotToolbar
+            isBusy
+            items={[
+              {
+                id: 'current',
+                label: 'Current',
+              },
+              {
+                id: 'about',
+                label: 'About',
+              },
+              {
+                id: 'forecast',
+                label: 'Forecast',
+              },
+              {
+                id: 'history',
+                label: 'History',
+              }
+            ]}
+          />
           <div id="current-section" className="row">
             <SpotInfoCard title='Swell' isBusy />
             <SpotInfoCard title='Wind' isBusy />
