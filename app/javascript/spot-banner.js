@@ -13,8 +13,8 @@ class SpotBanner extends React.Component {
             <div className="small-12 columns text-left">
               <div className="spot-banner__rating"></div>
               <div className="spot-banner__details">
-                <PlaceholderShimmer width='180px' height='12px' />
-                <PlaceholderShimmer width='80px' height='8px' />
+                <PlaceholderShimmer width='220px' height='18px' />
+                <PlaceholderShimmer width='100px' height='12px' />
               </div>
             </div>
           </div>
