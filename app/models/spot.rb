@@ -264,8 +264,8 @@ class Spot < ApplicationRecord
         max: swell_dir_at_rating(30.0)[:right].round(1),
         mixed_min: swell_dir_at_rating(50.0)[:left].round(1),
         mixed_max: swell_dir_at_rating(50.0)[:right].round(1),
-        optimal_min: swell_optimal_direction_min,
-        optimal_max: swell_optimal_direction_max,
+        optimal_min: normalise_swell_dir[:min_x],
+        optimal_max: normalise_swell_dir[:max_x],
         in_3_hours: swell_in_3_hours.direction
       }
     }
@@ -290,8 +290,8 @@ class Spot < ApplicationRecord
         max: wind_dir_at_rating(30.0)[:right].round(1),
         mixed_min: wind_dir_at_rating(50.0)[:left].round(1),
         mixed_max: wind_dir_at_rating(50.0)[:right].round(1),
-        optimal_min: tide_optimal_min_metres,
-        optimal_max: tide_optimal_max_metres,
+        optimal_min: normalise_wind_dir[:min_x],
+        optimal_max: normalise_wind_dir[:max_x],
         in_3_hours: wind_in_3_hours.direction
       }
     }
@@ -310,6 +310,20 @@ class Spot < ApplicationRecord
         in_3_hours: tide_in_x_hours(3)
       }
     }
+  end
+
+  def normalise_wind_dir
+    poseidon_math.normalise_degrees(
+      min_x: wind_optimal_direction_min,
+      max_x: wind_optimal_direction_max
+    )
+  end
+
+  def normalise_swell_dir
+    poseidon_math.normalise_degrees(
+      min_x: swell_optimal_direction_min,
+      max_x: swell_optimal_direction_max
+    )
   end
 
   def swell_size_at_rating(rating)
