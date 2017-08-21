@@ -1,6 +1,4 @@
 class WeatherForecast < ApplicationRecord
-  require 'willyweather_client'
-
   self.abstract_class = true
 
   # Class methods used in a similar way to named scopes
@@ -25,7 +23,18 @@ class WeatherForecast < ApplicationRecord
     spot.set_willyweather_location_id_if_needed
 
     # ie: https://goo.gl/xfJKpn
-    WillyWeather.get(spot.id, forecast_type)
+    response = RestClient.get(
+      "https://api.willyweather.com.au/v2/#{ENV['WILLYWEATHER_API_KEY']}/locations/#{spot.willyweather_location_id}/weather.json",
+      {
+        params: {
+          'forecasts' => forecast_type,
+          'days' => 5
+        }
+      }
+    )
+
+    response = JSON.parse(response)
+    response
   end
 
   # Methods used by Swell, Wind, Tide models
