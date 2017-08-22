@@ -108,7 +108,7 @@ class SpotToolbar extends React.Component {
           <div className="row">
             {this.props.items.map((i, j) => {
               return (
-                <div key={j} id={`${i.id}-btn`} className={"small-3 columns spot-toolbar__item " + (i.id === this.state.focusedId ? '--focused' : '')} onClick={() => { this.scrollToSection(j) }}>
+                <div key={j} id={`${i.id}-btn`} className={"small-3 columns spot-toolbar__item " + (i.id === this.state.focusedId ? '--focused' : '')} onClick={this.props.isBusy ? null : () => { this.scrollToSection(j) }}>
                   <a>
                     <span className="spot-toolbar__label">{i.label}</span>
                   </a>
@@ -124,10 +124,12 @@ class SpotToolbar extends React.Component {
 
 SpotToolbar.defaultProps = {
   items: null,
+  isBusy: false,
 }
 
 SpotToolbar.propTypes = {
   items: PropTypes.array,
+  isBusy: PropTypes.bool,
 }
 
 export default SpotToolbar;

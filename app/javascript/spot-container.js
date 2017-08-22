@@ -41,7 +41,37 @@ class SpotContainer extends React.Component {
 
   render() {
     if (!this.state.data) {
-      return null;
+      return (
+        <div>
+          <SpotBanner isBusy />
+          <SpotToolbar
+            isBusy
+            items={[
+              {
+                id: 'current',
+                label: 'Current',
+              },
+              {
+                id: 'about',
+                label: 'About',
+              },
+              {
+                id: 'forecast',
+                label: 'Forecast',
+              },
+              {
+                id: 'history',
+                label: 'History',
+              }
+            ]}
+          />
+          <div id="current-section" className="row">
+            <SpotInfoCard title='Swell' isBusy />
+            <SpotInfoCard title='Wind' isBusy />
+            <SpotInfoCard title='Tide' isBusy />
+          </div>
+        </div>
+      );
     }
 
     const current_swell = this.state.data.current_swell;
