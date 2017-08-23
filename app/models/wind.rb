@@ -17,12 +17,10 @@ class Wind < WeatherForecast
   # default_scope { order(date_time: :desc) }
   belongs_to :spot
 
-  class << self
-    def fetch_forecasts(spot)
-      spot.set_willyweather_location_id_if_needed # TODO - move into WW client too
-      forecasts = WillyweatherClient::WindForecasts.fetch(spot)
-      forecasts.save_entries
-    end
+  def self.update_forecasts(spot)
+    spot.set_willyweather_location_id_if_needed # TODO - move into WW client too
+    forecasts = WillyweatherClient::WindForecasts.fetch(spot)
+    forecasts.save_entries
   end
 
   def direction_rating

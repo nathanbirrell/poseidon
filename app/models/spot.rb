@@ -45,13 +45,14 @@ class Spot < ApplicationRecord
   validates :name, presence: true
 
   class << self
-    def fetch_forecasts
+    def update_forecasts
       Spot.all.each do |spot|
-        Swell.fetch_forecasts(spot)
-        Wind.fetch_forecasts(spot)
-        Tide.fetch_forecasts(spot)
+        Swell.update_forecasts(spot)
+        Wind.update_forecasts(spot)
+        Tide.update_forecasts(spot)
       end
     end
+
     def sorted_by_current_potential
       Spot.all.sort_by(&:current_potential).reverse
     end

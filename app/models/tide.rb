@@ -22,12 +22,10 @@ class Tide < WeatherForecast
     where(spot_id: spot_id).where("date_time >= ?", Time.current).order(date_time: :asc).first
   }
 
-  class << self
-    def fetch_forecasts(spot)
-      spot.set_willyweather_location_id_if_needed # TODO - move into WW client too
-      forecasts = WillyweatherClient::TideForecasts.fetch(spot)
-      forecasts.save_entries
-    end
+  def self.update_forecasts(spot)
+    spot.set_willyweather_location_id_if_needed # TODO - move into WW client too
+    forecasts = WillyweatherClient::TideForecasts.fetch(spot)
+    forecasts.save_entries
   end
 
   def to_builder
