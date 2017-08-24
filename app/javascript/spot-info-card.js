@@ -5,6 +5,7 @@ import SpotUtil from 'spot-util.js';
 
 import MiniOptimumVisual from './mini-optimum-visual';
 import OptimumVisual from './optimum-visual';
+import Spinner from './spinner';
 
 class SpotInfoCard extends React.Component {
   constructor(props) {
@@ -18,32 +19,33 @@ class SpotInfoCard extends React.Component {
   }
 
   _renderDatapoints() {
-    if (this.props.data) {
-      return this.props.data.map((d, i) => {
-        return (
-          <div className="small-4 columns datapoint" key={i}>
-            <p className={`title sub-text --${d.indicator}`}>{d.title}</p>
-            <p className="main-text">
-              {d.prefix}
-              {d.values && d.values.map((v, j) => {
-                return (
-                  <span key={j}>{v.value}<span className="value-unit">{v.unit}</span></span>
-                );
-              })}
-            </p>
-            <p className="sub-text">{d.subtext}</p>
-
-            {d.optimum_vis.map((opt, k) => {
+    if (!this.props.data) {
+      return null;
+    }
+    return this.props.data.map((d, i) => {
+      return (
+        <div className="small-4 columns datapoint" key={i}>
+          <p className={`title sub-text --${d.indicator}`}>{d.title}</p>
+          <p className="main-text">
+            {d.prefix}
+            {d.values && d.values.map((v, j) => {
               return (
-                <div className="--hide-expanded" key={k}>
-                  <MiniOptimumVisual data={opt}/>
-                </div>
+                <span key={j}>{v.value}<span className="value-unit">{v.unit}</span></span>
               );
             })}
-          </div>
-        );
-      });
-    }
+          </p>
+          <p className="sub-text">{d.subtext}</p>
+
+          {d.optimum_vis.map((opt, k) => {
+            return (
+              <div className="--hide-expanded" key={k}>
+                <MiniOptimumVisual data={opt}/>
+              </div>
+            );
+          })}
+        </div>
+      );
+    });
   }
 
   _renderExpandedSection() {
@@ -73,25 +75,16 @@ class SpotInfoCard extends React.Component {
   }
 
   render() {
-    if (!this.props.title) {
+    if (this.props.isBusy || !this.props.data) {
       return (
         <div className="small-12 medium-6 large-4 columns">
-        <div className="info-card">
-          <div className="info-card__top">
-            <h3></h3>
-            <span className="text-right">
-            </span>
-          </div>
-
-          <div className="row info-card__body">
-            <div className="small-4 columns">
+          <div className="info-card">
+            <div className="info-card__top">
+              <h3>{this.props.title}</h3>
             </div>
-            {this._renderDatapoints()}
-            {this._renderExpandedSection()}
+            <Spinner />
           </div>
-          <a className="link expand-button" onClick={() => {this.toggleExpanded()}}></a>
         </div>
-      </div>
       );
     }
 
@@ -127,6 +120,7 @@ SpotInfoCard.defaultProps = {
   rating: null,
   date_time: '',
   data: null,
+  isBusy: false,
 }
 
 SpotInfoCard.propTypes = {
@@ -135,6 +129,7 @@ SpotInfoCard.propTypes = {
   rating: PropTypes.number,
   date_time: PropTypes.string,
   data: PropTypes.array,
+  isBusy: PropTypes.bool,
 }
 
 export default SpotInfoCard;
