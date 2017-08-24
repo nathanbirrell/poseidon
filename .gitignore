@@ -95,5 +95,10 @@ docs/_site
 docs/.sass-cache
 docs/.jekyll-metadata
 
+# Webpack
+/public/packs
+
 # Ignore application configuration
 /config/application.yml
+
+.yardoc

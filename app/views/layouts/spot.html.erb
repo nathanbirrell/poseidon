@@ -22,7 +22,7 @@
         <section class="main-section">
           <%= content_for?(:before_main) ? yield(:before_main) : "" %>
 
-          <main role="main">
+          <main id="main" role="main">
              <%= render 'layouts/messages' %>
              <%= yield %>
           </main>

@@ -1,137 +1,135 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import jump from 'jump.js';
 
-let toolbar;
-const fixedClass = '--fixed';
-const focusedClass = '--focused';
 let checkingScroll = false;
-let focusedSection = null;
-let focusedBtn = null;
-let currentView;
-let currentBtn;
-let aboutView;
-let aboutBtn;
-let forecastView;
-let forecastBtn;
-let historyView;
-let historyBtn;
-let sections = [];
-let revSections = [];
-let spotBarInit = false;
+let sections;
+let revSections;
 
-class SpotToolbar {
-  constructor () {
-    this.init.bind(this);
-    this.initScroll.bind(this);
-    this.init();
+class SpotToolbar extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      fixed: false,
+      focusedId: '',
+    };
+
+    this.generateSections = this.generateSections.bind(this);
+    this.checkScroll = this.checkScroll.bind(this);
   }
 
-  offsetRelTop(el) {
-    const top = document.body.getBoundingClientRect().top;
-    const elOffset = el.getBoundingClientRect().top;
-    return elOffset - top;
-  }
+  componentDidMount() {
+    sections = this.generateSections();
+    revSections = sections.slice().reverse();
+    this.checkScroll();
 
-  initScroll() {
     window.onscroll = () => {
-      !spotBarInit && InitSpotToolbar();
-      const pageOffset = document.body.scrollTop;
-
       if (!checkingScroll) {
         checkingScroll = true;
         window.setTimeout(() => {
-          // Set fixed or non fixed state
-          if ((!toolbar.classList.contains(fixedClass) && pageOffset >= 145) ||
-            (toolbar.classList.contains(fixedClass) && pageOffset < 145)) {
-            toolbar.classList.toggle(fixedClass);
-          }
-
-          // Set focused toolbar section
-          if (revSections.length) {
-            for (let s of revSections) {
-              if (pageOffset >= (this.offsetRelTop(s.section) - 65)) {
-                if (focusedSection !== s.section) {
-                  focusedBtn && focusedBtn.classList.remove(focusedClass);
-                  focusedBtn = s.button;
-                  focusedBtn.classList.add(focusedClass);
-                  focusedSection = s.section;
-                }
-                break;
-              } else if (s.section === revSections[revSections.length - 1].section) {
-                if (s.section !== focusedSection) {
-                  // Select top most section if not past it and not already selected
-                  focusedBtn && focusedBtn.classList.remove(focusedClass);
-                  focusedBtn = s.button;
-                  focusedSection = s.section;
-                  focusedBtn.classList.add(focusedClass);
-                }
-              }
-            }
-          }
-          checkingScroll = false;
-        }, 50);
+          this.checkScroll();
+        }, 25);
       }
     }
   }
 
-  scrollToSelector(selector, event) {
-    event.preventDefault();
-    const yOffset = !toolbar.classList.contains(fixedClass) ? -114 : -55;
+  offsetRelTop(el) {
+    if (el) {
+      const top = document.body.getBoundingClientRect().top;
+      const elOffset = el.getBoundingClientRect().top;
+      return elOffset - top;
+    }
+    return null;
+  }
+
+  generateSections() {
+    return this.props.items.map(i => {
+      return ({
+        id: i.id,
+        el: document.getElementById(`${i.id}-section`),
+      });
+    });
+  }
+
+  checkScroll() {
+    const pageOffset = document.body.scrollTop;
+    // Set fixed or non fixed state
+    if ((!this.state.fixed && pageOffset >= 145) ||
+      (this.state.fixed && pageOffset < 145)) {
+        this.setState({
+          fixed: !this.state.fixed,
+        });
+    }
+
+    // Set focused toolbar section
+    if (revSections.length) {
+      for (let s of revSections) {
+        if (pageOffset >= (this.offsetRelTop(s.el) - 65)) {
+          if (this.state.focusedId !== s.id) {
+            this.setState({
+              focusedId: s.id,
+            });
+          }
+          break;
+        } else if (s.id === revSections[revSections.length - 1].id) {
+          if (this.state.focusedId !== s.id) {
+            // Select top most section if not past it and not already selected
+            this.setState({
+              focusedId: s.id,
+              fixed: false,
+            });
+          }
+        }
+      }
+    }
+    checkingScroll = false;
+  }
+
+  scrollToSection(number, event) {
+    event && event.preventDefault();
+    this.scrollToSelector(`#${this.props.items[number].id}-section`);
+  }
+
+  scrollToSelector(selector) {
+    const yOffset = this.state.fixed ? -55 : -115;
     jump(selector, {
       offset: yOffset,
     });
   }
 
-  init() {
-    toolbar = document.getElementById('spot-toolbar');
-    currentView = document.getElementById('current-view');
-    currentBtn = document.getElementById('current-btn');
-    aboutView = document.getElementById('about-view');
-    aboutBtn = document.getElementById('about-btn');
-    forecastView = document.getElementById('forecast-view');
-    forecastBtn = document.getElementById('forecast-btn');
-    historyView = document.getElementById('history-view');
-    historyBtn = document.getElementById('history-btn');
-    sections = [
-      {
-        section: currentView,
-        button: currentBtn
-      },
-      {
-        section: aboutView,
-        button: aboutBtn
-      },
-      {
-        section: forecastView,
-        button: forecastBtn
-      },
-      {
-        section: historyView,
-        button: historyBtn
-      }
-    ];
+  render() {
+    if (!this.props.items) {
+      return null;
+    }
 
-    // Set first section focused on load
-    focusedBtn = sections[0].button;
-    focusedSection = sections[0].section;
-    focusedBtn.classList.add(focusedClass);
-
-    revSections = sections.slice().reverse();
-    spotBarInit = true;
-    this.initScroll();
-
-    currentBtn.addEventListener('click', (event) => {
-      this.scrollToSelector('#current-view', event);
-    });
-    aboutBtn.addEventListener('click',  (event) => {
-      this.scrollToSelector('#about-view', event);
-    });
-    forecastBtn.addEventListener('click', (event) => {
-      this.scrollToSelector('#forecast-view', event);
-    });
-    historyBtn.addEventListener('click', (event) => {
-      this.scrollToSelector('#history-view', event);
-    });
+    return (
+      <div id="spot-toolbar" className={"row spot-toolbar " + (this.state.fixed ? '--fixed' : '')}>
+        <div className="small-12 medium-5 columns">
+          <div className="row">
+            {this.props.items.map((i, j) => {
+              return (
+                <div key={j} id={`${i.id}-btn`} className={"small-3 columns spot-toolbar__item " + (i.id === this.state.focusedId ? '--focused' : '')} onClick={this.props.isBusy ? null : () => { this.scrollToSection(j) }}>
+                  <a>
+                    <span className="spot-toolbar__label">{i.label}</span>
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
   }
-};
+}
+
+SpotToolbar.defaultProps = {
+  items: null,
+  isBusy: false,
+}
+
+SpotToolbar.propTypes = {
+  items: PropTypes.array,
+  isBusy: PropTypes.bool,
+}
 
 export default SpotToolbar;

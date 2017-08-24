@@ -4,6 +4,7 @@
 @import 'vars';
 @import 'functions';
 @import 'mixins';
+@import 'waves';
 @import url('font-awesome.min.css');
 
 /*
@@ -45,11 +46,11 @@
 /* Basic */
 
 	body {
-		background: _palette(bg);
+		background: #002040;
 	}
 
 	body, input, select, textarea {
-		color: _palette(fg);
+		color: _palette(fg-bold);
 		font-family: _font(family);
 		font-size: 16pt;
 		font-weight: _font(weight);
@@ -244,7 +245,7 @@
 			p {
 				display: inline-block;
 				border-top: solid 2px _palette(border);
-				color: _palette(fg);
+				color: _palette(fg-bold);
 				margin: 1.5em 0 0 0;
 				padding: 1.5em 0 0 0;
 				font-style: normal;
@@ -430,7 +431,8 @@
 	$box-padding: 3em;
 
 	.box {
-		background: #fff;
+		background: #002040;
+		color: #fff;
 		border-radius: _size(border-radius);
 		box-shadow: 0 2px 0 0 _palette(border);
 		margin: 0 0 _size(element-margin) 0;
@@ -509,7 +511,7 @@
 				}
 			}
 		}
-		
+
 	}
 
 /* Icon */
@@ -1159,19 +1161,28 @@
 /* Banner */
 
 	#banner {
+		position: relative;
 		background-attachment:	fixed;
-		background-color:		#666;
-		background-image:		url('../../images/banner.jpg');
+		// background-color:	#153C65;
+		// background: linear-gradient(178deg, #34b7f3, #153C65 95%, #153C65);
+		background: linear-gradient(180deg, #24779c, #38c8b2 95%, #38c8b2);
+		/* COlOR PALETTES
+		DUSK .bittersweet { color: #e76a65; } --> .plum { color: #3a1040; }
+		ARVO .purple-heart { color: #570ca1; } --> .robin-egg-blue { color: #38c8b2; }
+		SUNRISE .dandelion { color: #f6df6e; } --> .purple-heart { color: #9102e8; }
+		DAY .unmellow-yellow { color: #fafb2f; } --> .blue-green { color: #24779c; }
+		*/
+		// background-image:		url('../../images/banner.jpg');
 		background-position:	center center;
 		background-repeat:		no-repeat;
 		background-size:		cover;
 		color: #fff;
-		padding: 12em 0 20em 0;
+		padding: 12em 0 6em 0;
 		text-align: center;
 
-		:last-child {
-			margin-bottom: 0;
-		}
+		// :last-child {
+		// 	// margin-bottom: 0;
+		// }
 
 		h1, h2, h3, h4, h5, h6 {
 			color: #fff;
@@ -1246,7 +1257,7 @@
 
 	body.landing {
 		#main {
-			margin-top: -14em;
+			margin-top: 6em;
 		}
 	}
 
@@ -1371,7 +1382,7 @@
 		/* Banner */
 
 			#banner {
-				padding: 10em 0 18em 0;
+				padding: 10em 0 4em 0;
 			}
 
 	}
@@ -1703,7 +1714,7 @@
 			body.landing {
 				#main {
 					padding: 0;
-					margin-top: 0;
+					margin-top: 8em;
 				}
 			}
 

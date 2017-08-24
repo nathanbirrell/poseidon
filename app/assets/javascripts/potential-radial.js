@@ -60,7 +60,7 @@ var ready = function() {
     var numberText = track.append('text')
       .attr('class', 'radial-progress__text')
       .attr('text-anchor', 'middle')
-      .attr('dy', '.70rem');
+      .attr('alignment-baseline', 'central');
 
     function update(progress) {
       //update position of endAngle

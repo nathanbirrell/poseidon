@@ -2,29 +2,33 @@
 #
 # Table name: spots
 #
-#  id                                   :integer          not null, primary key
-#  name                                 :string
-#  description                          :string
-#  season                               :string
-#  created_at                           :datetime         not null
-#  updated_at                           :datetime         not null
-#  latitude                             :decimal(10, 6)
-#  longitude                            :decimal(10, 6)
-#  image                                :string
-#  region_id                            :integer
-#  tide_optimal_min_metres              :decimal(, )
-#  tide_optimal_max_metres              :decimal(, )
-#  swell_optimal_size_min_metres        :decimal(, )
-#  swell_optimal_size_max_metres        :decimal(, )
-#  wind_optimal_strength_min_kmh        :decimal(, )
-#  wind_optimal_strength_max_kmh        :decimal(, )
-#  wave_model_lat                       :decimal(, )
-#  wave_model_lon                       :decimal(, )
-#  willyweather_location_id             :integer
-#  swell_optimal_direction              :decimal(, )
-#  swell_optimal_direction_max_variance :decimal(, )
-#  wind_optimal_direction               :decimal(, )
-#  wind_optimal_direction_max_variance  :decimal(, )
+#  id                            :integer          not null, primary key
+#  name                          :string
+#  description                   :string
+#  season                        :string
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  latitude                      :decimal(10, 6)
+#  longitude                     :decimal(10, 6)
+#  image                         :string
+#  region_id                     :integer
+#  tide_optimal_min_metres       :decimal(, )
+#  tide_optimal_max_metres       :decimal(, )
+#  swell_optimal_size_min_metres :decimal(, )
+#  swell_optimal_size_max_metres :decimal(, )
+#  wind_optimal_strength_min_kmh :decimal(, )
+#  wind_optimal_strength_max_kmh :decimal(, )
+#  wave_model_lat                :decimal(, )
+#  wave_model_lon                :decimal(, )
+#  willyweather_location_id      :integer
+#  weighting_swell               :decimal(1, 2)
+#  weighting_wind                :decimal(1, 2)
+#  weighting_tide                :decimal(1, 2)
+#  wave_model_size_coefficient   :decimal(1, 3)
+#  swell_optimal_direction_min   :decimal(, )
+#  swell_optimal_direction_max   :decimal(, )
+#  wind_optimal_direction_min    :decimal(, )
+#  wind_optimal_direction_max    :decimal(, )
 #
 
 class Spot < ApplicationRecord
@@ -48,10 +52,9 @@ class Spot < ApplicationRecord
         Tide.fetch_forecasts(spot)
       end
     end
-  end
-
-  def poseidon_math
-    @poseidon_math ||= PoseidonMath.new
+    def sorted_by_current_potential
+      Spot.all.sort_by(&:current_potential).reverse
+    end
   end
 
   # get latest model readings
@@ -83,6 +86,7 @@ class Spot < ApplicationRecord
     high_tide.height - low_tide.height
   end
 
+  # TODO - move me to Spot helper
   def next_tide_subtext
     output = "#{next_tide.tide_type} tide "
     output += "(#{next_tide.date_time.strftime('%p')})"
@@ -151,25 +155,30 @@ class Spot < ApplicationRecord
   end
 
   def tide_hours_remaining
-    return 0 unless tide_remaining_or_to
-    y_value = 0
-    if (tide_remaining_or_to == 'remaining' && last_tide.tide_type == 'low') ||
-       (tide_remaining_or_to == 'till good' && last_tide.tide_type == 'high')
-      y_value = tide_optimal_max_metres
-    elsif (tide_remaining_or_to == 'remaining' && last_tide.tide_type == 'high') ||
-          (tide_remaining_or_to == 'till good' && last_tide.tide_type == 'low')
-      y_value = tide_optimal_min_metres
-    end
-    blah = (y_value - (tidal_range / 2 + low_tide.height)) / (tidal_range / 2)
-    blah = blah.to_f
-    opt_tide_time = asin(blah) # get x value part 1
-    opt_tide_time += (PI / 2).to_f
-    opt_tide_time /= (2 * PI / tide_period) # get x value part 2
-    opt_tide_time = opt_tide_time * 60 * 60 # transform hours to seconds
-    opt_tide_time = opt_tide_time.round(0) # round to nearest second
-    hours_remaining = (opt_tide_time + last_tide.date_time.localtime.to_i) - Time.zone.now.to_i # get seconds between current time and optimum tide intercept
-    hours_remaining = hours_remaining / 60.round(3) / 60.round(3) # transform seconds to hours
-    hours_remaining
+    # FIXME: REDO THIS METHOD
+    # return 0 unless tide_remaining_or_to
+    # y_value = 0
+    # if (tide_remaining_or_to == 'remaining' && last_tide.tide_type == 'low') ||
+    #    (tide_remaining_or_to == 'till good' && last_tide.tide_type == 'high')
+    #   y_value = tide_optimal_max_metres
+    # elsif (tide_remaining_or_to == 'remaining' && last_tide.tide_type == 'high') ||
+    #       (tide_remaining_or_to == 'till good' && last_tide.tide_type == 'low')
+    #   y_value = tide_optimal_min_metres
+    # end
+    # blah = (y_value - (tidal_range / 2 + low_tide.height)) / (tidal_range / 2)
+    # blah = blah.to_f
+    # opt_tide_time = asin(blah) # get x value part 1
+    # puts("#{opt_tide_time}=opt_tide_time")
+    # opt_tide_time += (PI / 2).to_f
+    # puts("#{opt_tide_time}=opt_tide_time")
+    # opt_tide_time /= (2 * PI / tide_period) # get x value part 2
+    # opt_tide_time = opt_tide_time * 60 * 60 # transform hours to seconds
+    # puts("#{opt_tide_time}=opt_tide_time")
+    # opt_tide_time = opt_tide_time.round(0) # round to nearest second
+    # hours_remaining = (opt_tide_time + last_tide.date_time.localtime.to_i) - Time.zone.now.to_i # get seconds between current time and optimum tide intercept
+    # hours_remaining = hours_remaining / 60.round(3) / 60.round(3) # transform seconds to hours
+    # hours_remaining
+    5
   end
 
   def works_on_all_tides?
@@ -219,11 +228,139 @@ class Spot < ApplicationRecord
       }
     )
 
-    willyweather_location_id = JSON.parse(response)['location']['id'].to_s
+    self.willyweather_location_id = JSON.parse(response)['location']['id'].to_s
     self.save
   end
 
-  def self.sorted_by_current_potential
-    Spot.all.sort_by(&:current_potential).reverse
+  def optimals
+    spot_optimals = {}
+    spot_optimals[:swell] = get_optimal_swell
+    spot_optimals[:wind] = get_optimal_wind
+    spot_optimals[:tide] = get_optimal_tide
+    spot_optimals
+  end
+
+  private
+
+  # TODO: REFACTOR ALL OF THESE, bring size_at_rating here, no need for it inside the Swell model (same for all of these optimals)
+  # TODO: also consider: 1 -moving these methods out for tidiness reasons or 2 - Make Optimals an abstract model with these methods
+
+  def get_optimal_swell
+    swell_in_3_hours = Swell.in_three_hours(id)
+    {
+      size: {
+        type: 'linear',
+        min: swell_size_at_rating(30.0)[:left].round(2),
+        max: swell_size_at_rating(30.0)[:right].round(2),
+        mixed_min: swell_size_at_rating(50.0)[:left].round(2),
+        mixed_max: swell_size_at_rating(50.0)[:right].round(2),
+        optimal_min: swell_optimal_size_min_metres,
+        optimal_max: swell_optimal_size_max_metres,
+        in_3_hours: swell_in_3_hours.size.round(2)
+      },
+      direction: {
+        type: 'direction',
+        min: swell_dir_at_rating(30.0)[:left].round(1),
+        max: swell_dir_at_rating(30.0)[:right].round(1),
+        mixed_min: swell_dir_at_rating(50.0)[:left].round(1),
+        mixed_max: swell_dir_at_rating(50.0)[:right].round(1),
+        optimal_min: normalise_swell_dir[:min_x],
+        optimal_max: normalise_swell_dir[:max_x],
+        in_3_hours: swell_in_3_hours.direction
+      }
+    }
+  end
+
+  def get_optimal_wind
+    wind_in_3_hours = Wind.in_three_hours(id)
+    {
+      speed: {
+        type: 'linear',
+        min: wind_speed_at_rating(30.0)[:left].round(1),
+        max: wind_speed_at_rating(30.0)[:right].round(1),
+        mixed_min: wind_speed_at_rating(50.0)[:left].round(1),
+        mixed_max: wind_speed_at_rating(50.0)[:right].round(1),
+        optimal_min: wind_optimal_strength_min_kmh,
+        optimal_max: wind_optimal_strength_max_kmh,
+        in_3_hours: wind_in_3_hours.speed
+      },
+      direction: {
+        type: 'direction',
+        min: wind_dir_at_rating(30.0)[:left].round(1),
+        max: wind_dir_at_rating(30.0)[:right].round(1),
+        mixed_min: wind_dir_at_rating(50.0)[:left].round(1),
+        mixed_max: wind_dir_at_rating(50.0)[:right].round(1),
+        optimal_min: normalise_wind_dir[:min_x],
+        optimal_max: normalise_wind_dir[:max_x],
+        in_3_hours: wind_in_3_hours.direction
+      }
+    }
+  end
+
+  def get_optimal_tide
+    {
+      height: {
+        type: 'linear',
+        min: tide_at_rating(30.0)[:left].round(1),
+        max: tide_at_rating(30.0)[:right].round(1),
+        mixed_min: tide_at_rating(50.0)[:left].round(1),
+        mixed_max: tide_at_rating(50.0)[:right].round(1),
+        optimal_min: tide_optimal_min_metres,
+        optimal_max: tide_optimal_max_metres,
+        in_3_hours: tide_in_x_hours(3)
+      }
+    }
+  end
+
+  def normalise_wind_dir
+    poseidon_math.normalise_degrees(
+      min_x: wind_optimal_direction_min,
+      max_x: wind_optimal_direction_max
+    )
+  end
+
+  def normalise_swell_dir
+    poseidon_math.normalise_degrees(
+      min_x: swell_optimal_direction_min,
+      max_x: swell_optimal_direction_max
+    )
+  end
+
+  def swell_size_at_rating(rating)
+    poseidon_math.value_given_rating(
+      min_x: swell_optimal_size_min_metres,
+      max_x: swell_optimal_size_max_metres,
+      rating: rating
+    )
+  end
+
+  def swell_dir_at_rating(rating)
+    data = poseidon_math.normalise_degrees(
+      min_x: swell_optimal_direction_min,
+      max_x: swell_optimal_direction_max,
+      rating: rating
+    )
+    poseidon_math.value_given_rating(data)
+  end
+
+  def wind_dir_at_rating(rating)
+    data = poseidon_math.normalise_degrees(
+      min_x: wind_optimal_direction_min,
+      max_x: wind_optimal_direction_max,
+      rating: rating
+    )
+    poseidon_math.value_given_rating(data)
+  end
+
+  def wind_speed_at_rating(rating)
+    poseidon_math.value_given_rating(
+      min_x: wind_optimal_strength_min_kmh,
+      max_x: wind_optimal_strength_max_kmh,
+      rating: rating
+    )
+  end
+
+  def poseidon_math
+    @poseidon_math ||= PoseidonMath.new
   end
 end
