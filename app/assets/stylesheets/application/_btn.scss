@@ -1,18 +1,41 @@
 .btn {
+  display: inline-block;
   background: $secondary-color;
   border-radius: 5px;
-  padding: 12px;
+  padding: 0 12px;
   color: $white;
   text-align: center;
   position: relative;
   font-size: 14px;
   height: 40px;
   line-height: 40px;
+  margin: 12px 12px 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  font-weight: 600;
+  -webkit-box-shadow: $shadow-subtle;
+  -moz-box-shadow: $shadow-subtle;
+  box-shadow: $shadow-subtle;
+  -webkit-transition: background-color 250ms, transform 250ms;
+  transition: background-color 250ms, transform 250ms;
 
   &:hover,
   &:visited,
   &:focus {
     color: $white;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    -webkit-box-shadow: $shadow-raised;
+    -moz-box-shadow: $shadow-raised;
+    box-shadow: $shadow-raised;
+  }
+
+  &.--secondary {
+    background: $white;
+    color: $secondary-color;
+    border: 1px solid $gainsboro;
   }
 
   &.--icon {

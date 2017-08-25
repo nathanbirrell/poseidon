@@ -130,7 +130,8 @@ $success-color: #27AE60;
 $warning-color: #F2994A;
 $info-color: #a0d3e8;
 
-$shadow-subtle: -3px 3px 10px -0px rgba(0,0,0,0.1);
+$shadow-subtle: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+$shadow-raised: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
 
 // We use these to control various global styles
 $body-bg: $ghost;

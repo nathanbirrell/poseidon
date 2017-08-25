@@ -2,6 +2,10 @@
   background-image: image-url('icons/alert-triangle--white.svg');
 }
 
+.--icon-calendar--blue::before {
+  background-image: image-url('icons/calendar--blue.svg');
+}
+
 .--icon-activity::before {
   background-image: image-url('icons/activity.svg');
 }

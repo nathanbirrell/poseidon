@@ -326,6 +326,9 @@ class SpotContainer extends React.Component {
               <a className="btn --icon --icon-alert-triangle--white" href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
                 Get directions
               </a>
+              <a className="btn --secondary --icon --icon-calendar--blue" href="#" target="_blank">
+                Start a plan
+              </a>
               <iframe
                 width="100%"
                 height="250"
