@@ -2,7 +2,7 @@
 
 namespace :forecasts do
   task :update => :environment do
-    Spot.fetch_forecasts
+    Spot.update_forecasts
   end
 
   task :reset => :environment do

@@ -13,41 +13,14 @@
 #
 
 class Wind < WeatherForecast
+  include WillyweatherClient
   # default_scope { order(date_time: :desc) }
   belongs_to :spot
 
-  class << self
-    def fetch_forecasts(spot)
-      response = get_willyweather_forecast(spot, 'wind')
-      location_info = response['location']
-      days = response['forecasts']['wind']['days']
-
-      days.each do |day|
-        forecasts = day['entries']
-        forecasts.each do |forecast|
-          save_wind_forecast_entry(spot.id, forecast, location_info['timeZone'])
-        end
-      end
-    end
-
-    private
-
-    def save_wind_forecast_entry(spot_id, forecast, spot_timezone)
-      Time.zone = spot_timezone # Willyweather provides datetimes in the timezone of the location, we need to parse it into UTC
-      forecast_datetime = Time.zone.parse(forecast['dateTime'])
-      Time.zone = Rails.application.config.time_zone # Reset back to config setting
-
-      wind_record = Wind.where(
-        date_time: forecast_datetime.utc,
-        spot_id: spot_id
-      ).first_or_initialize
-
-      wind_record.speed = forecast['speed']
-      wind_record.direction = forecast['direction']
-      wind_record.direction_text = forecast['directionText']
-
-      wind_record.save
-    end
+  def self.update_forecasts(spot)
+    spot.set_willyweather_location_id_if_needed # TODO - move into WW client too
+    forecasts = WillyweatherClient::WindForecasts.fetch(spot)
+    forecasts.save_entries
   end
 
   def direction_rating
