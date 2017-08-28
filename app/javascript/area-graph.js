@@ -5,12 +5,13 @@ class AreaGraph extends React.Component {
   constructor (props) {
     super(props);
 
-    this.renderGraph = this.renderGraph.bind(this);
     this.updateDimensions = this.updateDimensions.bind(this);
+    this.initGraph = this.initGraph.bind(this);
+    this.renderGraph = this.renderGraph.bind(this);
   }
 
   componentDidMount() {
-    this.renderGraph();
+    this.initGraph();
   }
 
   updateDimensions() {
@@ -21,14 +22,35 @@ class AreaGraph extends React.Component {
     };
   }
 
+  initGraph() {
+    this.svg = d3.select(`#${this.props.targetId}`).append('svg')
+      .attr('preserveAspectRatio','xMinYMin meet')
+      .attr('class', this.props.cssSelector);
+
+    this.renderGraph();
+  }
+
   renderGraph() {
     const graphs = this.props.graphs;
     const dimensions = this.updateDimensions();
 
+    console.log('rendering with ', dimensions);
+
     const x = d3.scaleLinear()
       .rangeRound([dimensions.width, 0]);
+    let height;
+
+    if (this.props.heightRatio) {
+      height = dimensions.width * this.props.heightRatio;
+    } else {
+       height = dimensions.height;
+    }
+
     const y = d3.scaleLinear()
-      .rangeRound([dimensions.height, 0]);
+      .rangeRound([height, 0]);
+    this.svg
+      .attr('viewBox','0 0 '+ dimensions.width +' '+ height);
+
 
     const area = d3.area()
       .curve(d3.curveBasis)
@@ -40,22 +62,15 @@ class AreaGraph extends React.Component {
       .x(function(d, i) { return x(i); })
       .y(function(d) { return y(d); });
 
-    const svg = d3.select(`#${this.props.targetId}`).append('svg')
-      .attr("width", '100%')
-      .attr("height", '100%')
-      .attr('viewBox','0 0 '+Math.min(dimensions.width,dimensions.height)+' '+Math.min(dimensions.width,dimensions.height))
-      .attr('preserveAspectRatio','xMinYMin')
-      .attr('class', this.props.cssSelector);
-
     for (let i = 0, len = graphs.length; i < len; i++) {
-      const g = svg.append("g");
+      const g = this.svg.append("g");
 
       x.domain(d3.extent(graphs[i].yVals, function(d, i) { return i; }));
       // y.domain([0, d3.max(graphs[i].yVals, function(d) { return d; })]);
       y.domain([0, 100]);
       area.y0(y(0));
 
-      if (graphs[i].area) {
+      if (graphs[i].area.show) {
         g.append('path')
           .datum(graphs[i].yVals)
           .attr('fill', graphs[i].color || this.props.colors[i])
@@ -63,7 +78,7 @@ class AreaGraph extends React.Component {
           .attr("d", area);
       }
 
-      if (graphs[i].line) {
+      if (graphs[i].line.show) {
         g.append('path')
           .datum(graphs[i].yVals)
           .attr('stroke', graphs[i].color || this.props.colors[i])
@@ -92,6 +107,7 @@ AreaGraph.defaultProps = {
   cssSelector: null,
   graphs: null,
   colors: ['#2278F1', '#27AE60', '#F2994A'],
+  heightRatio: null,
 }
 
 AreaGraph.propTypes = {
@@ -99,6 +115,7 @@ AreaGraph.propTypes = {
   cssSelector: PropTypes.string,
   graphs: PropTypes.array.isRequired,
   colors: PropTypes.array,
+  heightRatio: PropTypes.number,
 }
 
 export default AreaGraph;

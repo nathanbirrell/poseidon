@@ -52,36 +52,13 @@ class SpotTimeSlider extends React.Component {
               {
                 yVals: [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100],
                 line: {
-                  show: true,
-                  opacity: 0.5,
+                  show: false,
                 },
                 area: {
                   show: true,
-                  opacity: 0.25,
+                  opacity: 0.18,
                 }
-              },
-              {
-                yVals: [30, 60, 20, 30, 80, 70, 65, 60, 10, 40, 50, 20],
-                line: {
-                  show: true,
-                  opacity: 0.5,
-                },
-                area: {
-                  show: true,
-                  opacity: 0.25,
-                }
-              },
-              {
-                yVals: [10, 30, 20, 40, 0, 15, 35, 40, 35, 15, 10, 0],
-                line: {
-                  show: true,
-                  opacity: 0.5,
-                },
-                area: {
-                  show: true,
-                  opacity: 0.25,
-                }
-              },
+              }
             ]}
           />
         </div>

@@ -109,12 +109,99 @@ class SpotContainer extends React.Component {
           }
         ]}/>
         <div id="forecast-section" className="row">
-          <div className="small-12 columns">
-            <h3>Forecast</h3>
-            <div id="forecast-graph" style={{height: '200px', width: '370px', position: 'relative', display: 'inline-block'}} />
+          <h3>Forecast</h3>
+          <div className="small-12 medium-6 large-4 columns">
+            <div id="forecast-graph-1" className="forecast-graph-container"/>
             <AreaGraph
+              heightRatio={0.2}
               cssSelector='forecast-graph'
-              targetId='forecast-graph'
+              targetId='forecast-graph-1'
+              graphs={[
+                {
+                  yVals: [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100],
+                  line: {
+                    show: true,
+                    opacity: 0.5,
+                  },
+                  area: {
+                    show: true,
+                    opacity: 0.25,
+                  }
+                },
+                {
+                  yVals: [30, 60, 20, 30, 80, 70, 65, 60, 10, 40, 50, 20],
+                  line: {
+                    show: true,
+                    opacity: 0.5,
+                  },
+                  area: {
+                    show: true,
+                    opacity: 0.25,
+                  }
+                },
+                {
+                  yVals: [10, 30, 20, 40, 0, 15, 35, 40, 35, 15, 10, 0],
+                  line: {
+                    show: true,
+                    opacity: 0.5,
+                  },
+                  area: {
+                    show: true,
+                    opacity: 0.25,
+                  }
+                },
+              ]}
+            />
+          </div>
+          <div className="small-12 medium-6 large-4 columns">
+            <div id="forecast-graph-2" className="forecast-graph-container"/>
+            <AreaGraph
+              heightRatio={0.2}
+              cssSelector='forecast-graph'
+              targetId='forecast-graph-2'
+              graphs={[
+                {
+                  yVals: [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100],
+                  line: {
+                    show: true,
+                    opacity: 0.5,
+                  },
+                  area: {
+                    show: true,
+                    opacity: 0.25,
+                  }
+                },
+                {
+                  yVals: [30, 60, 20, 30, 80, 70, 65, 60, 10, 40, 50, 20],
+                  line: {
+                    show: true,
+                    opacity: 0.5,
+                  },
+                  area: {
+                    show: true,
+                    opacity: 0.25,
+                  }
+                },
+                {
+                  yVals: [10, 30, 20, 40, 0, 15, 35, 40, 35, 15, 10, 0],
+                  line: {
+                    show: true,
+                    opacity: 0.5,
+                  },
+                  area: {
+                    show: true,
+                    opacity: 0.25,
+                  }
+                },
+              ]}
+            />
+          </div>
+          <div className="small-12 medium-6 large-4 columns">
+            <div id="forecast-graph-3" className="forecast-graph-container"/>
+            <AreaGraph
+              heightRatio={0.2}
+              cssSelector='forecast-graph'
+              targetId='forecast-graph-3'
               graphs={[
                 {
                   yVals: [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100],

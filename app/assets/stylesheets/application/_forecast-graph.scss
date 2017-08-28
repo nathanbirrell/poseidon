@@ -1,0 +1,15 @@
+.forecast-graph-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 20%; /* aspect ratio */
+  vertical-align: top;
+  overflow: hidden;
+
+  .forecast-graph {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

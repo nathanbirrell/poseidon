@@ -59,7 +59,10 @@
     position: relative;
 
     @media #{$medium-up} {
-      padding: 12px 24px;
+      width: -webkit-calc(100% - 154px);
+      width: -moz-calc(100% - 154px);
+      width: calc(100% - 154px);
+      margin: 0 24px;
     }
 
     .input {
