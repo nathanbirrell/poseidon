@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import AreaGraph from './area-graph';
+
 const myData = [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100];
 
 class SpotTimeSlider extends React.Component {
@@ -10,51 +12,7 @@ class SpotTimeSlider extends React.Component {
       value: this.props.value,
     };
 
-    this.initGraph = this.initGraph.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentDidMount() {
-    this.initGraph();
-  }
-
-  initGraph() {
-    var width = 271,
-      height = 60;
-
-    var svg = d3.select('#time-slider__input').append('svg')
-      .attr("width", '100%')
-      .attr("height", '100%')
-      .attr('viewBox','0 0 '+Math.min(width,height)+' '+Math.min(width,height))
-      .attr('preserveAspectRatio','xMinYMin')
-      .attr('class', 'time-slider__graph');
-
-    var g = svg.append("g");
-
-    var x = d3.scaleLinear()
-      .rangeRound([width, 0]);
-    var y = d3.scaleLinear()
-      .rangeRound([height, 0]);
-
-    var area = d3.area()
-      .curve(d3.curveBasis)
-      .x(function(d, i) { return x(i); })
-      .y1(function(d) { return y(d); });
-
-    var line = d3.line()
-      .curve(d3.curveBasis)
-      .x(function(d, i) { return i; })
-      .y(function(d) { return y(d); });
-
-
-    x.domain(d3.extent(myData, function(d, i) { return i; }));
-    y.domain([0, d3.max(myData, function(d) { return d; })]);
-    area.y0(y(0));
-
-    g.append("path")
-        .datum(myData)
-        .attr("fill", "#2278F1")
-        .attr("d", area);
   }
 
   handleChange(event) {
@@ -86,6 +44,46 @@ class SpotTimeSlider extends React.Component {
             value={this.state.value}
             onChange={this.handleChange}>
           </input>
+          <div id="time-slider-graph-container" className="time-slider-graph-container" />
+          <AreaGraph
+            cssSelector='time-slider-graph'
+            targetId='time-slider-graph-container'
+            graphs={[
+              {
+                yVals: [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100],
+                line: {
+                  show: true,
+                  opacity: 0.5,
+                },
+                area: {
+                  show: true,
+                  opacity: 0.25,
+                }
+              },
+              {
+                yVals: [30, 60, 20, 30, 80, 70, 65, 60, 10, 40, 50, 20],
+                line: {
+                  show: true,
+                  opacity: 0.5,
+                },
+                area: {
+                  show: true,
+                  opacity: 0.25,
+                }
+              },
+              {
+                yVals: [10, 30, 20, 40, 0, 15, 35, 40, 35, 15, 10, 0],
+                line: {
+                  show: true,
+                  opacity: 0.5,
+                },
+                area: {
+                  show: true,
+                  opacity: 0.25,
+                }
+              },
+            ]}
+          />
         </div>
         <div className="time-slider__value --icon-chevron-down--iron">
           {this.showTime(this.state.value)}

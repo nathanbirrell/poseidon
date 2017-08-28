@@ -9,6 +9,7 @@ import SpotBanner from './spot-banner';
 import SpotToolbar from './spot-toolbar';
 import SpotInfoCard from './spot-info-card';
 import SpotTimeSlider from './spot-time-slider';
+import AreaGraph from './area-graph';
 
 class SpotContainer extends React.Component {
   constructor (props) {
@@ -107,6 +108,51 @@ class SpotContainer extends React.Component {
             label: 'History',
           }
         ]}/>
+        <div id="forecast-section" className="row">
+          <div className="small-12 columns">
+            <h3>Forecast</h3>
+            <div id="forecast-graph" style={{height: '200px', width: '370px', position: 'relative', display: 'inline-block'}} />
+            <AreaGraph
+              cssSelector='forecast-graph'
+              targetId='forecast-graph'
+              graphs={[
+                {
+                  yVals: [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100],
+                  line: {
+                    show: true,
+                    opacity: 0.5,
+                  },
+                  area: {
+                    show: true,
+                    opacity: 0.25,
+                  }
+                },
+                {
+                  yVals: [30, 60, 20, 30, 80, 70, 65, 60, 10, 40, 50, 20],
+                  line: {
+                    show: true,
+                    opacity: 0.5,
+                  },
+                  area: {
+                    show: true,
+                    opacity: 0.25,
+                  }
+                },
+                {
+                  yVals: [10, 30, 20, 40, 0, 15, 35, 40, 35, 15, 10, 0],
+                  line: {
+                    show: true,
+                    opacity: 0.5,
+                  },
+                  area: {
+                    show: true,
+                    opacity: 0.25,
+                  }
+                },
+              ]}
+            />
+          </div>
+        </div>
         <div id="current-section" className="row">
           <SpotInfoCard
             title='Swell'
@@ -338,11 +384,6 @@ class SpotContainer extends React.Component {
                 allowFullScreen>
               </iframe>
             </div>
-          </div>
-        </div>
-        <div id="forecast-section" className="row">
-          <div className="large-12 columns">
-            <h3>FORECASTS COMING SOON</h3>
           </div>
         </div>
         <div id="history-section" className="row">

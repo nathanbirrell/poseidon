@@ -7,15 +7,6 @@
   border-top: 1px solid $iron;
   z-index: 999;
 
-  &__graph {
-    position: absolute;
-    top: 0;
-    left: 14px;
-    opacity: 0.18;
-    z-index: 1;
-    pointer-events: none;
-  }
-
   &__value {
     display: inline-block;
     padding: 12px;
@@ -58,13 +49,13 @@
 
   &__input {
     display: inline-block;
-    width: -webkit-calc(100% - 105px);
-    width: -moz-calc(100% - 105px);
-    width: calc(100% - 105px);
-    padding: 12px;
+    width: -webkit-calc(100% - 130px);
+    width: -moz-calc(100% - 130px);
+    width: calc(100% - 130px);
+    margin: 0 12px;
+    padding-top: 15px;
     vertical-align: middle;
     height: 60px;
-    margin-bottom: -6px;
     position: relative;
 
     @media #{$medium-up} {
@@ -73,6 +64,16 @@
 
     .input {
       z-index: 2;
+    }
+
+    .time-slider-graph-container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      pointer-events: none;
     }
 
     // OVERRIDE DEFAULT STYLES
@@ -112,6 +113,7 @@
       cursor: pointer;
       margin-top: -8px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
       box-shadow: $shadow-subtle; /* Add cool effects to your sliders! */
+      opacity: 1;
     }
 
     /* All the same stuff for Firefox */
@@ -123,6 +125,7 @@
       border-radius: 18px;
       background: $secondary-color;
       cursor: pointer;
+      opacity: 1;
     }
 
     /* All the same stuff for IE */
@@ -134,6 +137,7 @@
       border-radius: 18px;
       background: $secondary-color;
       cursor: pointer;
+      opacity: 1;
     }
 
     // STYLE TRACK
@@ -141,21 +145,19 @@
       width: 100%;
       height: 4px;
       cursor: pointer;
-      box-shadow: $shadow-subtle;
-      background: $iron;
+      background: rgba(245, 245, 245, 0.6);
       border-radius: 2px;
     }
 
     input[type=range]:focus::-webkit-slider-runnable-track {
-      background: $iron;
+      background: rgba(245, 245, 245, 0.6);
     }
 
     input[type=range]::-moz-range-track {
       width: 100%;
       height: 4px;
       cursor: pointer;
-      box-shadow: $shadow-subtle;
-      background: $iron;
+      background: rgba(245, 245, 245, 0.6);
       border-radius: 2px;
     }
 
@@ -169,20 +171,18 @@
       color: transparent;
     }
     input[type=range]::-ms-fill-lower {
-      background: $iron;
+      background: rgba(245, 245, 245, 0.6);
       border-radius: 2.6px;
-      box-shadow: $shadow-subtle;
     }
     input[type=range]:focus::-ms-fill-lower {
-      background: $iron;
+      background: rgba(245, 245, 245, 0.6);
     }
     input[type=range]::-ms-fill-upper {
-      background: $iron;
+      background: rgba(245, 245, 245, 0.6);
       border-radius: 2.6px;
-      box-shadow: $shadow-subtle;
     }
     input[type=range]:focus::-ms-fill-upper {
-      background: $iron;
+      background: rgba(245, 245, 245, 0.6);
     }
   }
 }
