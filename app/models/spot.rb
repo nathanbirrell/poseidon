@@ -243,7 +243,6 @@ class Spot < ApplicationRecord
 
   private
 
-  # TODO: REFACTOR ALL OF THESE, bring size_at_rating here, no need for it inside the Swell model (same for all of these optimals)
   # TODO: also consider: 1 -moving these methods out for tidiness reasons or 2 - Make Optimals an abstract model with these methods
 
   def get_optimal_swell
