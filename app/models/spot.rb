@@ -60,19 +60,19 @@ class Spot < ApplicationRecord
 
   # get latest model readings
   def current_swell
-    Swell.current(id)
+    swells.current
   end
 
   def current_wind
-    Wind.current(id)
+    winds.current
   end
 
   def last_tide
-    Tide.last_tide(id)
+    tides.last_tide
   end
 
   def next_tide
-    Tide.next_tide(id)
+    tides.next_tide
   end
 
   def low_tide
