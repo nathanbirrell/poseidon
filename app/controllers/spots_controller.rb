@@ -1,8 +1,8 @@
 class SpotsController < ApplicationController
-  before_action :set_spot, only: %i[show edit update destroy]
+  before_action :set_spot, only: %i[show edit update destroy forecasts]
   before_action :set_region, only: [:show]
-  before_action :set_forecasts, only: [:show]
-  layout 'spot', :only => [ :show ]
+
+  layout 'spot', :only => [:show]
 
   # GET /spots
   # GET /spots.json
@@ -69,6 +69,15 @@ class SpotsController < ApplicationController
     end
   end
 
+  # GET /spots/1/forecasts.json
+  def forecasts
+    @forecasts = {
+      swells: @spot.swells.five_day_forecast,
+      winds: @spot.winds.five_day_forecast,
+      tides: @spot.tides.five_day_forecast
+    }
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -110,11 +119,5 @@ class SpotsController < ApplicationController
       :weighting_tide,
       :wave_model_size_coefficient
     )
-  end
-
-  def set_forecasts
-    @forecasts_swells = @spot.swells.five_day_forecast(@spot.id)
-    @forecasts_winds = @spot.winds.five_day_forecast(@spot.id)
-    @forecasts_tides = @spot.tides.five_day_forecast(@spot.id)
   end
 end
