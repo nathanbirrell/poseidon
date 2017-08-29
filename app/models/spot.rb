@@ -234,10 +234,15 @@ class Spot < ApplicationRecord
   end
 
   def forecasts
+    swell_forecasts = swells.five_day_forecast
+    datetimes = swell_forecasts.pluck(:date_time)
+    wind_forecasts = winds.where(date_time: datetimes)
+    tide_forecasts = [] # TODO - create an abstract current tide model and pop it in here (into tide_forecasts)
+
     {
-      swells: swells.five_day_forecast,
-      winds: winds.five_day_forecast,
-      tides: tides.five_day_forecast
+      swells: swell_forecasts,
+      winds: wind_forecasts,
+      tides: tide_forecasts
     }
   end
 
