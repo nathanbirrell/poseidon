@@ -247,7 +247,7 @@ class Spot < ApplicationRecord
   # TODO: also consider: 1 -moving these methods out for tidiness reasons or 2 - Make Optimals an abstract model with these methods
 
   def get_optimal_swell
-    swell_in_3_hours = Swell.in_three_hours(id)
+    swell_in_3_hours = swells.in_three_hours
     {
       size: {
         type: 'linear',
@@ -273,7 +273,7 @@ class Spot < ApplicationRecord
   end
 
   def get_optimal_wind
-    wind_in_3_hours = Wind.in_three_hours(id)
+    wind_in_3_hours = winds.in_three_hours
     {
       speed: {
         type: 'linear',
