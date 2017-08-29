@@ -233,6 +233,14 @@ class Spot < ApplicationRecord
     self.save
   end
 
+  def forecasts
+    {
+      swells: swells.five_day_forecast,
+      winds: winds.five_day_forecast,
+      tides: tides.five_day_forecast
+    }
+  end
+
   def optimals
     spot_optimals = {}
     spot_optimals[:swell] = get_optimal_swell

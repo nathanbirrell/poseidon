@@ -71,11 +71,7 @@ class SpotsController < ApplicationController
 
   # GET /spots/1/forecasts.json
   def forecasts
-    @forecasts = {
-      swells: @spot.swells.five_day_forecast,
-      winds: @spot.winds.five_day_forecast,
-      tides: @spot.tides.five_day_forecast
-    }
+    @forecasts = @spot.forecasts
   end
 
   private
