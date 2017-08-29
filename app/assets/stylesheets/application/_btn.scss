@@ -30,12 +30,21 @@
     -webkit-box-shadow: $shadow-raised;
     -moz-box-shadow: $shadow-raised;
     box-shadow: $shadow-raised;
+    background-color: lighten($secondary-color, 3%);
+  }
+
+  &:active {
+    transform: translateY(1px);
   }
 
   &.--secondary {
     background: $white;
     color: $secondary-color;
     border: 1px solid $smoke;
+
+    &:hover {
+      color: lighten($secondary-color, 10%);
+    }
   }
 
   &.--icon {
