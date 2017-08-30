@@ -44,18 +44,16 @@ class Spot < ApplicationRecord
 
   validates :name, presence: true
 
-  class << self
-    def update_forecasts
-      Spot.all.each do |spot|
-        Swell.update_forecasts(spot)
-        Wind.update_forecasts(spot)
-        Tide.update_forecasts(spot)
-      end
+  def self.update_forecasts
+    Spot.all.each do |spot|
+      Swell.update_forecasts(spot)
+      Wind.update_forecasts(spot)
+      Tide.update_forecasts(spot)
     end
+  end
 
-    def sorted_by_current_potential
-      Spot.all.sort_by(&:current_potential).reverse
-    end
+  def self.sorted_by_current_potential
+    Spot.all.sort_by(&:current_potential).reverse
   end
 
   # get latest model readings
