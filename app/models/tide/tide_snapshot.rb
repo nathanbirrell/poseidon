@@ -1,14 +1,98 @@
 class Tide
   class TideSnapshot
-    attr_reader :date_time, :height, :state, :spot_id
+    include Math
 
-    def initialize(date_time, :spot_id)
-      tide_before = tides.tide_before(date_time)
-      tide_after = tides.tide_after(date_time)
+    attr_reader :date_time
+    attr_reader :spot_id
+    attr_reader :height
+    attr_reader :state
+    attr_reader :tide_before
+    attr_reader :tide_after
+    attr_reader :low_tide
+    attr_reader :high_tide
+    attr_reader :height_in_x_hours
+
+    def initialize(date_time, spot_id)
       @date_time = date_time
       @spot_id = spot_id
-      # TODO - Calculate height
-      # TODO - bring current-tide-related methods into here
+      @tide_before = Tide.tide_before(date_time, spot_id)
+      @tide_after = Tide.tide_after(date_time, spot_id)
+      set_tidal_range
+      set_period
+      set_height
+      set_state
+      set_shift_rate
+      # TODO: bring current-tide-related methods into here
     end
+
+    # Try not to use for more than 6 hours, we will have new data by then anyway
+    def height_in_x_hours(hours)
+      tide_in_x = 0
+      if @tide_before.tide_type == 'low'
+        tide_in_x = (@tidal_range / 2) * sin((2 * PI / @tide_period) * tide_delta_time(hours) - PI / 2) + (@tidal_range / 2 + low_tide.height)
+      elsif @tide_before.tide_type == 'high'
+        tide_in_x = (@tidal_range / 2) * sin((2 * PI / @tide_period) * tide_delta_time(hours) + PI / 2) + (@tidal_range / 2 + low_tide.height)
+      end
+      tide_in_x.round(2)
+    end
+
+    # convenience methods to determine and return which tide is low/high
+    def low_tide
+      @tide_before.height < @tide_after.height ? @tide_before : @tide_after
+    end
+    def high_tide
+      @tide_before.height > @tide_after.height ? @tide_before : @tide_after
+    end
+
+    def to_builder
+      Jbuilder.new do |tide_snapshot|
+        tide_snapshot.date_time date_time
+        tide_snapshot.height height
+        tide_snapshot.state state
+      end
+    end
+
+    private
+
+    def set_tidal_range
+      @tidal_range ||= high_tide.height - low_tide.height
+    end
+
+    def set_period
+      period = @tide_after.date_time.localtime.to_i - @tide_before.date_time.localtime.to_i
+      (period /= 60.0).to_f
+      (period /= 60.0).to_f # TODO: ask Taylor if this needs to be done twice ??
+      period *= 2
+      @tide_period = period.round(2)
+    end
+
+    def set_height
+      @height = height_in_x_hours(0)
+    end
+
+    def set_state
+      @state = 'INCOMING' if @tide_before.tide_type == 'low'
+      @state = 'OUTGOING' if @tide_before.tide_type == 'high'
+    end
+
+    def tide_delta_time(forecast_hours)
+      # TODO: I think we should use Time.current below
+      delta_time = (Time.zone.now + forecast_hours.hours).to_i - @tide_before.date_time.localtime.to_i
+      (delta_time /= 60.0).to_f
+      (delta_time /= 60.0).to_f # TODO: ask Taylor if this needs to be done twice ??
+      delta_time.round(3)
+    end
+
+    def set_shift_rate
+      vals = %w[slow medium fast fast medium slow]
+      sixth = ((tide_delta_time(0) / (@tide_period / 2)) / (1 / 6)).floor
+      @shift_rate = vals[sixth]
+    end
+
+    # TODO: implement or delete this, depending on whether it gets used or not
+    # def time_till_next_tide_hours
+    #   time = ((next_tide.date_time.localtime.to_i - Time.zone.now.to_i) / 60 / 60)
+    #   time.round(3)
+    # end
   end
 end

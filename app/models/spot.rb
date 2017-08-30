@@ -44,6 +44,14 @@ class Spot < ApplicationRecord
 
   validates :name, presence: true
 
+  attr_reader :current_swell
+  attr_reader :current_wind
+  attr_reader :current_tide_snapshot
+  attr_reader :last_tide
+  attr_reader :next_tide
+  attr_reader :next_high_tide
+  attr_reader :next_low_tide
+
   def self.update_forecasts
     Spot.all.each do |spot|
       Swell.update_forecasts(spot)
@@ -56,88 +64,26 @@ class Spot < ApplicationRecord
     Spot.all.sort_by(&:current_potential).reverse
   end
 
-  def current_swell
-    swells.current
-  end
-
-  def current_wind
-    winds.current
-  end
-
-  def last_tide
-    tides.last_tide
-  end
-
-  def next_tide
-    tides.next_tide
-  end
-
-  def low_tide
-    last_tide.height < next_tide.height ? last_tide : next_tide
-  end
-
-  def high_tide
-    last_tide.height > next_tide.height ? last_tide : next_tide
-  end
-
-  def tidal_range
-    high_tide.height - low_tide.height
-  end
-
-  def tide_period
-    period = next_tide.date_time.localtime.to_i - last_tide.date_time.localtime.to_i
-    (period /= 60.0).to_f
-    (period /= 60.0).to_f
-    period *= 2
-    period.round(2)
-  end
-
-  def tide_delta_time(forecast_hrs)
-    delta_time = (Time.zone.now + forecast_hrs.hours).to_i - last_tide.date_time.localtime.to_i
-    (delta_time /= 60.0).to_f
-    (delta_time /= 60.0).to_f
-    delta_time.round(3)
-  end
-
-  def time_till_next_tide_hours
-    time = ((next_tide.date_time.localtime.to_i - Time.zone.now.to_i) / 60 / 60)
-    time.round(3)
-  end
-
-  # Try not to use for more than 6 hours, we will have new data by then anyway
-  def tide_in_x_hours(hours)
-    if last_tide.tide_type == 'low'
-      tide_in_x = (tidal_range / 2) * sin((2 * PI / tide_period) * tide_delta_time(hours) - PI / 2) + (tidal_range / 2 + low_tide.height)
-    elsif last_tide.tide_type == 'high'
-      tide_in_x = (tidal_range / 2) * sin((2 * PI / tide_period) * tide_delta_time(hours) + PI / 2) + (tidal_range / 2 + low_tide.height)
-    end
-    tide_in_x.round(2)
-  end
-
-  def tide_shift_rate
-    vals = %w[slow medium fast fast medium slow]
-    sixth = ((tide_delta_time(0) / (tide_period / 2)) / (1 / 6)).floor
-    vals[sixth]
-  end
-
-  def current_tide_height
-    tide_in_x_hours(0)
-  end
-
-  def rate_of_change_tide
-    tide_in_x_hours(3) - current_tide_height
+  after_initialize do |spot|
+    @current_swell = swells.current
+    @current_wind = winds.current
+    @current_tide_snapshot = tides.current_snapshot(id)
+    @last_tide = @current_tide_snapshot.tide_before
+    @next_tide = @current_tide_snapshot.tide_after
+    @next_high_tide = @current_tide_snapshot.high_tide
+    @next_low_tide = @current_tide_snapshot.low_tide
   end
 
   def tide_remaining_or_to
     output = 'too_far_out'
     if current_tide_height.between?(tide_optimal_min_metres, tide_optimal_max_metres)
-      if (last_tide.tide_type == 'low' && next_tide.height > tide_optimal_max_metres) ||
-         (last_tide.tide_type == 'high' && next_tide.height < tide_optimal_min_metres)
+      if (@last_tide.tide_type == 'low' && @next_tide.height > tide_optimal_max_metres) ||
+         (@last_tide.tide_type == 'high' && @next_tide.height < tide_optimal_min_metres)
         output = 'remaining'
       end
     else
-      if (last_tide.tide_type == 'low' && next_tide.height > tide_optimal_min_metres) ||
-         (last_tide.tide_type == 'high' && next_tide.height < tide_optimal_max_metres)
+      if (@last_tide.tide_type == 'low' && @next_tide.height > tide_optimal_min_metres) ||
+         (@last_tide.tide_type == 'high' && @next_tide.height < tide_optimal_max_metres)
         output = 'till good'
       end
     end
@@ -162,15 +108,15 @@ class Spot < ApplicationRecord
     poseidon_math.rating_given_x(
       min_x: tide_optimal_max_metres,
       max_x: tide_optimal_min_metres,
-      x_value: current_tide_height
+      x_value: current_tide_snapshot.height
     )
   end
 
   def current_potential
     # calc aggregate potential rating based on tide/wind/swell (as a percentage)
     aggregate = 0.0
-    aggregate += current_swell.rating * weighting_swell
-    aggregate += current_wind.rating * weighting_wind
+    aggregate += @current_swell.rating * weighting_swell
+    aggregate += @current_wind.rating * weighting_wind
     aggregate += current_tide_rating * weighting_tide
     aggregate.round(0)
   end
@@ -199,7 +145,7 @@ class Spot < ApplicationRecord
     swell_forecasts = swells.five_day_forecast
     date_times = swell_forecasts.pluck(:date_time)
     wind_forecasts = winds.where(date_time: date_times) # uses a sql IN method
-    tide_forecasts = tides.get_snapshots(date_times)
+    tide_forecasts = tides.get_snapshots(date_times, id)
 
     {
       swells: swell_forecasts,
@@ -210,9 +156,9 @@ class Spot < ApplicationRecord
 
   def optimals
     spot_optimals = {}
-    spot_optimals[:swell] = get_optimal_swell
-    spot_optimals[:wind] = get_optimal_wind
-    spot_optimals[:tide] = get_optimal_tide
+    spot_optimals[:swell] = optimal_swell
+    spot_optimals[:wind] = optimal_wind
+    spot_optimals[:tide] = optimal_tide
     spot_optimals
   end
 
@@ -220,7 +166,7 @@ class Spot < ApplicationRecord
 
   # TODO: also consider: 1 -moving these methods out for tidiness reasons or 2 - Make Optimals an abstract model with these methods
 
-  def get_optimal_swell
+  def optimal_swell
     swell_in_3_hours = swells.in_three_hours
     {
       size: {
@@ -246,7 +192,7 @@ class Spot < ApplicationRecord
     }
   end
 
-  def get_optimal_wind
+  def optimal_wind
     wind_in_3_hours = winds.in_three_hours
     {
       speed: {
@@ -272,7 +218,7 @@ class Spot < ApplicationRecord
     }
   end
 
-  def get_optimal_tide
+  def optimal_tide
     {
       height: {
         type: 'linear',
@@ -282,7 +228,7 @@ class Spot < ApplicationRecord
         mixed_max: tide_at_rating(50.0)[:right].round(1),
         optimal_min: tide_optimal_min_metres,
         optimal_max: tide_optimal_max_metres,
-        in_3_hours: tide_in_x_hours(3)
+        in_3_hours: current_tide_snapshot.height_in_x_hours(3)
       }
     }
   end
