@@ -87,14 +87,6 @@ class Spot < ApplicationRecord
     high_tide.height - low_tide.height
   end
 
-  # TODO - move me to Spot helper
-  def next_tide_subtext
-    output = "#{next_tide.tide_type} tide "
-    output += "(#{next_tide.date_time.strftime('%p')})"
-    output += " <br />@ #{next_tide.height}m"
-    output
-  end
-
   def tide_period
     period = next_tide.date_time.localtime.to_i - last_tide.date_time.localtime.to_i
     (period /= 60.0).to_f
