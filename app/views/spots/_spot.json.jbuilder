@@ -31,7 +31,6 @@ json.(
     :low_tide,
     :high_tide,
     :tidal_range,
-    :next_tide_subtext,
     :tide_period,
     :time_till_next_tide_hours,
     :tide_shift_rate,
