@@ -6,6 +6,7 @@ class Tide
     attr_reader :spot_id
     attr_reader :height
     attr_reader :state
+    attr_reader :shift_rate
     attr_reader :tide_before
     attr_reader :tide_after
     attr_reader :low_tide
@@ -18,7 +19,7 @@ class Tide
       @tide_before = Tide.tide_before(date_time, spot_id)
       @tide_after = Tide.tide_after(date_time, spot_id)
       set_tidal_range
-      set_period
+      set_tide_period
       set_height
       set_state
       set_shift_rate
@@ -49,6 +50,7 @@ class Tide
         tide_snapshot.date_time date_time
         tide_snapshot.height height
         tide_snapshot.state state
+        tide_snapshot.shift_rate shift_rate
       end
     end
 
@@ -58,7 +60,7 @@ class Tide
       @tidal_range ||= high_tide.height - low_tide.height
     end
 
-    def set_period
+    def set_tide_period
       period = @tide_after.date_time.localtime.to_i - @tide_before.date_time.localtime.to_i
       (period /= 60.0).to_f
       (period /= 60.0).to_f # TODO: ask Taylor if this needs to be done twice ??
@@ -83,7 +85,12 @@ class Tide
       delta_time.round(3)
     end
 
+    # FIXME: THIS METHOD IS RETURNING NULL FOR MOST CASES, see http://localhost:5000/spots/3/forecasts.json
     def set_shift_rate
+      if @tide_period == 0 # when period==0 we get an infinity error
+        @shift_rate = 'slow'
+        return
+      end
       vals = %w[slow medium fast fast medium slow]
       sixth = ((tide_delta_time(0) / (@tide_period / 2)) / (1 / 6)).floor
       @shift_rate = vals[sixth]
