@@ -56,7 +56,6 @@ class Spot < ApplicationRecord
     Spot.all.sort_by(&:current_potential).reverse
   end
 
-  # get latest model readings
   def current_swell
     swells.current
   end
