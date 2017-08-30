@@ -41,7 +41,7 @@
   &.--secondary {
     background: $white;
     color: $secondary-color;
-    border: 1px solid $smoke;
+    border-top: 1px solid $smoke;
 
     &:hover {
       color: lighten($secondary-color, 10%);
