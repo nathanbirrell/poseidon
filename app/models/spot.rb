@@ -155,33 +155,6 @@ class Spot < ApplicationRecord
     output
   end
 
-  def tide_hours_remaining
-    # FIXME: REDO THIS METHOD
-    # return 0 unless tide_remaining_or_to
-    # y_value = 0
-    # if (tide_remaining_or_to == 'remaining' && last_tide.tide_type == 'low') ||
-    #    (tide_remaining_or_to == 'till good' && last_tide.tide_type == 'high')
-    #   y_value = tide_optimal_max_metres
-    # elsif (tide_remaining_or_to == 'remaining' && last_tide.tide_type == 'high') ||
-    #       (tide_remaining_or_to == 'till good' && last_tide.tide_type == 'low')
-    #   y_value = tide_optimal_min_metres
-    # end
-    # blah = (y_value - (tidal_range / 2 + low_tide.height)) / (tidal_range / 2)
-    # blah = blah.to_f
-    # opt_tide_time = asin(blah) # get x value part 1
-    # puts("#{opt_tide_time}=opt_tide_time")
-    # opt_tide_time += (PI / 2).to_f
-    # puts("#{opt_tide_time}=opt_tide_time")
-    # opt_tide_time /= (2 * PI / tide_period) # get x value part 2
-    # opt_tide_time = opt_tide_time * 60 * 60 # transform hours to seconds
-    # puts("#{opt_tide_time}=opt_tide_time")
-    # opt_tide_time = opt_tide_time.round(0) # round to nearest second
-    # hours_remaining = (opt_tide_time + last_tide.date_time.localtime.to_i) - Time.zone.now.to_i # get seconds between current time and optimum tide intercept
-    # hours_remaining = hours_remaining / 60.round(3) / 60.round(3) # transform seconds to hours
-    # hours_remaining
-    5
-  end
-
   def works_on_all_tides?
     # if the optimal range for tide is 0 - 0, assume it works on all tides
     tide_optimal_max_metres.zero? && tide_optimal_min_metres.zero?
