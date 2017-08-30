@@ -235,9 +235,9 @@ class Spot < ApplicationRecord
 
   def forecasts
     swell_forecasts = swells.five_day_forecast
-    datetimes = swell_forecasts.pluck(:date_time)
-    wind_forecasts = winds.where(date_time: datetimes)
-    tide_forecasts = [] # TODO - create an abstract current tide model and pop it in here (into tide_forecasts)
+    date_times = swell_forecasts.pluck(:date_time)
+    wind_forecasts = winds.where(date_time: date_times) # uses a sql IN method
+    tide_forecasts = tides.get_snapshots(date_times)
 
     {
       swells: swell_forecasts,
