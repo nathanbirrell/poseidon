@@ -16,6 +16,22 @@ class SpotInfoCard extends React.Component {
     };
 
     this._renderExpandedSection = this._renderExpandedSection.bind(this);
+    this._renderExpandedSectionButton = this._renderExpandedSectionButton.bind(this);
+  }
+
+  _renderMiniOptimums(d) {
+    if (!d) {
+      return null;
+    }
+    return (
+      d.optimum_vis && d.optimum_vis.map((opt, k) => {
+        return (
+          <div className="--hide-expanded" key={k}>
+            <MiniOptimumVisual data={opt}/>
+          </div>
+        );
+      })
+    );
   }
 
   _renderDatapoints() {
@@ -35,14 +51,6 @@ class SpotInfoCard extends React.Component {
             })}
           </p>
           <p className="sub-text">{d.subtext}</p>
-
-          {d.optimum_vis.map((opt, k) => {
-            return (
-              <div className="--hide-expanded" key={k}>
-                <MiniOptimumVisual data={opt}/>
-              </div>
-            );
-          })}
         </div>
       );
     });
@@ -54,18 +62,26 @@ class SpotInfoCard extends React.Component {
         <div className="row info-card__expanded-section">
           <div className="small-11 small-centered columns">
             {this.props.data.map((d, i) => {
-                return d.optimum_vis.map((opt, k) => {
-                  return (
-                    <div key={k}>
-                      <OptimumVisual data={opt}/>
-                    </div>
-                  );
-                })
+                return (
+                  d.optimum_vis && d.optimum_vis.map((opt, k) => {
+                    return (
+                      <div key={k}>
+                        <OptimumVisual data={opt}/>
+                      </div>
+                    );
+                  })
+                );
             })}
           </div>
         </div>
       );
     }
+  }
+
+  _renderExpandedSectionButton() {
+    return (
+      <a className="link expand-button" onClick={() => {this.toggleExpanded()}}>{this.state.expanded ? 'Show less' : 'Show more'}</a>
+    );
   }
 
   toggleExpanded() {
@@ -99,15 +115,8 @@ class SpotInfoCard extends React.Component {
           </div>
 
           <div className="row info-card__body">
-            <div className="small-4 columns">
-              {this.props.rating < 30 ?
-                <span>BELOW 30</span>
-              : this.props.rating}
-            </div>
             {this._renderDatapoints()}
-            {this._renderExpandedSection()}
           </div>
-          <a className="link expand-button" onClick={() => {this.toggleExpanded()}}>{this.state.expanded ? 'Show less' : 'Show more'}</a>
         </div>
       </div>
     );

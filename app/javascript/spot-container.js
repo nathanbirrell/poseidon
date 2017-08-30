@@ -115,6 +115,16 @@ class SpotContainer extends React.Component {
             date_time={moment(current_swell.date_time).format("h:mm a")}
             data={[
               {
+                title: 'Rating',
+                indicator: SpotUtil.getVerdict(current_swell.rating),
+                prefix: '',
+                values: [{
+                  value: MathUtil.round(current_swell.rating, 0),
+                  unit: '%',
+                }],
+                subtext: `___ potential`,
+              },
+              {
                 title: 'Wave height',
                 indicator: SpotUtil.getVerdict(current_swell.size_rating),
                 prefix: '',
@@ -174,6 +184,16 @@ class SpotContainer extends React.Component {
             rating={MathUtil.round(current_wind.rating, 0)}
             date_time={moment(current_wind.date_time).format("h:mm a")}
             data={[
+              {
+                title: 'Rating',
+                indicator: SpotUtil.getVerdict(current_wind.rating),
+                prefix: '',
+                values: [{
+                  value: MathUtil.round(current_wind.rating, 0),
+                  unit: '%',
+                }],
+                subtext: `___ potential`,
+              },
               {
                 title: 'Wind speed',
                 indicator: SpotUtil.getVerdict(current_wind.speed_rating),
@@ -235,6 +255,16 @@ class SpotContainer extends React.Component {
             date_time={moment().format("h:mm a")}
             data={[
               {
+                title: 'Rating',
+                indicator: SpotUtil.getVerdict(this.state.data.current_tide_rating),
+                prefix: '',
+                values: [{
+                  value: MathUtil.round(this.state.data.current_tide_rating, 0),
+                  unit: '%',
+                }],
+                subtext: `___ potential`,
+              },
+              {
                 title: 'Tide height',
                 indicator: SpotUtil.getVerdict(this.state.data.current_tide_rating),
                 prefix: '',
@@ -264,7 +294,7 @@ class SpotContainer extends React.Component {
                 indicator: '',
                 prefix: '',
                 values: [{
-                  value: moment(this.state.data.next_tide.date_time).format("h:mm a"),
+                  value: moment(this.state.data.next_tide.date_time).format("h:mma"),
                   unit: '',
                 }],
                 subtext: moment(this.state.data.next_tide.date_time).fromNow(),
