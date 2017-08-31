@@ -37,18 +37,22 @@
   &__top span {
     margin: 0;
     display: inline-block;
-    font-size: rem-calc(14);
     text-transform: uppercase;
-    color: $font-dark-primary;
+    line-height: 24px;
   }
 
   &__top h3 {
+    font-size: rem-calc(14);
+    color: $font-dark-primary;
     font-weight: $font-weight-black;
   }
 
   &__top span {
+    font-size: rem-calc(10);
+    color: $font-dark-secondary;
     font-weight: $font-weight-light;
     float: right;
+    margin-left: 6px;
   }
 
   &__body {
