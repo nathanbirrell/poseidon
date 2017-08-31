@@ -107,7 +107,7 @@ class SpotContainer extends React.Component {
                     value: MathUtil.round(current_swell.rating, 0),
                     unit: '%',
                   }],
-                  subtext: `___ potential`,
+                  subtext: `${SpotUtil.getPotential(current_swell.rating)} potential`,
                 },
                 {
                   title: 'Wave height',
@@ -177,7 +177,7 @@ class SpotContainer extends React.Component {
                     value: MathUtil.round(current_wind.rating, 0),
                     unit: '%',
                   }],
-                  subtext: `___ potential`,
+                  subtext: `${SpotUtil.getPotential(current_wind.rating)} potential`,
                 },
                 {
                   title: 'Wind speed',
@@ -247,7 +247,7 @@ class SpotContainer extends React.Component {
                     value: MathUtil.round(this.state.data.current_tide_rating, 0),
                     unit: '%',
                   }],
-                  subtext: `___ potential`,
+                  subtext: `${SpotUtil.getPotential(this.state.data.current_tide_rating)} potential`,
                 },
                 {
                   title: 'Tide height',
