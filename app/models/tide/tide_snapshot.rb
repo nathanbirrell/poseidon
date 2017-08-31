@@ -17,7 +17,7 @@ class Tide
       @date_time = date_time
       @spot_id = spot_id
       @tide_before = Tide.tide_before(date_time, spot_id)
-      @tide_after = Tide.tide_after(date_time, spot_id)
+      @tide_after = Tide.tide_after(date_time + 1.hour, spot_id)
       set_tidal_range
       set_tide_period
       set_height
@@ -79,18 +79,13 @@ class Tide
 
     def tide_delta_time(forecast_hours)
       # TODO: I think we should use Time.current below
-      delta_time = (Time.zone.now + forecast_hours.hours).to_i - @tide_before.date_time.localtime.to_i
+      delta_time = (@date_time + forecast_hours.hours).to_i - @tide_before.date_time.localtime.to_i
       (delta_time /= 60.0).to_f
       (delta_time /= 60.0).to_f # TODO: ask Taylor if this needs to be done twice ??
       delta_time.round(3)
     end
 
-    # FIXME: THIS METHOD IS RETURNING NULL FOR MOST CASES, see http://localhost:5000/spots/3/forecasts.json
     def set_shift_rate
-      if @tide_period == 0 # when period==0 we get an infinity error
-        @shift_rate = 'slow'
-        return
-      end
       vals = %w[slow medium fast fast medium slow]
       sixth = ((tide_delta_time(0) / (@tide_period / 2)) / (1 / 6)).floor
       @shift_rate = vals[sixth]
