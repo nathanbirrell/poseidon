@@ -16,22 +16,31 @@
 
   &.--positive {
     .spot-banner__content {
-      .spot-banner__rating span  {
-        color: $positive;
+      .spot-banner__rating {
+        .rating,
+        .percent {
+          color: $positive;
+        }
       }
     }
   }
   &.--mixed {
     .spot-banner__content {
-      .spot-banner__rating span  {
-        color: $mixed;
+      .spot-banner__rating {
+        .rating,
+        .percent {
+          color: $mixed;
+        }
       }
     }
   }
   &.--negative {
     .spot-banner__content {
-      .spot-banner__rating span {
-        color: $negative;
+      .spot-banner__rating {
+        .rating,
+        .percent {
+          color: $negative;
+        }
       }
     }
   }
@@ -51,7 +60,6 @@
     width: 120px;
     border-radius: 60px;
     background-color: #fefefe;
-    line-height: 62px;
     margin-right: 12px;
     text-align: right;
     margin-left: -57px;
@@ -60,16 +68,32 @@
     box-shadow: $shadow-subtle;
     border-top: 1px solid rgba(0,0,0,.07);
 
-    span {
-      font-size: rem-calc(40);
-      font-weight: 500;
+    .rating {
+      font-size: rem-calc(38);
+      font-weight: $font-weight-normal;
       margin-right: 0px;
+      line-height: 50px;
     }
 
     .percent {
       font-size: rem-calc(18);
+      font-weight: $font-weight-light;
       margin-right: 8px;
       margin-left: 2px;
+      line-height: 50px;
+    }
+
+    .rating-label {
+      font-size: rem-calc(10);
+      text-transform: uppercase;
+      color: $font-dark-secondary;
+      display: block;
+      text-align: left;
+      line-height: 14px;
+      margin-top: -16px;
+      width: 60px;
+      float: right;
+      margin-right: 4px;
     }
 
     @media #{$medium-up} {

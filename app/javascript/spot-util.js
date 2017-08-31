@@ -23,7 +23,7 @@ class SpotUtil {
     if (rating >= 75) {
       output = 'high';
     } else if (rating >= 50) {
-      output = 'medium';
+      output = 'avg';
     } else if (rating < 50) {
       output = 'low';
     }
