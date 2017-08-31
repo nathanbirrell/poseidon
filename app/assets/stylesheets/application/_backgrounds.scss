@@ -1,0 +1,17 @@
+.background {
+  &__primary {
+    background-color: $primary-color;
+  }
+  &__secondary {
+    background-color: $secondary-color;
+  }
+  &__positive {
+    background-color: $positive;
+  }
+  &__mixed {
+    background-color: $mixed;
+  }
+  &__negative {
+    background-color: $negative;
+  }
+}
