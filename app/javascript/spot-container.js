@@ -279,8 +279,8 @@ class SpotContainer extends React.Component {
                   indicator: '',
                   prefix: '',
                   values: [{
-                    value: moment(this.state.data.next_tide.date_time).format("h:mma"),
-                    unit: '',
+                    value: moment(this.state.data.next_tide.date_time).format("h:mm"),
+                    unit: moment(this.state.data.next_tide.date_time).format("a"),
                   }],
                   subtext: moment(this.state.data.next_tide.date_time).fromNow(),
                   optimum_vis: [
