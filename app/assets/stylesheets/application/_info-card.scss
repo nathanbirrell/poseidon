@@ -39,11 +39,11 @@
     display: inline-block;
     font-size: rem-calc(14);
     text-transform: uppercase;
-    color: $black;
+    color: $font-dark-primary;
   }
 
   &__top h3 {
-    font-weight: 500;
+    font-weight: $font-weight-black;
   }
 
   &__top span {
@@ -94,6 +94,7 @@
       }
 
       .main-text {
+        color: $font-dark-primary;
         font-size: 0px;
         font-weight: bold;
         position: relative;
@@ -111,10 +112,11 @@
       }
 
       .sub-text {
+        color: $font-dark-secondary;
         font-size: rem-calc(10);
         font-weight: normal;
         text-transform: uppercase;
-        margin-bottom: 6px;
+        margin-bottom: 0px;
 
         &.title {
           margin-bottom: 0px;
