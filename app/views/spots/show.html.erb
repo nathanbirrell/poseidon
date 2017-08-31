@@ -10,8 +10,8 @@
 <% else %>
   <% if user_signed_in? %>
     <div class="text-center background__secondary">
-      <%= link_to 'EDIT', edit_spot_path(@spot), class: 'btn --secondary' %> <br>
-      <%= link_to 'CLONE', clone_spot_path(@spot), class: 'btn --secondary' %> <br>
+      <%= link_to 'EDIT', edit_spot_path(@spot), class: 'btn --secondary' %>
+      <%= link_to 'CLONE', clone_spot_path(@spot), class: 'btn --secondary' %>
     </div>
   <% end %>
 <% end %>
