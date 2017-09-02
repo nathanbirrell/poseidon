@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resources :users
 
   get 'swells/:id', to: 'swells#show'
+
+  get 'spots/:id/clone', to: 'spots#clone', as: 'clone_spot'
 end
