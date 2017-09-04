@@ -28,6 +28,7 @@ gem 'webpacker', '~> 2.0'
 gem 'figaro'
 
 group :development do
+  gem 'pg'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
@@ -53,13 +54,13 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'sqlite3'
 end
 
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
-  gem 'sqlite3'
   gem 'byebug', platform: :mri
 end
 
