@@ -80,7 +80,7 @@ class Spot < ApplicationRecord
 
   def tide_remaining_or_to
     output = 'too_far_out'
-    if current_tide_height.between?(tide_optimal_min_metres, tide_optimal_max_metres)
+    if @current_tide_snapshot.height.between?(tide_optimal_min_metres, tide_optimal_max_metres)
       if (@last_tide.tide_type == 'low' && @next_tide.height > tide_optimal_max_metres) ||
          (@last_tide.tide_type == 'high' && @next_tide.height < tide_optimal_min_metres)
         output = 'remaining'

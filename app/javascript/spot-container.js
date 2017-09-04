@@ -235,7 +235,7 @@ class SpotContainer extends React.Component {
             />
             <SpotInfoCard
               title='Tide'
-              secondary={SpotUtil.tideDescription(this.state.data.last_tide_type)}
+              secondary={SpotUtil.tideDescription(this.state.data.current_tide_snapshot.tide_before.type)}
               rating={MathUtil.round(this.state.data.current_tide_rating, 0)}
               date_time={moment().format("h:mm a")}
               data={[
@@ -254,10 +254,10 @@ class SpotContainer extends React.Component {
                   indicator: SpotUtil.getVerdict(this.state.data.current_tide_rating),
                   prefix: '',
                   values: [{
-                    value: this.state.data.current_tide_height,
+                    value: this.state.data.current_tide_snapshot.height,
                     unit: 'm',
                   }],
-                  subtext: `${this.state.data.tide_shift_rate} shift`,
+                  subtext: `${this.state.data.current_tide_snapshot.shift_rate} shift`,
                   optimum_vis: [{
                     label: '',
                     type: 'linear',
@@ -267,11 +267,11 @@ class SpotContainer extends React.Component {
                     mix_max: optimals.tide.height.mixed_max,
                     opt_min: optimals.tide.height.optimal_min,
                     opt_max: optimals.tide.height.optimal_max,
-                    value: this.state.data.current_tide_height,
+                    value: this.state.data.current_tide_snapshot.height,
                     unit: "m",
                     roc_value: optimals.tide.height.in_3_hours,
-                    roc: (optimals.tide.height.in_3_hours - this.state.data.current_tide_height),
-                    roc_direction: SpotUtil.getRocDirection(optimals.tide.height.in_3_hours - this.state.data.current_tide_height),
+                    roc: (optimals.tide.height.in_3_hours - this.state.data.current_tide_snapshot.height),
+                    roc_direction: SpotUtil.getRocDirection(optimals.tide.height.in_3_hours - this.state.data.current_tide_snapshot.height),
                   }]
                 },
                 {
@@ -279,10 +279,10 @@ class SpotContainer extends React.Component {
                   indicator: '',
                   prefix: '',
                   values: [{
-                    value: moment(this.state.data.next_tide.date_time).format("h:mm"),
-                    unit: moment(this.state.data.next_tide.date_time).format("a"),
+                    value: moment(this.state.data.current_tide_snapshot.tide_after.date_time).format("h:mm"),
+                    unit: moment(this.state.data.current_tide_snapshot.tide_after.date_time).format("a"),
                   }],
-                  subtext: moment(this.state.data.next_tide.date_time).fromNow(),
+                  subtext: moment(this.state.data.current_tide_snapshot.tide_after.date_time).fromNow(),
                   optimum_vis: [
 
                   ]
