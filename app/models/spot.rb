@@ -65,13 +65,17 @@ class Spot < ApplicationRecord
   end
 
   after_initialize do |spot|
-    @current_swell = swells.current
-    @current_wind = winds.current
-    @current_tide_snapshot = tides.current_snapshot(id)
-    @last_tide = @current_tide_snapshot.tide_before
-    @next_tide = @current_tide_snapshot.tide_after
-    @next_high_tide = @current_tide_snapshot.high_tide
-    @next_low_tide = @current_tide_snapshot.low_tide
+    begin
+      @current_swell = swells.current
+      @current_wind = winds.current
+      @current_tide_snapshot = tides.current_snapshot(spot.id)
+      @last_tide = @current_tide_snapshot.tide_before
+      @next_tide = @current_tide_snapshot.tide_after
+      @next_high_tide = @current_tide_snapshot.high_tide
+      @next_low_tide = @current_tide_snapshot.low_tide
+    rescue NoMethodError => e
+      puts('Missing forecast data for this spot, please run a `rails forecasts:update`')
+    end
   end
 
   def tide_remaining_or_to
