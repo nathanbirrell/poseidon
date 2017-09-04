@@ -1,8 +1,8 @@
 class SpotsController < ApplicationController
-  before_action :set_spot, only: %i[show edit update destroy clone]
+  before_action :set_spot, only: %i[show edit update destroy clone forecasts]
   before_action :set_region, only: [:show]
-  before_action :set_forecasts, only: [:show]
-  layout 'spot', :only => [ :show ]
+
+  layout 'spot', :only => [:show]
 
   # GET /spots
   # GET /spots.json
@@ -69,6 +69,11 @@ class SpotsController < ApplicationController
     end
   end
 
+  # GET /spots/1/forecasts.json
+  def forecasts
+    @forecasts = @spot.forecasts
+  end
+
   # GET /spots/1/clone
   # Redirects to /spots/2/edit (where 2 is the new cloned Spot)
   def clone
@@ -119,11 +124,5 @@ class SpotsController < ApplicationController
       :weighting_tide,
       :wave_model_size_coefficient
     )
-  end
-
-  def set_forecasts
-    @forecasts_swells = @spot.swells.five_day_forecast(@spot.id)
-    @forecasts_winds = @spot.winds.five_day_forecast(@spot.id)
-    @forecasts_tides = @spot.tides.five_day_forecast(@spot.id)
   end
 end
