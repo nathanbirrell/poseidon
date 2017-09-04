@@ -47,7 +47,11 @@ class NOAAClient
             spot_id: @spot.id
         ).first_or_initialize
 
-        swell_record.size = forecast["data"]["Significant_height_of_combined_wind_waves_and_swell_surface"]
+        swell_size = forecast["data"]["Significant_height_of_combined_wind_waves_and_swell_surface"]
+
+        puts("No swell height for #{@spot.name} (#{@spot.id}). Update swell model lat/long.") if swell_size.nil?
+
+        swell_record.size = swell_size
         swell_record.period = forecast["data"]["Primary_wave_mean_period_surface"]
         swell_record.direction = forecast["data"]["Primary_wave_direction_surface"]
         # TODO: we should probably store these fields, need to create the cols first though
