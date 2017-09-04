@@ -107,6 +107,7 @@ class Spot < ApplicationRecord
     )
   end
 
+  # TODO - move into TideSnapshot.rating ?
   def current_tide_rating
     return 100 if works_on_all_tides?
     poseidon_math.rating_given_x(
