@@ -18,6 +18,18 @@ class SpotUtil {
     return output;
   }
 
+  static getPotential(rating) {
+    let output = '';
+    if (rating >= 75) {
+      output = 'high';
+    } else if (rating >= 50) {
+      output = 'avg';
+    } else if (rating < 50) {
+      output = 'low';
+    }
+    return output;
+  }
+
   static metresToFeet(number) {
     return (number * 3.28084);
   }

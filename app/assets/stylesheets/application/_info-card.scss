@@ -37,18 +37,22 @@
   &__top span {
     margin: 0;
     display: inline-block;
-    font-size: rem-calc(14);
     text-transform: uppercase;
-    color: $black;
+    line-height: 24px;
   }
 
   &__top h3 {
-    font-weight: 500;
+    font-size: rem-calc(14);
+    color: $font-dark-primary;
+    font-weight: $font-weight-black;
   }
 
   &__top span {
+    font-size: rem-calc(10);
+    color: $font-dark-secondary;
     font-weight: $font-weight-light;
     float: right;
+    margin-left: 6px;
   }
 
   &__body {
@@ -94,6 +98,7 @@
       }
 
       .main-text {
+        color: $font-dark-primary;
         font-size: 0px;
         font-weight: bold;
         position: relative;
@@ -105,16 +110,17 @@
         }
 
         span.value-unit {
-          font-size: rem-calc(20);
+          font-size: rem-calc(18);
           text-transform: lowercase;
         }
       }
 
       .sub-text {
+        color: $font-dark-secondary;
         font-size: rem-calc(10);
         font-weight: normal;
         text-transform: uppercase;
-        margin-bottom: 6px;
+        margin-bottom: 0px;
 
         &.title {
           margin-bottom: 0px;

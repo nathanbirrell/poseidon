@@ -92,10 +92,15 @@ $font-family-serif: Georgia, Cambria, "Times New Roman", Times, serif;
 $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
 
 // We use these to define default font weights
-$font-weight-normal: 400;
-$font-weight-bold: 600;
-$font-weight-medium: 500;
 $font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+
+$font-dark-primary: #292e31;
+$font-dark-secondary: #6f7c82;
+$font-light-primary: #FFFFFF;
+$font-light-secondary: #F6F6F6;
 
 $white       : #FFFFFF;
 $ghost       : #FAFAFA;
@@ -135,7 +140,7 @@ $shadow-raised: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
 
 // We use these to control various global styles
 $body-bg: $ghost;
-$body-font-color: $jet;
+$body-font-color: $font-dark-secondary;
 $body-font-family: $font-family-sans-serif;
 $body-font-weight: $font-weight-normal;
 $body-font-style: normal;
@@ -849,7 +854,7 @@ $small-font-color: scale-color($header-font-color, $lightness: 35%);
 // $include-html-off-canvas-classes: $include-html-classes;
 
 // $tabbar-bg: $oil;
-$tabbar-bg: $primary-color;
+$tabbar-bg: $secondary-color;
 // $tabbar-height: rem-calc(45);
 // $tabbar-icon-width: $tabbar-height;
 // $tabbar-line-height: $tabbar-height;

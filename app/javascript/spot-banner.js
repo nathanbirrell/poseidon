@@ -27,12 +27,13 @@ class SpotBanner extends React.Component {
         <div className="row spot-banner__content">
           <div className="small-12 columns text-left">
             <div className="spot-banner__rating">
-              <span>{this.props.current_potential}</span>
+              <span className="rating">{this.props.current_potential}</span>
               <span className="percent">%</span>
+              <span className="rating-label">Overall</span>
             </div>
             <div className="spot-banner__details">
-              <h2>{this.props.name}</h2>
-              <span><a href={`/regions/${this.props.region.id}`}>{this.props.region.name}</a>, {this.props.region.state}</span>
+              <h1>{this.props.name}</h1>
+              <span><a href={`/regions/${this.props.region.id}`}>{this.props.region.name}</a>, <a href="#">{this.props.region.state}</a></span>
             </div>
           </div>
         </div>

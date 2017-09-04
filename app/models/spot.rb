@@ -113,6 +113,7 @@ class Spot < ApplicationRecord
   end
 
   def current_potential
+    return 0 if no_forecast_data?
     # calc aggregate potential rating based on tide/wind/swell (as a percentage)
     aggregate = 0.0
     aggregate += @current_swell.rating * weighting_swell
@@ -160,6 +161,10 @@ class Spot < ApplicationRecord
     spot_optimals[:wind] = optimal_wind
     spot_optimals[:tide] = optimal_tide
     spot_optimals
+  end
+
+  def no_forecast_data?
+    !current_swell || !current_wind || !current_tide_rating
   end
 
   private

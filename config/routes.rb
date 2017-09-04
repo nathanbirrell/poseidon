@@ -9,6 +9,6 @@ Rails.application.routes.draw do
 
   # TODO: the same as this but for Winds and Tides too
   get 'swells/:id', to: 'swells#show'
-
   get 'spots/:id/forecasts', to: 'spots#forecasts'
+  get 'spots/:id/clone', to: 'spots#clone', as: 'clone_spot'
 end

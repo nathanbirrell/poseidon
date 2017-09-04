@@ -16,10 +16,12 @@
       <h3 class="columns">Current Conditions</h3>
       <% if @is_collapsed %>
         <% @spots.each do |spot| %>
+          <% next if spot.no_forecast_data? %>
           <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'collapsed', data: 'current'} %>
         <% end %>
       <% else %>
         <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
+          <% next if spot.no_forecast_data? %>
           <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'full', data: 'current'} %>
         <% end %>
       <% end %>
@@ -30,10 +32,12 @@
         <h3 class="columns">Forecasts</h3>
         <% if @is_collapsed %>
           <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
+            <% next if spot.no_forecast_data? %>
             <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'collapsed', data: 'forecast'} %>
           <% end %>
         <% else %>
           <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
+            <% next if spot.no_forecast_data? %>
             <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'full', data: 'forecast'} %>
           <% end %>
           </div>

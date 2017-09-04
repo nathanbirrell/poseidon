@@ -1,5 +1,5 @@
 class SpotsController < ApplicationController
-  before_action :set_spot, only: %i[show edit update destroy forecasts]
+  before_action :set_spot, only: %i[show edit update destroy clone forecasts]
   before_action :set_region, only: [:show]
 
   layout 'spot', :only => [:show]
@@ -72,6 +72,15 @@ class SpotsController < ApplicationController
   # GET /spots/1/forecasts.json
   def forecasts
     @forecasts = @spot.forecasts
+  end
+
+  # GET /spots/1/clone
+  # Redirects to /spots/2/edit (where 2 is the new cloned Spot)
+  def clone
+    spot_clone = @spot.dup
+    spot_clone.name << ' (Clone)'
+    spot_clone.save
+    redirect_to spot_clone, notice: 'Spot was successfully cloned.'
   end
 
   private
