@@ -18,12 +18,15 @@ class Tide
       @spot_id = spot_id
       @tide_before = Tide.tide_before(date_time, spot_id)
       @tide_after = Tide.tide_after(date_time + 1.hour, spot_id)
-      set_tidal_range
-      set_tide_period
-      set_height
-      set_state
-      set_shift_rate
-      # TODO: bring current-tide-related methods into here
+      begin
+        set_tidal_range
+        set_tide_period
+        set_height
+        set_state
+        set_shift_rate
+      rescue
+        puts('Tide snapshot instansiation failed, likely missing tide_before or tide_after records')
+      end
     end
 
     # Try not to use for more than 6 hours, we will have new data by then anyway

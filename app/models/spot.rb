@@ -64,18 +64,15 @@ class Spot < ApplicationRecord
     Spot.all.sort_by(&:current_potential).reverse
   end
 
-  after_initialize do |spot|
-    begin
-      @current_swell = swells.current
-      @current_wind = winds.current
-      @current_tide_snapshot = tides.current_snapshot(spot.id)
-      @last_tide = @current_tide_snapshot.tide_before
-      @next_tide = @current_tide_snapshot.tide_after
-      @next_high_tide = @current_tide_snapshot.high_tide
-      @next_low_tide = @current_tide_snapshot.low_tide
-    rescue NoMethodError => e
-      puts('Missing forecast data for this spot, please run a `rails forecasts:update`')
-    end
+  def retrieve_forecast_data_if_needed
+    return if @current_swell && @current_wind && @current_tide_snapshot
+    @current_swell = swells.current
+    @current_wind = winds.current
+    @current_tide_snapshot = tides.current_snapshot(id)
+    @last_tide = @current_tide_snapshot.tide_before
+    @next_tide = @current_tide_snapshot.tide_after
+    @next_high_tide = @current_tide_snapshot.high_tide
+    @next_low_tide = @current_tide_snapshot.low_tide
   end
 
   def tide_remaining_or_to
@@ -119,6 +116,7 @@ class Spot < ApplicationRecord
 
   def current_potential
     return 0 if no_forecast_data?
+    retrieve_forecast_data_if_needed
     # calc aggregate potential rating based on tide/wind/swell (as a percentage)
     aggregate = 0.0
     aggregate += @current_swell.rating * weighting_swell
@@ -169,7 +167,7 @@ class Spot < ApplicationRecord
   end
 
   def no_forecast_data?
-    !current_swell || !current_wind || !current_tide_rating
+    swells.empty? || winds.empty? || tides.empty?
   end
 
   private
