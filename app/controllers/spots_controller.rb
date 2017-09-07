@@ -1,8 +1,8 @@
 class SpotsController < ApplicationController
-  before_action :set_spot, only: %i[show edit update destroy]
+  before_action :set_spot, only: %i[show edit update destroy clone forecasts]
   before_action :set_region, only: [:show]
-  before_action :set_forecasts, only: [:show]
-  layout 'spot', :only => [ :show ]
+
+  layout 'spot', :only => [:show]
 
   # GET /spots
   # GET /spots.json
@@ -14,9 +14,10 @@ class SpotsController < ApplicationController
   # GET /spots/1
   # GET /spots/1.json
   def show
+    @spot.retrieve_forecast_data_if_needed
     if Rails.env.development? && ENV['SLACK_API_TOKEN']
       slack_client = Slack::Web::Client.new
-      slack_message = "Spot ##{@spot.id}, #{@spot.name}, ran with *Aggregate*: #{@spot.current_potential}%, *Swell* :ocean:: #{@spot.current_swell.rating}%, *Wind* :dash:: #{@spot.current_wind.rating}%, *Tide* :crescent_moon:: #{@spot.current_tide_rating}%"
+      slack_message = "Spot ##{@spot.id}, #{@spot.name}, ran with *Aggregate*: #{@spot.current_potential}%, *Swell* :ocean:: #{@spot.current_swell.rating}%, *Wind* :dash:: #{@spot.current_wind.rating}%, *Tide* :crescent_moon:: #{@spot.current_tide_snapshot.rating}%"
       slack_client.chat_postMessage(channel: '#devbot', text: slack_message, as_user: true)
     end
   end
@@ -69,6 +70,20 @@ class SpotsController < ApplicationController
     end
   end
 
+  # GET /spots/1/forecasts.json
+  def forecasts
+    @forecasts = @spot.forecasts
+  end
+
+  # GET /spots/1/clone
+  # Redirects to /spots/2/edit (where 2 is the new cloned Spot)
+  def clone
+    spot_clone = @spot.dup
+    spot_clone.name << ' (Clone)'
+    spot_clone.save
+    redirect_to spot_clone, notice: 'Spot was successfully cloned.'
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -110,11 +125,5 @@ class SpotsController < ApplicationController
       :weighting_tide,
       :wave_model_size_coefficient
     )
-  end
-
-  def set_forecasts
-    @forecasts_swells = @spot.swells.five_day_forecast(@spot.id)
-    @forecasts_winds = @spot.winds.five_day_forecast(@spot.id)
-    @forecasts_tides = @spot.tides.five_day_forecast(@spot.id)
   end
 end

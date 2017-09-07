@@ -9,9 +9,9 @@
   <p>Please run a <code>rails forecasts:update</code> then refresh.</p>
 <% else %>
   <% if user_signed_in? %>
-    <div class="text-center">
-      Admin actions: <br>
-      <%= link_to 'Edit Spot', edit_spot_path(@spot), class: 'button' %> <br>
+    <div class="text-center background__secondary">
+      <%= link_to 'EDIT', edit_spot_path(@spot), class: 'btn --secondary' %>
+      <%= link_to 'CLONE', clone_spot_path(@spot), class: 'btn --secondary' %>
     </div>
   <% end %>
 <% end %>

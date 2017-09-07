@@ -109,9 +109,7 @@ class SpotInfoCard extends React.Component {
         <div className={"info-card " + (this.state.expanded ? '--expanded' : '')}>
           <div className={`info-card__top --${SpotUtil.getVerdict(this.props.rating)}`}>
             <h3>{this.props.title}</h3>
-            <span className="text-right">
-              {this.props.secondary} @ {this.props.date_time}
-            </span>
+            <span className="text-right">{this.props.secondary} | {this.props.date_time}</span>
           </div>
 
           <div className="row info-card__body">

@@ -23,7 +23,7 @@
               </span>
             </li>
             <li>
-              <i class="indicator --mini --<%= get_verdict(spot.current_tide_rating) %>"></i>
+              <i class="indicator --mini --<%= get_verdict(spot.current_tide_snapshot.rating) %>"></i>
               <span class="spot-sub-rating-group__primary-datapoint"><%= tide_incoming_or_outgoing(spot.last_tide.tide_type) %> <small>Tide</small></span>
             </li>
           </ul>

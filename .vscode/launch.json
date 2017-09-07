@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Rails & webpack server",
+      "type": "Ruby",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "program": "${workspaceRoot}/bin/foreman",
+      "args": [
+        "start"
+      ],
+      "pathToRDebugIDE": "/Users/telstra/.rvm/gems/ruby-2.3.3@poseidon/bin/rdebug-ide",
+      "pathToBundler": "/Users/telstra/.rvm/rubies/ruby-2.3.3/bin/bundler",
+      "useBundler": true,
+      "env": {
+        "PATH": "/Users/telstra/.rvm/gems/ruby-2.3.3@poseidon/bin:/Users/telstra/.rvm/gems/ruby-2.3.3@global/bin:/Users/telstra/.rvm/rubies/ruby-2.3.3/bin:/Users/telstra/.rvm/bin:/usr/local/share/npm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/npm/bin",
+        "GEM_HOME": "/Users/telstra/.rvm/gems/ruby-2.3.3@poseidon",
+        "GEM_PATH": "/Users/telstra/.rvm/gems/ruby-2.3.3@poseidon:/Users/telstra/.rvm/gems/ruby-2.3.3@global",
+        "RUBY_VERSION": "ruby-2.3.3",
+        "MY_RUBY_HOME": "/Users/telstra/.rvm/rubies/ruby-2.3.3",
+        "rvm_bin_path": "/Users/telstra/.rvm/bin",
+        "rvm_prefix": "/Users/telstra",
+        "rvm_path": "/Users/telstra/.rvm",
+        "IRBRC": "/Users/telstra/.rvm/rubies/ruby-2.3.3/.irbrc"
+      }
+    }
+  ]
+}
