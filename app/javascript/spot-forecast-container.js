@@ -34,15 +34,44 @@ class SpotForecastContainer extends React.Component {
     }
 
     const forecasts = this.props.forecasts;
+    const overallRatings = this.getYVals(forecasts.overall_ratings, ['rating']);
     const swellRatings = this.getYVals(forecasts.swells, ['size_rating', 'direction_rating', 'rating']);
     const windRatings = this.getYVals(forecasts.winds, ['speed_rating', 'direction_rating', 'rating']);
     const tideRatings = this.getYVals(forecasts.tides, ['rating']);
+    console.log(overallRatings);
     console.log(swellRatings);
     console.log(windRatings);
     console.log(tideRatings);
 
     return (
       <div id="forecast-section" className="row">
+        <div className="small-12 medium-12 large-12 columns">
+          <div id="forecast-graph-4" className="forecast-graph-container"/>
+          <h3>Overall Rating</h3>
+          <AreaGraph
+            heightRatio={0.25}
+            cssSelector='forecast-graph'
+            targetId='forecast-graph-4'
+            graphs={[
+              {
+                yVals: overallRatings['rating'],
+                line: {
+                  show: true,
+                  opacity: 0.5,
+                },
+                area: {
+                  show: true,
+                  opacity: 0.25,
+                },
+                points: {
+                  show: true,
+                  radius: 1,
+                },
+                color: '#27AE60'
+              },
+            ]}
+          />
+        </div>
         <div className="small-12 medium-6 large-4 columns">
           <div id="forecast-graph-1" className="forecast-graph-container"/>
           <h3>Swell</h3>
