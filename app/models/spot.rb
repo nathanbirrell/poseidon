@@ -117,8 +117,8 @@ class Spot < ApplicationRecord
     # calc aggregate potential rating based on tide/wind/swell (as a percentage)
     aggregate = 0.0
     aggregate += swell.rating * weighting_swell
-    aggregate += swell.rating * weighting_wind
-    aggregate += swell.rating * weighting_tide
+    aggregate += wind.rating * weighting_wind
+    aggregate += tide.rating * weighting_tide
     aggregate
   end
 
@@ -147,8 +147,18 @@ class Spot < ApplicationRecord
     date_times = swell_forecasts.pluck(:date_time)
     wind_forecasts = winds.where(date_time: date_times) # uses a sql IN method
     tide_forecasts = tides.get_snapshots(date_times, self)
+    overall_ratings = []
+
+    date_times.each do |date_time|
+      swell_forecast = swell_forecasts.find { |forecast| date_time == forecast.date_time }
+      wind_forecast = wind_forecasts.find { |forecast| date_time == forecast.date_time }
+      tide_forecast = tide_forecasts.find { |forecast| date_time == forecast.date_time }
+      rating = calculate_potential(swell_forecast, wind_forecast, tide_forecast)
+      overall_ratings << { date_time: date_time, rating: rating }
+    end
 
     {
+      overall_ratings: overall_ratings,
       swells: swell_forecasts,
       winds: wind_forecasts,
       tides: tide_forecasts
