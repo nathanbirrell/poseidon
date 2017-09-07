@@ -21,7 +21,6 @@ json.(
     :current_tide_snapshot,
     :region,
     :works_on_all_tides?,
-    :current_tide_snapshot.rating,
     :current_potential
 )
 
