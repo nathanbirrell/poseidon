@@ -9,6 +9,7 @@ import SpotBanner from './spot-banner';
 import NavigationTabs from './navigation-tabs';
 import SpotInfoCard from './spot-info-card';
 import AreaGraph from './area-graph';
+import SpotAbout from './spot-about';
 import SpotTimeSlider from './spot-time-slider';
 
 class SpotContainer extends React.Component {
@@ -108,10 +109,6 @@ class SpotContainer extends React.Component {
     const optimals = this.state.spot.optimals;
 
     console.log('rendering with selectedTime: ', this.state.selectedTime);
-
-    const mapIframeStyle = {
-      border: '0'
-    };
 
     return(
       <div>
@@ -326,7 +323,6 @@ class SpotContainer extends React.Component {
         : null}
         {this.state.selectedNavItem === this.state.navItems.indexOf('Forecast') ?
         <div id="forecast-section" className="row">
-          <h3>Forecast</h3>
           <div className="small-12 medium-6 large-4 columns">
             <div id="forecast-graph-1" className="forecast-graph-container"/>
             <AreaGraph
@@ -420,71 +416,9 @@ class SpotContainer extends React.Component {
         </div>
         : null}
         {this.state.selectedNavItem === this.state.navItems.indexOf('About') ?
-          <div id="about-section" className="row small-collapse medium-uncollapse">
-            <div className="large-12 columns">
-              <div className="small-12 columns">
-                <h4>About</h4>
-              </div>
-              <div className="small-12 columns">
-                <h5 className="subheader">{this.state.spot.description}</h5>
-                <h4>Optimal conditions:</h4>
-                <table>
-                  <tbody>
-                    <tr>
-                      <th>Factor</th>
-                      <th>Optimal min</th>
-                      <th>Optimal max</th>
-                    </tr>
-                    <tr>
-                      <td><strong>Swell size:</strong></td>
-                      <td>{optimals.swell.size.optimal_min} m</td>
-                      <td>{optimals.swell.size.optimal_max} m</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Swell direction:</strong></td>
-                      <td>{optimals.swell.direction.optimal_min} deg</td>
-                      <td>{optimals.swell.direction.optimal_max} deg</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Wind strength:</strong></td>
-                      <td>{optimals.wind.speed.optimal_min} kph</td>
-                      <td>{optimals.wind.speed.optimal_max} kph</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Wind direction:</strong></td>
-                      <td>{optimals.wind.direction.optimal_min} deg</td>
-                      <td>{optimals.wind.direction.optimal_max} deg</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Tide height:</strong></td>
-                      <td>{optimals.tide.height.optimal_min} m</td>
-                      <td>{optimals.tide.height.optimal_max} m</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p><strong>Season:</strong> {this.state.spot.season}</p>
-                <p><strong>Lat/long: </strong> {this.state.spot.latitude}, {this.state.spot.longitude}</p>
-              </div>
-            </div>
-            <div id="location-view" className="row">
-              <div className="large-12 columns">
-                <a className="btn --icon --icon-alert-triangle--white" href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
-                  Get directions
-                </a>
-                <a className="btn --secondary --icon --icon-calendar--blue" href="#" target="_blank">
-                  Start a plan
-                </a>
-                <iframe
-                  width="100%"
-                  height="250"
-                  frameBorder="0"
-                  style={mapIframeStyle}
-                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDVFmco07GE43aqioYPI5Ccfl_DJlGkBJo&q=loc:${this.state.spot.latitude}+${this.state.spot.longitude}&zoom=15`}
-                  allowFullScreen>
-                </iframe>
-              </div>
-            </div>
-          </div>
+          <SpotAbout
+           data={this.state.spot}
+          />
         : null}
         {this.state.selectedNavItem === this.state.navItems.indexOf('History') ?
         <div id="history-section" className="row">
