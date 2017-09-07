@@ -8,6 +8,7 @@ import SpotUtil from 'spot-util.js';
 import SpotBanner from './spot-banner';
 import NavigationTabs from './navigation-tabs';
 import SpotInfoCard from './spot-info-card';
+import AreaGraph from './area-graph';
 import SpotTimeSlider from './spot-time-slider';
 
 class SpotContainer extends React.Component {
