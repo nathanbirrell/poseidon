@@ -101,10 +101,6 @@ class SpotContainer extends React.Component {
     }
 
     const current_overall_rating =  this.state.forecasts.overall_ratings[this.state.selectedTime];
-    const current_swell = this.state.forecasts.swells[this.state.selectedTime];
-    const current_wind = this.state.forecasts.winds[this.state.selectedTime];
-    const current_tide =  this.state.forecasts.tides[this.state.selectedTime];
-    const optimals = this.state.spot.optimals;
 
     console.log('rendering with selectedTime: ', this.state.selectedTime);
 
