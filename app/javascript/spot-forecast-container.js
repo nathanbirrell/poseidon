@@ -48,6 +48,7 @@ class SpotForecastContainer extends React.Component {
           <h3>Swell</h3>
           <AreaGraph
             heightRatio={0.25}
+            pointRadius={1}
             cssSelector='forecast-graph'
             targetId='forecast-graph-1'
             graphs={[
@@ -61,6 +62,10 @@ class SpotForecastContainer extends React.Component {
                   show: true,
                   opacity: 0.25,
                 },
+                points: {
+                  show: true,
+                  radius: 1,
+                },
                 color: '#27AE60'
               },
               {
@@ -72,6 +77,10 @@ class SpotForecastContainer extends React.Component {
                 area: {
                   show: true,
                   opacity: 0.05,
+                },
+                points: {
+                  show: true,
+                  radius: 1,
                 },
                 color: '#F2994A'
               },
@@ -85,6 +94,10 @@ class SpotForecastContainer extends React.Component {
                   show: true,
                   opacity: 0.05,
                 },
+                points: {
+                  show: true,
+                  radius: 1,
+                },
                 color: '#EB5757'
               },
             ]}
@@ -95,6 +108,7 @@ class SpotForecastContainer extends React.Component {
           <h3>Wind</h3>
           <AreaGraph
             heightRatio={0.25}
+            pointRadius={1}
             cssSelector='forecast-graph'
             targetId='forecast-graph-2'
             graphs={[
@@ -108,6 +122,10 @@ class SpotForecastContainer extends React.Component {
                   show: true,
                   opacity: 0.25,
                 },
+                points: {
+                  show: true,
+                  radius: 1,
+                },
                 color: '#27AE60'
               },
               {
@@ -120,6 +138,10 @@ class SpotForecastContainer extends React.Component {
                   show: true,
                   opacity: 0.05,
                 },
+                points: {
+                  show: true,
+                  radius: 1,
+                },
                 color: '#F2994A'
               },
               {
@@ -131,6 +153,10 @@ class SpotForecastContainer extends React.Component {
                 area: {
                   show: true,
                   opacity: 0.05,
+                },
+                points: {
+                  show: true,
+                  radius: 1,
                 },
                 color: '#EB5757'
               },
@@ -154,6 +180,10 @@ class SpotForecastContainer extends React.Component {
                 area: {
                   show: true,
                   opacity: 0.25,
+                },
+                points: {
+                  show: true,
+                  radius: 1,
                 },
                 color: '#27AE60'
               },

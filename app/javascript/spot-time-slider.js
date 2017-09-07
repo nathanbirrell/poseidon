@@ -57,6 +57,9 @@ class SpotTimeSlider extends React.Component {
                 area: {
                   show: true,
                   opacity: 0.18,
+                },
+                points: {
+                  show: false,
                 }
               }
             ]}

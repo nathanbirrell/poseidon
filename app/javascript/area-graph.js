@@ -53,12 +53,12 @@ class AreaGraph extends React.Component {
 
 
     const area = d3.area()
-      .curve(d3.curveBasis)
+      .curve(d3.curveCardinal)
       .x(function(d, i) { return x(i); })
       .y1(function(d) { return y(d); });
 
     const line = d3.line()
-      .curve(d3.curveBasis)
+      .curve(d3.curveCardinal)
       .x(function(d, i) { return x(i); })
       .y(function(d) { return y(d); });
 
@@ -86,6 +86,17 @@ class AreaGraph extends React.Component {
           .attr('opacity', graphs[i].line.opacity || 0.5)
           .attr("d", line);
       }
+
+      if (graphs[i].points.show) {
+        this.svg.selectAll(".point")
+          .data(graphs[i].yVals)
+          .enter().append("svg:circle")
+          .attr('stroke', graphs[i].points.color || graphs[i].color || this.props.colors[i])
+          .attr('fill', graphs[i].points.color || graphs[i].color || this.props.colors[i])
+          .attr("cx", function(d, i) { return x(i) })
+          .attr("cy", function(d, i) { return y(d) })
+          .attr("r", graphs[i].points.radius);
+        }
     }
   }
 
@@ -108,6 +119,7 @@ AreaGraph.defaultProps = {
   graphs: null,
   colors: ['#2278F1', '#27AE60', '#F2994A'],
   heightRatio: null,
+  pointRadius: 3,
 }
 
 AreaGraph.propTypes = {
@@ -116,6 +128,7 @@ AreaGraph.propTypes = {
   graphs: PropTypes.array.isRequired,
   colors: PropTypes.array,
   heightRatio: PropTypes.number,
+  pointRadius: PropTypes.number,
 }
 
 export default AreaGraph;
