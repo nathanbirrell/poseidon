@@ -5,7 +5,7 @@ import moment from 'moment';
 import MathUtil from 'math-util.js';
 import SpotUtil from 'spot-util.js';
 
-class SpotAbout extends React.Component {
+class SpotAboutContainer extends React.Component {
   render() {
     if (!this.props.data) {
       // PUT LOADING STATE HERE
@@ -88,12 +88,12 @@ class SpotAbout extends React.Component {
   }
 }
 
-SpotAbout.defaultProps = {
+SpotAboutContainer.defaultProps = {
   data: null,
 };
 
-SpotAbout.PropTypes = {
+SpotAboutContainer.PropTypes = {
   data: PropTypes.object,
 };
 
-export default SpotAbout;
+export default SpotAboutContainer;
