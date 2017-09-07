@@ -108,12 +108,18 @@ class Spot < ApplicationRecord
   def current_potential
     return 0 if no_forecast_data?
     retrieve_forecast_data_if_needed
+    aggregate = calculate_potential(@current_swell, @current_wind, @current_tide_snapshot)
+    aggregate.round(0)
+  end
+
+  # TODO: Create a similar method, but for potential_for(date_time)
+  def calculate_potential(swell, wind, tide)
     # calc aggregate potential rating based on tide/wind/swell (as a percentage)
     aggregate = 0.0
-    aggregate += @current_swell.rating * weighting_swell
-    aggregate += @current_wind.rating * weighting_wind
-    aggregate += @current_tide_snapshot.rating * weighting_tide
-    aggregate.round(0)
+    aggregate += swell.rating * weighting_swell
+    aggregate += swell.rating * weighting_wind
+    aggregate += swell.rating * weighting_tide
+    aggregate
   end
 
   def set_willyweather_location_id_if_needed
