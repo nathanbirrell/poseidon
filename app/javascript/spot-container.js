@@ -100,6 +100,7 @@ class SpotContainer extends React.Component {
       );
     }
 
+    const current_overall_rating =  this.state.forecasts.overall_ratings[this.state.selectedTime];
     const current_swell = this.state.forecasts.swells[this.state.selectedTime];
     const current_wind = this.state.forecasts.winds[this.state.selectedTime];
     const current_tide =  this.state.forecasts.tides[this.state.selectedTime];
@@ -110,7 +111,7 @@ class SpotContainer extends React.Component {
     return(
       <div>
         <SpotBanner
-          current_potential={MathUtil.round(this.state.spot.current_potential, 0)}
+          current_potential={MathUtil.round(current_overall_rating.rating, 0)}
           name={this.state.spot.name}
           region={this.state.spot.region}
         />
