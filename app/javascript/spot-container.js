@@ -10,6 +10,7 @@ import NavigationTabs from './navigation-tabs';
 import SpotInfoCard from './spot-info-card';
 import AreaGraph from './area-graph';
 import SpotAbout from './spot-about-container';
+import SpotForecastContainer from './spot-forecast-container';
 import SpotTimeSlider from './spot-time-slider';
 
 class SpotContainer extends React.Component {
@@ -322,98 +323,9 @@ class SpotContainer extends React.Component {
           </div>
         : null}
         {this.state.selectedNavItem === this.state.navItems.indexOf('Forecast') ?
-        <div id="forecast-section" className="row">
-          <div className="small-12 medium-6 large-4 columns">
-            <div id="forecast-graph-1" className="forecast-graph-container"/>
-            <AreaGraph
-              heightRatio={0.2}
-              cssSelector='forecast-graph'
-              targetId='forecast-graph-1'
-              graphs={[
-                {
-                  yVals: [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100],
-                  line: {
-                    show: true,
-                    opacity: 0.5,
-                  },
-                  area: {
-                    show: true,
-                    opacity: 0.25,
-                  },
-                  color: '#27AE60'
-                },
-                {
-                  yVals: [30, 60, 20, 30, 80, 70, 65, 60, 10, 40, 50, 20],
-                  line: {
-                    show: true,
-                    opacity: 0.5,
-                  },
-                  area: {
-                    show: true,
-                    opacity: 0.25,
-                  },
-                  color: '#27AE60'
-                },
-              ]}
-            />
-          </div>
-          <div className="small-12 medium-6 large-4 columns">
-            <div id="forecast-graph-2" className="forecast-graph-container"/>
-            <AreaGraph
-              heightRatio={0.2}
-              cssSelector='forecast-graph'
-              targetId='forecast-graph-2'
-              graphs={[
-                {
-                  yVals: [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100],
-                  line: {
-                    show: true,
-                    opacity: 0.5,
-                  },
-                  area: {
-                    show: true,
-                    opacity: 0.25,
-                  },
-                  color: '#27AE60'
-                },
-                {
-                  yVals: [30, 60, 20, 30, 80, 70, 65, 60, 10, 40, 50, 20],
-                  line: {
-                    show: true,
-                    opacity: 0.5,
-                  },
-                  area: {
-                    show: true,
-                    opacity: 0.25,
-                  },
-                  color: '#EB5757'
-                },
-              ]}
-            />
-          </div>
-          <div className="small-12 medium-6 large-4 columns">
-            <div id="forecast-graph-3" className="forecast-graph-container"/>
-            <AreaGraph
-              heightRatio={0.2}
-              cssSelector='forecast-graph'
-              targetId='forecast-graph-3'
-              graphs={[
-                {
-                  yVals: [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100],
-                  line: {
-                    show: true,
-                    opacity: 0.5,
-                  },
-                  area: {
-                    show: true,
-                    opacity: 0.25,
-                  },
-                  color: '#27AE60'
-                },
-              ]}
-            />
-          </div>
-        </div>
+          <SpotForecastContainer
+            forecasts={this.state.forecasts}
+          />
         : null}
         {this.state.selectedNavItem === this.state.navItems.indexOf('About') ?
           <SpotAbout
