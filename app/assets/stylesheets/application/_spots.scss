@@ -97,12 +97,16 @@
     }
 
     @media #{$medium-up} {
-      width: 70px;
-      height: 70px;
+      width: 75px;
+      height: 75px;
       margin-left: auto;
-      line-height: 72px;
+      line-height: 85px;
       .percent {
         margin-right: 5px;
+      }
+      .rating-label {
+        margin-top: -34px;
+        margin-right: -2px;
       }
     }
   }
