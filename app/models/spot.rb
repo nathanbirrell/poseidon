@@ -68,7 +68,7 @@ class Spot < ApplicationRecord
     return if @current_swell && @current_wind && @current_tide_snapshot
     @current_swell = swells.current
     @current_wind = winds.current
-    @current_tide_snapshot = tides.current_snapshot(id)
+    @current_tide_snapshot = tides.current_snapshot(self)
     @last_tide = @current_tide_snapshot.tide_before
     @next_tide = @current_tide_snapshot.tide_after
     @next_high_tide = @current_tide_snapshot.high_tide
@@ -104,15 +104,6 @@ class Spot < ApplicationRecord
     )
   end
 
-  # TODO - move into TideSnapshot.rating
-  def current_tide_rating
-    return 100 if works_on_all_tides?
-    poseidon_math.rating_given_x(
-      min_x: tide_optimal_max_metres,
-      max_x: tide_optimal_min_metres,
-      x_value: current_tide_snapshot.height
-    )
-  end
 
   def current_potential
     return 0 if no_forecast_data?
@@ -121,7 +112,7 @@ class Spot < ApplicationRecord
     aggregate = 0.0
     aggregate += @current_swell.rating * weighting_swell
     aggregate += @current_wind.rating * weighting_wind
-    aggregate += current_tide_rating * weighting_tide
+    aggregate += @current_tide_snapshot.rating * weighting_tide
     aggregate.round(0)
   end
 
@@ -149,7 +140,7 @@ class Spot < ApplicationRecord
     swell_forecasts = swells.five_day_forecast
     date_times = swell_forecasts.pluck(:date_time)
     wind_forecasts = winds.where(date_time: date_times) # uses a sql IN method
-    tide_forecasts = tides.get_snapshots(date_times, id)
+    tide_forecasts = tides.get_snapshots(date_times, self)
 
     {
       swells: swell_forecasts,

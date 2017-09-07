@@ -17,7 +17,7 @@ class SpotsController < ApplicationController
     @spot.retrieve_forecast_data_if_needed
     if Rails.env.development? && ENV['SLACK_API_TOKEN']
       slack_client = Slack::Web::Client.new
-      slack_message = "Spot ##{@spot.id}, #{@spot.name}, ran with *Aggregate*: #{@spot.current_potential}%, *Swell* :ocean:: #{@spot.current_swell.rating}%, *Wind* :dash:: #{@spot.current_wind.rating}%, *Tide* :crescent_moon:: #{@spot.current_tide_rating}%"
+      slack_message = "Spot ##{@spot.id}, #{@spot.name}, ran with *Aggregate*: #{@spot.current_potential}%, *Swell* :ocean:: #{@spot.current_swell.rating}%, *Wind* :dash:: #{@spot.current_wind.rating}%, *Tide* :crescent_moon:: #{@spot.current_tide_snapshot.rating}%"
       slack_client.chat_postMessage(channel: '#devbot', text: slack_message, as_user: true)
     end
   end

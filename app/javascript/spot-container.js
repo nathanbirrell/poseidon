@@ -236,22 +236,22 @@ class SpotContainer extends React.Component {
             <SpotInfoCard
               title='Tide'
               secondary={SpotUtil.tideDescription(this.state.data.current_tide_snapshot.tide_before.type)}
-              rating={MathUtil.round(this.state.data.current_tide_rating, 0)}
+              rating={MathUtil.round(this.state.data.current_tide_snapshot.rating, 0)}
               date_time={moment().format("h:mm a")}
               data={[
                 {
                   title: 'Rating',
-                  indicator: SpotUtil.getVerdict(this.state.data.current_tide_rating),
+                  indicator: SpotUtil.getVerdict(this.state.data.current_tide_snapshot.rating),
                   prefix: '',
                   values: [{
-                    value: MathUtil.round(this.state.data.current_tide_rating, 0),
+                    value: MathUtil.round(this.state.data.current_tide_snapshot.rating, 0),
                     unit: '%',
                   }],
-                  subtext: `${SpotUtil.getPotential(this.state.data.current_tide_rating)} potential`,
+                  subtext: `${SpotUtil.getPotential(this.state.data.current_tide_snapshot.rating)} potential`,
                 },
                 {
                   title: 'Tide height',
-                  indicator: SpotUtil.getVerdict(this.state.data.current_tide_rating),
+                  indicator: SpotUtil.getVerdict(this.state.data.current_tide_snapshot.rating),
                   prefix: '',
                   values: [{
                     value: this.state.data.current_tide_snapshot.height,
