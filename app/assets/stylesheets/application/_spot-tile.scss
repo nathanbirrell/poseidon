@@ -1,6 +1,18 @@
 .spot-tile {
   border-radius: 3px;
   margin-bottom: 15px;
+  -webkit-box-shadow: $shadow-subtle;
+  -moz-box-shadow: $shadow-subtle;
+  box-shadow: $shadow-subtle;
+  -webkit-transition: box-shadow 250ms, transform 250ms;
+  transition: box-shadow 250ms, transform 250ms;
+
+  &:hover {
+    -webkit-box-shadow: $shadow-raised;
+    -moz-box-shadow: $shadow-raised;
+    box-shadow: $shadow-raised;
+    transform: translateY(-1px);
+  }
 
   &__image {
     position: relative;
