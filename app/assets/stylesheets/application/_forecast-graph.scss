@@ -2,7 +2,7 @@
   display: inline-block;
   position: relative;
   width: 100%;
-  padding-bottom: 20%; /* aspect ratio */
+  padding-bottom: 25%; /* aspect ratio */
   vertical-align: top;
   overflow: hidden;
 
@@ -11,5 +11,6 @@
     position: absolute;
     top: 0;
     left: 0;
+    background: $silver;
   }
 }

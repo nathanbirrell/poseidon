@@ -47,7 +47,7 @@ class SpotForecastContainer extends React.Component {
           <div id="forecast-graph-1" className="forecast-graph-container"/>
           <h3>Swell</h3>
           <AreaGraph
-            heightRatio={0.2}
+            heightRatio={0.25}
             cssSelector='forecast-graph'
             targetId='forecast-graph-1'
             graphs={[
@@ -94,7 +94,7 @@ class SpotForecastContainer extends React.Component {
           <div id="forecast-graph-2" className="forecast-graph-container"/>
           <h3>Wind</h3>
           <AreaGraph
-            heightRatio={0.2}
+            heightRatio={0.25}
             cssSelector='forecast-graph'
             targetId='forecast-graph-2'
             graphs={[
@@ -141,7 +141,7 @@ class SpotForecastContainer extends React.Component {
           <div id="forecast-graph-3" className="forecast-graph-container"/>
           <h3>Tide</h3>
           <AreaGraph
-            heightRatio={0.2}
+            heightRatio={0.25}
             cssSelector='forecast-graph'
             targetId='forecast-graph-3'
             graphs={[
