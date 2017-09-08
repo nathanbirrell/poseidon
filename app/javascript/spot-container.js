@@ -25,11 +25,13 @@ class SpotContainer extends React.Component {
         'History',
       ],
       selectedNavItem: 0,
+      selectedDateTime: moment(),
     };
 
     this.syncData = this.syncData.bind(this);
     this.updateSelectedNavItem = this.updateSelectedNavItem.bind(this);
-    this.seedTime = this.seedTime.bind(this);
+    this.findForecastSeedFromTime = this.findForecastSeedFromTime.bind(this);
+    this.updateSelectedDateTime = this.updateSelectedDateTime.bind(this);
   }
 
   componentDidMount() {
@@ -39,12 +41,9 @@ class SpotContainer extends React.Component {
     Promise.all([spot, forecasts]).then(values => {
       const spotJson = JSON.parse(values[0]);
       const forecastsJson = JSON.parse(values[1]);
-      const seed = this.seedTime(forecastsJson.swells, moment().utc());
       this.setState({
         spot: spotJson,
         forecasts: forecastsJson,
-        seed,
-        selectedTime: seed
       });
     });
   }
@@ -66,8 +65,14 @@ class SpotContainer extends React.Component {
     });
   }
 
-  seedTime(data, time) {
-    let seed = null;
+  updateSelectedDateTime(datetime) {
+    this.setState({
+      selectedDateTime: datetime,
+    });
+  }
+
+  findForecastSeedFromTime(data, time) {
+    let value = null;
     var sortedResult = data.slice().sort(function(a, b) {
       var dA = Math.abs(moment(a.date_time).utc() - time),
         dB = Math.abs(moment(b.date_time).utc() - time);
@@ -79,14 +84,17 @@ class SpotContainer extends React.Component {
         return 0;
       }
     });
-    seed = data.indexOf(sortedResult[0]);
-    console.log('Seed:', seed, data[seed], moment(data[seed].date_time).format("dd hh:mm a"));
-    return seed;
+    value = data.indexOf(sortedResult[0]);
+    console.log('Seed:', value, data[value], moment(data[value].date_time).format("dd hh:mm a"));
+    return {
+      value,
+      time: data[value].date_time,
+    };
   }
 
   render() {
     console.log('render');
-    if (!this.state.spot || !this.state.forecasts) {
+    if (!this.state.spot || !this.state.forecasts || !this.state.selectedDateTime) {
       return (
         <div>
           <SpotBanner isBusy />
@@ -100,9 +108,11 @@ class SpotContainer extends React.Component {
       );
     }
 
-    const current_overall_rating =  this.state.forecasts.overall_ratings[this.state.selectedTime];
+    const seed = this.findForecastSeedFromTime(this.state.forecasts.swells, this.state.selectedDateTime.utc());
 
-    console.log('rendering with selectedTime: ', this.state.selectedTime);
+    const current_overall_rating =  this.state.forecasts.overall_ratings[seed.value];
+
+    console.log('rendering with seed.value: ', seed.value);
 
     return(
       <div>
@@ -117,7 +127,7 @@ class SpotContainer extends React.Component {
         />
         {this.state.selectedNavItem === this.state.navItems.indexOf('Today') ?
           <SpotDayContainer
-            selectedTime={this.state.selectedTime}
+            selectedTime={seed.value}
             forecasts={this.state.forecasts}
           />
         : null}
@@ -138,7 +148,10 @@ class SpotContainer extends React.Component {
           </div>
         </div>
         : null}
-        <SpotTimeSlider />
+        <SpotTimeSlider
+          curveData={this.state.forecasts.overall_ratings}
+          updateParent={this.updateSelectedDateTime}
+        />
       </div>
     );
   }
