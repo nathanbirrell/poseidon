@@ -46,12 +46,12 @@ class SpotForecastContainer extends React.Component {
     return (
       <div id="forecast-section" className="row">
         <div className="small-12 medium-12 large-12 columns">
-          <div id="forecast-graph-4" className="forecast-graph-container"/>
+          <div id="forecast-graph-overall" className="forecast-graph-container"/>
           <h3>Overall Rating</h3>
           <AreaGraph
             heightRatio={0.25}
             cssSelector='forecast-graph'
-            targetId='forecast-graph-4'
+            targetId='forecast-graph-overall'
             graphs={[
               {
                 yVals: overallRatings['rating'],
