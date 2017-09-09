@@ -17,7 +17,6 @@ json.(
     :optimals,
     :next_high_tide,
     :next_low_tide,
-    # :tide_shift_rate,
     :region,
     :works_on_all_tides?,
     :current_potential
