@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpotUtil from 'spot-util.js';
-import PlaceholderShimmer from './placeholder-shimmer';
+import SpotUtil from 'lib/SpotUtil';
+import PlaceholderShimmer from 'components/PlaceholderShimmer';
 
 class SpotBanner extends React.Component {
   render() {

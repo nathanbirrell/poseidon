@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import MathUtil from 'math-util.js';
-import SpotUtil from 'spot-util.js';
+import MathUtil from 'lib/MathUtil';
+import SpotUtil from 'lib/SpotUtil';
 
-import SpotBanner from './spot-banner';
-import NavigationTabs from './navigation-tabs';
-import SpotInfoCard from './spot-info-card';
-import AreaGraph from './area-graph';
-import SpotAbout from './spot-about-container';
-import SpotForecastContainer from './spot-forecast-container';
-import SpotTimeSlider from './spot-time-slider';
+import SpotAboutContainer from 'containers/SpotAboutContainer';
+import SpotForecastContainer from 'containers/SpotForecastContainer';
+
+import SpotBanner from 'components/SpotBanner';
+import NavigationTabs from 'components/NavigationTabs';
+import SpotInfoCard from 'components/SpotInfoCard';
+import SpotTimeSlider from 'components/SpotTimeSlider';
 
 class SpotContainer extends React.Component {
   constructor (props) {
@@ -329,7 +329,7 @@ class SpotContainer extends React.Component {
           />
         : null}
         {this.state.selectedNavItem === this.state.navItems.indexOf('About') ?
-          <SpotAbout
+          <SpotAboutContainer
            data={this.state.spot}
           />
         : null}

@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import MathUtil from 'math-util.js';
-import SpotUtil from 'spot-util.js';
+import MathUtil from 'lib/MathUtil';
+import SpotUtil from 'lib/SpotUtil';
 
-import AreaGraph from './area-graph';
+import AreaGraph from 'components/AreaGraph';
 
 class SpotForecastContainer extends React.Component {
   constructor(props) {

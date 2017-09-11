@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AreaGraph from './area-graph';
+import AreaGraph from 'components/AreaGraph';
 
 const myData = [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100];
 
