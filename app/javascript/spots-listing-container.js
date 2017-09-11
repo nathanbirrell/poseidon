@@ -49,7 +49,9 @@ class SpotsListingContainer extends React.Component {
 
   render() {
     console.log('render');
-    <h1>Home </h1>
+    return (
+      <h1>Home </h1>
+    );
   }
 }
 
