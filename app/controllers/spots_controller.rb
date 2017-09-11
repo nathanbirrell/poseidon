@@ -2,7 +2,7 @@ class SpotsController < ApplicationController
   before_action :set_spot, only: %i[show edit update destroy clone forecasts]
   before_action :set_region, only: [:show]
 
-  layout 'spot', :only => [:show]
+  layout 'javascript_application', :only => [:show, :index]
 
   # GET /spots
   # GET /spots.json

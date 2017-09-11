@@ -6,10 +6,7 @@
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Poseidon" %>">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Open+Sans:300,400,700,900" rel="stylesheet">
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%# Modernizr is required for Zurb Foundation %>
-    <%= javascript_include_tag 'vendor/modernizr' %>
-    <%= javascript_include_tag 'application' %>
-    <%= javascript_pack_tag 'spot' %>
+    <%= javascript_pack_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
