@@ -69,8 +69,8 @@ class Tide
 
     def set_tide_period
       period = @tide_after.date_time.localtime.to_i - @tide_before.date_time.localtime.to_i
-      (period /= 60.0).to_f
-      (period /= 60.0).to_f # TODO: ask Taylor if this needs to be done twice ??
+      (period /= 60.0).to_f # get minutes from seconds
+      (period /= 60.0).to_f # get hours from minutes
       period *= 2
       @tide_period = period.round(2)
     end
@@ -85,10 +85,9 @@ class Tide
     end
 
     def tide_delta_time(forecast_hours)
-      # TODO: I think we should use Time.current below
       delta_time = (@date_time + forecast_hours.hours).to_i - @tide_before.date_time.localtime.to_i
-      (delta_time /= 60.0).to_f
-      (delta_time /= 60.0).to_f # TODO: ask Taylor if this needs to be done twice ??
+      (delta_time /= 60.0).to_f # get minutes from seconds
+      (delta_time /= 60.0).to_f # get hours from minutes
       delta_time.round(3)
     end
 
@@ -109,11 +108,5 @@ class Tide
         )
       end
     end
-
-    # TODO: implement or delete this, depending on whether it gets used or not
-    # def time_till_next_tide_hours
-    #   time = ((next_tide.date_time.localtime.to_i - Time.zone.now.to_i) / 60 / 60)
-    #   time.round(3)
-    # end
   end
 end
