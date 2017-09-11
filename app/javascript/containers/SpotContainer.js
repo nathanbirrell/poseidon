@@ -4,6 +4,7 @@ import moment from 'moment';
 
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
+import Api from 'lib/ApiUtil';
 
 import SpotAboutContainer from 'containers/SpotAboutContainer';
 import SpotForecastContainer from 'containers/SpotForecastContainer';
@@ -27,14 +28,13 @@ class SpotContainer extends React.Component {
       selectedNavItem: 0,
     };
 
-    this.syncData = this.syncData.bind(this);
     this.updateSelectedNavItem = this.updateSelectedNavItem.bind(this);
     this.seedTime = this.seedTime.bind(this);
   }
 
   componentDidMount() {
-    let spot = this.syncData(window.location.href + '.json');
-    let forecasts = this.syncData(window.location.href + '/forecasts.json');
+    let spot = Api.syncData(window.location.href + '.json');
+    let forecasts = Api.syncData(window.location.href + '/forecasts.json');
 
     Promise.all([spot, forecasts]).then(values => {
       const spotJson = JSON.parse(values[0]);
@@ -48,17 +48,6 @@ class SpotContainer extends React.Component {
       });
     });
   }
-
-  syncData(url) {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", url);
-      // xhr.open("GET", window.location.href + '.json');
-      xhr.onload = () => resolve(xhr.responseText);
-      xhr.onerror = () => reject(xhr.statusText);
-      xhr.send();
-    });
-  };
 
   updateSelectedNavItem(number) {
     this.setState({
