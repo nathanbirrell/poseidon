@@ -10,7 +10,10 @@ import Column from 'components/Column';
 const SpotTileCondition = (props) => {
   return (
     <div className="spot-tile__condition">
-      <span className="spot-tile__condition-primary">{props.primary}</span>
+      <span className="spot-tile__condition-primary">
+        {props.primary}
+        {props.primaryUnit ? <span className="spot-tile__condition-primary-unit">{props.primaryUnit}</span> : null }
+      </span>
       <span className="spot-tile__condition-secondary">{props.secondary}</span>
     </div>
   );
@@ -21,6 +24,7 @@ class SpotTile extends React.Component {
     const { spot } = this.props;
     const link = `/spots/${spot.id}`;
     const updated_at = moment(spot.current_model_date_time).fromNow();
+    const rating = parseFloat(spot.current_potential);
     const swell_size_ft = MathUtil.round(SpotUtil.metresToFeet(spot.current_swell.size), 1);
     const swell_direction = SpotUtil.degreesToText(spot.current_swell.direction);
     const swell_period = MathUtil.round(spot.current_swell.period, 0);
@@ -30,30 +34,30 @@ class SpotTile extends React.Component {
         <Link to={link} className="spot-tile" >
 
           <div className="spot-tile__rating">
-            {spot.current_potential}
+            {rating}
           </div>
-          <div className="spot-tile__body">
-            <div className="spot-tile__name">
-              <h3>{spot.name}</h3>
-              <p>{spot.region.name}</p>
-            </div>
-            <div className="spot-tile__conditions">
-              <SpotTileCondition
-                primary={`${swell_size_ft} ft`}
-                secondary={`${swell_direction} @ ${swell_period}s`}
-              />
-              <SpotTileCondition
-                primary={`${wind_direction}`}
-                secondary={`MODERATE TODO`}
-              />
-              <SpotTileCondition
-                primary={`${spot.current_tide_snapshot.type} tide`}
-                secondary={`${spot.current_tide_snapshot.height}`}
-              />
-            </div>
+          <div className="spot-tile__name">
+            <h3>{spot.name}</h3>
+            <p>{spot.region.name}, {spot.region.state}</p>
           </div>
           <div className="spot-tile__updated">
             {updated_at}
+          </div>
+          <div className="spot-tile__conditions">
+            <SpotTileCondition
+              primary={`${swell_size_ft}`}
+              primaryUnit={'ft'}
+              secondary={`${swell_direction} @ ${swell_period}s`}
+            />
+            <SpotTileCondition
+              primary={`${wind_direction}`}
+              secondary={`MODERATE TODO`}
+            />
+            <SpotTileCondition
+              primary={`${spot.current_tide_snapshot.height}`}
+              primaryUnit={`m`}
+              secondary={`${spot.current_tide_snapshot.state} tide`}
+            />
           </div>
         </Link>
       </Row>

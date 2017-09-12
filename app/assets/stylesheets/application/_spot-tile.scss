@@ -1,3 +1,55 @@
 .spot-tile {
+  display: flex;
+  background: $white;
+  * { color: $oil; } // Reset link color
+  max-width: 375px;
+  padding: 12px;
+  margin: 6px auto;
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.08);
+  flex-wrap: wrap;
+}
 
+.spot-tile__rating {
+  flex: 1 1 8%;
+}
+
+.spot-tile__name {
+  flex: 1 1 80%;
+
+  h3 {
+    margin: 0;
+    font-weight: $font-weight-medium;
+  }
+  p {
+    margin: 0;
+    color: $iron;
+  }
+}
+
+.spot-tile__updated {
+  flex: 1 1 12%;
+  font-size: 80%;
+}
+
+.spot-tile__conditions {
+  flex: 1 1 80%;
+  max-width: 80%;
+  margin: 0 auto;
+  display: flex;
+}
+.spot-tile__condition {
+  flex: 1 1 33.33%;
+  padding: 8px;
+}
+.spot-tile__condition-primary {
+  display: block;
+  font-size: 110%;
+
+  &-unit {
+    font-size: 80%;
+  }
+}
+.spot-tile__condition-secondary {
+  display: block;
+  color: $iron;
 }
