@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Api from 'lib/ApiUtil';
-import SpotsListTile from 'components/SpotsListTile';
+import SpotTile from 'components/SpotTile';
 
 class SpotsListContainer extends React.Component {
   constructor (props) {
@@ -26,7 +26,7 @@ class SpotsListContainer extends React.Component {
 
   listSpots() {
     return this.state.spots.map(spot => {
-      return (<SpotsListTile spot={spot} key={spot.id} />);
+      return (<SpotTile spot={spot} key={spot.id} />);
     });
   }
 

@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 import Row from 'components/Row';
 import Column from 'components/Column';
 
-class SpotsListTile extends React.Component {
+class SpotTile extends React.Component {
   render() {
     const { spot } = this.props;
-    const link = `/spots/${spot.id}`
+    const link = `/spots/${spot.id}`;
     return (
       <Row>
         <Column className="spot-tile">
@@ -22,8 +22,8 @@ class SpotsListTile extends React.Component {
   }
 }
 
-SpotsListTile.propTypes = {
+SpotTile.propTypes = {
   spot: PropTypes.object,
 }
 
-export default SpotsListTile;
+export default SpotTile;
