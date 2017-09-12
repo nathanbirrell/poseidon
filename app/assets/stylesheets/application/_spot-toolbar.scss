@@ -20,15 +20,10 @@
     line-height: 48px;
     border-bottom: none;
     cursor: pointer;
-
-    a {
-      color: $black;
-    }
+    color: $black;
 
     &.--focused {
-      a {
-        color: $secondary-color;
-      }
+      color: $secondary-color;
       line-height: 46px;
       border-bottom: 2px solid $secondary-color;
     }

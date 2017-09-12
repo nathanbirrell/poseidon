@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomePage from 'pages/HomePage';
-import SpotContainer from 'containers/SpotContainer';
+import SpotPage from 'pages/SpotPage';
 
 class AppContainer extends React.Component {
   render() {
@@ -9,7 +9,7 @@ class AppContainer extends React.Component {
       <Router>
         <div>
           <Route path="/" component={HomePage} exact />
-          <Route path="/spots/:spotId" component={SpotContainer} />
+          <Route path="/spots/:spotId" component={SpotPage} />
           {/* TODO: follow the below convention for forecast/history/about */}
           {/* <Route path="/spots/:spotId/forecast" component={SpotForecastContainer} /> */}
         </div>
