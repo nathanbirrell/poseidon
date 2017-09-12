@@ -28,7 +28,7 @@ Column.defaultProps = {
   widthSmall: 12,
   widthMedium: 8,
   widthLarge: null,
-  isCentered: true,
+  isCentered: false,
   className: null,
 };
 

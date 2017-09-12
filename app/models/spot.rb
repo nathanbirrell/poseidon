@@ -177,6 +177,10 @@ class Spot < ApplicationRecord
     swells.empty? || winds.empty? || tides.empty?
   end
 
+  def current_model_date_time
+    current_swell.date_time
+  end
+
   private
 
   # TODO: also consider: 1 -moving these methods out for tidiness reasons or 2 - Make Optimals an abstract model with these methods
