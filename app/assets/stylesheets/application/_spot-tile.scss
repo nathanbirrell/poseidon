@@ -7,6 +7,16 @@
   margin: 6px auto;
   box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.08);
   flex-wrap: wrap;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+  }
 }
 
 .spot-tile__rating {
@@ -23,11 +33,13 @@
   p {
     margin: 0;
     color: $iron;
+    line-height: 100%;
   }
 }
 
 .spot-tile__updated {
-  flex: 1 1 12%;
+  flex: 1 1 auto;
+  max-width: 12%;
   font-size: 80%;
 }
 
@@ -40,10 +52,12 @@
 .spot-tile__condition {
   flex: 1 1 33.33%;
   padding: 8px;
+  padding-left: 0;
 }
 .spot-tile__condition-primary {
   display: block;
   font-size: 110%;
+  font-weight: $font-weight-medium;
 
   &-unit {
     font-size: 80%;
@@ -51,5 +65,7 @@
 }
 .spot-tile__condition-secondary {
   display: block;
-  color: $iron;
+  color: $jumbo;
+  font-size: 80%;
+  line-height: 120%;
 }
