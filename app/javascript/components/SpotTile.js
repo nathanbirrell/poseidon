@@ -6,6 +6,7 @@ import SpotUtil from 'lib/SpotUtil';
 import { Link } from 'react-router-dom';
 import Row from 'components/Row';
 import Column from 'components/Column';
+import Rating from 'components/Rating';
 
 const SpotTileCondition = (props) => {
   return (
@@ -34,7 +35,7 @@ class SpotTile extends React.Component {
         <Link to={link} className="spot-tile" >
 
           <div className="spot-tile__rating">
-            {rating}
+            <Rating rating={rating} />
           </div>
           <div className="spot-tile__name">
             <h3>{spot.name}</h3>

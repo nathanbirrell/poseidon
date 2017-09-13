@@ -1,7 +1,8 @@
+a.spot-tile,
 .spot-tile {
   display: flex;
   background: $white;
-  * { color: $oil; } // Reset link color
+  color: $oil;
   max-width: 375px;
   padding: 12px;
   margin: 6px auto;

@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Api from 'lib/ApiUtil';
 import SpotTile from 'components/SpotTile';
+import Row from 'components/Row';
+import Column from 'components/Column';
 
 class SpotsListContainer extends React.Component {
   constructor (props) {
@@ -33,12 +35,12 @@ class SpotsListContainer extends React.Component {
   render() {
     if (!this.state.spots) return (<h1>'Loading...'</h1>);
     return (
-      <div className='row'>
-        <div className='medium-8 columns'>
+      <Row>
+        <Column widthMedium={10} isCentered>
           <h1>Surf now</h1>
           {this.listSpots()}
-        </div>
-      </div>
+        </Column>
+      </Row>
     );
   }
 }

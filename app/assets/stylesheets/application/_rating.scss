@@ -1,0 +1,14 @@
+.rating {
+  height: 22px;
+  width: 26px;
+  background: $success-color;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+
+  color: $white;
+  font-size: rem-calc(16);
+  letter-spacing: -0.8px;
+  text-align: center;
+  font-weight: $font-weight-medium;
+}
