@@ -121,7 +121,7 @@ class SpotContainer extends React.Component {
 
     let dateCopy = date.toDate();
     let startDate = moment(date).set('hours', 3);
-    let endDate = moment(date).set('hours', 22);
+    let endDate = moment(date).set('hours', 23);
     const sliderData = this.state.forecasts.overall_ratings.filter(item => moment(item.date_time).isBetween(startDate, endDate));
 
     return(

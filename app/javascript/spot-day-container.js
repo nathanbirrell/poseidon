@@ -29,7 +29,7 @@ class SpotDayContainer extends React.Component {
           title='Swell'
           secondary={SpotUtil.swellFeetToDescription(SpotUtil.metresToFeet(current_swell.size))}
           rating={MathUtil.round(current_swell.rating, 0)}
-          date_time={moment(current_swell.date_time).format("h:mm a")}
+          date_time={moment(current_swell.date_time).format("ddd h:mm a")}
           data={[
             {
               title: 'Rating',
@@ -99,7 +99,7 @@ class SpotDayContainer extends React.Component {
           title='Wind'
           secondary={SpotUtil.windKphToDescription(current_wind.speed)}
           rating={MathUtil.round(current_wind.rating, 0)}
-          date_time={moment(current_wind.date_time).format("h:mm a")}
+          date_time={moment(current_wind.date_time).format("ddd h:mm a")}
           data={[
             {
               title: 'Rating',
@@ -169,7 +169,7 @@ class SpotDayContainer extends React.Component {
           title='Tide'
           secondary={current_tide.state}
           rating={MathUtil.round(current_tide.rating, 0)}
-          date_time={moment(current_tide.date_time).format("h:mm a")}
+          date_time={moment(current_tide.date_time).format("ddd h:mm a")}
           data={[
             {
               title: 'Rating',
