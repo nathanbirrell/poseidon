@@ -37,7 +37,7 @@ class AreaGraph extends React.Component {
     console.log('rendering with ', dimensions);
 
     const x = d3.scaleLinear()
-      .rangeRound([dimensions.width, 0]);
+      .rangeRound([0, dimensions.width]);
     let height;
 
     if (this.props.heightRatio) {
