@@ -25,7 +25,7 @@ class SpotContainer extends React.Component {
         'History',
       ],
       selectedNavItem: 0,
-      selectedDateTime: moment(),
+      selectedDateTime: moment()
     };
 
     this.syncData = this.syncData.bind(this);
@@ -66,8 +66,10 @@ class SpotContainer extends React.Component {
   }
 
   updateSelectedDateTime(datetime) {
+    console.log('update datetime: ', datetime);
     this.setState({
       selectedDateTime: datetime,
+      seedTime: null,
     });
   }
 
@@ -94,7 +96,7 @@ class SpotContainer extends React.Component {
 
   render() {
     console.log('render');
-    if (!this.state.spot || !this.state.forecasts || !this.state.selectedDateTime) {
+    if (!this.state.spot || !this.state.forecasts) {
       return (
         <div>
           <SpotBanner isBusy />
@@ -108,11 +110,19 @@ class SpotContainer extends React.Component {
       );
     }
 
-    const seed = this.findForecastSeedFromTime(this.state.forecasts.swells, this.state.selectedDateTime.utc());
+    const date = this.state.selectedDateTime;
+    const seed = this.findForecastSeedFromTime(this.state.forecasts.swells, date);
 
-    const current_overall_rating =  this.state.forecasts.overall_ratings[seed.value];
+    console.log('selectedDateTime: ', date);
 
-    console.log('rendering with seed.value: ', seed.value);
+    const current_overall_rating = this.state.forecasts.overall_ratings[seed.value];
+
+    const sliderSeedTime = moment(this.state.forecasts.swells[seed.value].date_time);
+
+    let dateCopy = date.toDate();
+    let startDate = moment(date).set('hours', 3);
+    let endDate = moment(date).set('hours', 22);
+    const sliderData = this.state.forecasts.overall_ratings.filter(item => moment(item.date_time).isBetween(startDate, endDate));
 
     return(
       <div>
@@ -149,8 +159,9 @@ class SpotContainer extends React.Component {
         </div>
         : null}
         <SpotTimeSlider
-          curveData={this.state.forecasts.overall_ratings}
+          curveData={sliderData}
           updateParent={this.updateSelectedDateTime}
+          seedTime={sliderSeedTime}
         />
       </div>
     );
