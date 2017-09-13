@@ -21,15 +21,18 @@ a.spot-tile,
 }
 
 .spot-tile__rating {
-  flex: 1 1 8%;
+  flex: 1 1 auto;
+  width: 10%;
 }
 
 .spot-tile__name {
-  flex: 1 1 80%;
+  flex: 1 1 auto;
+  width: 80%;
 
   h3 {
     margin: 0;
     font-weight: $font-weight-medium;
+    line-height: rem-calc(26);
   }
   p {
     margin: 0;
@@ -40,19 +43,19 @@ a.spot-tile,
 
 .spot-tile__updated {
   flex: 1 1 auto;
-  max-width: 12%;
+  max-width: 10%;
   font-size: 80%;
 }
 
 .spot-tile__conditions {
-  flex: 1 1 80%;
+  flex: 1 1 auto;
   max-width: 80%;
   margin: 0 auto;
   display: flex;
 }
 .spot-tile__condition {
   flex: 1 1 33.33%;
-  padding: 8px;
+  padding: rem-calc(8);
   padding-left: 0;
 }
 .spot-tile__condition-primary {
