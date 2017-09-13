@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import MomentConfig from 'config/MomentConfig';
 import HomePage from 'pages/HomePage';
 import SpotPage from 'pages/SpotPage';
+
+MomentConfig();
 
 class AppContainer extends React.Component {
   render() {
