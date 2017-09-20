@@ -86,7 +86,8 @@ class SpotTimeSlider extends React.Component {
                 },
                 points: {
                   show: false,
-                }
+                },
+                color: '#2278F1'
               }
             ]}
           />
