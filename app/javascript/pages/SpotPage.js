@@ -9,7 +9,7 @@ import Api from 'lib/ApiUtil';
 
 import SpotAboutContainer from 'containers/SpotAboutContainer';
 import SpotForecastContainer from 'containers/SpotForecastContainer';
-import SpotDayContainer from './spot-day-container';
+import SpotDayContainer from 'containers/SpotDayContainer';
 
 import SpotBanner from 'components/SpotBanner';
 import NavigationTabs from 'components/NavigationTabs';
@@ -26,8 +26,6 @@ class SpotPage extends React.Component {
       selectedDateTime: moment()
     };
 
-    this.syncData = this.syncData.bind(this);
-    this.updateSelectedNavItem = this.updateSelectedNavItem.bind(this);
     this.findForecastSeedFromTime = this.findForecastSeedFromTime.bind(this);
     this.updateSelectedDateTime = this.updateSelectedDateTime.bind(this);
     this.setNavItems = this.setNavItems.bind(this);
