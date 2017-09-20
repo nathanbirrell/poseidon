@@ -1,9 +1,10 @@
 class Tide
   class TideSnapshot
     include Math
+    require 'poseidon_math'
 
     attr_reader :date_time
-    attr_reader :spot_id
+    attr_reader :spot
     attr_reader :height
     attr_reader :state
     attr_reader :shift_rate
@@ -11,19 +12,24 @@ class Tide
     attr_reader :tide_after
     attr_reader :low_tide
     attr_reader :high_tide
-    attr_reader :height_in_x_hours
+    attr_reader :rating
 
-    def initialize(date_time, spot_id)
+    def initialize(date_time, spot)
       @date_time = date_time
-      @spot_id = spot_id
-      @tide_before = Tide.tide_before(date_time, spot_id)
-      @tide_after = Tide.tide_after(date_time + 1.hour, spot_id)
-      set_tidal_range
-      set_tide_period
-      set_height
-      set_state
-      set_shift_rate
-      # TODO: bring current-tide-related methods into here
+      @spot = spot
+      @tide_before = Tide.tide_before(date_time, @spot.id)
+      @tide_after = Tide.tide_after(date_time + 1.hour, @spot.id)
+      @poseidon_math = PoseidonMath.new
+      # begin
+        set_tidal_range
+        set_tide_period
+        set_height
+        set_state
+        set_shift_rate
+        calculate_rating
+      # rescue
+        # puts('Tide snapshot instansiation failed, likely missing tide_before or tide_after records')
+      # end
     end
 
     # Try not to use for more than 6 hours, we will have new data by then anyway
@@ -51,6 +57,7 @@ class Tide
         tide_snapshot.height height
         tide_snapshot.state state
         tide_snapshot.shift_rate shift_rate
+        tide_snapshot.rating rating
       end
     end
 
@@ -62,8 +69,8 @@ class Tide
 
     def set_tide_period
       period = @tide_after.date_time.localtime.to_i - @tide_before.date_time.localtime.to_i
-      (period /= 60.0).to_f
-      (period /= 60.0).to_f # TODO: ask Taylor if this needs to be done twice ??
+      (period /= 60.0).to_f # get minutes from seconds
+      (period /= 60.0).to_f # get hours from minutes
       period *= 2
       @tide_period = period.round(2)
     end
@@ -78,10 +85,9 @@ class Tide
     end
 
     def tide_delta_time(forecast_hours)
-      # TODO: I think we should use Time.current below
       delta_time = (@date_time + forecast_hours.hours).to_i - @tide_before.date_time.localtime.to_i
-      (delta_time /= 60.0).to_f
-      (delta_time /= 60.0).to_f # TODO: ask Taylor if this needs to be done twice ??
+      (delta_time /= 60.0).to_f # get minutes from seconds
+      (delta_time /= 60.0).to_f # get hours from minutes
       delta_time.round(3)
     end
 
@@ -91,10 +97,16 @@ class Tide
       @shift_rate = vals[sixth]
     end
 
-    # TODO: implement or delete this, depending on whether it gets used or not
-    # def time_till_next_tide_hours
-    #   time = ((next_tide.date_time.localtime.to_i - Time.zone.now.to_i) / 60 / 60)
-    #   time.round(3)
-    # end
+    def calculate_rating
+      if @spot.works_on_all_tides?
+        @rating = 100
+      else
+        @rating = @poseidon_math.rating_given_x(
+          min_x: @spot.tide_optimal_max_metres,
+          max_x: @spot.tide_optimal_min_metres,
+          x_value: @height
+        )
+      end
+    end
   end
 end

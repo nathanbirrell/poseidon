@@ -1,95 +1,111 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
-const myData = [100, 50, 15, 30, 60, 100, 70, 60, 40, 80, 60, 100];
+import AreaGraph from './area-graph';
 
 class SpotTimeSlider extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: this.props.value,
+      dateValue: this.props.seedTime.diff(moment(), 'days'),
+      timeValue: this.props.seedTime.format("H"),
+      selectedDateTime: this.props.seedTime
     };
 
-    this.initGraph = this.initGraph.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.createNewMoment = this.createNewMoment.bind(this);
+    this.handleChangeHours = this.handleChangeHours.bind(this);
+    this.handleChangeDays = this.handleChangeDays.bind(this);
   }
 
-  componentDidMount() {
-    this.initGraph();
+  createNewMoment(hours, days) {
+    let newDateTime = moment().set({
+      'hour': hours,
+      'minute': 0,
+      'second': 0,
+      'millisecond': 0
+    });
+    newDateTime.add(days, 'd');
+    return newDateTime;
   }
 
-  initGraph() {
-    var width = 271,
-      height = 60;
-
-    var svg = d3.select('#time-slider__input').append('svg')
-      .attr("width", '100%')
-      .attr("height", '100%')
-      .attr('viewBox','0 0 '+Math.min(width,height)+' '+Math.min(width,height))
-      .attr('preserveAspectRatio','xMinYMin')
-      .attr('class', 'time-slider__graph');
-
-    var g = svg.append("g");
-
-    var x = d3.scaleLinear()
-      .rangeRound([width, 0]);
-    var y = d3.scaleLinear()
-      .rangeRound([height, 0]);
-
-    var area = d3.area()
-      .curve(d3.curveBasis)
-      .x(function(d, i) { return x(i); })
-      .y1(function(d) { return y(d); });
-
-    var line = d3.line()
-      .curve(d3.curveBasis)
-      .x(function(d, i) { return i; })
-      .y(function(d) { return y(d); });
-
-
-    x.domain(d3.extent(myData, function(d, i) { return i; }));
-    y.domain([0, d3.max(myData, function(d) { return d; })]);
-    area.y0(y(0));
-
-    g.append("path")
-        .datum(myData)
-        .attr("fill", "#2278F1")
-        .attr("d", area);
-  }
-
-  handleChange(event) {
+  handleChangeHours(event) {
+    const output = this.createNewMoment(event.target.value, this.state.dateValue);
+    this.props.updateParent(output);
     this.setState({
-      value: event.target.value
+      timeValue: event.target.value,
+      selectedDateTime: output,
     });
   }
 
-  showTime(number) {
-    let hours = number > 12 ? number - 12 : number;
-    let minutes = '30';
-
-    return (
-      <span className="time">
-        <span>{hours}</span>:<span>{minutes}</span>
-      </span>
-    );
+  handleChangeDays(event) {
+    const output = this.createNewMoment(this.state.timeValue, event.target.value);
+    this.props.updateParent(output);
+    this.setState({
+      dateValue: event.target.value,
+      selectedDateTime: output,
+    });
   }
 
   render() {
+    if (!this.props.curveData || !this.props.updateParent) {
+      return null;
+    }
+
+    const sliderData = this.props.curveData.map(d => {
+      return d.rating;
+    });
+
+    console.log("selectedDateTime", this.state.selectedDateTime.format("dd hh:mm a"));
+    // console.log('curveData: ', this.props.curveData, 'sliderData: ', sliderData);
+
     return (
       <div className="time-slider">
         <div id="time-slider__input" className="time-slider__input">
           <input
             type="range"
-            min="6"
-            max="18"
-            step="1"
-            value={this.state.value}
-            onChange={this.handleChange}>
+            min="4"
+            max="22"
+            step="3"
+            value={this.state.timeValue}
+            onChange={this.handleChangeHours}>
           </input>
+          <div id="time-slider-graph-container" className="time-slider-graph-container" />
+          <AreaGraph
+            cssSelector='time-slider-graph'
+            targetId='time-slider-graph-container'
+            graphs={[
+              {
+                yVals: sliderData,
+                line: {
+                  show: false,
+                },
+                area: {
+                  show: true,
+                  opacity: 0.18,
+                },
+                points: {
+                  show: false,
+                },
+                color: '#2278F1'
+              }
+            ]}
+          />
         </div>
         <div className="time-slider__value --icon-chevron-down--iron">
-          {this.showTime(this.state.value)}
-          <p className="date">Friday 7</p>
+          <span className="time">{this.state.selectedDateTime.format("HH:mm")}</span>
+          <p className="date">{this.state.selectedDateTime.format("ddd D")}</p>
+          <select
+            className="time-slider__date-select"
+            onChange={this.handleChangeDays}
+            value={this.state.dateValue}
+          >
+            <option value="0">Today</option>
+            <option value="1">{moment().add(1, 'd').format("ddd")}</option>
+            <option value="2">{moment().add(2, 'd').format("ddd")}</option>
+            <option value="3">{moment().add(3, 'd').format("ddd")}</option>
+            <option value="4">{moment().add(4, 'd').format("ddd")}</option>
+          </select>
         </div>
       </div>
     );
@@ -97,11 +113,13 @@ class SpotTimeSlider extends React.Component {
 }
 
 SpotTimeSlider.defaultProps = {
-  value: 12,
+  seedTime: moment()
 }
 
 SpotTimeSlider.propTypes = {
-  value: PropTypes.number,
+  curveData: PropTypes.array.isRequired,
+  updateParent: PropTypes.func.isRequired,
+  seedTime: PropTypes.object,
 }
 
 export default SpotTimeSlider;

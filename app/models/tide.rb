@@ -43,20 +43,20 @@ class Tide < WeatherForecast
 
   # Consider a snapshot like an instance of Tide, but for a specific time
   # See tide/tide_snapshot.rb for more
-  def self.get_snapshots(date_times, spot_id)
+  def self.get_snapshots(date_times, spot)
     # TODO
     # get a TideSnapshot for each date_times
     snapshots = []
 
     date_times.each do |date_time|
-      snapshots << TideSnapshot.new(date_time, spot_id)
+      snapshots << TideSnapshot.new(date_time, spot)
     end
 
     snapshots
   end
 
-  def self.current_snapshot(spot_id)
-    TideSnapshot.new(Time.current, spot_id)
+  def self.current_snapshot(spot)
+    TideSnapshot.new(Time.current, spot)
   end
 
   def to_builder

@@ -64,18 +64,15 @@ class Spot < ApplicationRecord
     Spot.all.sort_by(&:current_potential).reverse
   end
 
-  after_initialize do |spot|
-    begin
-      @current_swell = swells.current
-      @current_wind = winds.current
-      @current_tide_snapshot = tides.current_snapshot(spot.id)
-      @last_tide = @current_tide_snapshot.tide_before
-      @next_tide = @current_tide_snapshot.tide_after
-      @next_high_tide = @current_tide_snapshot.high_tide
-      @next_low_tide = @current_tide_snapshot.low_tide
-    rescue NoMethodError => e
-      puts('Missing forecast data for this spot, please run a `rails forecasts:update`')
-    end
+  def retrieve_forecast_data_if_needed
+    return if @current_swell && @current_wind && @current_tide_snapshot
+    @current_swell = swells.current
+    @current_wind = winds.current
+    @current_tide_snapshot = tides.current_snapshot(self)
+    @last_tide = @current_tide_snapshot.tide_before
+    @next_tide = @current_tide_snapshot.tide_after
+    @next_high_tide = @current_tide_snapshot.high_tide
+    @next_low_tide = @current_tide_snapshot.low_tide
   end
 
   def tide_remaining_or_to
@@ -107,24 +104,22 @@ class Spot < ApplicationRecord
     )
   end
 
-  # TODO - move into TideSnapshot.rating
-  def current_tide_rating
-    return 100 if works_on_all_tides?
-    poseidon_math.rating_given_x(
-      min_x: tide_optimal_max_metres,
-      max_x: tide_optimal_min_metres,
-      x_value: current_tide_snapshot.height
-    )
-  end
 
   def current_potential
     return 0 if no_forecast_data?
+    retrieve_forecast_data_if_needed
+    aggregate = calculate_potential(@current_swell, @current_wind, @current_tide_snapshot)
+    aggregate.round(0)
+  end
+
+  # TODO: Create a similar method, but for potential_for(date_time)
+  def calculate_potential(swell, wind, tide)
     # calc aggregate potential rating based on tide/wind/swell (as a percentage)
     aggregate = 0.0
-    aggregate += @current_swell.rating * weighting_swell
-    aggregate += @current_wind.rating * weighting_wind
-    aggregate += current_tide_rating * weighting_tide
-    aggregate.round(0)
+    aggregate += swell.rating * weighting_swell
+    aggregate += wind.rating * weighting_wind
+    aggregate += tide.rating * weighting_tide
+    aggregate
   end
 
   def set_willyweather_location_id_if_needed
@@ -151,9 +146,19 @@ class Spot < ApplicationRecord
     swell_forecasts = swells.five_day_forecast
     date_times = swell_forecasts.pluck(:date_time)
     wind_forecasts = winds.where(date_time: date_times) # uses a sql IN method
-    tide_forecasts = tides.get_snapshots(date_times, id)
+    tide_forecasts = tides.get_snapshots(date_times, self)
+    overall_ratings = []
+
+    date_times.each do |date_time|
+      swell_forecast = swell_forecasts.find { |forecast| date_time == forecast.date_time }
+      wind_forecast = wind_forecasts.find { |forecast| date_time == forecast.date_time }
+      tide_forecast = tide_forecasts.find { |forecast| date_time == forecast.date_time }
+      rating = calculate_potential(swell_forecast, wind_forecast, tide_forecast)
+      overall_ratings << { date_time: date_time, rating: rating }
+    end
 
     {
+      overall_ratings: overall_ratings,
       swells: swell_forecasts,
       winds: wind_forecasts,
       tides: tide_forecasts
@@ -169,7 +174,7 @@ class Spot < ApplicationRecord
   end
 
   def no_forecast_data?
-    !current_swell || !current_wind || !current_tide_rating
+    swells.empty? || winds.empty? || tides.empty?
   end
 
   private
