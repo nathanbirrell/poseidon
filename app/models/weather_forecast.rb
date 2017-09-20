@@ -16,7 +16,10 @@ class WeatherForecast < ApplicationRecord
   end
 
   def self.five_day_forecast
-    where("date_time >= ?", Date.current).where('date_time <= ?', 5.day.from_now).order(date_time: :asc)
+    # Get from 4AM onwards
+    where('date_time >= ?', Date.current.beginning_of_day + 4.hour)
+    .where('date_time <= ?', 5.day.from_now)
+    .order(date_time: :asc)
   end
 
   # Methods used by Swell, Wind, Tide models

@@ -15,6 +15,10 @@ class AreaGraph extends React.Component {
     this.initGraph();
   }
 
+  componentDidUpdate() {
+    this.renderGraph();
+  }
+
   updateDimensions() {
     const el = d3.select(`#${this.props.targetId}`);
     return {
@@ -35,10 +39,8 @@ class AreaGraph extends React.Component {
     const graphs = this.props.graphs;
     const dimensions = this.updateDimensions();
 
-    console.log('rendering with ', dimensions);
-
     const x = d3.scaleLinear()
-      .rangeRound([dimensions.width, 0]);
+      .rangeRound([0, dimensions.width]);
     let height;
 
     if (this.props.heightRatio) {
@@ -63,42 +65,57 @@ class AreaGraph extends React.Component {
       .x(function(d, i) { return x(i); })
       .y(function(d) { return y(d); });
 
-    for (let i = 0, len = graphs.length; i < len; i++) {
-      const g = this.svg.append("g");
+    x.domain(d3.extent(graphs[0].yVals, function(d, i) { return i; }));
+    // y.domain([0, d3.max(graphs[i].yVals, function(d) { return d; })]);
+    y.domain([0, 100]);
+    area.y0(y(0));
 
-      x.domain(d3.extent(graphs[i].yVals, function(d, i) { return i; }));
-      // y.domain([0, d3.max(graphs[i].yVals, function(d) { return d; })]);
-      y.domain([0, 100]);
-      area.y0(y(0));
+    const topLevel = this.svg.selectAll('g.graph')
+      .data(graphs);
 
-      if (graphs[i].area.show) {
-        g.append('path')
-          .datum(graphs[i].yVals)
-          .attr('fill', graphs[i].color || this.props.colors[i])
-          .attr('opacity', graphs[i].area.opacity || 0.18)
+    topLevel.enter()
+      .append('g')
+      .attr('class', 'graph')
+      .merge(topLevel)
+      .each(function(graph, i) {
+        const thisGraph = d3.select(this);
+
+        // REMOVE PREVIOUS GRAPH ELEMENTS
+        thisGraph.selectAll('.area').remove();
+        thisGraph.selectAll('.line').remove();
+        thisGraph.selectAll('.point').remove();
+
+        // DRAW NEW GRAPH ELEMENTS
+        const areaInstance = thisGraph
+          .append('path')
+          .datum(graph.yVals)
+          .attr('class', 'area')
+          .attr('fill', graph.color)
+          .attr('opacity', graph.area.opacity || 0.18)
           .attr("d", area);
-      }
 
-      if (graphs[i].line.show) {
-        g.append('path')
-          .datum(graphs[i].yVals)
-          .attr('stroke', graphs[i].color || this.props.colors[i])
-          .attr('fill', 'none')
-          .attr('opacity', graphs[i].line.opacity || 0.5)
-          .attr("d", line);
-      }
+        const lineInstance = thisGraph
+            .append('path')
+            .datum(graph.yVals)
+            .attr('class', 'line')
+            .attr('stroke', graph.color)
+            .attr('fill', 'none')
+            .attr('opacity', graph.line.opacity || 0.5)
+            .attr("d", line);
 
-      if (graphs[i].points.show) {
-        this.svg.selectAll(".point")
-          .data(graphs[i].yVals)
-          .enter().append("svg:circle")
-          .attr('stroke', graphs[i].points.color || graphs[i].color || this.props.colors[i])
-          .attr('fill', graphs[i].points.color || graphs[i].color || this.props.colors[i])
-          .attr("cx", function(d, i) { return x(i) })
-          .attr("cy", function(d, i) { return y(d) })
-          .attr("r", graphs[i].points.radius);
-        }
-    }
+        const pointsInstance = thisGraph
+          .selectAll('.point')
+            .data(graph.yVals)
+            .enter().append("svg:circle")
+            .attr('class', 'point')
+            .attr('stroke', graph.points.color || graph.color)
+            .attr('fill', graph.points.color || graph.color)
+            .attr("cx", function(d, i) { return x(i) })
+            .attr("cy", function(d, i) { return y(d) })
+            .attr("r", graph.points.radius);
+      });
+
+      topLevel.exit().remove();
   }
 
   render() {
