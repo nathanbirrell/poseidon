@@ -12,17 +12,21 @@ class SpotDayContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    this.initClipboard = this.initClipboard.bind(this);
   }
 
   componentDidMount() {
+    this.initClipboard();
+  }
+
+  initClipboard() {
     const clipboard = new Clipboard('#share-session');
     clipboard.on('success', e => {
-      e.clearSelection();
       this.setState({
         copied: true,
       });
-    });
-  }
+    });}
 
   render() {
     if (!this.props.forecasts) {
