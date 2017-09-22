@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import MathUtil from 'math-util.js';
-import SpotUtil from 'spot-util.js';
+import MathUtil from 'lib/MathUtil';
+import SpotUtil from 'lib/SpotUtil';
+import Api from 'lib/ApiUtil';
+import UrlUtil from 'lib/UrlUtil';
 
 import SpotBanner from './spot-banner';
 import NavigationTabs from './navigation-tabs';
@@ -18,14 +20,9 @@ class SpotContainer extends React.Component {
     super(props);
     this.state = {
       data: null,
-      navItems: [
-        'Today',
-        'Forecast',
-        'About',
-        'History',
-      ],
-      selectedNavItem: 0,
-      selectedDateTime: moment()
+      navItems: [],
+      spotId: null,
+      selectedDateTime: this.initTime()
     };
 
     this.syncData = this.syncData.bind(this);
@@ -48,18 +45,21 @@ class SpotContainer extends React.Component {
     });
   }
 
-  syncData(url) {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", url);
-      // xhr.open("GET", window.location.href + '.json');
-      xhr.onload = () => resolve(xhr.responseText);
-      xhr.onerror = () => reject(xhr.statusText);
-      xhr.send();
-    });
-  };
+  initTime() {
+    const query = decodeURIComponent(UrlUtil.searchParams.get('date_time'));
+    if (query !== null) {
+      const output = moment(query);
+      console.log('query', query, output);
+      if (output._isValid) {
+        console.log('URL Query is valid', output);
+        return output;
+      }
+    }
+    return moment();
+  }
 
-  updateSelectedNavItem(number) {
+  setNavItems() {
+    console.log(this.props.match);
     this.setState({
       selectedNavItem: number,
     });
@@ -138,6 +138,7 @@ class SpotContainer extends React.Component {
         {this.state.selectedNavItem === this.state.navItems.indexOf('Today') ?
           <SpotDayContainer
             selectedTime={seed.value}
+            selectedMoment={date}
             forecasts={this.state.forecasts}
           />
         : null}
