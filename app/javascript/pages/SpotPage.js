@@ -11,6 +11,7 @@ import UrlUtil from 'lib/UrlUtil';
 import SpotAboutContainer from 'containers/SpotAboutContainer';
 import SpotForecastContainer from 'containers/SpotForecastContainer';
 import SpotDayContainer from 'containers/SpotDayContainer';
+import SpotShareContainer from 'containers/SpotShareContainer';
 
 import SpotBanner from 'components/SpotBanner';
 import NavigationTabs from 'components/NavigationTabs';
@@ -185,6 +186,11 @@ class SpotPage extends React.Component {
             </div>
           </div>
         )} />
+
+        <SpotShareContainer
+          selectedMoment={date}
+          spotName={this.state.spot.name}
+        />
 
         <SpotTimeSlider
           curveData={sliderData}
