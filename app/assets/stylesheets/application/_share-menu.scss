@@ -1,0 +1,27 @@
+.share-menu {
+  background: $white;
+  border-radius: 3px;
+  box-shadow: $shadow-raised;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 90px;
+  width: 320px;
+  margin-left: -160px;
+  margin-top: -45px;
+  text-align: center;
+
+  .header {
+    background: $iron;
+    height: 25px;
+    width: 100%;
+    text-transform: uppercase;
+    line-height: 25px;
+
+    a {
+      float: right;
+      margin-right: 6px;
+      color: $black;
+    }
+  }
+}

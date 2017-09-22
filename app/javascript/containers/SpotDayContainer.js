@@ -11,9 +11,14 @@ import SpotInfoCard from 'components/SpotInfoCard';
 class SpotDayContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      copied: false,
+      shareOpen: false
+    };
 
     this.initClipboard = this.initClipboard.bind(this);
+    this.handleShareOpen = this.handleShareOpen.bind(this);
+    this.handleShareClose = this.handleShareClose.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +32,18 @@ class SpotDayContainer extends React.Component {
         copied: true,
       });
     });}
+
+  handleShareOpen() {
+    this.setState({
+      shareOpen: true
+    });
+  }
+
+  handleShareClose() {
+    this.setState({
+      shareOpen: false
+    });
+  }
 
   render() {
     if (!this.props.forecasts) {
@@ -246,8 +263,21 @@ class SpotDayContainer extends React.Component {
         {this.props.selectedMoment ?
           <div className="row">
             <div className="columns">
-              <button id="share-session" className="btn" data-clipboard-text={`${[location.protocol, '//', location.host, location.pathname].join('')}?date_time=${encodeURIComponent(this.props.selectedMoment.format())}`}>Share session</button>
-              {this.state.copied ? <p>Copied to clipboard!</p> : null}
+              <button className="btn" onClick={this.handleShareOpen}>Share session</button>
+            </div>
+          </div>
+        : null }
+        {this.state.shareOpen ?
+          <div>
+            <div className="curtain -light"></div>
+            <div className="share-menu">
+              <div className="header">
+                Share
+                <a onClick={this.handleShareClose}>X</a>
+              </div>
+              <button id="share-session" className="btn --circle --icon --icon-copy--white" data-clipboard-text={`${[location.protocol, '//', location.host, location.pathname].join('')}?date_time=${this.props.selectedMoment.format()}`}></button>
+              <a className="btn --circle  --icon --icon-twitter--white"></a>
+              <a className="btn --circle  --icon --icon-facebook--white"></a>
             </div>
           </div>
         : null }

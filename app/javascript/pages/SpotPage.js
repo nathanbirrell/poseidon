@@ -51,8 +51,9 @@ class SpotPage extends React.Component {
   }
 
   initTime() {
-    const query = decodeURIComponent(UrlUtil.searchParams.get('date_time'));
+    let query = UrlUtil.searchParams.get('date_time');
     if (query !== null) {
+      query = query.replace(/\s+/g, '+');
       const output = moment(query);
       console.log('query', query, output);
       if (output._isValid) {
