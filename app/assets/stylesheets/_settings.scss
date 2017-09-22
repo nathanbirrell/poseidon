@@ -94,8 +94,9 @@ $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
 // We use these to define default font weights
 $font-weight-light: 300;
 $font-weight-normal: 400;
+$font-weight-medium: 500;
 $font-weight-bold: 700;
-$font-weight-black: 900;
+$font-weight-black: 700;
 
 $font-dark-primary: #292e31;
 $font-dark-secondary: #6f7c82;
@@ -110,10 +111,10 @@ $white-smoke : #F5F5F5;
 $silver      : #EFEFEF;
 $smoke       : #EEEEEE;
 $gainsboro   : #DDDDDD;
-$iron        : #CCCCCC;
+$iron        : #BDBDBD;
 $base        : #AAAAAA;
 $aluminum    : #999999;
-$jumbo       : #888888;
+$jumbo       : #828282;
 $monsoon     : #777777;
 $steel       : #666666;
 $charcoal    : #555555;
@@ -121,6 +122,8 @@ $tuatara     : #444444;
 $oil         : #333333;
 $jet         : #222222;
 $black       : #000000;
+
+$ocean-mist: #EDF1F4;
 
 $positive: #27AE60;
 $mixed: #F2994A;
@@ -131,7 +134,7 @@ $primary-color: #0D659D;
 $secondary-color: #2278F1;
 $alert-color: #EB5757;
 $fail-color: #EB5757;
-$success-color: #27AE60;
+$success-color: #9ACD32;
 $warning-color: #F2994A;
 $info-color: #a0d3e8;
 
@@ -139,7 +142,7 @@ $shadow-subtle: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
 $shadow-raised: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
 
 // We use these to control various global styles
-$body-bg: $ghost;
+$body-bg: $ocean-mist;
 $body-font-color: $font-dark-secondary;
 $body-font-family: $font-family-sans-serif;
 $body-font-weight: $font-weight-normal;

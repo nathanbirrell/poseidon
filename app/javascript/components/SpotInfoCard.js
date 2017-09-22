@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpotUtil from 'spot-util.js';
+import SpotUtil from 'lib/SpotUtil';
 
-import MiniOptimumVisual from './mini-optimum-visual';
-import OptimumVisual from './optimum-visual';
-import Spinner from './spinner';
+import MiniOptimumVisual from 'components/MiniOptimumVisual';
+import OptimumVisual from 'components/OptimumVisual';
+import Spinner from 'components/Spinner';
 
 class SpotInfoCard extends React.Component {
   constructor(props) {

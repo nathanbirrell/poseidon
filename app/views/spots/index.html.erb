@@ -1,50 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <div class="row">
-  <div class="small-12 medium-11 columns small-centered">
-    <h1>Spots</h1>
-
-    <div class="row">
-      <% if user_signed_in? %>
-        <div class="small-4 large-6 columns">
-          <%= link_to '+ NEW SPOT', new_spot_path, class: 'btn' %>
-        </div>
-      <% end %>
+  <% if user_signed_in? %>
+    <div class="small-4 large-6 columns small-centered">
+      <%= link_to '+ NEW SPOT', new_spot_path, class: 'btn' %>
     </div>
-
-    <div class="row">
-      <h3 class="columns">Current Conditions</h3>
-      <% if @is_collapsed %>
-        <% @spots.each do |spot| %>
-          <% next if spot.no_forecast_data? %>
-          <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'collapsed', data: 'current'} %>
-        <% end %>
-      <% else %>
-        <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
-          <% next if spot.no_forecast_data? %>
-          <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'full', data: 'current'} %>
-        <% end %>
-      <% end %>
-    </div>
-
-    <% if Rails.env.development? %>
-      <div class="row">
-        <h3 class="columns">Forecasts</h3>
-        <% if @is_collapsed %>
-          <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
-            <% next if spot.no_forecast_data? %>
-            <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'collapsed', data: 'forecast'} %>
-          <% end %>
-        <% else %>
-          <% @spots.sort_by(&:current_potential).reverse.each do |spot| %>
-            <% next if spot.no_forecast_data? %>
-            <%= render partial: 'partials/spot-tile', locals: {spot: spot, type: 'full', data: 'forecast'} %>
-          <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+  <% end %>
 </div>
-
-<br><br>

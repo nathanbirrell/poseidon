@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import AreaGraph from './area-graph';
+import AreaGraph from 'components/AreaGraph';
 
 class SpotTimeSlider extends React.Component {
   constructor (props) {

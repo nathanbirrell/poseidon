@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MathUtil from 'math-util.js';
-import SpotUtil from 'spot-util.js';
+import MathUtil from 'lib/MathUtil';
+import SpotUtil from 'lib/SpotUtil';
 
 class SpotAboutContainer extends React.Component {
   render() {

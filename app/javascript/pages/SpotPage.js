@@ -1,21 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { Route } from 'react-router-dom';
 
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
 import Api from 'lib/ApiUtil';
 import UrlUtil from 'lib/UrlUtil';
 
-import SpotBanner from './spot-banner';
-import NavigationTabs from './navigation-tabs';
-import AreaGraph from './area-graph';
-import SpotDayContainer from './spot-day-container';
-import SpotForecastContainer from './spot-forecast-container';
-import SpotAboutContainer from './spot-about-container';
-import SpotTimeSlider from './spot-time-slider';
+import SpotAboutContainer from 'containers/SpotAboutContainer';
+import SpotForecastContainer from 'containers/SpotForecastContainer';
+import SpotDayContainer from 'containers/SpotDayContainer';
 
-class SpotContainer extends React.Component {
+import SpotBanner from 'components/SpotBanner';
+import NavigationTabs from 'components/NavigationTabs';
+import SpotInfoCard from 'components/SpotInfoCard';
+import SpotTimeSlider from 'components/SpotTimeSlider';
+
+class SpotPage extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -25,15 +27,15 @@ class SpotContainer extends React.Component {
       selectedDateTime: this.initTime()
     };
 
-    this.syncData = this.syncData.bind(this);
-    this.updateSelectedNavItem = this.updateSelectedNavItem.bind(this);
     this.findForecastSeedFromTime = this.findForecastSeedFromTime.bind(this);
     this.updateSelectedDateTime = this.updateSelectedDateTime.bind(this);
+    this.setNavItems = this.setNavItems.bind(this);
   }
 
   componentDidMount() {
-    let spot = this.syncData(window.location.href + '.json');
-    let forecasts = this.syncData(window.location.href + '/forecasts.json');
+    const { spotId } = this.props.match.params;
+    let spot = Api.syncData(`/spots/${spotId}.json`);
+    let forecasts = Api.syncData(`/spots/${spotId}/forecasts.json`);
 
     Promise.all([spot, forecasts]).then(values => {
       const spotJson = JSON.parse(values[0]);
@@ -43,6 +45,9 @@ class SpotContainer extends React.Component {
         forecasts: forecastsJson,
       });
     });
+
+    this.setState({ spotId: spotId });
+    this.setNavItems();
   }
 
   initTime() {
@@ -61,7 +66,24 @@ class SpotContainer extends React.Component {
   setNavItems() {
     console.log(this.props.match);
     this.setState({
-      selectedNavItem: number,
+      navItems: [
+        {
+          name: 'Today',
+          link: `${this.props.match.url}`
+        },
+        {
+          name: 'Forecast',
+          link: `${this.props.match.url}/forecast`
+        },
+        {
+          name: 'About',
+          link: `${this.props.match.url}/about`
+        },
+        {
+          name: 'History',
+          link: `${this.props.match.url}/history`
+        },
+      ]
     });
   }
 
@@ -95,7 +117,6 @@ class SpotContainer extends React.Component {
   }
 
   render() {
-    console.log('render');
     if (!this.state.spot || !this.state.forecasts) {
       return (
         <div>
@@ -103,7 +124,6 @@ class SpotContainer extends React.Component {
           <NavigationTabs
             isBusy
             items={this.state.navItems}
-            onChange={this.updateSelectedNavItem}
           />
           <SpotDayContainer />
         </div>
@@ -124,7 +144,9 @@ class SpotContainer extends React.Component {
     let endDate = moment(date).set('hours', 23);
     const sliderData = this.state.forecasts.overall_ratings.filter(item => moment(item.date_time).isBetween(startDate, endDate));
 
-    return(
+    // TODO: refactor all these into individual components/containers
+
+    return (
       <div>
         <SpotBanner
           current_potential={MathUtil.round(current_overall_rating.rating, 0)}
@@ -133,32 +155,36 @@ class SpotContainer extends React.Component {
         />
         <NavigationTabs
           items={this.state.navItems}
-          onChange={this.updateSelectedNavItem}
         />
-        {this.state.selectedNavItem === this.state.navItems.indexOf('Today') ?
+
+        <Route path={this.props.match.url} exact render={() => (
           <SpotDayContainer
             selectedTime={seed.value}
             selectedMoment={date}
             forecasts={this.state.forecasts}
           />
-        : null}
-        {this.state.selectedNavItem === this.state.navItems.indexOf('Forecast') ?
+        )} />
+
+        <Route path={`${this.props.match.url}/forecast`} exact render={() => (
           <SpotForecastContainer
             forecasts={this.state.forecasts}
           />
-        : null}
-        {this.state.selectedNavItem === this.state.navItems.indexOf('About') ?
+        )} />
+
+        <Route path={`${this.props.match.url}/about`} exact render={() => (
           <SpotAboutContainer
-           data={this.state.spot}
+            data={this.state.spot}
           />
-        : null}
-        {this.state.selectedNavItem === this.state.navItems.indexOf('History') ?
-        <div id="history-section" className="row">
-          <div className="large-12 columns">
-            <h3>HISTORY COMING SOON</h3>
+        )} />
+
+        <Route path={`${this.props.match.url}/history`} exact render={() => (
+          <div id="history-section" className="row">
+            <div className="large-12 columns">
+              <h3>HISTORY COMING SOON</h3>
+            </div>
           </div>
-        </div>
-        : null}
+        )} />
+
         <SpotTimeSlider
           curveData={sliderData}
           updateParent={this.updateSelectedDateTime}
@@ -169,4 +195,8 @@ class SpotContainer extends React.Component {
   }
 }
 
-export default SpotContainer;
+SpotPage.propTypes = {
+  match: PropTypes.object,
+}
+
+export default SpotPage;

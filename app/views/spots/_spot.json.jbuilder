@@ -1,3 +1,5 @@
+# TODO: Use a spot to_builder method to get these attrs
+
 json.(
     spot,
     :id,
@@ -20,6 +22,7 @@ json.(
     # :tide_shift_rate,
     :region,
     :works_on_all_tides?,
+    :current_model_date_time, # TODO: Rename to updated_at
     :current_potential
 )
 

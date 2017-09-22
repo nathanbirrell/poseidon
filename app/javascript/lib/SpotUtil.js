@@ -1,4 +1,4 @@
-import MathUtil from 'math-util.js';
+import MathUtil from 'lib/MathUtil';
 
 class SpotUtil {
   constructor() {
