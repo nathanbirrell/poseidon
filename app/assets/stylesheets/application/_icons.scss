@@ -6,6 +6,10 @@
   background-image: image-url('icons/facebook--white.svg');
 }
 
+.--icon-slack--white::before {
+  background-image: image-url('icons/slack--white.svg');
+}
+
 .--icon-copy--white::before {
   background-image: image-url('icons/copy--white.svg');
 }

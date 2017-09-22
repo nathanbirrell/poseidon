@@ -72,6 +72,7 @@ class SpotShareContainer extends React.Component {
                 <button id="share-session" className="btn --circle --icon --icon-copy--white" data-clipboard-text={`${this.shareUrl()}`}></button>
                 <a className="twitter-share-button btn --circle  --icon --icon-twitter--white" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(this.shareUrl())}&text=${this.shareText()}`}></a>
                 <a className="btn --circle  --icon --icon-facebook--white"></a>
+                <a className="btn --circle  --icon --icon-slack--white"></a>
               </div>
             </div>
           </div>
