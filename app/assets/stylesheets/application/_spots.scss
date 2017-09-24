@@ -12,7 +12,7 @@
 .spot-banner {
   position: relative;
   overflow: hidden;
-  background-color: $secondary-color;
+  background-color: $ocean-mist;
 
   &.--positive {
     .spot-banner__content {
@@ -118,7 +118,7 @@
     p,
     span,
     a {
-      color: $font-light-secondary;
+      color: $font-dark-secondary;
       font-weight: lighter;
       opacity: 0.90;
     }
@@ -126,14 +126,12 @@
     a {
       text-decoration: underline;
       &:visited {
-        color: $font-light-secondary;
         opacity: 0.90;
       }
     }
   }
 
   h1 {
-    color: $font-light-primary;
     line-height: 1.2;
     font-weight: $font-weight-black;
     margin-bottom: 0;
