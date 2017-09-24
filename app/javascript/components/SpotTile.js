@@ -25,7 +25,7 @@ class SpotTile extends React.Component {
     const { spot } = this.props;
     const link = `/spots/${spot.id}`;
     const updated_at = moment(spot.current_model_date_time).fromNow(true);
-    const rating = parseFloat(spot.current_potential);
+    const rating = spot.current_potential;
     const swell_size_ft = MathUtil.round(SpotUtil.metresToFeet(spot.current_swell.size), 1);
     const swell_direction = SpotUtil.degreesToText(spot.current_swell.direction);
     const swell_period = MathUtil.round(spot.current_swell.period, 0);

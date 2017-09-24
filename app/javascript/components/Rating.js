@@ -1,13 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Classnames from 'classnames';
 
 class Rating extends React.Component {
   render() {
     if (!this.props.rating) { return null; }
 
+    const classes = Classnames({
+      'rating': true,
+      '--large': this.props.isLarge,
+    });
+    const rating = Math.round(this.props.rating / 10);
+
     return (
-      <div className="rating">
-        {this.props.rating}
+      <div className={classes}>
+        {rating}
       </div>
     );
   }
@@ -15,10 +22,12 @@ class Rating extends React.Component {
 
 Rating.defaultProps = {
   rating: null,
+  isLarge: false,
 }
 
 Rating.propTypes = {
   rating: PropTypes.number,
+  isLarge: PropTypes.bool,
 }
 
 export default Rating;
