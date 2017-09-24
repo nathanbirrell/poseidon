@@ -16,25 +16,15 @@
 }
 
 .spot-banner__content {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: flex-start;
   padding: 12px 0;
 
   .spot-banner__rating {
     display: inline-block;
     vertical-align: middle;
-    border-radius: 4px;
-    background-color: #fefefe;
     padding: 6px 12px;
-    margin-left: -57px;
-    padding-left: 57px;
+    padding-left: 0;
     margin-right: 12px;
-    -webkit-box-shadow: $shadow-subtle;
-    -moz-box-shadow: $shadow-subtle;
-    box-shadow: $shadow-subtle;
-    border-top: 1px solid rgba(0,0,0,.07);
+    max-width: 66px;
 
     @media #{$medium-up} {
       width: 75px;
@@ -43,13 +33,18 @@
       line-height: 85px;
     }
 
+    .rating {
+      width: 100%;
+    }
+
     .rating-label {
       font-size: rem-calc(10);
       text-transform: uppercase;
       color: $font-dark-secondary;
       display: block;
-      text-align: left;
       line-height: 14px;
+      margin-top: 4px;
+      text-align: center;
       width: 100%;
     }
   }

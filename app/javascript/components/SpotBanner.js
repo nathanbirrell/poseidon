@@ -28,8 +28,8 @@ class SpotBanner extends React.Component {
         <div className="row spot-banner__content">
           <div className="small-12 columns text-left">
             <div className="spot-banner__rating">
-              <span className="rating-label">Overall</span>
               <Rating rating={this.props.current_potential} isLarge />
+              <span className="rating-label">Surf Potential</span>
             </div>
             <div className="spot-banner__details">
               <h1>{this.props.name}</h1>
