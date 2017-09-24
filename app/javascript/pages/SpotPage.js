@@ -106,11 +106,11 @@ class SpotPage extends React.Component {
     if (!this.state.spot || !this.state.forecasts) {
       return (
         <div>
-          <SpotBanner isBusy />
           <NavigationTabs
             isBusy
             items={this.state.navItems}
           />
+          <SpotBanner isBusy />
           <SpotDayContainer />
         </div>
       );
