@@ -1,3 +1,19 @@
+.--icon-twitter--white::before {
+  background-image: image-url('icons/twitter--white.svg');
+}
+
+.--icon-facebook--white::before {
+  background-image: image-url('icons/facebook--white.svg');
+}
+
+.--icon-slack--white::before {
+  background-image: image-url('icons/slack--white.svg');
+}
+
+.--icon-copy--white::before {
+  background-image: image-url('icons/copy--white.svg');
+}
+
 .--icon-alert-triangle--white::before {
   background-image: image-url('icons/alert-triangle--white.svg');
 }

@@ -227,11 +227,13 @@ class SpotDayContainer extends React.Component {
 }
 
 SpotDayContainer.defaultProps = {
-  data: null,
+  forecasts: null,
+  selectedTime: null
 };
 
 SpotDayContainer.PropTypes = {
-  data: PropTypes.object,
+  forecasts: PropTypes.object,
+  selectedTime: PropTypes.number
 };
 
 export default SpotDayContainer;

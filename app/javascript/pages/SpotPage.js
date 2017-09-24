@@ -6,10 +6,12 @@ import { Route } from 'react-router-dom';
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
 import Api from 'lib/ApiUtil';
+import UrlUtil from 'lib/UrlUtil';
 
 import SpotAboutContainer from 'containers/SpotAboutContainer';
 import SpotForecastContainer from 'containers/SpotForecastContainer';
 import SpotDayContainer from 'containers/SpotDayContainer';
+import SpotShareContainer from 'containers/SpotShareContainer';
 
 import SpotBanner from 'components/SpotBanner';
 import NavigationTabs from 'components/NavigationTabs';
@@ -23,7 +25,7 @@ class SpotPage extends React.Component {
       data: null,
       navItems: [],
       spotId: null,
-      selectedDateTime: moment()
+      selectedDateTime: this.initTime()
     };
 
     this.findForecastSeedFromTime = this.findForecastSeedFromTime.bind(this);
@@ -47,6 +49,20 @@ class SpotPage extends React.Component {
 
     this.setState({ spotId: spotId });
     this.setNavItems();
+  }
+
+  initTime() {
+    let query = UrlUtil.searchParams.get('date_time');
+    if (query !== null) {
+      query = query.replace(/\s+/g, '+');
+      const output = moment(query);
+      console.log('query', query, output);
+      if (output._isValid) {
+        console.log('URL Query is valid', output);
+        return output;
+      }
+    }
+    return moment();
   }
 
   setNavItems() {
@@ -146,6 +162,7 @@ class SpotPage extends React.Component {
         <Route path={this.props.match.url} exact render={() => (
           <SpotDayContainer
             selectedTime={seed.value}
+            selectedMoment={date}
             forecasts={this.state.forecasts}
           />
         )} />
@@ -169,6 +186,11 @@ class SpotPage extends React.Component {
             </div>
           </div>
         )} />
+
+        <SpotShareContainer
+          selectedMoment={date}
+          spotName={this.state.spot.name}
+        />
 
         <SpotTimeSlider
           curveData={sliderData}
