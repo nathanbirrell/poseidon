@@ -13,37 +13,6 @@
   position: relative;
   overflow: hidden;
   background-color: $ocean-mist;
-
-  &.--positive {
-    .spot-banner__content {
-      .spot-banner__rating {
-        .rating,
-        .percent {
-          color: $positive;
-        }
-      }
-    }
-  }
-  &.--mixed {
-    .spot-banner__content {
-      .spot-banner__rating {
-        .rating,
-        .percent {
-          color: $mixed;
-        }
-      }
-    }
-  }
-  &.--negative {
-    .spot-banner__content {
-      .spot-banner__rating {
-        .rating,
-        .percent {
-          color: $negative;
-        }
-      }
-    }
-  }
 }
 
 .spot-banner__content {
@@ -56,31 +25,22 @@
   .spot-banner__rating {
     display: inline-block;
     vertical-align: middle;
-    height: 60px;
-    width: 120px;
-    border-radius: 60px;
+    border-radius: 4px;
     background-color: #fefefe;
-    margin-right: 12px;
-    text-align: right;
+    padding: 6px 12px;
     margin-left: -57px;
+    padding-left: 57px;
+    margin-right: 12px;
     -webkit-box-shadow: $shadow-subtle;
     -moz-box-shadow: $shadow-subtle;
     box-shadow: $shadow-subtle;
     border-top: 1px solid rgba(0,0,0,.07);
 
-    .rating {
-      font-size: rem-calc(38);
-      font-weight: $font-weight-normal;
-      margin-right: 0px;
-      line-height: 50px;
-    }
-
-    .percent {
-      font-size: rem-calc(18);
-      font-weight: $font-weight-light;
-      margin-right: 8px;
-      margin-left: 2px;
-      line-height: 50px;
+    @media #{$medium-up} {
+      width: 75px;
+      height: 75px;
+      margin-left: auto;
+      line-height: 85px;
     }
 
     .rating-label {
@@ -90,29 +50,20 @@
       display: block;
       text-align: left;
       line-height: 14px;
-      margin-top: -16px;
-      width: 60px;
-      float: right;
-      margin-right: 4px;
+      width: 100%;
     }
 
-    @media #{$medium-up} {
-      width: 75px;
-      height: 75px;
-      margin-left: auto;
-      line-height: 85px;
-      .percent {
-        margin-right: 5px;
-      }
-      .rating-label {
-        margin-top: -34px;
-        margin-right: -2px;
-      }
+    .rating {
+      width: 42px;
+      height: 32px;
+      font-size: 1.5em;
+      align-items: center;
     }
   }
 
   .spot-banner__details {
     display: inline-block;
+    position: relative;
     vertical-align: middle;
 
     p,
