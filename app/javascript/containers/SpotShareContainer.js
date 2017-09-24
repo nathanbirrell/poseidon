@@ -61,7 +61,7 @@ class SpotShareContainer extends React.Component {
 
         {this.state.shareOpen ?
           <div>
-            <div className="curtain -light"></div>
+            <div className="curtain -light" onClick={this.handleShareClose}></div>
             <div className="share-menu">
               <div className="share-menu__header">
                 Share session
