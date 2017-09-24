@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import SpotUtil from 'lib/SpotUtil';
 import PlaceholderShimmer from 'components/PlaceholderShimmer';
+import Rating from 'components/Rating';
 
 class SpotBanner extends React.Component {
   render() {
@@ -27,9 +28,8 @@ class SpotBanner extends React.Component {
         <div className="row spot-banner__content">
           <div className="small-12 columns text-left">
             <div className="spot-banner__rating">
-              <span className="rating">{this.props.current_potential}</span>
-              <span className="percent">%</span>
-              <span className="rating-label">Overall</span>
+              <Rating rating={this.props.current_potential} isLarge />
+              <span className="rating-label">Surf Potential</span>
             </div>
             <div className="spot-banner__details">
               <h1>{this.props.name}</h1>

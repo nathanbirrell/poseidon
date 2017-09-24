@@ -12,75 +12,29 @@
 .spot-banner {
   position: relative;
   overflow: hidden;
-  background-color: $secondary-color;
-
-  &.--positive {
-    .spot-banner__content {
-      .spot-banner__rating {
-        .rating,
-        .percent {
-          color: $positive;
-        }
-      }
-    }
-  }
-  &.--mixed {
-    .spot-banner__content {
-      .spot-banner__rating {
-        .rating,
-        .percent {
-          color: $mixed;
-        }
-      }
-    }
-  }
-  &.--negative {
-    .spot-banner__content {
-      .spot-banner__rating {
-        .rating,
-        .percent {
-          color: $negative;
-        }
-      }
-    }
-  }
+  background-color: $ocean-mist;
 }
 
 .spot-banner__content {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: flex-start;
   padding: 12px 0;
 
   .spot-banner__rating {
     display: inline-block;
     vertical-align: middle;
-    height: 60px;
-    width: 120px;
-    border-radius: 60px;
-    background-color: #fefefe;
+    padding: 6px 12px;
+    padding-left: 0;
     margin-right: 12px;
-    text-align: right;
-    margin-left: -57px;
-    -webkit-box-shadow: $shadow-subtle;
-    -moz-box-shadow: $shadow-subtle;
-    box-shadow: $shadow-subtle;
-    border-top: 1px solid rgba(0,0,0,.07);
+    max-width: 66px;
 
-    .rating {
-      font-size: rem-calc(38);
-      font-weight: $font-weight-normal;
-      margin-right: 0px;
-      line-height: 50px;
+    @media #{$medium-up} {
+      width: 75px;
+      height: 75px;
+      margin-left: auto;
+      line-height: 85px;
     }
 
-    .percent {
-      font-size: rem-calc(18);
-      font-weight: $font-weight-light;
-      margin-right: 8px;
-      margin-left: 2px;
-      line-height: 50px;
+    .rating {
+      width: 100%;
     }
 
     .rating-label {
@@ -88,37 +42,22 @@
       text-transform: uppercase;
       color: $font-dark-secondary;
       display: block;
-      text-align: left;
       line-height: 14px;
-      margin-top: -16px;
-      width: 60px;
-      float: right;
-      margin-right: 4px;
-    }
-
-    @media #{$medium-up} {
-      width: 75px;
-      height: 75px;
-      margin-left: auto;
-      line-height: 85px;
-      .percent {
-        margin-right: 5px;
-      }
-      .rating-label {
-        margin-top: -34px;
-        margin-right: -2px;
-      }
+      margin-top: 4px;
+      text-align: center;
+      width: 100%;
     }
   }
 
   .spot-banner__details {
     display: inline-block;
+    position: relative;
     vertical-align: middle;
 
     p,
     span,
     a {
-      color: $font-light-secondary;
+      color: $font-dark-secondary;
       font-weight: lighter;
       opacity: 0.90;
     }
@@ -126,14 +65,12 @@
     a {
       text-decoration: underline;
       &:visited {
-        color: $font-light-secondary;
         opacity: 0.90;
       }
     }
   }
 
   h1 {
-    color: $font-light-primary;
     line-height: 1.2;
     font-weight: $font-weight-black;
     margin-bottom: 0;

@@ -122,11 +122,11 @@ class SpotPage extends React.Component {
     if (!this.state.spot || !this.state.forecasts) {
       return (
         <div>
-          <SpotBanner isBusy />
           <NavigationTabs
             isBusy
             items={this.state.navItems}
           />
+          <SpotBanner isBusy />
           <SpotDayContainer />
         </div>
       );
@@ -150,13 +150,13 @@ class SpotPage extends React.Component {
 
     return (
       <div>
+        <NavigationTabs
+          items={this.state.navItems}
+        />
         <SpotBanner
           current_potential={MathUtil.round(current_overall_rating.rating, 0)}
           name={this.state.spot.name}
           region={this.state.spot.region}
-        />
-        <NavigationTabs
-          items={this.state.navItems}
         />
 
         <Route path={this.props.match.url} exact render={() => (

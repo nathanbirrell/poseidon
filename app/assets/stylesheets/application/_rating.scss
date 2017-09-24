@@ -5,10 +5,24 @@
   border-radius: 2px;
   display: flex;
   justify-content: center;
+  align-items: center;
 
   color: $white;
   font-size: rem-calc(16);
   letter-spacing: -0.8px;
   text-align: center;
   font-weight: $font-weight-medium;
+
+  &.--large {
+    width: 42px;
+    height: 32px;
+    font-size: 1.5em;
+
+    &:after {
+      content: '/10';
+      font-size: 0.9rem;
+      align-self: flex-end;
+      opacity: 0.8;
+    }
+  }
 }

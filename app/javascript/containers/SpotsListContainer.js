@@ -5,6 +5,7 @@ import Api from 'lib/ApiUtil';
 import SpotTile from 'components/SpotTile';
 import Row from 'components/Row';
 import Column from 'components/Column';
+import Spinner from 'components/Spinner';
 
 class SpotsListContainer extends React.Component {
   constructor (props) {
@@ -27,17 +28,25 @@ class SpotsListContainer extends React.Component {
   }
 
   listSpots() {
+    if (!this.state.spots) return null;
+
     return this.state.spots.map(spot => {
       return (<SpotTile spot={spot} key={spot.id} />);
     });
   }
 
+  renderLoader() {
+    if (!this.state.spots) return (
+      <Spinner />
+    );
+  }
+
   render() {
-    if (!this.state.spots) return (<h1>'Loading...'</h1>);
     return (
       <Row>
         <Column widthMedium={10} isCentered>
           <h1>Surf now</h1>
+          {this.renderLoader()}
           {this.listSpots()}
         </Column>
       </Row>
