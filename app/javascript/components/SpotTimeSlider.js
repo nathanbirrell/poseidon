@@ -93,7 +93,7 @@ class SpotTimeSlider extends React.Component {
           />
         </div>
         <div className="time-slider__value --icon-chevron-down--iron">
-          <span className="time">{this.state.selectedDateTime.format("HH:mm")}</span>
+          <span className="time">{this.state.selectedDateTime.format("h a")}</span>
           <p className="date">{this.state.selectedDateTime.format("ddd D")}</p>
           <select
             className="time-slider__date-select"
