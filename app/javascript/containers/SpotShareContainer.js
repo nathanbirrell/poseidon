@@ -55,7 +55,7 @@ class SpotShareContainer extends React.Component {
       <div>
         <div className="row">
           <div className="columns">
-            <button className="btn" onClick={this.handleShareOpen}>Share session</button>
+            <button className="btn --icon --icon-share-2--white" onClick={this.handleShareOpen}>Share session</button>
           </div>
         </div>
 
