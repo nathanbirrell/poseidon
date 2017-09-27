@@ -9,7 +9,8 @@ class SpotShareContainer extends React.Component {
     super(props);
     this.state = {
       copied: false,
-      shareOpen: false
+      shareOpen: false,
+      appId: 321161578347645,
     };
 
     this.initClipboard = this.initClipboard.bind(this);
@@ -70,9 +71,9 @@ class SpotShareContainer extends React.Component {
               <div className="share-menu__body">
                 <p><strong>{this.props.spotName}</strong> @ <strong>{this.props.selectedMoment.format('ha, dddd Do MMM')}</strong></p>
                 <button id="share-session" className="btn --circle --icon --icon-copy--white" data-clipboard-text={`${this.shareUrl()}`}></button>
+                <a className="btn --circle  --icon --icon-message-circle--white" href={`fb-messenger://share/?link=${encodeURIComponent(this.shareUrl())}&app_id=${this.state.appId}`}></a>
+                <a className="btn --circle  --icon --icon-facebook--white" href={`https://www.facebook.com/dialog/share?app_id=${this.state.appId}&display=popup&href=${encodeURIComponent(this.shareUrl())}&redirect_uri=${encodeURIComponent(window.location)}`}></a>
                 <a className="twitter-share-button btn --circle  --icon --icon-twitter--white" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(this.shareUrl())}&text=${this.shareText()}`}></a>
-                <a className="btn --circle  --icon --icon-facebook--white"></a>
-                <a className="btn --circle  --icon --icon-slack--white"></a>
               </div>
             </div>
           </div>

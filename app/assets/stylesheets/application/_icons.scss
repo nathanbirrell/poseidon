@@ -10,6 +10,10 @@
   background-image: image-url('icons/facebook--white.svg');
 }
 
+.--icon-message-circle--white::before {
+  background-image: image-url('icons/message-circle--white.svg');
+}
+
 .--icon-slack--white::before {
   background-image: image-url('icons/slack--white.svg');
 }
