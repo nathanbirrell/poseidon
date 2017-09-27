@@ -25,6 +25,7 @@
   &:visited,
   &:focus {
     color: $white;
+    outline: none;
   }
 
   &:hover {
