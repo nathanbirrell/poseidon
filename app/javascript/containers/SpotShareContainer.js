@@ -23,7 +23,7 @@ class SpotShareContainer extends React.Component {
   }
 
   initClipboard() {
-    const clipboard = new Clipboard('#share-session');
+    const clipboard = new Clipboard('#copy-session-link');
     clipboard.on('success', e => {
       this.setState({
         copied: true,
@@ -69,11 +69,12 @@ class SpotShareContainer extends React.Component {
                 <a onClick={this.handleShareClose}>X</a>
               </div>
               <div className="share-menu__body">
-                <p><strong>{this.props.spotName}</strong> @ <strong>{this.props.selectedMoment.format('ha, dddd Do MMM')}</strong></p>
-                <button id="share-session" className="btn --circle --icon --icon-copy--white" data-clipboard-text={`${this.shareUrl()}`}></button>
-                <a className="btn --circle  --icon --icon-message-circle--white" href={`fb-messenger://share/?link=${encodeURIComponent(this.shareUrl())}&app_id=${this.state.appId}`}></a>
-                <a className="btn --circle  --icon --icon-facebook--white" href={`https://www.facebook.com/dialog/share?app_id=${this.state.appId}&display=popup&href=${encodeURIComponent(this.shareUrl())}&redirect_uri=${encodeURIComponent(window.location)}`}></a>
-                <a className="twitter-share-button btn --circle  --icon --icon-twitter--white" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(this.shareUrl())}&text=${this.shareText()}`}></a>
+                <p className="name"><strong>{this.props.spotName}</strong></p>
+                <p className="date_time">@ {this.props.selectedMoment.format('ha, ddd D MMM')}</p>
+                <a className="btn --circle  --icon --icon-message-circle--white --messenger" href={`fb-messenger://share/?link=${encodeURIComponent(this.shareUrl())}&app_id=${this.state.appId}`}></a>
+                <a className="btn --circle  --icon --icon-facebook--white --facebook" href={`https://www.facebook.com/dialog/share?app_id=${this.state.appId}&display=popup&href=${encodeURIComponent(this.shareUrl())}&redirect_uri=${encodeURIComponent(window.location)}`}></a>
+                <a className="twitter-share-button btn --circle  --icon --icon-twitter--white --twitter" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(this.shareUrl())}&text=${this.shareText()}`}></a>
+                <button id="copy-session-link" className="btn --secondary --icon --icon-copy--blue" data-clipboard-text={`${this.shareUrl()}`}>Copy link</button>
               </div>
             </div>
           </div>
