@@ -1,6 +1,6 @@
 .rating {
-  height: 26px;
-  width: 34px;
+  height: 28px;
+  width: 36px;
   background: $success-color;
   border-radius: 2px;
   display: flex;
@@ -17,7 +17,8 @@
     content: '/10';
     font-size: 0.9rem;
     align-self: flex-end;
-    opacity: 0.8;
+    opacity: 0.7;
+    padding-left: 1px;
   }
 
   &.--large {
