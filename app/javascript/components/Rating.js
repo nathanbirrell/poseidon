@@ -9,6 +9,7 @@ class Rating extends React.Component {
     const classes = Classnames({
       'rating': true,
       '--large': this.props.isLarge,
+      '--small': this.props.isSmall, // shows x (default shows x/10)
     });
     const rating = Math.round(this.props.rating / 10);
 
@@ -23,11 +24,13 @@ class Rating extends React.Component {
 Rating.defaultProps = {
   rating: null,
   isLarge: false,
+  isSmall: false,
 }
 
 Rating.propTypes = {
   rating: PropTypes.number,
   isLarge: PropTypes.bool,
+  isSmall: PropTypes.bool,
 }
 
 export default Rating;

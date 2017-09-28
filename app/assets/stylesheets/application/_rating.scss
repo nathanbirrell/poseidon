@@ -1,6 +1,6 @@
 .rating {
-  height: 22px;
-  width: 26px;
+  height: 26px;
+  width: 34px;
   background: $success-color;
   border-radius: 2px;
   display: flex;
@@ -13,16 +13,25 @@
   text-align: center;
   font-weight: $font-weight-medium;
 
+  &:after {
+    content: '/10';
+    font-size: 0.9rem;
+    align-self: flex-end;
+    opacity: 0.8;
+  }
+
   &.--large {
-    width: 42px;
     height: 32px;
+    width: 42px;
     font-size: 1.5em;
+  }
+
+  &.--small {
+    height: 22px;
+    width: 26px;
 
     &:after {
-      content: '/10';
-      font-size: 0.9rem;
-      align-self: flex-end;
-      opacity: 0.8;
+      display: none;
     }
   }
 }
