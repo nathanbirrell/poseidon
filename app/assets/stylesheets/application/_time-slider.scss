@@ -29,22 +29,19 @@
     }
 
     .time {
+      display: block;
+      position: absolute;
       font-size: rem-calc(20);
       line-height: rem-calc(19);
       font-weight: normal;
       text-transform: uppercase;
       color: $secondary-color;
-    }
+      z-index: 2;
+      pointer-events: none;
 
-    .am-pm {
-      font-size: rem-calc(12);
-    }
-
-    .date {
-      font-size: rem-calc(12);
-      line-height: rem-calc(11);
-      font-weight: lighter;
-      text-transform: uppercase;
+      .sub {
+        font-size: rem-calc(12);
+      }
     }
   }
 
@@ -53,16 +50,27 @@
     position: absolute;
     top: 0;
     left: 0;
-    margin-left: -1px;
-    margin-top: -37px;
     width: 100%;
+    color: $font-dark-primary;
+    height: 60px;
+    line-height: 65px;
+    background-color: $white;
+    z-index: 1;
+    padding-left: 12px;
+    border: none;
+
+    &:focus,
+    &:hover, {
+      background-color: $white;
+      outline: none;
+    }
 
     &.--expanded {
       display: block;
     }
   }
 
-  &__input {
+  &__time-input {
     display: inline-block;
     width: -webkit-calc(100% - 130px);
     width: -moz-calc(100% - 130px);
@@ -93,6 +101,14 @@
       z-index: -1;
       pointer-events: none;
     }
+
+    
+
+
+
+    // ===================================================
+    // RANGE INPUT STYLES
+    // ===================================================
 
     // OVERRIDE DEFAULT STYLES
     input[type=range] {

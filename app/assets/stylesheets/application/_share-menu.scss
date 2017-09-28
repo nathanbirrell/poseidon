@@ -6,34 +6,48 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  height: 120px;
   width: 320px;
   margin-left: -160px;
-  margin-top: -60px;
+  margin-top: -80px;
   text-align: center;
+  padding-bottom: 6px;
 
   &__header {
-    background: $iron;
-    height: 25px;
+    background: $gainsboro;
+    font-size: rem-calc(14);
+    color: $font-dark-primary;
+    font-weight: $font-weight-black;
+    height: 24px;
     width: 100%;
     text-transform: uppercase;
-    line-height: 25px;
+    line-height: 24px;
 
     a {
       float: right;
       margin-right: 6px;
-      color: $black;
+      color: $font-dark-secondary;
     }
   }
 
   &__body {
-    p {
-      margin: 6px auto;
+    .name {
+        color: $font-dark-primary;
+        margin: 6px auto 0px;
+      }
+
+    .date_time {
+      color: $font-dark-secondary;
+      margin: 0px auto 6px;
     }
 
     .btn {
       margin-top: 6px;
       margin-bottom: 6px;
+    }
+
+    #copy-session-link {
+      display: block;
+      margin: 6px auto;
     }
   }
 }

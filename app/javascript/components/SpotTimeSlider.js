@@ -61,7 +61,7 @@ class SpotTimeSlider extends React.Component {
 
     return (
       <div className="time-slider">
-        <div id="time-slider__input" className="time-slider__input">
+        <div id="time-slider__input" className="time-slider__time-input">
           <input
             type="range"
             min="4"
@@ -93,19 +93,18 @@ class SpotTimeSlider extends React.Component {
           />
         </div>
         <div className="time-slider__value --icon-chevron-down--iron">
-          <span className="time">{this.state.selectedDateTime.format("h a")}</span>
-          <p className="date">{this.state.selectedDateTime.format("ddd D")}</p>
           <select
-            className="time-slider__date-select"
-            onChange={this.handleChangeDays}
-            value={this.state.dateValue}
-          >
+              className="time-slider__date-select"
+              onChange={this.handleChangeDays}
+              value={this.state.dateValue}
+            >
             <option value="0">Today</option>
-            <option value="1">{moment().add(1, 'd').format("ddd")}</option>
-            <option value="2">{moment().add(2, 'd').format("ddd")}</option>
-            <option value="3">{moment().add(3, 'd').format("ddd")}</option>
-            <option value="4">{moment().add(4, 'd').format("ddd")}</option>
+            <option value="1">{moment().add(1, 'd').format("ddd D")}</option>
+            <option value="2">{moment().add(2, 'd').format("ddd D")}</option>
+            <option value="3">{moment().add(3, 'd').format("ddd D")}</option>
+            <option value="4">{moment().add(4, 'd').format("ddd D")}</option>
           </select>
+          <span className="time">{this.state.selectedDateTime.format("h:mm")}<span className="sub"> {this.state.selectedDateTime.format("a")}</span></span>
         </div>
       </div>
     );
