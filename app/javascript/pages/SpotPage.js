@@ -187,10 +187,14 @@ class SpotPage extends React.Component {
           </div>
         )} />
 
-        <SpotShareContainer
-          selectedMoment={date}
-          spotName={this.state.spot.name}
-        />
+        {[`${this.props.match.url}`, `${this.props.match.url}/forecast`].map(path => 
+          <Route path={path} exact render={() => (
+            <SpotShareContainer
+              selectedMoment={date}
+              spotName={this.state.spot.name}
+            />
+          )} />
+        )}
 
         <SpotTimeSlider
           curveData={sliderData}
