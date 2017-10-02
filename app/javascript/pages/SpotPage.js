@@ -187,8 +187,8 @@ class SpotPage extends React.Component {
           </div>
         )} />
 
-        {[`${this.props.match.url}`, `${this.props.match.url}/forecast`].map(path => 
-          <Route path={path} exact render={() => (
+        {[`${this.props.match.url}`, `${this.props.match.url}/forecast`].map((path, i) => 
+          <Route path={path} exact key={i} render={() => (
             <SpotShareContainer
               selectedMoment={date}
               spotName={this.state.spot.name}
