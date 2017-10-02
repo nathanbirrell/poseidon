@@ -8,6 +8,34 @@ class NavigationTabs extends React.Component {
     this.state = {
       fixed: false,
     };
+
+    this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  compomentWillUnmount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll() {
+    const yOffset = window.pageYOffset;
+    const cutoff = 100;
+    if (this.state.fixed) {
+      if (yOffset < cutoff) {
+        this.setState({
+          fixed: false
+        });
+      }
+    } else {
+      if (yOffset >= cutoff) {
+        this.setState({
+          fixed: true
+        });
+      }
+    }
   }
 
   render() {

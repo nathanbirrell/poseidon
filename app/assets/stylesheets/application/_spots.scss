@@ -20,7 +20,7 @@
 
   .spot-banner__rating {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
     padding: 6px 12px;
     padding-left: 0;
     margin-right: 12px;
@@ -52,7 +52,11 @@
   .spot-banner__details {
     display: inline-block;
     position: relative;
-    vertical-align: middle;
+    vertical-align: top;
+
+    @media #{$small-only} {
+      max-width: 280px;
+    }
 
     p,
     span,
