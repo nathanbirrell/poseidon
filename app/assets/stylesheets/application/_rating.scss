@@ -16,9 +16,13 @@
   &:after {
     content: '/10';
     font-size: 0.9rem;
-    align-self: flex-end;
     opacity: 0.7;
     padding-left: 1px;
+    align-self: flex-end;
+
+    @media #{$medium-up} {
+      align-self: center;
+    }
   }
 
   &.--large {
