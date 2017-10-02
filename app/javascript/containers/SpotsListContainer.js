@@ -47,8 +47,8 @@ class SpotsListContainer extends React.Component {
         <Column widthMedium={10} isCentered>
           <h1>Surf now</h1>
           {this.renderLoader()}
-          {this.listSpots()}
         </Column>
+        {this.listSpots()}
       </Row>
     );
   }

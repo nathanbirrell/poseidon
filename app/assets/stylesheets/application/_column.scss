@@ -1,0 +1,8 @@
+// Overrides for Foundation's grid
+
+@media #{$small-only} {
+  .small-expanded {
+    width: 100vw;
+    padding: 0;
+  }
+}
