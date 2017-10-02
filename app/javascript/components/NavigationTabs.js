@@ -22,15 +22,17 @@ class NavigationTabs extends React.Component {
 
   handleScroll() {
     const yOffset = window.pageYOffset;
-    const cutoff = 100;
+    const cutoff = 45;
     if (this.state.fixed) {
       if (yOffset < cutoff) {
+        this.props.fixedToggleFunction(false);
         this.setState({
           fixed: false
         });
       }
     } else {
       if (yOffset >= cutoff) {
+        this.props.fixedToggleFunction(true);
         this.setState({
           fixed: true
         });
@@ -69,11 +71,13 @@ class NavigationTabs extends React.Component {
 
 NavigationTabs.defaultProps = {
   isBusy: false,
+  fixedToggleFunction: null,
 }
 
 NavigationTabs.propTypes = {
   items: PropTypes.array.isRequired,
   isBusy: PropTypes.bool,
+  fixedToggleFunction: PropTypes.func,
 }
 
 export default NavigationTabs;
