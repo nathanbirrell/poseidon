@@ -25,14 +25,12 @@ class NavigationTabs extends React.Component {
     const cutoff = 45;
     if (this.state.fixed) {
       if (yOffset < cutoff) {
-        this.props.fixedToggleFunction(false);
         this.setState({
           fixed: false
         });
       }
     } else {
       if (yOffset >= cutoff) {
-        this.props.fixedToggleFunction(true);
         this.setState({
           fixed: true
         });
@@ -46,22 +44,25 @@ class NavigationTabs extends React.Component {
     }
 
     return (
-      <div id="spot-toolbar" className={"row spot-toolbar " + (this.state.fixed ? '--fixed' : '')}>
-        <div className="small-12 medium-5 columns">
-          <div className="row">
-            {this.props.items.map((item) => {
-              const isSelected = item.link === window.location.pathname;
-              // TODO: yarn add classnames, can't be having these conditionals
-              return (
-                <Link
-                  to={item.link}
-                  key={item.link}
-                  className={"small-3 columns spot-toolbar__item " + (isSelected ? '--focused' : '')}
-                >
-                  <span className="spot-toolbar__label">{item.name}</span>
-                </Link>
-              );
-            })}
+      <div>
+        <div className={"row nav-tabs-spacer " + (this.state.fixed ? '--fixed' : '')}></div>
+        <div className={"row nav-tabs " + (this.state.fixed ? '--fixed' : '')}>
+          <div className="small-12 medium-5 columns">
+            <div className="row">
+              {this.props.items.map((item) => {
+                const isSelected = item.link === window.location.pathname;
+                // TODO: yarn add classnames, can't be having these conditionals
+                return (
+                  <Link
+                    to={item.link}
+                    key={item.link}
+                    className={"small-3 columns nav-tabs__item " + (isSelected ? '--focused' : '')}
+                  >
+                    <span className="nav-tabs__label">{item.name}</span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
@@ -71,13 +72,11 @@ class NavigationTabs extends React.Component {
 
 NavigationTabs.defaultProps = {
   isBusy: false,
-  fixedToggleFunction: null,
 }
 
 NavigationTabs.propTypes = {
   items: PropTypes.array.isRequired,
   isBusy: PropTypes.bool,
-  fixedToggleFunction: PropTypes.func,
 }
 
 export default NavigationTabs;

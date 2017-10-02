@@ -1,4 +1,4 @@
-.spot-toolbar {
+.nav-tabs {
   height: 48px;
   background: $white;
   border-bottom: 1px solid $iron;
@@ -26,5 +26,14 @@
       line-height: 46px;
       border-bottom: 2px solid $secondary-color;
     }
+  }
+}
+
+.nav-tabs-spacer {
+  display: none;
+
+  &.--fixed {
+    display: block;
+    height: 45px;
   }
 }
