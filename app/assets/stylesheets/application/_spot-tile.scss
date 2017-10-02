@@ -22,12 +22,12 @@ a.spot-tile,
 
 .spot-tile__rating {
   flex: 1 1 auto;
-  width: 10%;
+  width: 15%;
 }
 
 .spot-tile__name {
   flex: 1 1 auto;
-  width: 70%;
+  width: 65%;
 
   h3 {
     margin: 0;
@@ -53,9 +53,7 @@ a.spot-tile,
   margin: 0 auto;
   display: flex;
   width: 100%;
-  margin-left: 10%;
-  padding-left: 6px;
-  padding-right: 6px;
+  margin-left: 15%;
 }
 .spot-tile__condition {
   flex: 1 1 33.33%;

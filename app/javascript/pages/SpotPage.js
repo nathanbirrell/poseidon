@@ -25,12 +25,14 @@ class SpotPage extends React.Component {
       data: null,
       navItems: [],
       spotId: null,
-      selectedDateTime: this.initTime()
+      selectedDateTime: this.initTime(),
+      fixedNav: false,
     };
 
     this.findForecastSeedFromTime = this.findForecastSeedFromTime.bind(this);
     this.updateSelectedDateTime = this.updateSelectedDateTime.bind(this);
     this.setNavItems = this.setNavItems.bind(this);
+    this.toggleFixedNav = this.toggleFixedNav.bind(this);
   }
 
   componentDidMount() {
@@ -118,6 +120,12 @@ class SpotPage extends React.Component {
     };
   }
 
+  toggleFixedNav(value) {
+    this.setState({
+      fixedNav: value
+    });
+  }
+
   render() {
     if (!this.state.spot || !this.state.forecasts) {
       return (
@@ -148,10 +156,15 @@ class SpotPage extends React.Component {
 
     // TODO: refactor all these into individual components/containers
 
+    const fixedStyle = {
+      paddingTop: '45px',
+    };
+
     return (
-      <div>
+      <div style={this.state.fixedNav ? fixedStyle : {}}>
         <NavigationTabs
           items={this.state.navItems}
+          fixedToggleFunction={this.toggleFixedNav}
         />
         <SpotBanner
           current_potential={MathUtil.round(current_overall_rating.rating, 0)}
