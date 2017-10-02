@@ -140,38 +140,68 @@
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none;
       border: none;
-      height: 18px;
-      width: 18px;
-      border-radius: 18px;
-      background: $secondary-color;
+      height: 60px;
+      width: 60px;
+      border-radius: 60px;
+      background-image: image-url('icons/circle--blue.svg');
+      background-size: 18px;
+      background-repeat: no-repeat;
+      background-position: center;
       cursor: pointer;
-      margin-top: -8px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-      box-shadow: $shadow-subtle; /* Add cool effects to your sliders! */
+      margin-top: -28px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
       opacity: 1;
     }
 
     /* All the same stuff for Firefox */
     input[type=range]::-moz-range-thumb {
-      box-shadow: $shadow-subtle;
       border: none;
-      height: 18px;
-      width: 18px;
-      border-radius: 18px;
-      background: $secondary-color;
+      height: 60px;
+      width: 60px;
+      border-radius: 60px;
+      background-image: image-url('icons/circle--blue.svg');
+      background-size: 18px;
+      background-repeat: no-repeat;
+      background-position: center;
       cursor: pointer;
       opacity: 1;
     }
 
     /* All the same stuff for IE */
     input[type=range]::-ms-thumb {
-      box-shadow: $shadow-subtle;
       border: none;
-      height: 18px;
-      width: 18px;
-      border-radius: 18px;
-      background: $secondary-color;
+      height: 60px;
+      width: 60px;
+      border-radius: 60px;
+      background-image: image-url('icons/circle--blue.svg');
+      background-size: 18px;
+      background-repeat: no-repeat;
+      background-position: center;
       cursor: pointer;
       opacity: 1;
+    }
+
+    &.left-aligned {
+      input[type=range]::-webkit-slider-thumb {
+        background-position: left;
+      }
+      input[type=range]::-moz-range-thumb{
+        background-position: left;
+      }
+      input[type=range]::-ms-thumb  {
+        background-position: left;
+      }
+    }
+  
+    &.right-aligned {
+      input[type=range]::-webkit-slider-thumb {
+        background-position: right;
+      }
+      input[type=range]::-moz-range-thumb{
+        background-position: right;
+      }
+      input[type=range]::-ms-thumb  {
+        background-position: right;
+      }
     }
 
     // STYLE TRACK

@@ -57,11 +57,10 @@ class SpotTimeSlider extends React.Component {
     });
 
     console.log("selectedDateTime", this.state.selectedDateTime.format("dd hh:mm a"));
-    // console.log('curveData: ', this.props.curveData, 'sliderData: ', sliderData);
 
     return (
       <div className="time-slider">
-        <div id="time-slider__input" className="time-slider__time-input">
+        <div id="time-slider__input" className={"time-slider__time-input " + (this.state.timeValue == 4 ? "left-aligned" : '') + (this.state.timeValue > 12 ? "right-aligned" : '')}>
           <input
             type="range"
             min="4"
