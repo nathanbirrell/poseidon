@@ -18,6 +18,11 @@ a.spot-tile,
     transform: translateY(1px);
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
   }
+
+  @media #{$medium-up} {
+    max-width: 320px;
+    margin: 6px;
+  }
 }
 
 .spot-tile__rating {
@@ -28,6 +33,14 @@ a.spot-tile,
 .spot-tile__name {
   flex: 1 1 auto;
   width: 65%;
+
+  h3,
+  p {
+    // TODO: figure out a better solution for this
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   h3 {
     margin: 0;

@@ -16,7 +16,7 @@ module.exports = merge(sharedConfig, {
   },
 
   devServer: {
-    clientLogLevel: 'none',
+    // clientLogLevel: 'none',
     https: settings.dev_server.https,
     host: settings.dev_server.host,
     port: settings.dev_server.port,
@@ -26,7 +26,7 @@ module.exports = merge(sharedConfig, {
     headers: { 'Access-Control-Allow-Origin': '*' },
     historyApiFallback: true,
     watchOptions: {
-      ignored: /node_modules/
+      ignored: '/node_modules/'
     }
   }
 })
