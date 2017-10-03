@@ -1,16 +1,31 @@
 .forecast-graph-container {
-  display: inline-block;
   position: relative;
   width: 100%;
-  padding-bottom: 25%; /* aspect ratio */
+  padding-bottom: 60%; /* aspect ratio */
+  white-space: nowrap;
   vertical-align: top;
-  overflow: hidden;
+  overflow-y: hidden;
+	overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
 
   .forecast-graph {
-    display: inline-block;
+    display: inline;
     position: absolute;
-    top: 0;
+    width: 800px;
+    top: 6px;
     left: 0;
     background: $ocean-mist;
+  }
+}
+
+.scrollwrapper {
+	width: 320px; /* arbitary for demo only */
+	white-space: nowrap;
+	overflow-y: hidden;
+	overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  
+  .internal {
+    display: inline;
   }
 }

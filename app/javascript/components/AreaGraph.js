@@ -70,7 +70,7 @@ class AreaGraph extends React.Component {
 
     x.domain(d3.extent(graphs[0].yVals, function(d, i) { return i; }));
     // y.domain([0, d3.max(graphs[i].yVals, function(d) { return d; })]);
-    y.domain([0, 100]);
+    y.domain([0, 110]);
     area.y0(y(0));
 
     const topLevel = this.svg.selectAll('g.graph')
