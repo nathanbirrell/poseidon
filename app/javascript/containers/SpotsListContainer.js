@@ -44,11 +44,14 @@ class SpotsListContainer extends React.Component {
   render() {
     return (
       <Row>
-        <Column widthMedium={10} isCentered>
+        <Column widthMedium={12} widthLarge={10} isCentered>
           <h1>Surf now</h1>
-          {this.renderLoader()}
         </Column>
-        {this.listSpots()}
+
+        <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
+          {this.renderLoader()}
+          {this.listSpots()}
+        </Column>
       </Row>
     );
   }

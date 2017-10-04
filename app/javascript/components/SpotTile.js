@@ -32,7 +32,7 @@ class SpotTile extends React.Component {
     const wind_direction = SpotUtil.degreesToText(spot.current_wind.direction);
     return (
       <Link to={link} >
-        <Column widthMedium={6} className="spot-tile small-expanded">
+        <Column widthMedium={6} className="spot-tile">
           <div className="spot-tile__rating">
             <Rating rating={rating} />
           </div>
