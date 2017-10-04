@@ -28,10 +28,7 @@ a.spot-tile,
 
   h3,
   p {
-    // TODO: figure out a better solution for this
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    @include clip-text-one-line;
   }
 
   h3 {

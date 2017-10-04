@@ -93,7 +93,7 @@ class SpotInfoCard extends React.Component {
   render() {
     if (this.props.isBusy || !this.props.data) {
       return (
-        <div className="small-12 medium-6 large-4 columns">
+        <div className="small-12 large-4 columns">
           <div className="info-card">
             <div className="info-card__top">
               <h3>{this.props.title}</h3>
@@ -105,7 +105,7 @@ class SpotInfoCard extends React.Component {
     }
 
     return (
-      <div className="small-12 medium-6 large-4 columns">
+      <div className="small-12 large-4 columns">
         <div className={"info-card " + (this.state.expanded ? '--expanded' : '')}>
           <div className={`info-card__top --${SpotUtil.getVerdict(this.props.rating)}`}>
             <h3>{this.props.title}</h3>
