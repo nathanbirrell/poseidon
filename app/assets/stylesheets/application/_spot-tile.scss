@@ -1,33 +1,25 @@
+$spot-tile-height: 320px;
+
 a.spot-tile,
 .spot-tile {
+  @include clickable;
   display: flex;
+  max-width: $spot-tile-height;
+  width: $spot-tile-height;
   background: $white;
   color: $oil;
-  max-width: 375px;
   padding: 12px;
   margin: 6px auto;
-  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.08);
   flex-wrap: wrap;
 
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.08);
-  }
-
-  &:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
-  }
-
   @media #{$medium-up} {
-    max-width: 320px;
     margin: 6px;
   }
 }
 
 .spot-tile__rating {
   flex: 1 1 auto;
-  width: 15%;
+  width: 16%;
 }
 
 .spot-tile__name {
@@ -43,22 +35,25 @@ a.spot-tile,
   }
 
   h3 {
+    font-size: rem-calc(21);
     margin: 0;
     font-weight: $font-weight-medium;
     line-height: rem-calc(26);
   }
   p {
+    font-size: rem-calc(14);
     margin: 0;
     color: $iron;
-    line-height: 100%;
+    line-height: rem-calc(15);
   }
 }
 
 .spot-tile__updated {
   flex: 1 1 auto;
-  max-width: 20%;
-  font-size: 80%;
+  max-width: 19%;
   text-align: right;
+  font-size: rem-calc(11);
+  line-height: rem-calc(11);
 }
 
 .spot-tile__conditions {
@@ -87,4 +82,16 @@ a.spot-tile,
   color: $jumbo;
   font-size: 80%;
   line-height: 120%;
+}
+
+.spots-list {
+  width: $spot-tile-height;
+
+  @media #{$medium-up} {
+    width: 694px;
+  }
+
+  @media #{$large-up} {
+    width: 1026px;
+  }
 }
