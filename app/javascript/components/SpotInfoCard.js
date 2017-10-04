@@ -40,7 +40,7 @@ class SpotInfoCard extends React.Component {
     }
     return this.props.data.map((d, i) => {
       return (
-        <div className="small-4 columns datapoint" key={i}>
+        <div className="datapoint" key={i}>
           <p className={`title sub-text --${d.indicator}`}>{d.title}</p>
           <p className="main-text">
             {d.prefix}
@@ -112,7 +112,7 @@ class SpotInfoCard extends React.Component {
             <span className="text-right">{this.props.secondary} | {this.props.date_time}</span>
           </div>
 
-          <div className="row info-card__body">
+          <div className="info-card__body">
             {this._renderDatapoints()}
           </div>
         </div>
