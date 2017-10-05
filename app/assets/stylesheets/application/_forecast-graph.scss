@@ -1,7 +1,7 @@
 .forecast-graph-container {
   position: relative;
   width: 100%;
-  padding-bottom: 70%; /* aspect ratio */
+  padding-bottom: 250px; /* aspect ratio */
   white-space: nowrap;
   vertical-align: top;
   overflow-y: hidden;
@@ -11,21 +11,9 @@
   .forecast-graph {
     display: inline;
     position: absolute;
-    width: 800px;
+    width: 960px;
     top: 6px;
     left: 0;
     background: $ocean-mist;
-  }
-}
-
-.scrollwrapper {
-	width: 320px; /* arbitary for demo only */
-	white-space: nowrap;
-	overflow-y: hidden;
-	overflow-x: scroll;
-  -webkit-overflow-scrolling: touch;
-  
-  .internal {
-    display: inline;
   }
 }
