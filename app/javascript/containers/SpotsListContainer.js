@@ -17,6 +17,7 @@ class SpotsListContainer extends React.Component {
 
     this.listSpots = this.listSpots.bind(this);
     this.handleRegionChange = this.handleRegionChange.bind(this);
+    this.handleNameSearchChange = this.handleNameSearchChange.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +37,12 @@ class SpotsListContainer extends React.Component {
         return spot.region_id == this.state.selectedRegion
       }) : this.state.spots;
 
+    if(this.state.searchQuery) {
+      filteredSpots = filteredSpots.slice().filter(spot => {
+        return (spot.name.toLowerCase().indexOf(this.state.searchQuery) >= 0 || spot.region.name.toLowerCase().indexOf(this.state.searchQuery) >= 0)
+      });
+    }
+
     return filteredSpots.map(spot => {
       return (<SpotTile spot={spot} key={spot.id} />);
     });
@@ -53,6 +60,12 @@ class SpotsListContainer extends React.Component {
     });
   }
 
+  handleNameSearchChange(event) {
+    this.setState({
+      searchQuery: event.target.value.toLowerCase()
+    });
+  }
+
   render() {
     return (
       <Row>
@@ -67,6 +80,14 @@ class SpotsListContainer extends React.Component {
             <option value="1">Mornington Peninsula</option>
             <option value="2">Surf Coast</option>
           </select>
+          <input
+            type="text"
+            className="search"
+            value={this.state.nameSearch}
+            placeholder="Search spots"
+            onChange={this.handleNameSearchChange}
+          >
+          </input>
         </Column>
 
         <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
