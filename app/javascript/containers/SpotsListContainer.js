@@ -140,7 +140,7 @@ class SpotsListContainer extends React.Component {
               <option value="current_wind.rating">Wind rating</option>
               <option value="current_wind.speed">Wind speed</option>
             </select>
-            <button className={"btn --icon " + (this.state.ascending ? "--icon-chevron-up--white" : "--icon-chevron-down--white")} onClick={this.toggleAscDesc}>{this.state.ascending ? "Ascending" : "Descending"}</button>
+            <button className={"btn --icon " + (this.state.ascending ? "--icon-chevron-up--white" : "--icon-chevron-down--white")} onClick={this.toggleAscDesc}>{this.state.ascending ? "Asc." : "Desc."}</button>
           </Column>
         </Row>
         <Row>

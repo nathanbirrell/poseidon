@@ -1,0 +1,15 @@
+.filter-select {
+  @include clickable;
+  border-radius: 3px;
+  box-shadow: $shadow-subtle;
+  max-width: 180px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  height: 44px;
+  outline: none;
+  vertical-align: middle;
+
+  &:focus {
+    outline: none;
+  }
+}
