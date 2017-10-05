@@ -10,7 +10,7 @@ import Rating from 'components/Rating';
 
 const SpotTileCondition = (props) => {
   return (
-    <div className="spot-tile__condition">
+    <div className={"spot-tile__condition " + (props.highlighted ? "--highlighted" : "")}>
       <span className="spot-tile__condition-primary">
         {props.primary}
         {props.primaryUnit ? <span className="spot-tile__condition-primary-unit">{props.primaryUnit}</span> : null }
@@ -48,10 +48,12 @@ class SpotTile extends React.Component {
               primary={`${swell_size_ft}`}
               primaryUnit={'ft'}
               secondary={`${swell_direction} @ ${swell_period}s`}
+              highlighted={this.props.highlight === 'current_swell.rating' || this.props.highlight === 'current_swell.size'}
             />
             <SpotTileCondition
               primary={`${wind_direction}`}
               secondary={`MODERATE TODO`}
+              highlighted={this.props.highlight === 'current_wind.rating' || this.props.highlight === 'current_wind.speed'}
             />
             <SpotTileCondition
               primary={`${spot.current_tide_snapshot.height}`}
@@ -65,8 +67,13 @@ class SpotTile extends React.Component {
   }
 }
 
+SpotTile.defaultProps = {
+  highlight: null,
+};
+
 SpotTile.propTypes = {
-  spot: PropTypes.object,
+  spot: PropTypes.object.isRequired,
+  highlight: PropTypes.string,
 }
 
 export default SpotTile;

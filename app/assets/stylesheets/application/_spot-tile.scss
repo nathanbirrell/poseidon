@@ -64,6 +64,10 @@ a.spot-tile,
   flex: 1 1 33.33%;
   padding: rem-calc(8);
   padding-left: 0;
+
+  &.--highlighted {
+    color: $secondary-color;
+  }
 }
 .spot-tile__condition-primary {
   display: block;

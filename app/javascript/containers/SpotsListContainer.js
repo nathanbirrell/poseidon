@@ -50,7 +50,7 @@ class SpotsListContainer extends React.Component {
     filteredSpots = this.orderSpots(filteredSpots, this.state.orderBy);
 
     return filteredSpots.map(spot => {
-      return (<SpotTile spot={spot} key={spot.id} />);
+      return (<SpotTile spot={spot} highlight={this.state.orderBy} key={spot.id} />);
     });
   }
 
