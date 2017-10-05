@@ -70,7 +70,6 @@ class AreaGraph extends React.Component {
 
     x.domain(d3.extent(graphs[0].yVals, function(d, i) { return i; }));
     // y.domain([0, d3.max(graphs[i].yVals, function(d) { return d; })]);
-    y.domain([0, 110]);
     area.y0(y(0));
 
     const topLevel = this.svg.selectAll('g.graph')
@@ -82,6 +81,8 @@ class AreaGraph extends React.Component {
       .merge(topLevel)
       .each(function(graph, i) {
         const thisGraph = d3.select(this);
+        // Set custom y Domain for this graph
+        y.domain([0, graph.yMax]);
 
         // REMOVE PREVIOUS GRAPH ELEMENTS
         thisGraph.selectAll('defs').remove();
@@ -90,22 +91,25 @@ class AreaGraph extends React.Component {
         thisGraph.selectAll('.point').remove();
 
         // Set gradient
-        const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.9\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.25\"/></linearGradient>`;
+        const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.35\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.1\"/></linearGradient>`;
         const defs = thisGraph
           .append('defs');
         
         defs.html(colouredGradient);
 
         // DRAW NEW GRAPH ELEMENTS
-        const areaInstance = thisGraph
-          .append('path')
-          .datum(graph.yVals)
-          .attr('class', 'area')
-          .attr('fill', `url(#${targetId}_ratingGradient_${i})`)
-          .attr('opacity', graph.area.opacity || 0.25)
-          .attr("d", area);
-
-        const lineInstance = thisGraph
+        if (graph.area.show) {
+          const areaInstance = thisGraph
+            .append('path')
+            .datum(graph.yVals)
+            .attr('class', 'area')
+            .attr('fill', `url(#${targetId}_ratingGradient_${i})`)
+            .attr('opacity', graph.area.opacity || 1)
+            .attr("d", area);
+        }
+        
+        if (graph.line.show) {
+          const lineInstance = thisGraph
             .append('path')
             .datum(graph.yVals)
             .attr('class', 'line')
@@ -113,17 +117,20 @@ class AreaGraph extends React.Component {
             .attr('fill', 'none')
             .attr('opacity', graph.line.opacity || 0.5)
             .attr("d", line);
+        }
 
-        const pointsInstance = thisGraph
-          .selectAll('.point')
-            .data(graph.yVals)
-            .enter().append("svg:circle")
-            .attr('class', 'point')
-            .attr('stroke', graph.points.color || graph.color)
-            .attr('fill', graph.points.color || graph.color)
-            .attr("cx", function(d, i) { return x(i) })
-            .attr("cy", function(d, i) { return y(d) })
-            .attr("r", graph.points.radius);
+        if (graph.points.show) {
+          const pointsInstance = thisGraph
+            .selectAll('.point')
+              .data(graph.yVals)
+              .enter().append("svg:circle")
+              .attr('class', 'point')
+              .attr('stroke', graph.points.color || graph.color)
+              .attr('fill', graph.points.color || graph.color)
+              .attr("cx", function(d, i) { return x(i) })
+              .attr("cy", function(d, i) { return y(d) })
+              .attr("r", graph.points.radius);
+        }
       });
 
       topLevel.exit().remove();
