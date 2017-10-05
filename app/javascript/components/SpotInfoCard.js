@@ -40,7 +40,7 @@ class SpotInfoCard extends React.Component {
     }
     return this.props.data.map((d, i) => {
       return (
-        <div className="small-4 columns datapoint" key={i}>
+        <div className="datapoint" key={i}>
           <p className={`title sub-text --${d.indicator}`}>{d.title}</p>
           <p className="main-text">
             {d.prefix}
@@ -93,7 +93,7 @@ class SpotInfoCard extends React.Component {
   render() {
     if (this.props.isBusy || !this.props.data) {
       return (
-        <div className="small-12 medium-6 large-4 columns">
+        <div className="small-12 large-4 columns">
           <div className="info-card">
             <div className="info-card__top">
               <h3>{this.props.title}</h3>
@@ -105,14 +105,14 @@ class SpotInfoCard extends React.Component {
     }
 
     return (
-      <div className="small-12 medium-6 large-4 columns">
+      <div className="small-12 large-4 columns">
         <div className={"info-card " + (this.state.expanded ? '--expanded' : '')}>
           <div className={`info-card__top --${SpotUtil.getVerdict(this.props.rating)}`}>
             <h3>{this.props.title}</h3>
             <span className="text-right">{this.props.secondary} | {this.props.date_time}</span>
           </div>
 
-          <div className="row info-card__body">
+          <div className="info-card__body">
             {this._renderDatapoints()}
           </div>
         </div>

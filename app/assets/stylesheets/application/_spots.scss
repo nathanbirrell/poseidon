@@ -16,7 +16,9 @@
 }
 
 .spot-banner__content {
-  padding: 12px 0;
+  display: flex;
+  padding-top: 12px;
+  padding-bottom: 12px;
 
   .spot-banner__rating {
     display: inline-block;
@@ -29,7 +31,6 @@
     @media #{$medium-up} {
       width: 75px;
       height: 75px;
-      margin-left: auto;
       line-height: 85px;
     }
 

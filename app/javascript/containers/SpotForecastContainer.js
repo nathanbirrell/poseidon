@@ -35,9 +35,9 @@ class SpotForecastContainer extends React.Component {
 
     const forecasts = this.props.forecasts;
     const overallRatings = this.getYVals(forecasts.overall_ratings, ['rating']);
-    const swellRatings = this.getYVals(forecasts.swells, ['size_rating', 'direction_rating', 'rating']);
-    const windRatings = this.getYVals(forecasts.winds, ['speed_rating', 'direction_rating', 'rating']);
-    const tideRatings = this.getYVals(forecasts.tides, ['rating']);
+    const swellRatings = this.getYVals(forecasts.swells, ['size_rating', 'direction_rating', 'rating', 'size', 'direction']);
+    const windRatings = this.getYVals(forecasts.winds, ['speed_rating', 'direction_rating', 'rating', 'speed', 'direction']);
+    const tideRatings = this.getYVals(forecasts.tides, ['rating', 'height']);
     console.log(overallRatings);
     console.log(swellRatings);
     console.log(windRatings);
@@ -55,13 +55,12 @@ class SpotForecastContainer extends React.Component {
             graphs={[
               {
                 yVals: overallRatings['rating'],
+                yMax: 110,
                 line: {
                   show: true,
-                  opacity: 0.5,
                 },
                 area: {
                   show: true,
-                  opacity: 0.25,
                 },
                 points: {
                   show: true,
@@ -83,52 +82,33 @@ class SpotForecastContainer extends React.Component {
             graphs={[
               {
                 yVals: swellRatings['rating'],
+                yMax: 110,
                 line: {
-                  show: true,
-                  opacity: 0.5,
+                  show: false,
                 },
                 area: {
                   show: true,
-                  opacity: 0.25,
                 },
                 points: {
-                  show: true,
-                  radius: 1,
+                  show: false,
                 },
                 color: '#27AE60'
               },
               {
-                yVals: swellRatings['size_rating'],
+                yVals: swellRatings['size'],
+                yMax: Math.max.apply(Math, swellRatings['size']) + 3,
                 line: {
                   show: true,
-                  opacity: 0.5,
                 },
                 area: {
-                  show: true,
-                  opacity: 0.05,
+                  show: false,
                 },
                 points: {
                   show: true,
                   radius: 1,
                 },
                 color: '#F2994A'
-              },
-              {
-                yVals: swellRatings['direction_rating'],
-                line: {
-                  show: true,
-                  opacity: 0.5,
-                },
-                area: {
-                  show: true,
-                  opacity: 0.05,
-                },
-                points: {
-                  show: true,
-                  radius: 1,
-                },
-                color: '#EB5757'
-              },
+              }
             ]}
           />
         </div>
@@ -143,52 +123,33 @@ class SpotForecastContainer extends React.Component {
             graphs={[
               {
                 yVals: windRatings['rating'],
+                yMax: 110,
                 line: {
-                  show: true,
-                  opacity: 0.5,
+                  show: false,
                 },
                 area: {
                   show: true,
-                  opacity: 0.25,
                 },
                 points: {
-                  show: true,
-                  radius: 1,
+                  show: false,
                 },
                 color: '#27AE60'
               },
               {
-                yVals: windRatings['speed_rating'],
+                yVals: windRatings['speed'],
+                yMax: Math.max.apply(Math, windRatings['speed']) + 10,
                 line: {
                   show: true,
-                  opacity: 0.5,
                 },
                 area: {
-                  show: true,
-                  opacity: 0.05,
+                  show: false,
                 },
                 points: {
                   show: true,
                   radius: 1,
                 },
                 color: '#F2994A'
-              },
-              {
-                yVals: windRatings['direction_rating'],
-                line: {
-                  show: true,
-                  opacity: 0.5,
-                },
-                area: {
-                  show: true,
-                  opacity: 0.05,
-                },
-                points: {
-                  show: true,
-                  radius: 1,
-                },
-                color: '#EB5757'
-              },
+              }
             ]}
           />
         </div>
@@ -202,20 +163,33 @@ class SpotForecastContainer extends React.Component {
             graphs={[
               {
                 yVals: tideRatings['rating'],
+                yMax: 110,
                 line: {
-                  show: true,
-                  opacity: 0.5,
+                  show: false,
                 },
                 area: {
                   show: true,
-                  opacity: 0.25,
+                },
+                points: {
+                  show: false,
+                },
+                color: '#27AE60'
+              },
+              {
+                yVals: tideRatings['height'],
+                yMax: Math.max.apply(Math, tideRatings['height']) + 0.5,
+                line: {
+                  show: true,
+                },
+                area: {
+                  show: false,
                 },
                 points: {
                   show: true,
                   radius: 1,
                 },
-                color: '#27AE60'
-              },
+                color: '#F2994A'
+              }
             ]}
           />
         </div>

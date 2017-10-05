@@ -76,12 +76,12 @@ class SpotTimeSlider extends React.Component {
             graphs={[
               {
                 yVals: sliderData,
+                yMax: 110,
                 line: {
-                  show: false,
+                  show: true,
                 },
                 area: {
                   show: true,
-                  opacity: 0.18,
                 },
                 points: {
                   show: false,
