@@ -1,3 +1,11 @@
+.--icon-chevron-up--white::before {
+  background-image: image-url('icons/chevron-up--white.svg');
+}
+
+.--icon-chevron-down--white::before {
+  background-image: image-url('icons/chevron-down--white.svg');
+}
+
 .--icon-share-2--white::before {
   background-image: image-url('icons/share-2--white.svg');
 }

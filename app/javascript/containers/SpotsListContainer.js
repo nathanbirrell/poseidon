@@ -12,12 +12,16 @@ class SpotsListContainer extends React.Component {
     super(props);
 
     this.state = {
-      spots: null
+      spots: null,
+      orderBy: "current_potential",
+      ascending: false 
     };
 
     this.listSpots = this.listSpots.bind(this);
     this.handleRegionChange = this.handleRegionChange.bind(this);
     this.handleNameSearchChange = this.handleNameSearchChange.bind(this);
+    this.handleOrderByChange = this.handleOrderByChange.bind(this);
+    this.toggleAscDesc = this.toggleAscDesc.bind(this);
   }
 
   componentDidMount() {
@@ -37,15 +41,39 @@ class SpotsListContainer extends React.Component {
         return spot.region_id == this.state.selectedRegion
       }) : this.state.spots;
 
-    if(this.state.searchQuery) {
+    if (this.state.searchQuery) {
       filteredSpots = filteredSpots.slice().filter(spot => {
         return (spot.name.toLowerCase().indexOf(this.state.searchQuery) >= 0 || spot.region.name.toLowerCase().indexOf(this.state.searchQuery) >= 0)
       });
     }
 
+    filteredSpots = this.orderSpots(filteredSpots, this.state.orderBy);
+
     return filteredSpots.map(spot => {
       return (<SpotTile spot={spot} key={spot.id} />);
     });
+  }
+
+  getChildPropertyRecursively(object, keys) {
+    let output;
+    const childProp = object[keys[0]];
+    if (keys.length > 1) {
+      const nextChildProp = this.getChildPropertyRecursively(childProp, keys.slice().splice(1));
+      output = nextChildProp;
+    } else {
+      output = childProp;
+    }
+    return output;
+  }
+
+  orderSpots(spots, orderBy) {
+    const orderLevels = orderBy.split('.');
+    const output = spots.sort((a, b) => {
+      let  Ametric = this.getChildPropertyRecursively(a, orderLevels);
+      let Bmetric = this.getChildPropertyRecursively(b, orderLevels);
+      return this.state.ascending ? Ametric - Bmetric : Bmetric - Ametric;
+    });
+    return output;
   }
 
   renderLoader() {
@@ -66,35 +94,74 @@ class SpotsListContainer extends React.Component {
     });
   }
 
+  handleOrderByChange(event) {
+    this.setState({
+      orderBy: event.target.value
+    });
+  }
+
+  toggleAscDesc() {
+    this.setState({
+      ascending: !this.state.ascending
+    });
+  }
+
   render() {
     return (
-      <Row>
-        <Column widthMedium={12} widthLarge={10} isCentered>
-          <h1>Surf now</h1>
-          <select
-            className="filter-select"
-            onChange={this.handleRegionChange}
-            value={this.state.regionValue}
-          >
-            <option value="">All regions</option>
-            <option value="1">Mornington Peninsula</option>
-            <option value="2">Surf Coast</option>
-          </select>
-          <input
-            type="text"
-            className="search"
-            value={this.state.nameSearch}
-            placeholder="Search spots"
-            onChange={this.handleNameSearchChange}
-          >
-          </input>
-        </Column>
-
-        <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
-          {this.renderLoader()}
-          {this.listSpots()}
-        </Column>
-      </Row>
+      <div>
+        <Row>
+          <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
+            <h1>Surf now</h1>
+          </Column>
+        </Row>
+        <Row>
+          <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
+            <select
+              className="filter-select"
+              onChange={this.handleRegionChange}
+              value={this.state.regionValue}
+            >
+              <option value="">All regions</option>
+              <option value="1">Mornington Peninsula</option>
+              <option value="2">Surf Coast</option>
+            </select>
+          </Column>
+        </Row>
+        <Row>
+          <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
+            <select
+              className="filter-select"
+              onChange={this.handleOrderByChange}
+              value={this.state.orderByValue}
+            >
+              <option value="current_potential">Overall rating</option>
+              <option value="current_swell.rating">Swell rating</option>
+              <option value="current_swell.size">Swell size</option>
+              <option value="current_wind.rating">Wind rating</option>
+              <option value="current_wind.speed">Wind speed</option>
+            </select>
+            <button className={"btn --icon " + (this.state.ascending ? "--icon-chevron-up--white" : "--icon-chevron-down--white")} onClick={this.toggleAscDesc}>{this.state.ascending ? "Ascending" : "Descending"}</button>
+          </Column>
+        </Row>
+        <Row>
+          <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
+            <input
+              type="text"
+              className="search"
+              value={this.state.nameSearch}
+              placeholder="Search spots"
+              onChange={this.handleNameSearchChange}
+            >
+            </input>
+          </Column>
+        </Row>
+        <Row>
+          <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
+            {this.renderLoader()}
+            {this.listSpots()}
+          </Column>
+        </Row>
+      </div>
     );
   }
 }
