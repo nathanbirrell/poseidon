@@ -6,6 +6,10 @@
   background-image: image-url('icons/search--dark-secondary.svg');
 }
 
+.--icon-bar-chart-2--dark-secondary::before {
+  background-image: image-url('icons/bar-chart-2--dark-secondary.svg');
+}
+
 .--icon-map-pin--dark-secondary::before {
   background-image: image-url('icons/map-pin--dark-secondary.svg');
 }
