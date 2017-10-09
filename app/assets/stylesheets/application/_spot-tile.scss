@@ -7,7 +7,7 @@ a.spot-tile,
   max-width: $spot-tile-height;
   width: $spot-tile-height;
   background: $white;
-  color: $oil;
+  color: $font-dark-primary;
   padding: 12px;
   margin: 6px auto;
   flex-wrap: wrap;
@@ -40,7 +40,7 @@ a.spot-tile,
   p {
     font-size: rem-calc(14);
     margin: 0;
-    color: $iron;
+    color: $font-dark-tertiary;
     line-height: rem-calc(15);
   }
 }
@@ -80,7 +80,7 @@ a.spot-tile,
 }
 .spot-tile__condition-secondary {
   display: block;
-  color: $jumbo;
+  color: $font-dark-secondary;
   font-size: 80%;
   line-height: 120%;
 }
