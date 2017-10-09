@@ -78,7 +78,6 @@ class SpotForecastContainer extends React.Component {
           <Row>
             <Column widthSmall={12} widthMedium={12} widthLarge={12}>
               <div id="forecast-graph-overall" className="forecast-graph-container"/>
-              <h3>Overall Rating</h3>
               <AreaGraph
                 heightRatio={0.25}
                 cssSelector='forecast-graph'
@@ -108,7 +107,6 @@ class SpotForecastContainer extends React.Component {
           <Row>
             <Column widthSmall={12} widthMedium={12} widthLarge={12}>
               <div id="forecast-graph-1" className="forecast-graph-container"/>
-              <h3>Swell</h3>
               <AreaGraph
                 heightRatio={0.25}
                 pointRadius={1}
@@ -153,7 +151,6 @@ class SpotForecastContainer extends React.Component {
           <Row>
             <Column widthSmall={12} widthMedium={12} widthLarge={12}>
               <div id="forecast-graph-2" className="forecast-graph-container"/>
-              <h3>Wind</h3>
               <AreaGraph
                 heightRatio={0.25}
                 pointRadius={1}
@@ -198,7 +195,6 @@ class SpotForecastContainer extends React.Component {
           <Row>
             <Column widthSmall={12} widthMedium={12} widthLarge={12}>
               <div id="forecast-graph-3" className="forecast-graph-container"/>
-              <h3>Tide</h3>
               <AreaGraph
                 heightRatio={0.25}
                 cssSelector='forecast-graph'
