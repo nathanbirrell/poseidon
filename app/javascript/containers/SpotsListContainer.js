@@ -116,43 +116,49 @@ class SpotsListContainer extends React.Component {
         </Row>
         <Row>
           <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
-            <select
-              className="filter-select"
-              onChange={this.handleRegionChange}
-              value={this.state.regionValue}
-            >
-              <option value="">All regions</option>
-              <option value="1">Mornington Peninsula</option>
-              <option value="2">Surf Coast</option>
-            </select>
+            <div className="input-holder --icon --icon-map-pin--dark-secondary --clickable">
+              <select
+                className="filter-select"
+                onChange={this.handleRegionChange}
+                value={this.state.regionValue}
+              >
+                <option value="">All regions</option>
+                <option value="1">Mornington Peninsula</option>
+                <option value="2">Surf Coast</option>
+              </select>
+            </div>
+          </Column>
+        </Row>
+        <Row>
+          <Column className="spots-list small-expanded" widthSmall={6} widthMedium={6} widthLarge={4} isCentered>
+            <div className="input-holder --icon --icon-align-right--dark-secondary --clickable">
+              <select
+                className="filter-select"
+                onChange={this.handleOrderByChange}
+                value={this.state.orderByValue}
+              >
+                <option value="current_potential">Overall rating</option>
+                <option value="current_swell.rating">Swell rating</option>
+                <option value="current_swell.size">Swell size</option>
+                <option value="current_wind.rating">Wind rating</option>
+                <option value="current_wind.speed">Wind speed</option>
+              </select>
+            </div>
+            <button className={"btn --icon --slim " + (this.state.ascending ? "--icon-chevron-up--white" : "--icon-chevron-down--white")} onClick={this.toggleAscDesc}>{this.state.ascending ? "Asc." : "Desc."}</button>
           </Column>
         </Row>
         <Row>
           <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
-            <select
-              className="filter-select"
-              onChange={this.handleOrderByChange}
-              value={this.state.orderByValue}
-            >
-              <option value="current_potential">Overall rating</option>
-              <option value="current_swell.rating">Swell rating</option>
-              <option value="current_swell.size">Swell size</option>
-              <option value="current_wind.rating">Wind rating</option>
-              <option value="current_wind.speed">Wind speed</option>
-            </select>
-            <button className={"btn --icon " + (this.state.ascending ? "--icon-chevron-up--white" : "--icon-chevron-down--white")} onClick={this.toggleAscDesc}>{this.state.ascending ? "Asc." : "Desc."}</button>
-          </Column>
-        </Row>
-        <Row>
-          <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
-            <input
-              type="text"
-              className="search"
-              value={this.state.nameSearch}
-              placeholder="Search spots"
-              onChange={this.handleNameSearchChange}
-            >
-            </input>
+            <div className="input-holder --icon --icon-search--dark-secondary">
+              <input
+                type="text"
+                className="search"
+                value={this.state.nameSearch}
+                placeholder="Search spots"
+                onChange={this.handleNameSearchChange}
+              >
+              </input>
+            </div>
           </Column>
         </Row>
         <Row>

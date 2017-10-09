@@ -1,15 +1,59 @@
-.filter-select {
-  @include clickable;
-  border-radius: 3px;
+.input-holder {
+  background-color: $white;
+  border-style: none;
+  border-radius: 4px;
   box-shadow: $shadow-subtle;
-  max-width: 180px;
-  margin-right: 12px;
+  height: 38px;
+  padding: 0 12px;
   margin-bottom: 12px;
-  height: 44px;
-  outline: none;
   vertical-align: middle;
+  width: auto;
+  position: relative;
+
+  &.--clickable {
+    @include clickable;
+  }
+
+  &.--icon {
+    padding-left: 30px;
+    &:before {
+      content: '';
+      height: 20px;
+      width: 20px;
+      display: block;
+      position: absolute;
+      background-size: contain;
+      top: 9px;
+      left: 12px;
+    }
+  }
+}
+
+select {
+  cursor: pointer;
+  border: none;
+  background-color: $white;
+  vertical-align: middle;
+  outline: none;
+  height: 38px;
 
   &:focus {
     outline: none;
+    background-color: $white;
+  }
+}
+
+input[type="text"] {
+  border-style: none;
+  box-shadow: none;
+  background: $white;
+  height: 38px;
+
+  &:focus {
+    background: $white;
+  }
+
+  &::placeholder {
+    color: $font-dark-tertiary;
   }
 }

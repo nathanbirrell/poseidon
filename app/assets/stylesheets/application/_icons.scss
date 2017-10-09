@@ -2,6 +2,18 @@
   background-image: image-url('icons/chevron-up--white.svg');
 }
 
+.--icon-search--dark-secondary::before {
+  background-image: image-url('icons/search--dark-secondary.svg');
+}
+
+.--icon-map-pin--dark-secondary::before {
+  background-image: image-url('icons/map-pin--dark-secondary.svg');
+}
+
+.--icon-align-right--dark-secondary::before {
+  background-image: image-url('icons/align-right--dark-secondary.svg');
+}
+
 .--icon-chevron-down--white::before {
   background-image: image-url('icons/chevron-down--white.svg');
 }
