@@ -1,6 +1,7 @@
 @mixin clickable($clickable: true) {
 	box-shadow: $shadow-subtle;
 	cursor: pointer;
+	transition: box-shadow 250ms, transform 250ms;
 
 	&:hover {
 		transform: translateY(-1px);
