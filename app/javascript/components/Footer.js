@@ -9,7 +9,7 @@ class Footer extends React.Component {
     return (
       <footer className="footer cell">
         <Row withXPadding withYPadding>
-          <Column widthMedium={10} mediumOffset={1}>
+          <Column widthMedium={10} offsetMedium={1}>
             <Row>
               <Column widthMedium={6}>
                 <ul className="footer__links">
