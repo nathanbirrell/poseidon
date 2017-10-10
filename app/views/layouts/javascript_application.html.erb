@@ -6,6 +6,7 @@
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Poseidon" %>">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet">
     <%= stylesheet_pack_tag 'styles' %>
+    <%= javascript_pack_tag 'application' %>
     <script>window.twttr = (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};
@@ -24,36 +25,14 @@
       }(document, "script", "twitter-wjs"));
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
-    <%= javascript_pack_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="off-canvas-wrap" data-offcanvas>
-      <div class="inner-wrap">
-        <header>
-          <%= render 'layouts/navigation' %>
-        </header>
 
-        <section class="main-section">
-          <%= content_for?(:before_main) ? yield(:before_main) : "" %>
-
-          <main id="main" role="main">
-             <%= render 'layouts/messages' %>
-             <%= yield %>
-          </main>
-
-
-          <div class="row text-center">
-            <footer class="small-12 cell">
-              <small>Built with code </> in Melbourne.</small> <br>
-              <small>Copyright Surf Poseidon Pty Ltd <%= Time.current.year %></small>
-            </footer>
-          </div>
-        </section>
-
-        <a class="exit-off-canvas"></a>
-      </div>
-    </div>
+    <main id="main" role="main">
+        <%= render 'layouts/messages' %>
+        <%= yield %>
+    </main>
 
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101910598-1"></script>
