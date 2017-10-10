@@ -68,6 +68,7 @@ class SpotPage extends React.Component {
 
   setNavItems() {
     const routeMatchUrl = this.props.match.url;
+
     this.setState({
       navItems: [
         {
