@@ -3,8 +3,34 @@
 @import "settings";
 @import "foundation"; // TODO: strip back to strictly CSS modules we use.
 
-@import "application/mixins/*";
-@import "application/**/*";
+@import "application/mixins/clickable";
+@import "application/mixins/clip-text";
+
+@import "application/atoms/floating-icon";
+@import "application/atoms/indicator";
+@import "application/atoms/placeholder-shimmer";
+
+@import "application/backgrounds";
+@import "application/btn";
+@import "application/column";
+@import "application/curtain";
+@import "application/footer";
+@import "application/forecast-graph";
+@import "application/form-elements";
+@import "application/icons";
+@import "application/info-card";
+@import "application/nav-tabs";
+@import "application/navigation";
+@import "application/optimum-visualisation";
+@import "application/potential-radial";
+@import "application/rating";
+@import "application/regions";
+@import "application/share-menu";
+@import "application/spot-plan-summary";
+@import "application/spot-sub-rating-group";
+@import "application/spot-tile";
+@import "application/spots";
+@import "application/time-slider";
 
 /**
  * Base element styles
