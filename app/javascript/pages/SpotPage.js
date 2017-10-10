@@ -70,12 +70,12 @@ class SpotPage extends React.Component {
     this.setState({
       navItems: [
         {
-          name: 'Today',
-          link: `${this.props.match.url}`
-        },
-        {
           name: 'Forecast',
           link: `${this.props.match.url}/forecast`
+        },
+        {
+          name: 'Today',
+          link: `${this.props.match.url}`
         },
         {
           name: 'About',
