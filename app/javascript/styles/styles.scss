@@ -1,7 +1,33 @@
 @charset 'utf-8';
 
-@import 'normalize'; @include normalize();
+@import "settings";
+@import "foundation"; // TODO: strip back to strictly CSS modules we use.
 
-body {
-  background: red;
-}
+@import "application/mixins/*";
+@import "application/**/*";
+
+/**
+ * Base element styles
+ */
+
+ h1,
+ h2,
+ h3,
+ h4,
+ h5,
+ p,
+ span {
+   font-family: 'Roboto', sans-serif;
+ }
+
+ table {
+   overflow: scroll;
+   display: block;
+   max-height: 420px;
+ }
+
+ table tbody tr td, table tr td {
+     line-height: 1;
+     padding: 0px 8px;
+     font-size: 0.8em;
+ }

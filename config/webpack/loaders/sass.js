@@ -15,7 +15,7 @@ module.exports = {
           sourceMap: true,
           includePaths: [
             './node_modules',
-            './node_modules/normalize-scss/sass'
+            './node_modules/foundation-sites/scss'
           ]
         }
       }
