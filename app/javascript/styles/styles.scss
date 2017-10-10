@@ -1,5 +1,10 @@
 @charset 'utf-8';
 
+// Note: These need to go before vendors like Foundation because we use the variables in vendor settings
+@import "application/core/colours";
+@import "application/core/typography";
+@import "application/core/shadows";
+
 @import "settings";
 @import "foundation"; // TODO: strip back to strictly CSS modules we use.
 
@@ -9,6 +14,10 @@
 @import "application/atoms/floating-icon";
 @import "application/atoms/indicator";
 @import "application/atoms/placeholder-shimmer";
+
+@import "application/molecules/tables";
+
+// TODO: organise these bad boys
 
 @import "application/backgrounds";
 @import "application/btn";
@@ -31,29 +40,3 @@
 @import "application/spot-tile";
 @import "application/spots";
 @import "application/time-slider";
-
-/**
- * Base element styles
- */
-
- h1,
- h2,
- h3,
- h4,
- h5,
- p,
- span {
-   font-family: 'Roboto', sans-serif;
- }
-
- table {
-   overflow: scroll;
-   display: block;
-   max-height: 420px;
- }
-
- table tbody tr td, table tr td {
-     line-height: 1;
-     padding: 0px 8px;
-     font-size: 0.8em;
- }
