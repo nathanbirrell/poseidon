@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Classnames from 'classnames';
 
+import Column from 'components/Column';
+
 const Row = (props) => {
   const { children, className, withXPadding, withYPadding, withXMargin, withYMargin } = props;
 
@@ -13,6 +15,17 @@ const Row = (props) => {
     'grid-margin-y': withYMargin,
     [`${props.className}`]: (className),
   });
+
+  if (props.withColumn) {
+    return (
+      <div className={classes}>
+        <Column>
+          {children}
+        </Column>
+      </div>
+    );
+  }
+
   return (
     <div className={classes}>
       {children}
@@ -27,6 +40,7 @@ Row.defaultProps = {
   withYPadding: false,
   withXMargin: false,
   withYMargin: false,
+  withColumn: false,
 };
 
 Row.PropTypes = {
@@ -36,6 +50,7 @@ Row.PropTypes = {
   withYPadding: PropTypes.bool,
   withXMargin: PropTypes.bool,
   withYMargin: PropTypes.bool,
+  withColumn: PropTypes.bool,
 };
 
 export default Row;

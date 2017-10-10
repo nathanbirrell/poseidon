@@ -8,6 +8,7 @@ import SpotUtil from 'lib/SpotUtil';
 import Row from 'components/Row';
 import Column from 'components/Column';
 import Spinner from 'components/Spinner';
+import SpotInfoCard from 'components/SpotInfoCard';
 
 class SpotDayContainer extends React.Component {
   render() {
