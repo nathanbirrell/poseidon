@@ -9,7 +9,16 @@ module.exports = {
       { loader: 'css-loader', options: { minimize: env.NODE_ENV === 'production' } },
       { loader: 'postcss-loader', options: { sourceMap: true } },
       'resolve-url-loader',
-      { loader: 'sass-loader', options: { sourceMap: true } }
+      {
+        loader: 'sass-loader',
+        options: {
+          sourceMap: true,
+          includePaths: [
+            './node_modules',
+            './node_modules/normalize-scss/sass'
+          ]
+        }
+      }
     ]
   })
 }
