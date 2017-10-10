@@ -14,9 +14,10 @@
 @import "application/mixins/clickable";
 @import "application/mixins/clip-text";
 
-@import "application/core/layout";
-
+@import "application/mixins/accessibility";
 @import "application/util/visibility";
+
+@import "application/core/layout";
 
 @import "application/atoms/floating-icon";
 @import "application/atoms/indicator";

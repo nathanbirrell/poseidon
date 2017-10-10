@@ -4,6 +4,7 @@
 }
 
 .main {
+  @include no-outline;
   padding-bottom: 32px;
 }
 

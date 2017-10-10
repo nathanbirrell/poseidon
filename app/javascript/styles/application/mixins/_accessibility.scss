@@ -1,0 +1,4 @@
+// Note: use sparingly. See http://a11yproject.com/posts/never-remove-css-outlines/
+@mixin no-outline {
+  outline: none;
+}
