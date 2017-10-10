@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class Header extends React.Component {
   render() {
     return (
-      <header role="banner" className="header cell">
+      <header role="banner" className="header">
         <nav className="top-bar">
           <div className="top-bar-left">
             <ul className="menu">

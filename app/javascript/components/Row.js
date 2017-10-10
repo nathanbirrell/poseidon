@@ -19,7 +19,7 @@ const Row = (props) => {
   if (props.withColumn) {
     return (
       <div className={classes}>
-        <Column>
+        <Column widthMedium={12} widthLarge={12}>
           {children}
         </Column>
       </div>
