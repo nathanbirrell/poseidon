@@ -129,7 +129,7 @@ class SpotForecastContainer extends React.Component {
                   },
                   {
                     yVals: tideRatings['height'],
-                    yMax: 6,
+                    yMax: Math.max.apply(Math, tideRatings['height']) * 3.5,
                     line: {
                       show: true,
                     },
