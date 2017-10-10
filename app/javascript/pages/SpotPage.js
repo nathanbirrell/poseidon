@@ -153,11 +153,16 @@ class SpotPage extends React.Component {
         <NavigationTabs
           items={this.state.navItems}
         />
-        <SpotBanner
-          current_potential={MathUtil.round(current_overall_rating.rating, 0)}
-          name={this.state.spot.name}
-          region={this.state.spot.region}
-        />
+
+        {[`${this.props.match.url}/about`, `${this.props.match.url}/history`].map((path, i) => 
+          <Route path={path} exact key={i} render={() => (
+            <SpotBanner
+              current_potential={MathUtil.round(current_overall_rating.rating, 0)}
+              name={this.state.spot.name}
+              region={this.state.spot.region}
+            />
+          )} />
+        )}
 
         <Route path={this.props.match.url} exact render={() => (
           <SpotDayContainer
