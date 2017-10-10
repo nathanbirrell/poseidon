@@ -1,6 +1,6 @@
 <%# TODO: Delete me when safe, replaced in Javascript app %>
 
-<div class="large-4 medium-6 small-12 columns spot-tile">
+<div class="large-4 medium-6 small-12 cell spot-tile">
   <%= link_to spot do %>
     <div class="spot-tile__datetime --<%= type %>"><p><%= spot.created_at.strftime("%I:%M %p") %></p></div>
     <% if type === 'full' %>

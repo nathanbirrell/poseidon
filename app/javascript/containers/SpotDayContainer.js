@@ -11,7 +11,7 @@ class SpotDayContainer extends React.Component {
   render() {
     if (!this.props.forecasts) {
       return (
-        <div id="current-section" className="row">
+        <div id="current-section" className="grid-x">
           <SpotInfoCard title='Swell' isBusy />
           <SpotInfoCard title='Wind' isBusy />
           <SpotInfoCard title='Tide' isBusy />
@@ -24,7 +24,7 @@ class SpotDayContainer extends React.Component {
     const current_tide =  this.props.forecasts.tides[this.props.selectedTime];
 
     return (
-      <div id="today-section" className="row">
+      <div id="today-section" className="grid-x">
         <SpotInfoCard
           title='Swell'
           secondary={SpotUtil.swellFeetToDescription(SpotUtil.metresToFeet(current_swell.size))}

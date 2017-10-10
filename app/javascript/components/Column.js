@@ -5,7 +5,7 @@ import Classnames from 'classnames';
 const Column = (props) => {
   const { children, widthSmall, widthMedium, widthLarge, className, isCentered } = props; // eslint-disable-line
   const classes = Classnames({
-    columns: true,
+    cell: true,
 
     [`small-${widthSmall}`]: (widthSmall),
     [`medium-${widthMedium}`]: (widthMedium),

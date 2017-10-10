@@ -19,11 +19,11 @@ class SpotAboutContainer extends React.Component {
 
     return (
       <div id="about-section" className="row small-collapse medium-uncollapse">
-        <div className="large-12 columns">
-          <div className="small-12 columns">
+        <div className="large-12 cell">
+          <div className="small-12 cell">
             <h4>Description</h4>
           </div>
-          <div className="small-12 columns">
+          <div className="small-12 cell">
             <h5 className="subheader">{data.description}</h5>
             <h4>Optimal conditions:</h4>
             <table>
@@ -64,8 +64,8 @@ class SpotAboutContainer extends React.Component {
             <p><strong>Lat/long: </strong> {data.latitude}, {data.longitude}</p>
           </div>
         </div>
-        <div id="location-view" className="row">
-          <div className="large-12 columns">
+        <div id="location-view" className="grid-x">
+          <div className="large-12 cell">
             <a className="btn --icon --icon-alert-triangle--white" href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
               Get directions
             </a>

@@ -180,14 +180,14 @@ class SpotPage extends React.Component {
         )} />
 
         <Route path={`${this.props.match.url}/history`} exact render={() => (
-          <div id="history-section" className="row">
-            <div className="large-12 columns">
+          <div id="history-section" className="grid-x">
+            <div className="large-12 cell">
               <h3>HISTORY COMING SOON</h3>
             </div>
           </div>
         )} />
 
-        {[`${this.props.match.url}`, `${this.props.match.url}/forecast`].map((path, i) => 
+        {[`${this.props.match.url}`, `${this.props.match.url}/forecast`].map((path, i) =>
           <Route path={path} exact key={i} render={() => (
             <SpotShareContainer
               selectedMoment={date}
