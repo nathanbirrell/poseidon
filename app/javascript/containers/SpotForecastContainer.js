@@ -87,17 +87,60 @@ class SpotForecastContainer extends React.Component {
                     yVals: overallRatings['rating'],
                     yMax: 110,
                     line: {
-                      show: true,
+                      show: false,
                     },
                     area: {
                       show: true,
                     },
                     points: {
-                      show: true,
-                      radius: 1,
+                      show: false,
                     },
                     color: '#27AE60'
                   },
+                  {
+                    yVals: swellRatings['size'],
+                    yMax: Math.max.apply(Math, swellRatings['size']) + 2,
+                    line: {
+                      show: true,
+                    },
+                    area: {
+                      show: false,
+                    },
+                    points: {
+                      show: true,
+                      radius: 1,
+                    },
+                    color: '#F2994A'
+                  },
+                  {
+                    yVals: windRatings['speed'],
+                    yMax: Math.max.apply(Math, windRatings['speed']) + 10,
+                    line: {
+                      show: true,
+                    },
+                    area: {
+                      show: false,
+                    },
+                    points: {
+                      show: true,
+                      radius: 1,
+                    },
+                    color: '#EB5757'
+                  },
+                  {
+                    yVals: tideRatings['height'],
+                    yMax: 6,
+                    line: {
+                      show: true,
+                    },
+                    area: {
+                      show: false,
+                    },
+                    points: {
+                      show: false,
+                    },
+                    color: '#2278F1'
+                  }
                 ]}
               />
             </Column>
@@ -129,7 +172,7 @@ class SpotForecastContainer extends React.Component {
                   },
                   {
                     yVals: swellRatings['size'],
-                    yMax: Math.max.apply(Math, swellRatings['size']) + 3,
+                    yMax: Math.max.apply(Math, swellRatings['size']) + 2,
                     line: {
                       show: true,
                     },
