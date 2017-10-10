@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import Classnames from 'classnames';
 
 const Row = (props) => {
-  const { children, withXPadding, withYPadding } = props;
+  const { children, className, withXPadding, withYPadding, withXMargin, withYMargin } = props;
 
   const classes = Classnames({
     'grid-x': true,
     'grid-padding-x': withXPadding,
     'grid-padding-y': withYPadding,
+    'grid-margin-x': withXMargin,
+    'grid-margin-y': withYMargin,
+    [`${props.className}`]: (className),
   });
   return (
     <div className={classes}>
@@ -19,14 +22,20 @@ const Row = (props) => {
 
 Row.defaultProps = {
   children: null,
-  withXPadding: false,
+  className: null,
+  withXPadding: true,
   withYPadding: false,
+  withXMargin: false,
+  withYMargin: false,
 };
 
 Row.PropTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   withXPadding: PropTypes.bool,
   withYPadding: PropTypes.bool,
+  withXMargin: PropTypes.bool,
+  withYMargin: PropTypes.bool,
 };
 
 export default Row;

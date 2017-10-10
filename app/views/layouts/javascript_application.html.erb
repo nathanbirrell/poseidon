@@ -29,10 +29,12 @@
   </head>
   <body>
 
-    <main id="main" role="main">
-        <%= render 'layouts/messages' %>
-        <%= yield %>
-    </main>
+    <div id="poseidon-app">
+      <%# TODO: remove this, just need to figure a way to pass messages down via an API %>
+      <%= render 'layouts/messages' %>
+
+      <%= yield %>
+    </div>
 
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101910598-1"></script>

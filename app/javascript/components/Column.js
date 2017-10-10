@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Classnames from 'classnames';
 
+// TODO: rename to Cell?
 const Column = (props) => {
-  const { children, widthSmall, widthMedium, widthLarge, className, isCentered } = props; // eslint-disable-line
+  const { children, widthSmall, widthMedium, widthLarge, className, isCentered, offset, offsetMedium, offsetLarge } = props; // eslint-disable-line
   const classes = Classnames({
     cell: true,
 
@@ -11,7 +12,9 @@ const Column = (props) => {
     [`medium-${widthMedium}`]: (widthMedium),
     [`large-${widthLarge}`]: (widthLarge),
 
-    'small-centered': isCentered,
+    [`small-offset-${offset}`]: (offset || offset === 0),
+    [`medium-offset-${offsetMedium}`]: (offsetMedium || offsetMedium === 0),
+    [`large-offset-${offsetLarge}`]: (offsetLarge || offsetLarge === 0),
 
     [`${props.className}`]: (className), // add any classes passed down
   });
@@ -24,12 +27,9 @@ const Column = (props) => {
 }
 
 Column.defaultProps = {
-  children: null,
   widthSmall: 12,
-  widthMedium: 8,
-  widthLarge: null,
+  widthMedium: 10,
   isCentered: false,
-  className: null,
 };
 
 Column.PropTypes = {
@@ -37,6 +37,9 @@ Column.PropTypes = {
   widthSmall: PropTypes.number,
   widthMedium: PropTypes.number,
   widthLarge: PropTypes.number,
+  offset: PropTypes.number,
+  offsetMedium: PropTypes.number,
+  offsetLarge: PropTypes.number,
   isCentered: PropTypes.bool,
 };
 

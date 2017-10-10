@@ -14,7 +14,7 @@ class SpotsListContainer extends React.Component {
     this.state = {
       spots: null,
       orderBy: "current_potential",
-      ascending: false 
+      ascending: false
     };
 
     this.listSpots = this.listSpots.bind(this);
@@ -108,66 +108,69 @@ class SpotsListContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        <Row>
-          <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
-            <h1>Surf now</h1>
-          </Column>
-        </Row>
-        <Row>
-          <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
-            <div className="input-holder --icon --icon-map-pin--dark-secondary --clickable">
-              <select
-                className="filter-select"
-                onChange={this.handleRegionChange}
-                value={this.state.regionValue}
-              >
-                <option value="">All regions</option>
-                <option value="1">Mornington Peninsula</option>
-                <option value="2">Surf Coast</option>
-              </select>
-            </div>
-          </Column>
-        </Row>
-        <Row>
-          <Column className="spots-list small-expanded" widthSmall={6} widthMedium={6} widthLarge={4} isCentered>
-            <div className="input-holder --icon --icon-align-right--dark-secondary --clickable">
-              <select
-                className="filter-select"
-                onChange={this.handleOrderByChange}
-                value={this.state.orderByValue}
-              >
-                <option value="current_potential">Overall rating</option>
-                <option value="current_swell.rating">Swell rating</option>
-                <option value="current_swell.size">Swell size</option>
-                <option value="current_wind.rating">Wind rating</option>
-                <option value="current_wind.speed">Wind speed</option>
-              </select>
-            </div>
-            <button className={"btn --icon --slim " + (this.state.ascending ? "--icon-chevron-up--white" : "--icon-chevron-down--white")} onClick={this.toggleAscDesc}>{this.state.ascending ? "Asc." : "Desc."}</button>
-          </Column>
-        </Row>
-        <Row>
-          <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
-            <div className="input-holder --icon --icon-search--dark-secondary">
-              <input
-                type="text"
-                className="search"
-                value={this.state.nameSearch}
-                placeholder="Search spots"
-                onChange={this.handleNameSearchChange}
-              >
-              </input>
-            </div>
-          </Column>
-        </Row>
-        <Row>
-          <Column className="spots-list small-expanded" widthMedium={12} widthLarge={10} isCentered>
-            {this.renderLoader()}
-            {this.listSpots()}
-          </Column>
-        </Row>
-      </div>
+      <Row>
+        <Column widthMedium={10} offsetMedium={1} widthLarge={12} offsetLarge={0}>
+          <Row>
+            <Column className="small-expanded" widthMedium={12} widthLarge={10}>
+              <h1 className="show-for-sr">Surf now</h1>
+            </Column>
+          </Row>
+
+          <Row>
+            <Column className="small-expanded" widthMedium={12} widthLarge={4}>
+              <div className="input-holder --icon --icon-search--dark-secondary">
+                <input
+                  type="text"
+                  className="search"
+                  value={this.state.nameSearch}
+                  placeholder="Search spots"
+                  onChange={this.handleNameSearchChange}
+                >
+                </input>
+              </div>
+            </Column>
+
+            <Column widthSmall={12} widthMedium={6} widthLarge={4}>
+              <div className="input-holder --icon --icon-map-pin--dark-secondary --clickable">
+                <select
+                  className="filter-select"
+                  onChange={this.handleRegionChange}
+                  value={this.state.regionValue}
+                >
+                  <option value="">All regions</option>
+                  <option value="1">Mornington Peninsula</option>
+                  <option value="2">Surf Coast</option>
+                </select>
+              </div>
+            </Column>
+            <Column className="flex-space-between" widthSmall={12} widthMedium={6} widthLarge={4}>
+              <div className="input-holder --icon --icon-align-right--dark-secondary --clickable">
+                <select
+                  className="filter-select"
+                  onChange={this.handleOrderByChange}
+                  value={this.state.orderByValue}
+                >
+                  <option value="current_potential">Overall rating</option>
+                  <option value="current_swell.rating">Swell rating</option>
+                  <option value="current_swell.size">Swell size</option>
+                  <option value="current_wind.rating">Wind rating</option>
+                  <option value="current_wind.speed">Wind speed</option>
+                </select>
+              </div>
+              <button className={"btn --icon --slim " + (this.state.ascending ? "--icon-chevron-up--white" : "--icon-chevron-down--white")} onClick={this.toggleAscDesc}>
+                <span className="show-for-medium">{this.state.ascending ? "Asc." : "Desc."}</span>
+              </button>
+            </Column>
+          </Row>
+
+          <Row>
+            <Column className="spots-list small-expanded" widthMedium={12} widthLarge={12}>
+              {this.renderLoader()}
+              {this.listSpots()}
+            </Column>
+          </Row>
+        </Column>
+      </Row>
     );
   }
 }

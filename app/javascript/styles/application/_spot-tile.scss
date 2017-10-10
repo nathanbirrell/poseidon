@@ -86,13 +86,7 @@ a.spot-tile,
 }
 
 .spots-list {
-  width: $spot-tile-height;
-
-  @media #{$medium-up} {
-    width: 694px;
-  }
-
-  @media #{$large-up} {
-    width: 1026px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }

@@ -2,15 +2,12 @@ header {
   //
 }
 
-nav {
-  //
-}
+nav.top-bar {
+  .menu-text { color: $font-dark-secondary; }
 
-a.title {
-  color: #fff;
-}
-
-.--icon-user--white {
-  height: 100%;
-  margin: auto;
+  li a {
+    color: $font-dark-primary;
+    font-size: rem-calc(14);
+    font-weight: $font-weight-medium;
+  }
 }
