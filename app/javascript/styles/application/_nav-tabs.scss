@@ -6,6 +6,8 @@
   transition: box-shadow 250ms;
   margin-bottom: 12px;
 
+  a:hover { text-decoration: none; }
+
   &.--fixed {
     position: fixed;
     top: 0;

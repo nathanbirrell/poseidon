@@ -89,4 +89,6 @@ a.spot-tile,
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+  a:hover { text-decoration: none; }
 }

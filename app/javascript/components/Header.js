@@ -8,7 +8,7 @@ class Header extends React.Component {
         <nav className="top-bar">
           <div className="top-bar-left">
             <ul className="menu">
-              <li className="menu-text">POSEIDON <sup>(BETA)</sup></li>
+              <li><Link to="/">POSEIDON <sup>(BETA)</sup></Link></li>
               <li><Link to="/">SPOTS</Link></li>
               <li><Link to="/">MY SESSIONS</Link></li>
               <li><Link to="/">THIS WEEK</Link></li>
