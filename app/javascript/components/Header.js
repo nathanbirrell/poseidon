@@ -9,10 +9,10 @@ class Header extends React.Component {
           <div className="top-bar-left">
             <ul className="menu">
               <li><Link to="/">POSEIDON <sup>(BETA)</sup></Link></li>
-              <li><Link to="/">SPOTS</Link></li>
-              <li><Link to="/">MY SESSIONS</Link></li>
-              <li><Link to="/">THIS WEEK</Link></li>
-              <li><Link to="/">TRIPS</Link></li>
+              <li className="show-for-medium"><Link to="/">SPOTS</Link></li>
+              <li className="show-for-medium"><Link to="/">MY SESSIONS</Link></li>
+              <li className="show-for-medium"><Link to="/">THIS WEEK</Link></li>
+              <li className="show-for-medium"><Link to="/">TRIPS</Link></li>
             </ul>
           </div>
           <div className="top-bar-right">
