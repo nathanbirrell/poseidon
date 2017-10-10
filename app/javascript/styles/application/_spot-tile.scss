@@ -1,20 +1,36 @@
-$spot-tile-height: 320px;
 
-a.spot-tile,
+.spots-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  .spinner { margin: 0 auto; }
+}
+
 .spot-tile {
+  @media #{$medium-up} {
+    flex: 1 1 33%;
+    max-width: 33%;
+  }
+}
+
+.spot-tile a {
   @include clickable;
   display: flex;
-  max-width: $spot-tile-height;
-  width: $spot-tile-height;
+  width: 100%;
+  margin: 6px auto;
+  padding: 12px;
+  flex-wrap: wrap;
   background: $white;
   color: $font-dark-primary;
-  padding: 12px;
-  margin: 6px auto;
-  flex-wrap: wrap;
+  border-radius: 1px;
 
   @media #{$medium-up} {
+    width: auto;
     margin: 6px;
   }
+
+  &:hover { text-decoration: none; }
 }
 
 .spot-tile__rating {
@@ -83,12 +99,4 @@ a.spot-tile,
   color: $font-dark-secondary;
   font-size: 80%;
   line-height: 120%;
-}
-
-.spots-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  a:hover { text-decoration: none; }
 }

@@ -111,13 +111,13 @@ class SpotsListContainer extends React.Component {
       <Row>
         <Column widthMedium={10} offsetMedium={1} widthLarge={12} offsetLarge={0}>
           <Row>
-            <Column className="small-expanded" widthMedium={12} widthLarge={10}>
+            <Column widthMedium={12} widthLarge={10}>
               <h1 className="show-for-sr">Surf now</h1>
             </Column>
           </Row>
 
           <Row>
-            <Column className="small-expanded" widthMedium={12} widthLarge={4}>
+            <Column widthMedium={12} widthLarge={4}>
               <div className="input-holder --icon --icon-search--dark-secondary">
                 <input
                   type="text"
@@ -164,7 +164,7 @@ class SpotsListContainer extends React.Component {
           </Row>
 
           <Row>
-            <Column className="spots-list small-expanded" widthMedium={12} widthLarge={12}>
+            <Column className="spots-list" widthMedium={12} widthLarge={12}>
               {this.renderLoader()}
               {this.listSpots()}
             </Column>
