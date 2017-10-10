@@ -13,6 +13,8 @@ import SpotForecastContainer from 'containers/SpotForecastContainer';
 import SpotDayContainer from 'containers/SpotDayContainer';
 import SpotShareContainer from 'containers/SpotShareContainer';
 
+import Row from 'components/Row';
+import Column from 'components/Column';
 import SpotBanner from 'components/SpotBanner';
 import NavigationTabs from 'components/NavigationTabs';
 import SpotInfoCard from 'components/SpotInfoCard';
@@ -149,59 +151,61 @@ class SpotPage extends React.Component {
     // TODO: refactor all these into individual components/containers
 
     return (
-      <div style={this.state.fixedNav ? fixedStyle : {}}>
-        <NavigationTabs
-          items={this.state.navItems}
-        />
-        <SpotBanner
-          current_potential={MathUtil.round(current_overall_rating.rating, 0)}
-          name={this.state.spot.name}
-          region={this.state.spot.region}
-        />
-
-        <Route path={this.props.match.url} exact render={() => (
-          <SpotDayContainer
-            selectedTime={seed.value}
-            selectedMoment={date}
-            forecasts={this.state.forecasts}
+      <Row withXPadding={false}>
+        <Column widthMedium={10} offsetMedium={1} style={this.state.fixedNav ? fixedStyle : {}}>
+          <NavigationTabs
+            items={this.state.navItems}
           />
-        )} />
-
-        <Route path={`${this.props.match.url}/forecast`} exact render={() => (
-          <SpotForecastContainer
-            forecasts={this.state.forecasts}
+          <SpotBanner
+            current_potential={MathUtil.round(current_overall_rating.rating, 0)}
+            name={this.state.spot.name}
+            region={this.state.spot.region}
           />
-        )} />
 
-        <Route path={`${this.props.match.url}/about`} exact render={() => (
-          <SpotAboutContainer
-            data={this.state.spot}
-          />
-        )} />
-
-        <Route path={`${this.props.match.url}/history`} exact render={() => (
-          <div id="history-section" className="grid-x">
-            <div className="large-12 cell">
-              <h3>HISTORY COMING SOON</h3>
-            </div>
-          </div>
-        )} />
-
-        {[`${this.props.match.url}`, `${this.props.match.url}/forecast`].map((path, i) =>
-          <Route path={path} exact key={i} render={() => (
-            <SpotShareContainer
+          <Route path={this.props.match.url} exact render={() => (
+            <SpotDayContainer
+              selectedTime={seed.value}
               selectedMoment={date}
-              spotName={this.state.spot.name}
+              forecasts={this.state.forecasts}
             />
           )} />
-        )}
 
-        <SpotTimeSlider
-          curveData={sliderData}
-          updateParent={this.updateSelectedDateTime}
-          seedTime={sliderSeedTime}
-        />
-      </div>
+          <Route path={`${this.props.match.url}/forecast`} exact render={() => (
+            <SpotForecastContainer
+              forecasts={this.state.forecasts}
+            />
+          )} />
+
+          <Route path={`${this.props.match.url}/about`} exact render={() => (
+            <SpotAboutContainer
+              data={this.state.spot}
+            />
+          )} />
+
+          <Route path={`${this.props.match.url}/history`} exact render={() => (
+            <div id="history-section" className="grid-x">
+              <div className="large-12 cell">
+                <h3>HISTORY COMING SOON</h3>
+              </div>
+            </div>
+          )} />
+
+          {[`${this.props.match.url}`, `${this.props.match.url}/forecast`].map((path, i) =>
+            <Route path={path} exact key={i} render={() => (
+              <SpotShareContainer
+                selectedMoment={date}
+                spotName={this.state.spot.name}
+              />
+            )} />
+          )}
+
+          <SpotTimeSlider
+            curveData={sliderData}
+            updateParent={this.updateSelectedDateTime}
+            seedTime={sliderSeedTime}
+          />
+        </Column>
+      </Row>
     );
   }
 }
