@@ -5,9 +5,12 @@
 @import "application/core/typography";
 @import "application/core/shadows";
 
+// Foundation
 @import "settings";
 @import "foundation"; // TODO: strip back to strictly CSS modules we use.
+@include foundation-everything;
 
+// Poseidon
 @import "application/mixins/clickable";
 @import "application/mixins/clip-text";
 
@@ -18,7 +21,6 @@
 @import "application/molecules/tables";
 
 // TODO: organise these bad boys
-
 @import "application/backgrounds";
 @import "application/btn";
 @import "application/column";
