@@ -1,12 +1,13 @@
 .forecast-graph-container {
   position: relative;
   width: 100%;
-  padding-bottom: 250px; /* aspect ratio */
+  padding-bottom: 275px; /* aspect ratio */
   white-space: nowrap;
   vertical-align: top;
   overflow-y: hidden;
 	overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
+  margin-bottom: 6px;
 
   .forecast-graph {
     display: inline;
@@ -15,5 +16,30 @@
     top: 6px;
     left: 0;
     background: $ocean-mist;
+  }
+}
+
+.legend-key {
+  @include clickable;
+  background-color: $white;
+  display: inline-block;
+  border-radius: 4px;
+  padding: 0 12px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: lighter;
+  height: 30px;
+  line-height: 32px;
+  
+  span {
+    height: 12px;
+    width: 12px;
+    border-radius: 100%;
+    margin-right: 6px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -3px;
   }
 }

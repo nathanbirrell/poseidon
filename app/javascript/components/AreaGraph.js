@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 
+import Row from 'components/Row';
+import Column from 'components/Column';
+
 class AreaGraph extends React.Component {
   constructor (props) {
     super(props);
@@ -89,6 +92,9 @@ class AreaGraph extends React.Component {
         thisGraph.selectAll('.area').remove();
         thisGraph.selectAll('.line').remove();
         thisGraph.selectAll('.point').remove();
+        // thisGraph.selectAll('.dawn-segments').remove();
+        // thisGraph.selectAll('.dusk-segments').remove();
+        thisGraph.selectAll('.day-segment').remove();
 
         // Set gradient
         const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.35\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.1\"/></linearGradient>`;
@@ -133,16 +139,99 @@ class AreaGraph extends React.Component {
         }
       });
 
+      // const forecastDays = this.props.forecastDays;
+      // const noOfDatapoints = x.domain()[1];
+      // const nightSegments = [];
+      // const dawnPoint = 0;
+      // const dawnDuration = 1; // Indexes in array of a day's data which we say are covered by dawn period
+      // const duskPoint = 6; // Index in array of a day's data where we say dusk starts
+      // const duskDuration = 2; // Indexes in array of a day's data which we say are covered by dusk period
+      // for (let i = 0; i < forecastDays; i += 1) {
+      //   nightSegments.push(`Day ${i}`);
+      // }
+
+      // if (forecastDays) {
+      // const dawnSegments = this.svg
+      //   .selectAll('.dawn-segments')
+      //     .data(nightSegments)
+      //     .enter().append('rect')
+      //     .attr('class', 'dawn-segments')
+      //     .attr('x', function(d, i) { return x(i * (noOfDatapoints / forecastDays) + dawnPoint) })
+      //     .attr('y', 0)
+      //     .attr('width', function(d, i) { return x(dawnDuration) })
+      //     .attr('height', function(d, i) { return y(y.domain()[0] )})
+      //     .attr('fill', '#0D659D')
+      //     .attr('opacity', 0.2);
+
+      // const duskSegments = this.svg
+      //   .selectAll('.dusk-segments')
+      //     .data(nightSegments)
+      //     .enter().append('rect')
+      //     .attr('class', 'dusk-segments')
+      //     .attr('x', function(d, i) { return x(i * (noOfDatapoints / forecastDays) + duskPoint) })
+      //     .attr('y', 0)
+      //     .attr('width', function(d, i) { return x(duskDuration) })
+      //     .attr('height', function(d, i) { return y(y.domain()[0] )})
+      //     .attr('fill', '#0D659D')
+      //     .attr('opacity', 0.2);
+      // }
+
+      const vertSegHeight = y(y.domain()[0]);
+      const vertSegments = this.svg
+        .selectAll('.day-segment')
+          .data(graphs[0].yVals)
+          .enter().append('rect')
+          .attr('class', 'day-segment')
+          .attr('x', function(d, i) { return x(i - 0.5) })
+          .attr('y', 0)
+          .attr('width', function(d, i) { return x(1) })
+          .attr('height', vertSegHeight)
+          .attr('fill', function(d, i) { 
+            const mod = i%8;
+            if (mod <= 1 || mod >= 6) {
+              return '#0D659D';
+            }
+            return 'none';
+          })
+          .attr('opacity', 0.15);
+
       topLevel.exit().remove();
   }
 
+  renderLegend() {
+    return (
+      <Row>
+        <Column>
+          {this.props.graphs.map((graph, i) => {
+            const keyStyle = {
+              backgroundColor: graph.color
+            };
+            return (
+              <p key={i} className="legend-key"><span style={keyStyle}></span>{graph.label}</p>
+            );
+          })}
+        </Column>
+      </Row>
+    );
+  }
+
   render() {
-    if (!this.props.targetId || !this.props.id) {
+    if (!this.props.targetId && !this.props.id) {
       return false;
     }
     if (!this.props.targetId) {
       return (
-        <div id={this.props.id} className={`area-graph area-graph-${this.props.id}`} />
+        <div>
+          <div id={this.props.id} className={`area-graph area-graph-${this.props.id}`} />
+          {this.props.legend ? this.renderLegend() : null}
+        </div>
+      );
+    }
+    if (this.props.targetId && this.props.legend) {
+      return (
+        <div>
+          {this.props.legend ? this.renderLegend() : null}
+        </div>
       );
     }
     return null;
@@ -156,6 +245,8 @@ AreaGraph.defaultProps = {
   colors: ['#2278F1', '#27AE60', '#F2994A'],
   heightRatio: null,
   pointRadius: 3,
+  legend: false,
+  forecastDays: null,
 }
 
 AreaGraph.propTypes = {
@@ -165,6 +256,8 @@ AreaGraph.propTypes = {
   colors: PropTypes.array,
   heightRatio: PropTypes.number,
   pointRadius: PropTypes.number,
+  legend: PropTypes.bool,
+  forecastDays: PropTypes.number,
 }
 
 export default AreaGraph;

@@ -72,12 +72,12 @@ class SpotPage extends React.Component {
     this.setState({
       navItems: [
         {
-          name: 'Today',
-          link: `${this.props.match.url}`
-        },
-        {
           name: 'Forecast',
           link: `${this.props.match.url}/forecast`
+        },
+        {
+          name: 'Today',
+          link: `${this.props.match.url}`
         },
         {
           name: 'About',
@@ -144,17 +144,33 @@ class SpotPage extends React.Component {
     const sliderSeedTime = moment(this.state.forecasts.swells[seed.value].date_time);
 
     let dateCopy = date.toDate();
-    let startDate = moment(date).set('hours', 3);
-    let endDate = moment(date).set('hours', 23);
+    let startDate = moment(date).startOf('day');
+    let endDate = moment(date).endOf('day');
     const sliderData = this.state.forecasts.overall_ratings.filter(item => moment(item.date_time).isBetween(startDate, endDate));
 
     // TODO: refactor all these into individual components/containers
 
     return (
-      <Row withXPadding={false}>
-        <Column widthMedium={10} offsetMedium={1} style={this.state.fixedNav ? fixedStyle : {}}>
-          <NavigationTabs
-            items={this.state.navItems}
+      <div style={this.state.fixedNav ? fixedStyle : {}}>
+        <NavigationTabs
+          items={this.state.navItems}
+        />
+
+        {[`${this.props.match.url}/about`, `${this.props.match.url}/history`].map((path, i) =>
+          <Route path={path} exact key={i} render={() => (
+            <SpotBanner
+              current_potential={MathUtil.round(current_overall_rating.rating, 0)}
+              name={this.state.spot.name}
+              region={this.state.spot.region}
+            />
+          )} />
+        )}
+
+        <Route path={this.props.match.url} exact render={() => (
+          <SpotDayContainer
+            selectedTime={seed.value}
+            selectedMoment={date}
+            forecasts={this.state.forecasts}
           />
           <SpotBanner
             current_potential={MathUtil.round(current_overall_rating.rating, 0)}

@@ -23,7 +23,7 @@ const SpotTileCondition = (props) => {
 class SpotTile extends React.Component {
   render() {
     const { spot } = this.props;
-    const link = `/spots/${spot.id}`;
+    const link = `/spots/${spot.id}/forecast`;
     const updated_at = moment(spot.current_model_date_time).fromNow();
     const rating = parseFloat(spot.current_potential);
     const swell_size_ft = MathUtil.round(SpotUtil.metresToFeet(spot.current_swell.size), 1);

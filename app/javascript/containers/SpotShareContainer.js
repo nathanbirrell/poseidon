@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import clipboard from 'clipboard';
+import clipboard from 'clipboard-js';
 import { Route } from 'react-router-dom';
 
 class SpotShareContainer extends React.Component {
@@ -13,26 +13,14 @@ class SpotShareContainer extends React.Component {
       appId: 321161578347645,
     };
 
-    this.initClipboard = this.initClipboard.bind(this);
+    this.copyToClipboard = this.copyToClipboard.bind(this);
     this.handleShareOpen = this.handleShareOpen.bind(this);
     this.handleShareClose = this.handleShareClose.bind(this);
-  }
-
-  componentDidMount() {
-    this.initClipboard();
   }
 
   componentWillReceiveProps() {
     this.state.copied = false;
   }
-
-  initClipboard() {
-    const clipboard = new Clipboard('#copy-session-link');
-    clipboard.on('success', e => {
-      this.setState({
-        copied: true,
-      });
-    });}
 
   handleShareOpen() {
     this.setState({
@@ -53,6 +41,13 @@ class SpotShareContainer extends React.Component {
   shareUrl() {
     const output = `${[location.protocol, '//', location.host, location.pathname].join('')}?date_time=${this.props.selectedMoment.format()}`;
     return output;
+  }
+
+  copyToClipboard() {
+    clipboard.copy(this.shareUrl());
+    this.setState({
+      copied: true,
+    });
   }
 
   render() {
@@ -78,7 +73,7 @@ class SpotShareContainer extends React.Component {
                 <a className="btn --circle  --icon --icon-message-circle--white --messenger" href={`fb-messenger://share/?link=${encodeURIComponent(this.shareUrl())}&app_id=${this.state.appId}`}></a>
                 <a className="btn --circle  --icon --icon-facebook--white --facebook" href={`https://www.facebook.com/dialog/share?app_id=${this.state.appId}&display=popup&href=${encodeURIComponent(this.shareUrl())}&redirect_uri=${encodeURIComponent(window.location)}`}></a>
                 <a className="twitter-share-button btn --circle  --icon --icon-twitter--white --twitter" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(this.shareUrl())}&text=${this.shareText()}`}></a>
-                <button id="copy-session-link" className="btn --secondary --icon --icon-copy--blue" data-clipboard-text={`${this.shareUrl()}`}>{this.state.copied ? 'Copied!' : 'Copy link'}</button>
+                <button id="copy-session-link" className="btn --secondary --icon --icon-copy--blue" onClick={this.copyToClipboard}>{this.state.copied ? 'Copied!' : 'Copy link'}</button>
               </div>
             </div>
           </div>
