@@ -10,6 +10,9 @@ class Header extends React.Component {
             <ul className="menu">
               <li className="menu-text">POSEIDON <sup>(BETA)</sup></li>
               <li><Link to="/">SPOTS</Link></li>
+              <li><Link to="/">MY SESSIONS</Link></li>
+              <li><Link to="/">THIS WEEK</Link></li>
+              <li><Link to="/">TRIPS</Link></li>
             </ul>
           </div>
           <div className="top-bar-right">
