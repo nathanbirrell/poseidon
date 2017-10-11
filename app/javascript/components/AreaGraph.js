@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 
+import Row from 'components/Row';
+import Column from 'components/Column';
+
 class AreaGraph extends React.Component {
   constructor (props) {
     super(props);
@@ -136,13 +139,40 @@ class AreaGraph extends React.Component {
       topLevel.exit().remove();
   }
 
+  renderLegend() {
+    return (
+      <Row>
+        <Column>
+          {this.props.graphs.map((graph, i) => {
+            const keyStyle = {
+              backgroundColor: graph.color
+            };
+            return (
+              <p key={i} className="legend-key"><span style={keyStyle}></span>{graph.label}</p>
+            );
+          })}
+        </Column>
+      </Row>
+    );
+  }
+
   render() {
-    if (!this.props.targetId || !this.props.id) {
+    if (!this.props.targetId && !this.props.id) {
       return false;
     }
     if (!this.props.targetId) {
       return (
-        <div id={this.props.id} className={`area-graph area-graph-${this.props.id}`} />
+        <div>
+          <div id={this.props.id} className={`area-graph area-graph-${this.props.id}`} />
+          {this.props.legend ? this.renderLegend() : null}
+        </div>
+      );
+    }
+    if (this.props.targetId && this.props.legend) {
+      return (
+        <div>
+          {this.props.legend ? this.renderLegend() : null}
+        </div>
       );
     }
     return null;
@@ -156,6 +186,7 @@ AreaGraph.defaultProps = {
   colors: ['#2278F1', '#27AE60', '#F2994A'],
   heightRatio: null,
   pointRadius: 3,
+  legend: false,
 }
 
 AreaGraph.propTypes = {
@@ -165,6 +196,7 @@ AreaGraph.propTypes = {
   colors: PropTypes.array,
   heightRatio: PropTypes.number,
   pointRadius: PropTypes.number,
+  legend: PropTypes.bool,
 }
 
 export default AreaGraph;

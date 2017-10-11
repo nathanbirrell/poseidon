@@ -84,6 +84,7 @@ class SpotForecastContainer extends React.Component {
                 targetId='forecast-graph-overall'
                 graphs={[
                   {
+                    label: 'Overall rating',
                     yVals: overallRatings['rating'],
                     yMax: 110,
                     line: {
@@ -98,6 +99,7 @@ class SpotForecastContainer extends React.Component {
                     color: '#27AE60'
                   },
                   {
+                    label: 'Swell size',
                     yVals: swellRatings['size'],
                     yMax: Math.max.apply(Math, swellRatings['size']) + 2,
                     line: {
@@ -113,6 +115,7 @@ class SpotForecastContainer extends React.Component {
                     color: '#F2994A'
                   },
                   {
+                    label: 'Wind speed',
                     yVals: windRatings['speed'],
                     yMax: Math.max.apply(Math, windRatings['speed']) + 10,
                     line: {
@@ -128,6 +131,7 @@ class SpotForecastContainer extends React.Component {
                     color: '#EB5757'
                   },
                   {
+                    label: 'Tide height',
                     yVals: tideRatings['height'],
                     yMax: Math.max.apply(Math, tideRatings['height']) * 3.5,
                     line: {
@@ -142,6 +146,7 @@ class SpotForecastContainer extends React.Component {
                     color: '#2278F1'
                   }
                 ]}
+                legend={true}
               />
             </Column>
           </Row>
@@ -157,6 +162,7 @@ class SpotForecastContainer extends React.Component {
                 targetId='forecast-graph-1'
                 graphs={[
                   {
+                    label: 'Swell rating',
                     yVals: swellRatings['rating'],
                     yMax: 110,
                     line: {
@@ -171,6 +177,7 @@ class SpotForecastContainer extends React.Component {
                     color: '#27AE60'
                   },
                   {
+                    label: 'Swell height',
                     yVals: swellRatings['size'],
                     yMax: Math.max.apply(Math, swellRatings['size']) + 2,
                     line: {
@@ -186,6 +193,7 @@ class SpotForecastContainer extends React.Component {
                     color: '#F2994A'
                   }
                 ]}
+                legend={true}
               />
             </Column>
           </Row>
@@ -201,6 +209,7 @@ class SpotForecastContainer extends React.Component {
                 targetId='forecast-graph-2'
                 graphs={[
                   {
+                    label: 'Wind rating',
                     yVals: windRatings['rating'],
                     yMax: 110,
                     line: {
@@ -215,6 +224,7 @@ class SpotForecastContainer extends React.Component {
                     color: '#27AE60'
                   },
                   {
+                    label: 'Wind speed',
                     yVals: windRatings['speed'],
                     yMax: Math.max.apply(Math, windRatings['speed']) + 10,
                     line: {
@@ -230,6 +240,7 @@ class SpotForecastContainer extends React.Component {
                     color: '#F2994A'
                   }
                 ]}
+                legend={true}
               />
             </Column>
           </Row>
@@ -244,6 +255,7 @@ class SpotForecastContainer extends React.Component {
                 targetId='forecast-graph-3'
                 graphs={[
                   {
+                    label: 'Tide rating',
                     yVals: tideRatings['rating'],
                     yMax: 110,
                     line: {
@@ -258,6 +270,7 @@ class SpotForecastContainer extends React.Component {
                     color: '#27AE60'
                   },
                   {
+                    label: 'Tide height',
                     yVals: tideRatings['height'],
                     yMax: Math.max.apply(Math, tideRatings['height']) + 0.5,
                     line: {
@@ -273,6 +286,7 @@ class SpotForecastContainer extends React.Component {
                     color: '#F2994A'
                   }
                 ]}
+                legend={true}
               />
             </Column>
           </Row>
