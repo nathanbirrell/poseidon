@@ -60,11 +60,11 @@ class SpotTimeSlider extends React.Component {
 
     return (
       <div className="time-slider">
-        <div id="time-slider__input" className={"time-slider__time-input " + (this.state.timeValue == 4 ? "left-aligned" : '') + (this.state.timeValue > 12 ? "right-aligned" : '')}>
+        <div id="time-slider__input" className={"time-slider__time-input " + (this.state.timeValue < 12.5 ? "left-aligned" : '') + (this.state.timeValue > 12.5 ? "right-aligned" : '')}>
           <input
             type="range"
-            min="4"
-            max="22"
+            min="2"
+            max="23"
             step="3"
             value={this.state.timeValue}
             onChange={this.handleChangeHours}>
@@ -89,6 +89,7 @@ class SpotTimeSlider extends React.Component {
                 color: '#2278F1'
               }
             ]}
+            forecastDays={1}
           />
         </div>
         <div className="time-slider__value --icon-chevron-down--iron">

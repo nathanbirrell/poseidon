@@ -92,6 +92,9 @@ class AreaGraph extends React.Component {
         thisGraph.selectAll('.area').remove();
         thisGraph.selectAll('.line').remove();
         thisGraph.selectAll('.point').remove();
+        // thisGraph.selectAll('.dawn-segments').remove();
+        // thisGraph.selectAll('.dusk-segments').remove();
+        thisGraph.selectAll('.day-segment').remove();
 
         // Set gradient
         const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.35\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.1\"/></linearGradient>`;
@@ -135,6 +138,62 @@ class AreaGraph extends React.Component {
               .attr("r", graph.points.radius);
         }
       });
+
+      // const forecastDays = this.props.forecastDays;
+      // const noOfDatapoints = x.domain()[1];
+      // const nightSegments = [];
+      // const dawnPoint = 0;
+      // const dawnDuration = 1; // Indexes in array of a day's data which we say are covered by dawn period
+      // const duskPoint = 6; // Index in array of a day's data where we say dusk starts
+      // const duskDuration = 2; // Indexes in array of a day's data which we say are covered by dusk period
+      // for (let i = 0; i < forecastDays; i += 1) {
+      //   nightSegments.push(`Day ${i}`);
+      // }
+
+      // if (forecastDays) {
+      // const dawnSegments = this.svg
+      //   .selectAll('.dawn-segments')
+      //     .data(nightSegments)
+      //     .enter().append('rect')
+      //     .attr('class', 'dawn-segments')
+      //     .attr('x', function(d, i) { return x(i * (noOfDatapoints / forecastDays) + dawnPoint) })
+      //     .attr('y', 0)
+      //     .attr('width', function(d, i) { return x(dawnDuration) })
+      //     .attr('height', function(d, i) { return y(y.domain()[0] )})
+      //     .attr('fill', '#0D659D')
+      //     .attr('opacity', 0.2);
+
+      // const duskSegments = this.svg
+      //   .selectAll('.dusk-segments')
+      //     .data(nightSegments)
+      //     .enter().append('rect')
+      //     .attr('class', 'dusk-segments')
+      //     .attr('x', function(d, i) { return x(i * (noOfDatapoints / forecastDays) + duskPoint) })
+      //     .attr('y', 0)
+      //     .attr('width', function(d, i) { return x(duskDuration) })
+      //     .attr('height', function(d, i) { return y(y.domain()[0] )})
+      //     .attr('fill', '#0D659D')
+      //     .attr('opacity', 0.2);
+      // }
+
+      const vertSegHeight = y(y.domain()[0]);
+      const vertSegments = this.svg
+        .selectAll('.day-segment')
+          .data(graphs[0].yVals)
+          .enter().append('rect')
+          .attr('class', 'day-segment')
+          .attr('x', function(d, i) { return x(i - 0.5) })
+          .attr('y', 0)
+          .attr('width', function(d, i) { return x(1) })
+          .attr('height', vertSegHeight)
+          .attr('fill', function(d, i) { 
+            const mod = i%8;
+            if (mod <= 1 || mod >= 6) {
+              return '#0D659D';
+            }
+            return 'none';
+          })
+          .attr('opacity', 0.15);
 
       topLevel.exit().remove();
   }
@@ -187,6 +246,7 @@ AreaGraph.defaultProps = {
   heightRatio: null,
   pointRadius: 3,
   legend: false,
+  forecastDays: null,
 }
 
 AreaGraph.propTypes = {
@@ -197,6 +257,7 @@ AreaGraph.propTypes = {
   heightRatio: PropTypes.number,
   pointRadius: PropTypes.number,
   legend: PropTypes.bool,
+  forecastDays: PropTypes.number,
 }
 
 export default AreaGraph;

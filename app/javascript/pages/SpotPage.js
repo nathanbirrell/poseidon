@@ -142,8 +142,8 @@ class SpotPage extends React.Component {
     const sliderSeedTime = moment(this.state.forecasts.swells[seed.value].date_time);
 
     let dateCopy = date.toDate();
-    let startDate = moment(date).set('hours', 3);
-    let endDate = moment(date).set('hours', 23);
+    let startDate = moment(date).startOf('day');
+    let endDate = moment(date).endOf('day');
     const sliderData = this.state.forecasts.overall_ratings.filter(item => moment(item.date_time).isBetween(startDate, endDate));
 
     // TODO: refactor all these into individual components/containers

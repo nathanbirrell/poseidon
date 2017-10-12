@@ -147,6 +147,7 @@ class SpotForecastContainer extends React.Component {
                   }
                 ]}
                 legend={true}
+                forecastDays={5}
               />
             </Column>
           </Row>
@@ -194,6 +195,7 @@ class SpotForecastContainer extends React.Component {
                   }
                 ]}
                 legend={true}
+                forecastDays={5}
               />
             </Column>
           </Row>
@@ -241,6 +243,7 @@ class SpotForecastContainer extends React.Component {
                   }
                 ]}
                 legend={true}
+                forecastDays={5}
               />
             </Column>
           </Row>
@@ -287,6 +290,7 @@ class SpotForecastContainer extends React.Component {
                   }
                 ]}
                 legend={true}
+                forecastDays={5}
               />
             </Column>
           </Row>
