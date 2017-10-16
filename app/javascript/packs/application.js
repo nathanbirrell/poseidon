@@ -5,6 +5,6 @@ import AppContainer from '../AppContainer';
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <AppContainer />,
-    document.getElementById('main').appendChild(document.createElement('div')),
+    document.getElementById('poseidon-app'),
   );
 })

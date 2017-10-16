@@ -1,0 +1,14 @@
+.app-container {
+  max-width: $global-width;
+  margin: 0 auto;
+}
+
+.main {
+  @include no-outline;
+  padding-bottom: 32px;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}

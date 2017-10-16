@@ -53,8 +53,8 @@ class SpotShareContainer extends React.Component {
   render() {
     return (
       <div>
-        <div className="row">
-          <div className="columns">
+        <div className="grid-x">
+          <div className="cell">
             <button className="btn --icon --icon-share-2--white" onClick={this.handleShareOpen}>Share session</button>
           </div>
         </div>
