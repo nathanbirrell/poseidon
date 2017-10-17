@@ -32,6 +32,7 @@ class SpotTile extends React.Component {
     const swell_direction = SpotUtil.degreesToText(spot.current_swell.direction);
     const swell_period = MathUtil.round(spot.current_swell.period, 0);
     const wind_direction = SpotUtil.degreesToText(spot.current_wind.direction);
+
     return (
       <Column widthMedium={6} className="spot-tile">
         <Link to={link} >
@@ -55,12 +56,14 @@ class SpotTile extends React.Component {
             />
             <SpotTileCondition
               primary={`${wind_direction}`}
-              secondary={`MODERATE TODO`}
+              primaryIndicator={spot.current_wind.rating}
+              secondary={`${SpotUtil.windKphToDescription(spot.current_wind.speed)}`}
               highlighted={this.props.highlight === 'current_wind.rating' || this.props.highlight === 'current_wind.speed'}
             />
             <SpotTileCondition
               primary={`${spot.current_tide_snapshot.height}`}
               primaryUnit={`m`}
+              primaryIndicator={spot.current_tide_snapshot.rating}
               secondary={`${spot.current_tide_snapshot.state} tide`}
             />
           </div>
