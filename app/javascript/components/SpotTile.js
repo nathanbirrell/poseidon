@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import Row from 'components/Row';
 import Column from 'components/Column';
 import Rating from 'components/Rating';
+import Indicator from 'components/Indicator';
 
 const SpotTileCondition = (props) => {
   return (
@@ -14,6 +15,7 @@ const SpotTileCondition = (props) => {
       <span className="spot-tile__condition-primary">
         {props.primary}
         {props.primaryUnit ? <span className="spot-tile__condition-primary-unit">{props.primaryUnit}</span> : null }
+        <Indicator rating={props.primaryIndicator} />
       </span>
       <span className="spot-tile__condition-secondary">{props.secondary}</span>
     </div>
@@ -47,6 +49,7 @@ class SpotTile extends React.Component {
             <SpotTileCondition
               primary={`${swell_size_ft}`}
               primaryUnit={'ft'}
+              primaryIndicator={spot.current_swell.rating}
               secondary={`${swell_direction} @ ${swell_period}s`}
               highlighted={this.props.highlight === 'current_swell.rating' || this.props.highlight === 'current_swell.size'}
             />

@@ -30,6 +30,10 @@ class SpotUtil {
     return output;
   }
 
+  static getRatingColor(rating) {
+    return `hsl(${(Math.pow(rating, 2) + (7 * rating)) * 0.8},${(-1.8 * (Math.pow(rating, 2)) + (17 * rating) + 110) * 0.60}%,50%)`;
+  }
+
   static metresToFeet(number) {
     return (number * 3.28084);
   }

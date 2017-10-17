@@ -1,23 +1,21 @@
+$indicator-size: 7px;
+
 .indicator {
-  height: 10px;
-  width: 10px;
-  border-radius: 10px;
+  height: $indicator-size;
+  width: $indicator-size;
+  border-radius: $indicator-size;
+  top: -($indicator-size);
+  left: 2px;
   position: relative;
   display: inline-block;
 
   &.--positive {
-    background-color: $positive;
+    // background-color: $positive;
   }
   &.--mixed {
-    background-color: $mixed;
+    // background-color: $mixed;
   }
   &.--negative {
-    background-color: $negative;
-  }
-
-  &.--mini {
-    height: 8px;
-    width: 8px;
-    top: -1px;
+    // background-color: $negative;
   }
 }
