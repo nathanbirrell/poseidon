@@ -22,13 +22,15 @@
       .tick line {
         stroke-width: 0.5;
         &:not(:first-of-type) {
-          stroke: "#777";
+          stroke: "#DDDDDD";
           stroke-dasharray: "2,2";
         }
       }
 
       .tick text {
         font-size: 6px;
+        text-anchor: end;
+        transform: translate(19px, -4px);
       }
 
       path {
@@ -60,6 +62,7 @@
 
         .tick text {
           font-size: 14px;
+          transform: translate(15px, -10px);
         }
       }
 

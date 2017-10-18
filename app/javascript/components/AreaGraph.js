@@ -109,10 +109,13 @@ class AreaGraph extends React.Component {
         .call(
           d3.axisRight(y)
           .tickSize(dimensions.width)
+          .tickFormat(function(d) {
+            return d*100;
+          })
         );
       rightAxis.selectAll(".tick:not(:first-of-type) line")
         .attr("stroke", "#DDDDDD").attr("stroke-dasharray", "2,2");
-      rightAxis.selectAll(".tick text").attr("x", x(x.domain()[1]) - 20).attr("dy", -4);
+      rightAxis.selectAll(".tick text").attr("x", x(x.domain()[1]) - 20);
     }
 
     const topLevel = this.svg.selectAll('g.graph')
