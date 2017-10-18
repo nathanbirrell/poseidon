@@ -77,11 +77,11 @@ class SpotForecastContainer extends React.Component {
         {this.state.viewing === "combined" ?
           <Row>
             <Column widthSmall={12} widthMedium={12} widthLarge={12}>
-              <div id="forecast-graph-overall" className="forecast-graph-container"/>
+              <div id="forecast-graph-combined" className="forecast-graph-container"/>
               <AreaGraph
                 heightRatio={0.25}
                 cssSelector='forecast-graph'
-                targetId='forecast-graph-overall'
+                targetId='forecast-graph-combined'
                 graphs={[
                   {
                     label: 'Overall rating',
@@ -102,6 +102,7 @@ class SpotForecastContainer extends React.Component {
                     label: 'Swell size',
                     yVals: swellRatings['size'],
                     yMax: Math.max.apply(Math, swellRatings['size']) + 2,
+                    directions: swellRatings['direction'],
                     line: {
                       show: true,
                     },
@@ -118,6 +119,7 @@ class SpotForecastContainer extends React.Component {
                     label: 'Wind speed',
                     yVals: windRatings['speed'],
                     yMax: Math.max.apply(Math, windRatings['speed']) + 10,
+                    directions: windRatings['direction'],
                     line: {
                       show: true,
                     },
@@ -181,6 +183,7 @@ class SpotForecastContainer extends React.Component {
                     label: 'Swell height',
                     yVals: swellRatings['size'],
                     yMax: Math.max.apply(Math, swellRatings['size']) + 2,
+                    directions: swellRatings['direction'],
                     line: {
                       show: true,
                     },
@@ -229,6 +232,7 @@ class SpotForecastContainer extends React.Component {
                     label: 'Wind speed',
                     yVals: windRatings['speed'],
                     yMax: Math.max.apply(Math, windRatings['speed']) + 10,
+                    directions: windRatings['direction'],
                     line: {
                       show: true,
                     },

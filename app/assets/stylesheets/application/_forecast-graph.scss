@@ -18,9 +18,16 @@
     left: 0;
     background: $ocean-mist;
 
+    .graph {
+      .line,
+      .point {
+        stroke-width: 1;
+      }
+    }
+
     .axis-right {
       .tick line {
-        stroke-width: 0.5;
+        stroke-width: 0.3;
         &:not(:first-of-type) {
           stroke: "#DDDDDD";
           stroke-dasharray: "2,2";
@@ -55,6 +62,13 @@
     }
 
     @media #{$medium-up} {
+      .graph {
+        .line,
+        .point {
+          stroke-width: 2;
+        }
+      }
+
       .axis-right {
         .tick line {
           stroke-width: 1;

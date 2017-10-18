@@ -140,10 +140,10 @@ class AreaGraph extends React.Component {
 
         // Set gradient
         const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.35\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.1\"/></linearGradient>`;
+        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"7\" markerHeight=\"7\" refX=\"0\" refY=\"2\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M0,0 L0,4 L6,2 z\" fill=\"${graph.color}\" /></marker>`
         const defs = thisGraph
           .append('defs');
-        
-        defs.html(colouredGradient);
+        defs.html(colouredGradient + " " + arrow);
 
         // DRAW NEW GRAPH ELEMENTS
         if (graph.area.show) {
@@ -168,16 +168,37 @@ class AreaGraph extends React.Component {
         }
 
         if (graph.points.show) {
-          const pointsInstance = thisGraph
-            .selectAll('.point')
-              .data(graph.yVals)
-              .enter().append("svg:circle")
-              .attr('class', 'point')
-              .attr('stroke', graph.points.color || graph.color)
-              .attr('fill', graph.points.color || graph.color)
-              .attr("cx", function(d, i) { return x(i) })
-              .attr("cy", function(d, i) { return y(d) })
-              .attr("r", graph.points.radius);
+          if (graph.directions) {
+            // DIRECTIONS ARROWS
+            const pointsInstance = thisGraph
+              .selectAll('.point')
+                .data(graph.yVals)
+                .enter().append("line")
+                .attr('class', 'point')
+                .attr('stroke', graph.points.color || graph.color)
+                .attr('fill', graph.points.color || graph.color)
+                .attr("x1", function(d, i) { return x(i) })
+                .attr("y1", function(d, i) { return (y(d) - 5) })
+                .attr("x2", function(d, i) { return x(i) })
+                .attr("y2", function(d, i) { return (y(d) + 0)  })
+                .attr("transform", function(d, i) {
+                  return "rotate(" + graph.directions[i] + " " + x(i) + " " + y(d) + ")";
+                })
+                .attr("stroke-width", 1)
+                .attr("marker-end", `url(#${targetId}_arrow_${i})`);
+          } else {
+            // REGULAR POINTS
+            const pointsInstance = thisGraph
+              .selectAll('.point')
+                .data(graph.yVals)
+                .enter().append("svg:circle")
+                .attr('class', 'point')
+                .attr('stroke', graph.points.color || graph.color)
+                .attr('fill', graph.points.color || graph.color)
+                .attr("cx", function(d, i) { return x(i) })
+                .attr("cy", function(d, i) { return y(d) })
+                .attr("r", graph.points.radius);
+          }
         }
       });
       
