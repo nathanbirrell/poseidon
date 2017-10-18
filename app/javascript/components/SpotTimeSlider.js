@@ -90,6 +90,7 @@ class SpotTimeSlider extends React.Component {
               }
             ]}
             forecastDays={1}
+            showAxes={false}
           />
         </div>
         <div className="time-slider__value --icon-chevron-down--iron">

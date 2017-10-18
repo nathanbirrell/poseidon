@@ -13,9 +13,67 @@
     display: inline;
     position: absolute;
     width: 960px;
+    height: 275px;
     top: 6px;
     left: 0;
     background: $ocean-mist;
+
+    .axis-right {
+      .tick line {
+        stroke-width: 0.5;
+        &:not(:first-of-type) {
+          stroke: "#777";
+          stroke-dasharray: "2,2";
+        }
+      }
+
+      .tick text {
+        font-size: 6px;
+      }
+
+      path {
+        stroke-width: 0.5;
+      }
+    }
+
+    .axis-bottom {
+      path {
+        stroke-width: 0.5;
+      }
+
+      .tick text {
+        text-anchor: start;
+        font-size: 6px;
+        transform: translateY(-5px);
+      }
+
+      .tick line {
+        stroke-width: 0.5;
+      }
+    }
+
+    @media #{$medium-up} {
+      .axis-right {
+        .tick line {
+          stroke-width: 1;
+        }
+
+        .tick text {
+          font-size: 14px;
+        }
+      }
+
+      .axis-bottom {
+        .tick line {
+          stroke-width: 1;
+        }
+
+        .tick text {
+          font-size: 14px;
+          transform: translateY(0);
+        }
+      }
+    }
   }
 }
 
