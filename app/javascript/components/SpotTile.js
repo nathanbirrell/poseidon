@@ -57,14 +57,19 @@ class SpotTile extends React.Component {
             <SpotTileCondition
               primary={`${wind_direction}`}
               primaryIndicator={spot.current_wind.rating}
-              secondary={`${SpotUtil.windKphToDescription(spot.current_wind.speed)}`}
+              secondary={`${SpotUtil.windKphToDescription(spot.current_wind.speed).toUpperCase()}`}
               highlighted={this.props.highlight === 'current_wind.rating' || this.props.highlight === 'current_wind.speed'}
             />
             <SpotTileCondition
               primary={`${spot.current_tide_snapshot.height}`}
               primaryUnit={`m`}
               primaryIndicator={spot.current_tide_snapshot.rating}
-              secondary={`${spot.current_tide_snapshot.state} tide`}
+              secondary={(
+                <span>
+                  {`${spot.current_tide_snapshot.state}`}
+
+                </span>
+              )}
             />
           </div>
         </Link>
