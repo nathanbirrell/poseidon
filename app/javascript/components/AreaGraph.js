@@ -148,8 +148,6 @@ class AreaGraph extends React.Component {
         thisGraph.selectAll('.area').remove();
         thisGraph.selectAll('.line').remove();
         thisGraph.selectAll('.point').remove();
-        thisGraph.selectAll('.day-segment').remove();
-        thisGraph.selectAll('.day-label').remove();
 
         // Set gradient
         const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.35\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.1\"/></linearGradient>`;
@@ -212,54 +210,60 @@ class AreaGraph extends React.Component {
             .attr("r", graph.points.radius || 1);
         }
       });
+
+      this.svg.selectAll('.day-segment').remove();
+
+      if (parentConfig.vertSegments) {
+
+        const vertSegHeight = y(y.domain()[0]);
+        const vertSegData = graphs[0].yVals.map((value, i) => {
+          const output = {};
+          // console.log(state, i, state.hoveredIndex == i);
+          if (state.selectedIndex == i) {
+            output.modifier = 'selected';
+          } else if (state.hoveredIndex == i) {
+            output.modifier = 'hovered';
+          } else {
+            output.modifier = '';
+          }
+          output.value = value;
+          return output;
+        });
+  
+        const vertSegments = this.svg
+          .selectAll('.day-segment')
+            .data(vertSegData, function(d){
+              return d.modifier;
+            });
+  
+        vertSegments
+          .enter()
+            .append('rect')
+            .attr('class', 'day-segment')
+            .attr('id', function(d, i) {return ('day-seg-' + i) })
+            .attr('x', function(d, i) { return x(i - 0.5) })
+            .attr('y', 0)
+            .attr('width', function(d, i) { return x(1) })
+            .attr('height', vertSegHeight)
+            .attr('fill', function(d, i) {
+              const modulus = i%8;
+              if (d.modifier === 'selected') {
+                return 'red';
+              } else if (d.modifier === 'hovered') {
+                return 'yellow';
+              } else if (modulus <= 1 || modulus >= 6) {
+                return '#0D659D';
+              }
+              return 'white';
+            })
+            .attr('opacity', 0.15)
+            .on('click', this.handleClick)
+            .on('mouseover', this.handleMouseOver)
+            .on("mouseout", this.handleMouseOut);
+
+            vertSegments.exit().remove();
+      }
       
-      const vertSegHeight = y(y.domain()[0]);
-      const vertSegData = graphs[0].yVals.map((value, i) => {
-        const output = {};
-        // console.log(state, i, state.hoveredIndex == i);
-        if (state.selectedIndex == i) {
-          output.modifier = 'selected';
-        } else if (state.hoveredIndex == i) {
-          output.modifier = 'hovered';
-        } else {
-          output.modifier = '';
-        }
-        output.value = value;
-        return output;
-      });
-
-      const vertSegments = this.svg
-        .selectAll('.day-segment')
-          .data(vertSegData, function(d){
-            return d.modifier;
-          });
-
-      vertSegments
-        .enter()
-          .append('rect')
-          .attr('class', 'day-segment')
-          .attr('id', function(d, i) {return ('day-seg-' + i) })
-          .attr('x', function(d, i) { return x(i - 0.5) })
-          .attr('y', 0)
-          .attr('width', function(d, i) { return x(1) })
-          .attr('height', vertSegHeight)
-          .attr('fill', function(d, i) {
-            const modulus = i%8;
-            if (d.modifier === 'selected') {
-              return 'red';
-            } else if (d.modifier === 'hovered') {
-              return 'yellow';
-            } else if (modulus <= 1 || modulus >= 6) {
-              return '#0D659D';
-            }
-            return 'white';
-          })
-          .attr('opacity', 0.15)
-          .on('click', this.handleClick)
-          .on('mouseover', this.handleMouseOver)
-          .on("mouseout", this.handleMouseOut);
-
-      vertSegments.exit().remove();
       topLevel.exit().remove();
   }
 
@@ -281,27 +285,34 @@ class AreaGraph extends React.Component {
     console.log('mouseout: ', d, i);
   }
 
-  handleLegendClick(graph, configOption) {
-    const graphConfigs = this.state.graphConfigs;
-    graphConfigs[graph][configOption] = !graphConfigs[graph][configOption];
-    this.setState({graphConfigs});
+  handleLegendClick(configOption, graph) {
+    if (graph) {
+      const graphConfigs = this.state.graphConfigs;
+      graphConfigs[graph][configOption] = !graphConfigs[graph][configOption];
+      this.setState({graphConfigs});
+    } else {
+      const parentConfig = this.state.parentConfig;
+      parentConfig[configOption] = !parentConfig[configOption];
+      this.setState({parentConfig});
+    }
   }
 
   renderLegend() {
     return (
       <Row>
         <Column>
+        <button className={"btn --slim --secondary " + (this.state.parentConfig['vertSegments'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('vertSegments')}}>Day/Night</button>
           {this.props.graphs.map((graph, i) => {
             const keyStyle = {
               backgroundColor: graph.color
             };
             return (
               <div key={`${graph.label}_controls`}>
-                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['area'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick(i, 'area')}}><span style={keyStyle}></span>{graph.label} Area</button>
-                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['line'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick(i, 'line')}}><span style={keyStyle}></span>{graph.label} Line</button>
-                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['points'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick(i, 'points')}}><span style={keyStyle}></span>{graph.label} Points</button>
+                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['area'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('area', i)}}><span style={keyStyle}></span>{graph.label} Area</button>
+                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['line'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('line', i)}}><span style={keyStyle}></span>{graph.label} Line</button>
+                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['points'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('points', i)}}><span style={keyStyle}></span>{graph.label} Points</button>
                 {graph.directions ?
-                  <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['directions'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick(i, 'directions')}}><span style={keyStyle}></span>{graph.label} Directions</button>
+                  <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['directions'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('directions', i)}}><span style={keyStyle}></span>{graph.label} Directions</button>
                 : null}
               </div>
             );
