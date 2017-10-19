@@ -9,6 +9,11 @@
 
 .spot-tile {
   @media #{$medium-up} {
+    min-width: 320px;
+    width: 50%;
+    flex: 1 1 auto;
+  }
+  @media #{$large-up} {
     flex: 1 1 33%;
     max-width: 33%;
   }
