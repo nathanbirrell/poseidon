@@ -73,7 +73,7 @@ class SpotUtil {
 
   static swellFeetToDescription(wave_feet) {
     const heights = [0, 1, 3, 4, 5, 6.5, 8, 10, 15];
-    const descriptions = ['Flat', 'Knee-to-waist high','Chest-shoulder high', 'Head high', 'Overhead', 'Well overhead', 'Double overhead', 'Epic (double-to-triple overhead)'];
+    const descriptions = ['Flat', 'Knee-waist high','Chest-shoulder high', 'Head high', 'Overhead', 'Well overhead', 'Double overhead', 'Epic (double-to-triple overhead)'];
     return this.matchValueToDescription(wave_feet, heights, descriptions);
   }
 
