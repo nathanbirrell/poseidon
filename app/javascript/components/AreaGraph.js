@@ -254,7 +254,7 @@ class AreaGraph extends React.Component {
               } else if (modulus <= 1 || modulus >= 6) {
                 return '#0D659D';
               }
-              return 'white';
+              return 'none';
             })
             .attr('opacity', 0.15)
             .on('click', this.handleClick)
