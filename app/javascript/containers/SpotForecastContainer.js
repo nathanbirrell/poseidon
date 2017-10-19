@@ -111,7 +111,6 @@ class SpotForecastContainer extends React.Component {
                     },
                     points: {
                       show: true,
-                      radius: 1,
                     },
                     color: '#F2994A'
                   },
@@ -128,7 +127,6 @@ class SpotForecastContainer extends React.Component {
                     },
                     points: {
                       show: true,
-                      radius: 1,
                     },
                     color: '#EB5757'
                   },
@@ -192,7 +190,6 @@ class SpotForecastContainer extends React.Component {
                     },
                     points: {
                       show: true,
-                      radius: 1,
                     },
                     color: '#F2994A'
                   }
@@ -241,7 +238,6 @@ class SpotForecastContainer extends React.Component {
                     },
                     points: {
                       show: true,
-                      radius: 1,
                     },
                     color: '#F2994A'
                   }
@@ -288,7 +284,6 @@ class SpotForecastContainer extends React.Component {
                     },
                     points: {
                       show: true,
-                      radius: 1,
                     },
                     color: '#F2994A'
                   }

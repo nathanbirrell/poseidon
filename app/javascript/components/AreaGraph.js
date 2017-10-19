@@ -13,6 +13,18 @@ class AreaGraph extends React.Component {
     this.state = {
       selectedIndex: null,
       hoveredIndex: null,
+      parentConfig: {
+        axes: this.props.showAxes || false,
+        vertSegments: this.props.showVertSegments || true
+      },
+      graphConfigs: this.props.graphs.map((g, i) => {
+        return {
+          area: g.area.show || false,
+          line: g.line.show || false,
+          points: g.points.show || false,
+          directions: g.directions ? true : false,
+        }
+      })
     };
 
     this.updateDimensions = this.updateDimensions.bind(this);
@@ -50,11 +62,12 @@ class AreaGraph extends React.Component {
   }
 
   renderGraph() {
-    console.log('RENDERING GRAPH');
     const graphs = this.props.graphs;
     const targetId = this.props.targetId;
     const dimensions = this.updateDimensions();
     const state = this.state;
+    const parentConfig = state.parentConfig;
+    const graphConfigs = state.graphConfigs;
 
     const x = d3.scaleLinear()
       .rangeRound([0, dimensions.width]);
@@ -87,7 +100,7 @@ class AreaGraph extends React.Component {
     area.y0(y(0));
 
 
-    if (this.props.showAxes) {
+    if (parentConfig['axes']) {
       this.svg.selectAll('.axis-bottom').remove();
       this.svg.selectAll('.axis-right').remove();
   
@@ -146,7 +159,7 @@ class AreaGraph extends React.Component {
         defs.html(colouredGradient + " " + arrow);
 
         // DRAW NEW GRAPH ELEMENTS
-        if (graph.area.show) {
+        if (graphConfigs[i]['area']) {
           const areaInstance = thisGraph
             .append('path')
             .datum(graph.yVals)
@@ -156,7 +169,7 @@ class AreaGraph extends React.Component {
             .attr("d", area);
         }
         
-        if (graph.line.show) {
+        if (graphConfigs[i]['line']) {
           const lineInstance = thisGraph
             .append('path')
             .datum(graph.yVals)
@@ -167,38 +180,36 @@ class AreaGraph extends React.Component {
             .attr("d", line);
         }
 
-        if (graph.points.show) {
-          if (graph.directions) {
-            // DIRECTIONS ARROWS
-            const pointsInstance = thisGraph
-              .selectAll('.point')
-                .data(graph.yVals)
-                .enter().append("line")
-                .attr('class', 'point')
-                .attr('stroke', graph.points.color || graph.color)
-                .attr('fill', graph.points.color || graph.color)
-                .attr("x1", function(d, i) { return x(i) })
-                .attr("y1", function(d, i) { return (y(d) - 5) })
-                .attr("x2", function(d, i) { return x(i) })
-                .attr("y2", function(d, i) { return (y(d) + 0)  })
-                .attr("transform", function(d, i) {
-                  return "rotate(" + graph.directions[i] + " " + x(i) + " " + y(d) + ")";
-                })
-                .attr("stroke-width", 1)
-                .attr("marker-end", `url(#${targetId}_arrow_${i})`);
-          } else {
-            // REGULAR POINTS
-            const pointsInstance = thisGraph
-              .selectAll('.point')
-                .data(graph.yVals)
-                .enter().append("svg:circle")
-                .attr('class', 'point')
-                .attr('stroke', graph.points.color || graph.color)
-                .attr('fill', graph.points.color || graph.color)
-                .attr("cx", function(d, i) { return x(i) })
-                .attr("cy", function(d, i) { return y(d) })
-                .attr("r", graph.points.radius);
-          }
+        if (graphConfigs[i]['directions']) {
+          // DIRECTIONS ARROWS
+          const pointsInstance = thisGraph
+            .selectAll('.point')
+              .data(graph.yVals)
+              .enter().append("line")
+              .attr('class', 'point')
+              .attr('stroke', graph.points.color || graph.color)
+              .attr('fill', graph.points.color || graph.color)
+              .attr("x1", function(d, i) { return x(i) })
+              .attr("y1", function(d, i) { return (y(d) - 5) })
+              .attr("x2", function(d, i) { return x(i) })
+              .attr("y2", function(d, i) { return (y(d) + 0)  })
+              .attr("transform", function(d, i) {
+                return "rotate(" + graph.directions[i] + " " + x(i) + " " + y(d) + ")";
+              })
+              .attr("stroke-width", 1)
+              .attr("marker-end", `url(#${targetId}_arrow_${i})`);
+        } else if (graphConfigs[i]['points']) {
+          // REGULAR POINTS
+          const pointsInstance = thisGraph
+          .selectAll('.point')
+            .data(graph.yVals)
+            .enter().append("svg:circle")
+            .attr('class', 'point')
+            .attr('stroke', graph.points.color || graph.color)
+            .attr('fill', graph.points.color || graph.color)
+            .attr("cx", function(d, i) { return x(i) })
+            .attr("cy", function(d, i) { return y(d) })
+            .attr("r", graph.points.radius || 1);
         }
       });
       
@@ -216,7 +227,6 @@ class AreaGraph extends React.Component {
         output.value = value;
         return output;
       });
-      // console.log(1, vertSegData);
 
       const vertSegments = this.svg
         .selectAll('.day-segment')
@@ -271,6 +281,12 @@ class AreaGraph extends React.Component {
     console.log('mouseout: ', d, i);
   }
 
+  handleLegendClick(graph, configOption) {
+    const graphConfigs = this.state.graphConfigs;
+    graphConfigs[graph][configOption] = !graphConfigs[graph][configOption];
+    this.setState({graphConfigs});
+  }
+
   renderLegend() {
     return (
       <Row>
@@ -280,7 +296,14 @@ class AreaGraph extends React.Component {
               backgroundColor: graph.color
             };
             return (
-              <p key={i} className="legend-key"><span style={keyStyle}></span>{graph.label}</p>
+              <div key={`${graph.label}_controls`}>
+                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['area'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick(i, 'area')}}><span style={keyStyle}></span>{graph.label} Area</button>
+                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['line'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick(i, 'line')}}><span style={keyStyle}></span>{graph.label} Line</button>
+                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['points'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick(i, 'points')}}><span style={keyStyle}></span>{graph.label} Points</button>
+                {graph.directions ?
+                  <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['directions'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick(i, 'directions')}}><span style={keyStyle}></span>{graph.label} Directions</button>
+                : null}
+              </div>
             );
           })}
         </Column>

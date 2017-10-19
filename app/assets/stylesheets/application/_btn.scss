@@ -56,6 +56,10 @@
     }
   }
 
+  &.--off {
+    background: $iron;
+  }
+
   &.--icon {
     padding-left: 40px;
 
