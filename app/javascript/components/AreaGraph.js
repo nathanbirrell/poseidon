@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
+import moment from 'moment';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
@@ -9,9 +10,29 @@ class AreaGraph extends React.Component {
   constructor (props) {
     super(props);
 
+    this.state = {
+      selectedIndex: null,
+      hoveredIndex: null,
+      parentConfig: {
+        axes: this.props.showAxes || false,
+        vertSegments: this.props.showVertSegments || true
+      },
+      graphConfigs: this.props.graphs.map((g, i) => {
+        return {
+          area: g.area.show || false,
+          line: g.line.show || false,
+          points: g.points.show || false,
+          directions: g.directions ? true : false,
+        }
+      })
+    };
+
     this.updateDimensions = this.updateDimensions.bind(this);
     this.initGraph = this.initGraph.bind(this);
     this.renderGraph = this.renderGraph.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseOut = this.handleMouseOut.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +65,9 @@ class AreaGraph extends React.Component {
     const graphs = this.props.graphs;
     const targetId = this.props.targetId;
     const dimensions = this.updateDimensions();
+    const state = this.state;
+    const parentConfig = state.parentConfig;
+    const graphConfigs = state.graphConfigs;
 
     const x = d3.scaleLinear()
       .rangeRound([0, dimensions.width]);
@@ -75,6 +99,38 @@ class AreaGraph extends React.Component {
     // y.domain([0, d3.max(graphs[i].yVals, function(d) { return d; })]);
     area.y0(y(0));
 
+
+    if (parentConfig['axes']) {
+      this.svg.selectAll('.axis-bottom').remove();
+      this.svg.selectAll('.axis-right').remove();
+  
+      const num = (x.domain()[1] / this.props.forecastDays);
+      const bottomAxis = this.svg.append("g")
+        .attr('class', 'axis-bottom')
+        .attr("transform", "translate(0," + height + ")")
+        .call(
+          d3.axisBottom(x)
+          .tickValues([0, 8, 16, 24, 32, 40])
+          .tickFormat(function(d) {
+            return moment().add((d / num), 'days').format('ddd');
+          })
+        );
+      bottomAxis.selectAll(".tick text").attr("dx", x(3.4));
+  
+      const rightAxis = this.svg.append("g")
+        .attr('class', 'axis-right')
+        .call(
+          d3.axisRight(y)
+          .tickSize(dimensions.width)
+          .tickFormat(function(d) {
+            return d*100;
+          })
+        );
+      rightAxis.selectAll(".tick:not(:first-of-type) line")
+        .attr("stroke", "#DDDDDD").attr("stroke-dasharray", "2,2");
+      rightAxis.selectAll(".tick text").attr("x", x(x.domain()[1]) - 20);
+    }
+
     const topLevel = this.svg.selectAll('g.graph')
       .data(graphs);
 
@@ -92,19 +148,16 @@ class AreaGraph extends React.Component {
         thisGraph.selectAll('.area').remove();
         thisGraph.selectAll('.line').remove();
         thisGraph.selectAll('.point').remove();
-        // thisGraph.selectAll('.dawn-segments').remove();
-        // thisGraph.selectAll('.dusk-segments').remove();
-        thisGraph.selectAll('.day-segment').remove();
 
         // Set gradient
         const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.35\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.1\"/></linearGradient>`;
+        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"7\" markerHeight=\"7\" refX=\"0\" refY=\"2\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M0,0 L0,4 L6,2 z\" fill=\"${graph.color}\" /></marker>`
         const defs = thisGraph
           .append('defs');
-        
-        defs.html(colouredGradient);
+        defs.html(colouredGradient + " " + arrow);
 
         // DRAW NEW GRAPH ELEMENTS
-        if (graph.area.show) {
+        if (graphConfigs[i]['area']) {
           const areaInstance = thisGraph
             .append('path')
             .datum(graph.yVals)
@@ -114,7 +167,7 @@ class AreaGraph extends React.Component {
             .attr("d", area);
         }
         
-        if (graph.line.show) {
+        if (graphConfigs[i]['line']) {
           const lineInstance = thisGraph
             .append('path')
             .datum(graph.yVals)
@@ -125,89 +178,143 @@ class AreaGraph extends React.Component {
             .attr("d", line);
         }
 
-        if (graph.points.show) {
+        if (graphConfigs[i]['directions']) {
+          // DIRECTIONS ARROWS
           const pointsInstance = thisGraph
             .selectAll('.point')
               .data(graph.yVals)
-              .enter().append("svg:circle")
+              .enter().append("line")
               .attr('class', 'point')
               .attr('stroke', graph.points.color || graph.color)
               .attr('fill', graph.points.color || graph.color)
-              .attr("cx", function(d, i) { return x(i) })
-              .attr("cy", function(d, i) { return y(d) })
-              .attr("r", graph.points.radius);
+              .attr("x1", function(d, i) { return x(i) })
+              .attr("y1", function(d, i) { return (y(d) - 5) })
+              .attr("x2", function(d, i) { return x(i) })
+              .attr("y2", function(d, i) { return (y(d) + 0)  })
+              .attr("transform", function(d, i) {
+                return "rotate(" + graph.directions[i] + " " + x(i) + " " + y(d) + ")";
+              })
+              .attr("stroke-width", 1)
+              .attr("marker-end", `url(#${targetId}_arrow_${i})`);
+        } else if (graphConfigs[i]['points']) {
+          // REGULAR POINTS
+          const pointsInstance = thisGraph
+          .selectAll('.point')
+            .data(graph.yVals)
+            .enter().append("svg:circle")
+            .attr('class', 'point')
+            .attr('stroke', graph.points.color || graph.color)
+            .attr('fill', graph.points.color || graph.color)
+            .attr("cx", function(d, i) { return x(i) })
+            .attr("cy", function(d, i) { return y(d) })
+            .attr("r", graph.points.radius || 1);
         }
       });
 
-      // const forecastDays = this.props.forecastDays;
-      // const noOfDatapoints = x.domain()[1];
-      // const nightSegments = [];
-      // const dawnPoint = 0;
-      // const dawnDuration = 1; // Indexes in array of a day's data which we say are covered by dawn period
-      // const duskPoint = 6; // Index in array of a day's data where we say dusk starts
-      // const duskDuration = 2; // Indexes in array of a day's data which we say are covered by dusk period
-      // for (let i = 0; i < forecastDays; i += 1) {
-      //   nightSegments.push(`Day ${i}`);
-      // }
+      this.svg.selectAll('.day-segment').remove();
 
-      // if (forecastDays) {
-      // const dawnSegments = this.svg
-      //   .selectAll('.dawn-segments')
-      //     .data(nightSegments)
-      //     .enter().append('rect')
-      //     .attr('class', 'dawn-segments')
-      //     .attr('x', function(d, i) { return x(i * (noOfDatapoints / forecastDays) + dawnPoint) })
-      //     .attr('y', 0)
-      //     .attr('width', function(d, i) { return x(dawnDuration) })
-      //     .attr('height', function(d, i) { return y(y.domain()[0] )})
-      //     .attr('fill', '#0D659D')
-      //     .attr('opacity', 0.2);
+      if (parentConfig.vertSegments) {
 
-      // const duskSegments = this.svg
-      //   .selectAll('.dusk-segments')
-      //     .data(nightSegments)
-      //     .enter().append('rect')
-      //     .attr('class', 'dusk-segments')
-      //     .attr('x', function(d, i) { return x(i * (noOfDatapoints / forecastDays) + duskPoint) })
-      //     .attr('y', 0)
-      //     .attr('width', function(d, i) { return x(duskDuration) })
-      //     .attr('height', function(d, i) { return y(y.domain()[0] )})
-      //     .attr('fill', '#0D659D')
-      //     .attr('opacity', 0.2);
-      // }
+        const vertSegHeight = y(y.domain()[0]);
+        const vertSegData = graphs[0].yVals.map((value, i) => {
+          const output = {};
+          // console.log(state, i, state.hoveredIndex == i);
+          if (state.selectedIndex == i) {
+            output.modifier = 'selected';
+          } else if (state.hoveredIndex == i) {
+            output.modifier = 'hovered';
+          } else {
+            output.modifier = '';
+          }
+          output.value = value;
+          return output;
+        });
+  
+        const vertSegments = this.svg
+          .selectAll('.day-segment')
+            .data(vertSegData, function(d){
+              return d.modifier;
+            });
+  
+        vertSegments
+          .enter()
+            .append('rect')
+            .attr('class', 'day-segment')
+            .attr('id', function(d, i) {return ('day-seg-' + i) })
+            .attr('x', function(d, i) { return x(i - 0.5) })
+            .attr('y', 0)
+            .attr('width', function(d, i) { return x(1) })
+            .attr('height', vertSegHeight)
+            .attr('fill', function(d, i) {
+              const modulus = i%8;
+              if (d.modifier === 'selected') {
+                return 'red';
+              } else if (d.modifier === 'hovered') {
+                return 'yellow';
+              } else if (modulus <= 1 || modulus >= 6) {
+                return '#0D659D';
+              }
+              return 'none';
+            })
+            .attr('opacity', 0.15)
+            .on('click', this.handleClick)
+            .on('mouseover', this.handleMouseOver)
+            .on("mouseout", this.handleMouseOut);
 
-      const vertSegHeight = y(y.domain()[0]);
-      const vertSegments = this.svg
-        .selectAll('.day-segment')
-          .data(graphs[0].yVals)
-          .enter().append('rect')
-          .attr('class', 'day-segment')
-          .attr('x', function(d, i) { return x(i - 0.5) })
-          .attr('y', 0)
-          .attr('width', function(d, i) { return x(1) })
-          .attr('height', vertSegHeight)
-          .attr('fill', function(d, i) { 
-            const mod = i%8;
-            if (mod <= 1 || mod >= 6) {
-              return '#0D659D';
-            }
-            return 'none';
-          })
-          .attr('opacity', 0.15);
-
+            vertSegments.exit().remove();
+      }
+      
       topLevel.exit().remove();
+  }
+
+  handleClick(d, i) {
+    console.log('click: ', d, i);
+    this.setState({
+      selectedIndex: i
+    });
+  }
+
+  handleMouseOver(d, i) {
+    console.log('mouseover: ', d, i);
+    this.setState({
+      hoveredIndex: i
+    });
+  }
+
+  handleMouseOut(d, i){
+    console.log('mouseout: ', d, i);
+  }
+
+  handleLegendClick(configOption, graph) {
+    if (graph) {
+      const graphConfigs = this.state.graphConfigs;
+      graphConfigs[graph][configOption] = !graphConfigs[graph][configOption];
+      this.setState({graphConfigs});
+    } else {
+      const parentConfig = this.state.parentConfig;
+      parentConfig[configOption] = !parentConfig[configOption];
+      this.setState({parentConfig});
+    }
   }
 
   renderLegend() {
     return (
       <Row>
         <Column>
+        <button className={"btn --slim --secondary " + (this.state.parentConfig['vertSegments'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('vertSegments')}}>Day/Night</button>
           {this.props.graphs.map((graph, i) => {
             const keyStyle = {
               backgroundColor: graph.color
             };
             return (
-              <p key={i} className="legend-key"><span style={keyStyle}></span>{graph.label}</p>
+              <div key={`${graph.label}_controls`}>
+                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['area'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('area', i)}}><span style={keyStyle}></span>{graph.label} Area</button>
+                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['line'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('line', i)}}><span style={keyStyle}></span>{graph.label} Line</button>
+                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['points'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('points', i)}}><span style={keyStyle}></span>{graph.label} Points</button>
+                {graph.directions ?
+                  <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['directions'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('directions', i)}}><span style={keyStyle}></span>{graph.label} Directions</button>
+                : null}
+              </div>
             );
           })}
         </Column>
@@ -247,6 +354,7 @@ AreaGraph.defaultProps = {
   pointRadius: 3,
   legend: false,
   forecastDays: null,
+  showAxes: true,
 }
 
 AreaGraph.propTypes = {
@@ -258,6 +366,7 @@ AreaGraph.propTypes = {
   pointRadius: PropTypes.number,
   legend: PropTypes.bool,
   forecastDays: PropTypes.number,
+  showAxes: PropTypes.bool,
 }
 
 export default AreaGraph;

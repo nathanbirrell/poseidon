@@ -13,26 +13,88 @@
     display: inline;
     position: absolute;
     width: 960px;
+    height: 275px;
     top: 6px;
     left: 0;
     background: $ocean-mist;
+
+    .graph {
+      .line,
+      .point {
+        stroke-width: 1;
+      }
+    }
+
+    .axis-right {
+      .tick line {
+        stroke-width: 0.3;
+        &:not(:first-of-type) {
+          stroke: "#DDDDDD";
+          stroke-dasharray: "2,2";
+        }
+      }
+
+      .tick text {
+        font-size: 6px;
+        text-anchor: end;
+        transform: translate(19px, -4px);
+      }
+
+      path {
+        stroke-width: 0.5;
+      }
+    }
+
+    .axis-bottom {
+      path {
+        stroke-width: 0.5;
+      }
+
+      .tick text {
+        text-anchor: start;
+        font-size: 6px;
+        transform: translateY(-5px);
+      }
+
+      .tick line {
+        stroke-width: 0.5;
+      }
+    }
+
+    @media #{$medium-up} {
+      .graph {
+        .line,
+        .point {
+          stroke-width: 2;
+        }
+      }
+
+      .axis-right {
+        .tick line {
+          stroke-width: 1;
+        }
+
+        .tick text {
+          font-size: 14px;
+          transform: translate(15px, -10px);
+        }
+      }
+
+      .axis-bottom {
+        .tick line {
+          stroke-width: 1;
+        }
+
+        .tick text {
+          font-size: 14px;
+          transform: translateY(0);
+        }
+      }
+    }
   }
 }
 
 .legend-key {
-  @include clickable;
-  background-color: $white;
-  display: inline-block;
-  border-radius: 4px;
-  padding: 0 12px;
-  margin-right: 12px;
-  margin-bottom: 12px;
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: lighter;
-  height: 30px;
-  line-height: 32px;
-  
   span {
     height: 12px;
     width: 12px;

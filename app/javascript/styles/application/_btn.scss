@@ -56,6 +56,16 @@
     }
   }
 
+  &.--off {
+    background: $iron;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: $iron;
+    }
+  }
+
   &.--icon {
     padding-left: 40px;
 
