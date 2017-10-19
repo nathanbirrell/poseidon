@@ -17,9 +17,9 @@ json.(
     :weighting_tide,
     # methods:
     :optimals,
+    :next_tide,
     :next_high_tide,
     :next_low_tide,
-    # :tide_shift_rate,
     :region,
     :works_on_all_tides?,
     :current_model_date_time, # TODO: Rename to updated_at
