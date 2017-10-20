@@ -5,15 +5,20 @@
   justify-content: flex-start;
 
   .spinner { margin: 0 auto; }
+
+  @include breakpoint(small only) {
+    .grid-padding-x > &.cell { padding: 0; }
+  }
 }
 
 .spot-tile {
-  @media #{$medium-up} {
+  @include breakpoint(medium up) {
     min-width: 320px;
     width: 50%;
     flex: 1 1 auto;
   }
-  @media #{$large-up} {
+
+  @include breakpoint(large up) {
     flex: 1 1 33%;
     max-width: 33%;
   }
