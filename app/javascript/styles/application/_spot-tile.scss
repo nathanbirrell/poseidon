@@ -40,7 +40,7 @@
     margin: 6px;
   }
 
-  &:hover { text-decoration: none; }
+  &:hover, &:focus { text-decoration: none; }
 }
 
 .spot-tile__rating {
@@ -51,6 +51,7 @@
 .spot-tile__name {
   flex: 1 1 auto;
   width: 69%;
+  margin-top: -3px; // attempt to align heading with rating (to the eye)
 
   h3,
   p {
@@ -84,7 +85,7 @@
   margin: 0 auto;
   display: flex;
   width: 100%;
-  margin-left: 15%;
+  padding: 0 12px;
 }
 .spot-tile__condition {
   flex: 1 1 33.33%;
