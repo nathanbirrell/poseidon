@@ -50,6 +50,16 @@ class SpotUtil {
     return directions[(output % 16)];
   }
 
+  static windDirectionRatingToDescription(rating) {
+    if (rating >= 75) {
+      return 'Offshore';
+    } else if (rating >= 50) {
+      return 'Cross-shore';
+    } else {
+      return 'Onshore';
+    }
+  }
+
   static matchValueToDescription(number, values, descriptions) {
     let output = '';
     if (number) {

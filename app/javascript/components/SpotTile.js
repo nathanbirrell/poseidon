@@ -54,6 +54,7 @@ class SpotTile extends React.Component {
     const wind_direction = SpotUtil.degreesToText(current_wind.direction);
     const wind_speed = MathUtil.round(SpotUtil.kphToKnots(current_wind.speed), 0);
     const wind_speed_in_words = SpotUtil.windKphToDescription(current_wind.speed);
+    const wind_direction_in_words = SpotUtil.windDirectionRatingToDescription(current_wind.direction_rating);
     const isHighlighted = this.props.highlight === 'current_wind.rating' || this.props.highlight === 'current_wind.speed';
 
     return (
@@ -63,7 +64,7 @@ class SpotTile extends React.Component {
         secondary={(
           <span>
             {wind_speed_in_words} <br />
-            {wind_speed}kts, onshore
+            {wind_speed}kts, {wind_direction_in_words}
           </span>
         )}
         highlighted={isHighlighted}
