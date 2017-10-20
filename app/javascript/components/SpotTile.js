@@ -53,7 +53,7 @@ class SpotTile extends React.Component {
     const { current_wind } = this.props.spot;
     const wind_direction = SpotUtil.degreesToText(current_wind.direction);
     const wind_speed = MathUtil.round(SpotUtil.kphToKnots(current_wind.speed), 0);
-    const wind_speed_in_words = SpotUtil.windKphToDescription(current_wind.speed).toUpperCase();
+    const wind_speed_in_words = SpotUtil.windKphToDescription(current_wind.speed);
     const isHighlighted = this.props.highlight === 'current_wind.rating' || this.props.highlight === 'current_wind.speed';
 
     return (
@@ -63,7 +63,7 @@ class SpotTile extends React.Component {
         secondary={(
           <span>
             {wind_speed_in_words} <br />
-            {wind_speed}kts
+            {wind_speed}kts, onshore
           </span>
         )}
         highlighted={isHighlighted}
@@ -73,6 +73,7 @@ class SpotTile extends React.Component {
 
   _renderTideConditions() {
     const { current_tide_snapshot, next_tide } = this.props.spot;
+    const current_tide_state = String(current_tide_snapshot.state).capitalize().s;
     const next_tide_type = String(next_tide.tide_type).capitalize().s;
     const next_tide_height = MathUtil.round(next_tide.height, 1);
 
@@ -83,7 +84,7 @@ class SpotTile extends React.Component {
         primaryIndicator={current_tide_snapshot.rating}
         secondary={(
           <span>
-            {`${current_tide_snapshot.state}`} <br />
+            {`${current_tide_state}`} <br />
             {`${next_tide_type} ${moment(next_tide.date_time).fromNow()} (${next_tide_height}m)`}
           </span>
         )}
