@@ -151,64 +151,65 @@ class SpotPage extends React.Component {
     // TODO: refactor all these into individual components/containers
 
     return (
-      <Row withColumn>
+      <div>
         <NavigationTabs
           items={this.state.navItems}
         />
+        <Row withColumn>
+          {[`${routeMatchUrl}/about`, `${routeMatchUrl}/history`, `${routeMatchUrl}/forecast`].map((path, i) =>
+            <Route path={path} exact key={i} render={() => (
+              <SpotBanner
+                current_potential={MathUtil.round(current_overall_rating.rating, 0)}
+                name={this.state.spot.name}
+                region={this.state.spot.region}
+              />
+            )} />
+          )}
 
-        {[`${routeMatchUrl}/about`, `${routeMatchUrl}/history`, `${routeMatchUrl}/forecast`].map((path, i) =>
-          <Route path={path} exact key={i} render={() => (
-            <SpotBanner
-              current_potential={MathUtil.round(current_overall_rating.rating, 0)}
-              name={this.state.spot.name}
-              region={this.state.spot.region}
+          <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
+            <SpotForecastContainer
+              forecasts={this.state.forecasts}
             />
           )} />
-        )}
 
-        <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
-          <SpotForecastContainer
-            forecasts={this.state.forecasts}
-          />
-        )} />
-
-        <Route path={routeMatchUrl} exact render={() => (
-          <SpotDayContainer
-            selectedTime={seed.value}
-            selectedMoment={date}
-            forecasts={this.state.forecasts}
-          />
-        )} />
-
-        <Route path={`${routeMatchUrl}/about`} exact render={() => (
-          <SpotAboutContainer
-            data={this.state.spot}
-          />
-        )} />
-
-        <Route path={`${routeMatchUrl}/history`} exact render={() => (
-          <div id="history-section" className="grid-x">
-            <div className="large-12 cell">
-              <h3>HISTORY COMING SOON</h3>
-            </div>
-          </div>
-        )} />
-
-        {[`${routeMatchUrl}`, `${routeMatchUrl}/forecast`].map((path, i) =>
-          <Route path={path} exact key={i} render={() => (
-            <SpotShareContainer
+          <Route path={routeMatchUrl} exact render={() => (
+            <SpotDayContainer
+              selectedTime={seed.value}
               selectedMoment={date}
-              spotName={this.state.spot.name}
+              forecasts={this.state.forecasts}
             />
           )} />
-        )}
 
-        <SpotTimeSlider
-          curveData={sliderData}
-          updateParent={this.updateSelectedDateTime}
-          seedTime={sliderSeedTime}
-        />
-      </Row>
+          <Route path={`${routeMatchUrl}/about`} exact render={() => (
+            <SpotAboutContainer
+              data={this.state.spot}
+            />
+          )} />
+
+          <Route path={`${routeMatchUrl}/history`} exact render={() => (
+            <div id="history-section" className="grid-x">
+              <div className="large-12 cell">
+                <h3>HISTORY COMING SOON</h3>
+              </div>
+            </div>
+          )} />
+
+          {[`${routeMatchUrl}`, `${routeMatchUrl}/forecast`].map((path, i) =>
+            <Route path={path} exact key={i} render={() => (
+              <SpotShareContainer
+                selectedMoment={date}
+                spotName={this.state.spot.name}
+              />
+            )} />
+          )}
+
+          <SpotTimeSlider
+            curveData={sliderData}
+            updateParent={this.updateSelectedDateTime}
+            seedTime={sliderSeedTime}
+          />
+        </Row>
+      </div>
     );
   }
 }

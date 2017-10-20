@@ -45,8 +45,8 @@ class NavigationTabs extends React.Component {
 
     return (
       <div>
-        <div className={"row nav-tabs-spacer " + (this.state.fixed ? '--fixed' : '')}></div>
-        <div className={"row nav-tabs " + (this.state.fixed ? '--fixed' : '')}>
+        <div className={"grid nav-tabs-spacer " + (this.state.fixed ? '--fixed' : '')}></div>
+        <div className={"grid nav-tabs " + (this.state.fixed ? '--fixed' : '')}>
           <div className="small-12 medium-5 cell">
             <div className="grid-x">
               {this.props.items.map((item) => {
