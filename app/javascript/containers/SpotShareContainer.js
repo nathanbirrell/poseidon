@@ -54,22 +54,20 @@ class SpotShareContainer extends React.Component {
           </div>
         </div>
 
-        {this.state.isShareModalOpen ?
-          <Modal
-            isOpen={this.state.isShareModalOpen}
-            toggleOpen={this.handleShareModalToggle}
-            header="Share session"
-          >
-            <div className="share-menu">
-              <p className="name"><strong>{this.props.spotName}</strong></p>
-              <p className="date_time">@ {this.props.selectedMoment.format('ha, ddd D MMM')}</p>
-              <a className="btn --circle  --icon --icon-message-circle--white --messenger" href={`fb-messenger://share/?link=${encodeURIComponent(this.shareUrl())}&app_id=${this.state.appId}`}></a>
-              <a className="btn --circle  --icon --icon-facebook--white --facebook" href={`https://www.facebook.com/dialog/share?app_id=${this.state.appId}&display=popup&href=${encodeURIComponent(this.shareUrl())}&redirect_uri=${encodeURIComponent(window.location)}`}></a>
-              <a className="twitter-share-button btn --circle  --icon --icon-twitter--white --twitter" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(this.shareUrl())}&text=${this.shareText()}`}></a>
-              <button id="copy-session-link" className="btn --secondary --icon --icon-copy--blue" onClick={this.copyToClipboard}>{this.state.copied ? 'Copied!' : 'Copy link'}</button>
-            </div>
-          </Modal>
-        : null }
+        <Modal
+          isOpen={this.state.isShareModalOpen}
+          toggleOpen={this.handleShareModalToggle}
+          header="Share session"
+        >
+          <div className="share-menu">
+            <p className="name"><strong>{this.props.spotName}</strong></p>
+            <p className="date_time">@ {this.props.selectedMoment.format('ha, ddd D MMM')}</p>
+            <a className="btn --circle  --icon --icon-message-circle--white --messenger" href={`fb-messenger://share/?link=${encodeURIComponent(this.shareUrl())}&app_id=${this.state.appId}`}></a>
+            <a className="btn --circle  --icon --icon-facebook--white --facebook" href={`https://www.facebook.com/dialog/share?app_id=${this.state.appId}&display=popup&href=${encodeURIComponent(this.shareUrl())}&redirect_uri=${encodeURIComponent(window.location)}`}></a>
+            <a className="twitter-share-button btn --circle  --icon --icon-twitter--white --twitter" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(this.shareUrl())}&text=${this.shareText()}`}></a>
+            <button id="copy-session-link" className="btn --secondary --icon --icon-copy--blue" onClick={this.copyToClipboard}>{this.state.copied ? 'Copied!' : 'Copy link'}</button>
+          </div>
+        </Modal>
       </div>
     );
   }

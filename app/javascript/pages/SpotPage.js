@@ -168,14 +168,18 @@ class SpotPage extends React.Component {
 
           <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
             <div className="spot-page__forecast">
+              <SpotForecastContainer
+                forecasts={this.state.forecasts}
+              />
               <SessionCard
                 rating={this.state.forecasts.overall_ratings[0]}
                 swell={this.state.forecasts.swells[0]}
                 wind={this.state.forecasts.winds[0]}
                 tide={this.state.forecasts.tides[0]}
               />
-              <SpotForecastContainer
-                forecasts={this.state.forecasts}
+              <SpotShareContainer
+                selectedMoment={date}
+                spotName={this.state.spot.name}
               />
             </div>
           )} />
@@ -201,15 +205,6 @@ class SpotPage extends React.Component {
               </div>
             </div>
           )} />
-
-          {[`${routeMatchUrl}`, `${routeMatchUrl}/forecast`].map((path, i) =>
-            <Route path={path} exact key={i} render={() => (
-              <SpotShareContainer
-                selectedMoment={date}
-                spotName={this.state.spot.name}
-              />
-            )} />
-          )}
 
           <SpotTimeSlider
             curveData={sliderData}
