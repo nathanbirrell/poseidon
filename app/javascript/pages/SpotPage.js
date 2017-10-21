@@ -136,6 +136,7 @@ class SpotPage extends React.Component {
 
     const routeMatchUrl = this.props.match.url;
     const date = this.state.selectedDateTime;
+    // TODO: rename to selectedForecast ?? Discuss w/ TB. ie selectedForecast.index (instead of value), etc.
     const seed = this.findForecastSeedFromTime(this.state.forecasts.swells, date);
 
     console.log('selectedDateTime: ', date);
@@ -172,19 +173,14 @@ class SpotPage extends React.Component {
                 forecasts={this.state.forecasts}
               />
               <SessionCard
-                rating={this.state.forecasts.overall_ratings[0]}
-                swell={this.state.forecasts.swells[0]}
-                wind={this.state.forecasts.winds[0]}
-                tide={this.state.forecasts.tides[0]}
+                rating={this.state.forecasts.overall_ratings[seed.value]}
+                swell={this.state.forecasts.swells[seed.value]}
+                wind={this.state.forecasts.winds[seed.value]}
+                tide={this.state.forecasts.tides[seed.value]}
               />
               <SpotShareContainer
                 selectedMoment={date}
                 spotName={this.state.spot.name}
-              />
-              <SpotTimeSlider
-                curveData={sliderData}
-                updateParent={this.updateSelectedDateTime}
-                seedTime={sliderSeedTime}
               />
             </div>
           )} />
@@ -192,7 +188,6 @@ class SpotPage extends React.Component {
           <Route path={routeMatchUrl} exact render={() => (
             <SpotDayContainer
               selectedTime={seed.value}
-              selectedMoment={date}
               forecasts={this.state.forecasts}
             />
           )} />
@@ -210,6 +205,12 @@ class SpotPage extends React.Component {
               </div>
             </div>
           )} />
+
+          <SpotTimeSlider
+            curveData={sliderData}
+            updateParent={this.updateSelectedDateTime}
+            seedTime={sliderSeedTime}
+          />
         </Row>
       </div>
     );
