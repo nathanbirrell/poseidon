@@ -54,7 +54,7 @@ class SessionCard extends React.PureComponent {
     const direction = SpotUtil.degreesToText(wind.direction);
     const speed = MathUtil.round(SpotUtil.kphToKnots(wind.speed), 0);
     const speed_in_words = SpotUtil.windKphToDescription(wind.speed).toUpperCase();
-    const direction_in_words = SpotUtil.windDirectionRatingToDescription(wind.direction_rating);
+    const direction_in_words = wind.direction_description;
 
     return (
       <SessionCardCondition
