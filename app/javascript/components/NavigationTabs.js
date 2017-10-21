@@ -13,10 +13,13 @@ class NavigationTabs extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
+    if (!this.props.isBusy) {
+      window.addEventListener('scroll', this.handleScroll);
+    }
   }
 
   compomentWillUnmount() {
+    console.log('unmount');
     window.removeEventListener('scroll', this.handleScroll);
   }
 

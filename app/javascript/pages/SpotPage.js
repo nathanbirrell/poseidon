@@ -181,6 +181,11 @@ class SpotPage extends React.Component {
                 selectedMoment={date}
                 spotName={this.state.spot.name}
               />
+              <SpotTimeSlider
+                curveData={sliderData}
+                updateParent={this.updateSelectedDateTime}
+                seedTime={sliderSeedTime}
+              />
             </div>
           )} />
 
@@ -205,12 +210,6 @@ class SpotPage extends React.Component {
               </div>
             </div>
           )} />
-
-          <SpotTimeSlider
-            curveData={sliderData}
-            updateParent={this.updateSelectedDateTime}
-            seedTime={sliderSeedTime}
-          />
         </Row>
       </div>
     );
