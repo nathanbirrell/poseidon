@@ -14,7 +14,7 @@ import Indicator from 'components/Indicator';
 const SessionCardCondition = (props) => {
   return (
     <div className={"spot-tile__condition"}>
-      {props.label ? (<span className="spot-tile__condition-label">{props.label}</span>) : null}
+      {props.label ? (<span className="spot-tile__label">{props.label}</span>) : null}
       <span className="spot-tile__condition-primary">
         {props.primary}
         {props.primaryUnit ? <span className="spot-tile__condition-primary-unit">{props.primaryUnit}</span> : null }
@@ -102,6 +102,10 @@ class SessionCard extends React.PureComponent {
     return (
       <Column widthMedium={6} className="spot-tile --expanded">
         <div className="spot-tile__container">
+          <div className="spot-tile__rating">
+            <Rating rating={current_rating} isLarge />
+            <span className="spot-tile__label">OVERALL<br />POTENTIAL</span>
+          </div>
           <div className="spot-tile__updated">
             {date_time}
           </div>

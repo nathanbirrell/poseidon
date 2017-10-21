@@ -160,7 +160,6 @@ class SpotPage extends React.Component {
           {[`${routeMatchUrl}/about`, `${routeMatchUrl}/history`, `${routeMatchUrl}/forecast`].map((path, i) =>
             <Route path={path} exact key={i} render={() => (
               <SpotBanner
-                current_potential={MathUtil.round(current_overall_rating.rating, 0)}
                 name={this.state.spot.name}
                 region={this.state.spot.region}
               />

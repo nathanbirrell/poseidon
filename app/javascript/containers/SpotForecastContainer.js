@@ -51,29 +51,13 @@ class SpotForecastContainer extends React.Component {
     const swellRatings = this.getYVals(forecasts.swells, ['size_rating', 'direction_rating', 'rating', 'size', 'direction']);
     const windRatings = this.getYVals(forecasts.winds, ['speed_rating', 'direction_rating', 'rating', 'speed', 'direction']);
     const tideRatings = this.getYVals(forecasts.tides, ['rating', 'height']);
-    console.log(overallRatings);
-    console.log(swellRatings);
-    console.log(windRatings);
-    console.log(tideRatings);
+    // console.log(overallRatings);
+    // console.log(swellRatings);
+    // console.log(windRatings);
+    // console.log(tideRatings);
 
     return (
       <div id="forecast-section">
-        <Row>
-          <Column widthSmall={6} widthMedium={6} widthLarge={4}>
-            <div className="input-holder --icon --icon-bar-chart-2--dark-secondary --clickable">
-              <select
-                className="filter-select"
-                onChange={this.handleViewingChange}
-                value={this.state.viewing}
-              >
-                <option value="combined">Combined</option>
-                <option value="swell">Swell</option>
-                <option value="wind">Wind</option>
-                <option value="tide">Tide</option>
-              </select>
-            </div>
-          </Column>
-        </Row>
         {this.state.viewing === "combined" ?
           <Row>
             <Column widthSmall={12} widthMedium={12} widthLarge={12}>
@@ -294,6 +278,23 @@ class SpotForecastContainer extends React.Component {
             </Column>
           </Row>
         : null}
+
+        <Row>
+          <Column widthSmall={6} widthMedium={6} widthLarge={4}>
+            <div className="input-holder --icon --icon-bar-chart-2--dark-secondary --clickable">
+              <select
+                className="filter-select"
+                onChange={this.handleViewingChange}
+                value={this.state.viewing}
+              >
+                <option value="combined">Combined</option>
+                <option value="swell">Swell</option>
+                <option value="wind">Wind</option>
+                <option value="tide">Tide</option>
+              </select>
+            </div>
+          </Column>
+        </Row>
       </div>
     );
   }

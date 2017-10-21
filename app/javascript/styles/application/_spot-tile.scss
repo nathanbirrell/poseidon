@@ -22,6 +22,14 @@
     flex: 1 1 33%;
     max-width: 33%;
   }
+
+  &__label {
+    font-size: rem-calc(12);
+    text-transform: uppercase;
+    color: $font-dark-tertiary;
+    font-weight: $font-weight-medium;
+    line-height: rem-calc(14);
+  }
 }
 
 .spot-tile.--expanded {
@@ -44,8 +52,6 @@
   }
 
   .--expanded & {
-    padding-left: 0;
-    padding-right: 0;
   }
 }
 
@@ -58,6 +64,15 @@
 .spot-tile__rating {
   flex: 1 1 auto;
   width: 12%;
+
+  .--expanded & {
+    width: auto;
+    display: flex;
+
+    .spot-tile__label {
+      padding-left: 4px;
+    }
+  }
 }
 
 .spot-tile__name {
@@ -99,19 +114,11 @@
   }
 }
 
-.spot-tile__condition-label {
-  font-size: rem-calc(12);
-  text-transform: uppercase;
-  color: $font-dark-tertiary;
-  font-weight: $font-weight-medium;
-}
-
 .spot-tile__conditions {
   flex: 1 1 auto;
   margin: 0 auto;
   display: flex;
   width: 100%;
-  padding: 0 12px;
 }
 
 .spot-tile__condition {

@@ -48,7 +48,7 @@ class SpotBanner extends React.Component {
     return (
       <div className={`row spot-banner --${SpotUtil.getVerdict(this.props.current_potential)}`}>
         <div className="spot-banner__content small-12 cell text-left">
-          {this.renderRating()}
+          {this.props.current_potential ? this.renderRating() : null}
           {this.renderDetails()}
         </div>
       </div>
