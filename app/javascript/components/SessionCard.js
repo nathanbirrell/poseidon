@@ -53,18 +53,19 @@ class SessionCard extends React.PureComponent {
     const { wind } = this.props;
     const direction = SpotUtil.degreesToText(wind.direction);
     const speed = MathUtil.round(SpotUtil.kphToKnots(wind.speed), 0);
-    const speed_in_words = SpotUtil.windKphToDescription(wind.speed);
+    const speed_in_words = SpotUtil.windKphToDescription(wind.speed).toUpperCase();
     const direction_in_words = SpotUtil.windDirectionRatingToDescription(wind.direction_rating);
 
     return (
       <SessionCardCondition
         label="Wind"
-        primary={`${speed} ${direction}`}
+        primary={`${direction} ${speed}`}
         primaryUnit="kt"
         primaryIndicator={wind.rating}
         secondary={(
           <span>
-            {speed_in_words} {direction_in_words}
+            {speed_in_words} <br />
+            {direction_in_words}
           </span>
         )}
       />
@@ -74,7 +75,7 @@ class SessionCard extends React.PureComponent {
   _renderTideConditions() {
     const { tide } = this.props;
     console.log(tide);
-    const state = String(tide.state).capitalize().s;
+    const state = tide.state.toUpperCase();
     const height = MathUtil.round(tide.height, 1);
 
     return (
@@ -85,7 +86,8 @@ class SessionCard extends React.PureComponent {
         primaryIndicator={tide.rating}
         secondary={(
           <span>
-            {`${state}`} <br />
+            {state} <br />
+            {tide.shift_rate}
           </span>
         )}
       />
