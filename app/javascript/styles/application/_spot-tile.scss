@@ -24,8 +24,11 @@
   }
 }
 
-.spot-tile a {
-  @include clickable;
+.spot-tile.--expanded {
+  //
+}
+
+.spot-tile__container {
   display: flex;
   width: 100%;
   margin: 6px auto;
@@ -39,6 +42,15 @@
     width: auto;
     margin: 6px;
   }
+
+  .--expanded & {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.spot-tile a {
+  @include clickable;
 
   &:hover, &:focus { text-decoration: none; }
 }
@@ -78,6 +90,20 @@
   text-align: right;
   font-size: rem-calc(11);
   line-height: rem-calc(11);
+  color: $font-dark-secondary;
+
+  .--expanded & {
+    max-width: none;
+    margin-left: auto;
+    padding-right: 12px;
+  }
+}
+
+.spot-tile__condition-label {
+  font-size: rem-calc(12);
+  text-transform: uppercase;
+  color: $font-dark-tertiary;
+  font-weight: $font-weight-medium;
 }
 
 .spot-tile__conditions {
@@ -87,6 +113,7 @@
   width: 100%;
   padding: 0 12px;
 }
+
 .spot-tile__condition {
   flex: 1 1 33.33%;
   padding: rem-calc(8);
@@ -96,6 +123,7 @@
     color: $secondary-color;
   }
 }
+
 .spot-tile__condition-primary {
   display: block;
   font-size: 110%;
@@ -104,10 +132,19 @@
   &-unit {
     font-size: 80%;
   }
+
+  .--expanded & {
+    font-size: 120%;
+  }
 }
+
 .spot-tile__condition-secondary {
   display: block;
   color: $font-dark-secondary;
   font-size: 80%;
   line-height: 120%;
+
+  .--expanded & {
+    font-size: 90%;
+  }
 }

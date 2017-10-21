@@ -101,7 +101,7 @@ class SpotTile extends React.Component {
 
     return (
       <Column widthMedium={6} className="spot-tile">
-        <Link to={link} >
+        <Link to={link} className="spot-tile__container">
           <div className="spot-tile__rating">
             <Rating rating={rating} />
           </div>

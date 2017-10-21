@@ -18,6 +18,7 @@ import Column from 'components/Column';
 import SpotBanner from 'components/SpotBanner';
 import NavigationTabs from 'components/NavigationTabs';
 import SpotTimeSlider from 'components/SpotTimeSlider';
+import SessionCard from 'components/SessionCard';
 
 class SpotPage extends React.Component {
   constructor (props) {
@@ -167,9 +168,17 @@ class SpotPage extends React.Component {
           )}
 
           <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
-            <SpotForecastContainer
-              forecasts={this.state.forecasts}
-            />
+            <div className="spot-page__forecast">
+              <SessionCard
+                rating={this.state.forecasts.overall_ratings[0]}
+                swell={this.state.forecasts.swells[0]}
+                wind={this.state.forecasts.winds[0]}
+                tide={this.state.forecasts.tides[0]}
+              />
+              <SpotForecastContainer
+                forecasts={this.state.forecasts}
+              />
+            </div>
           )} />
 
           <Route path={routeMatchUrl} exact render={() => (
