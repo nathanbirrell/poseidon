@@ -12,10 +12,12 @@
 }
 
 .spot-tile {
+  margin: 6px 0;
+
   @include breakpoint(medium up) {
+    flex: 1 1 auto;
     min-width: 320px;
     width: 50%;
-    flex: 1 1 auto;
   }
 
   @include breakpoint(large up) {
@@ -39,7 +41,8 @@
 .spot-tile__container {
   display: flex;
   width: 100%;
-  margin: 6px auto;
+  // max-height: 134px;
+  height: 100%;
   padding: 12px;
   flex-wrap: wrap;
   background: $white;
@@ -52,13 +55,18 @@
   }
 
   .--expanded & {
+    max-height: none;
   }
 }
 
 .spot-tile a {
   @include clickable;
 
-  &:hover, &:focus { text-decoration: none; }
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: $font-dark-primary;
+  }
 }
 
 .spot-tile__rating {
@@ -116,15 +124,13 @@
 
 .spot-tile__conditions {
   flex: 1 1 auto;
-  margin: 0 auto;
   display: flex;
   width: 100%;
 }
 
 .spot-tile__condition {
   flex: 1 1 33.33%;
-  padding: rem-calc(8);
-  padding-left: 0;
+  padding-right: rem-calc(6);
 
   &.--highlighted {
     color: $secondary-color;
