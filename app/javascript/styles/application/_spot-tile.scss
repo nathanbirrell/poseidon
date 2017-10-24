@@ -35,7 +35,9 @@
 }
 
 .spot-tile.--expanded {
-  //
+  .icon.--icon-navigation-2 {
+    margin-right: -4px;
+  }
 }
 
 .spot-tile__container {
@@ -141,6 +143,7 @@
   display: block;
   font-size: 110%;
   font-weight: $font-weight-medium;
+  word-break: break-word;
 
   &-unit {
     font-size: 80%;

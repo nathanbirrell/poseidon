@@ -10,6 +10,7 @@ import Row from 'components/Row';
 import Column from 'components/Column';
 import Rating from 'components/Rating';
 import Indicator from 'components/Indicator';
+import Icon from 'components/Icon';
 
 const SessionCardCondition = (props) => {
   return (
@@ -61,7 +62,7 @@ class SessionCard extends React.PureComponent {
         label="Wind"
         primary={(
           <span>
-            <i className="icon --icon-navigation-2" /> {direction} {speed}
+            <Icon name="navigation-2" rotate={wind.direction} /> {direction} {speed}
           </span>
         )}
         primaryUnit="kt"

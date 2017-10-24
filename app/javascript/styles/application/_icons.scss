@@ -1,24 +1,32 @@
+// TODO: set-up an npm build task to build these..
+
 .icon {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  transition: $natural-transition;
+  background-repeat: no-repeat;
+
   &:before {
     content: '';
-    display: inline-block;
+    display: block;
+    height: 100%;
+    width: 100%;
     background-size: contain;
-    height: 16px;
-    width: 16px;
   }
 
-  .--small &:before {
+  &.--small {
     height: 12px;
     width: 12px;
   }
 
-  .--large &:before {
+  &.--large {
     height: 18px;
     width: 18px;
   }
 }
 
-// ALL of the icons. TODO: set-up an npm build task to build these..
+// ALL of the icons.
 
 .--icon-chevron-up--white:before {
   background-image: url('images/icons/chevron-up--white.svg');
