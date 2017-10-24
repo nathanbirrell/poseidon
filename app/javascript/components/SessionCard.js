@@ -59,7 +59,11 @@ class SessionCard extends React.PureComponent {
     return (
       <SessionCardCondition
         label="Wind"
-        primary={`${direction} ${speed}`}
+        primary={(
+          <span>
+            <i className="icon --icon-navigation-2" /> {direction} {speed}
+          </span>
+        )}
         primaryUnit="kt"
         primaryIndicator={wind.rating}
         secondary={(
