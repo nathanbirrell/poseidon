@@ -15,18 +15,18 @@ import Icon from 'components/Icon';
 
 const SessionCardCondition = (props) => {
   const classes = Classnames({
-    'spot-tile__condition': true,
+    'session-card__condition': true,
     '--highlighted': props.highlighted,
   });
   return (
     <div className={classes}>
-      {props.label ? (<span className="spot-tile__label">{props.label}</span>) : null}
-      <span className="spot-tile__condition-primary">
+      {props.label ? (<span className="session-card__label">{props.label}</span>) : null}
+      <span className="session-card__condition-primary">
         {props.primary}
-        {props.primaryUnit ? <span className="spot-tile__condition-primary-unit">{props.primaryUnit}</span> : null }
+        {props.primaryUnit ? <span className="session-card__condition-primary-unit">{props.primaryUnit}</span> : null }
         <Indicator rating={props.primaryIndicator} />
       </span>
-      <span className="spot-tile__condition-secondary">{props.secondary}</span>
+      <span className="session-card__condition-secondary">{props.secondary}</span>
     </div>
   );
 };
@@ -117,15 +117,15 @@ class SessionCard extends React.PureComponent {
 
     if (this.props.isExpanded) {
       return (
-        <div className="spot-tile__rating">
+        <div className="session-card__rating">
           <Rating rating={current_rating} isLarge />
-          <span className="spot-tile__label">OVERALL<br />POTENTIAL</span>
+          <span className="session-card__label">OVERALL<br />POTENTIAL</span>
         </div>
       );
     }
 
     return (
-      <div className="spot-tile__rating">
+      <div className="session-card__rating">
         <Rating rating={current_rating} />
       </div>
     )
@@ -135,35 +135,50 @@ class SessionCard extends React.PureComponent {
     if (this.props.isExpanded) { return null; };
 
     return (
-      <div className="spot-tile__name">
+      <div className="session-card__name">
         <h3>{this.props.spot.name}</h3>
         <p>{this.props.spot.region.name}, {this.props.spot.region.state}</p>
       </div>
     );
   }
 
-  render() {
+  renderBody() {
     const date_time = moment(this.props.rating.date_time).calendar();
+
+    return (
+      <div className="session-card__container">
+        {this.renderRating()}
+        {this.renderNameAndRegion()}
+        <div className="session-card__updated">
+          {date_time}
+        </div>
+        <div className="session-card__conditions">
+          { this._renderSwellConditions() }
+          { this._renderWindConditions() }
+          { this._renderTideConditions() }
+        </div>
+      </div>
+    );
+  }
+
+  render() {
     const classes = Classnames({
-      'spot-tile': true,
+      'session-card': true,
       '--expanded': this.props.isExpanded,
     });
 
+    if (this.props.isExpanded) {
+      return (
+        <Column widthMedium={6} className={classes}>
+          {this.renderBody()}
+        </Column>
+      );
+    }
+
     return (
-      <Column widthMedium={6} className={classes}>
-        <div className="spot-tile__container">
-          {this.renderRating()}
-          {this.renderNameAndRegion()}
-          <div className="spot-tile__updated">
-            {date_time}
-          </div>
-          <div className="spot-tile__conditions">
-            { this._renderSwellConditions() }
-            { this._renderWindConditions() }
-            { this._renderTideConditions() }
-          </div>
-        </div>
-      </Column>
+      <div className={classes}>
+        {this.renderBody()}
+      </div>
     );
   }
 }

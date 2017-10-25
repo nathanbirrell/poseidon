@@ -27,6 +27,9 @@
 @import "application/molecules/modal";
 @import "application/molecules/tables";
 
+@import "application/organisms/spots-list";
+@import "application/organisms/session-card";
+
 // TODO: organise these bad boys
 @import "application/backgrounds";
 @import "application/btn";
@@ -45,6 +48,5 @@
 @import "application/regions";
 @import "application/share-menu";
 @import "application/spot-plan-summary";
-@import "application/spot-tile";
 @import "application/spots";
 @import "application/time-slider";

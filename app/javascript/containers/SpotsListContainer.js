@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Api from 'lib/ApiUtil';
 import SessionCard from 'components/SessionCard';
@@ -49,20 +50,25 @@ class SpotsListContainer extends React.Component {
     filteredSpots = this.orderSpots(filteredSpots, this.state.orderBy);
 
     return filteredSpots.map(spot => {
+      const link = `/spots/${spot.id}/forecast`;
+
       return (
-        <SessionCard
-          spot={spot}
-          rating={{
-            date_time: spot.current_model_date_time,
-            rating: spot.current_potential,
-          }}
-          swell={spot.current_swell}
-          wind={spot.current_wind}
-          tide_current={spot.current_tide_snapshot}
-          tide_next={spot.next_tide}
-          highlight={this.state.orderBy}
-          key={spot.id}
-        />
+
+          <Link to={link} key={spot.id}>
+            <SessionCard
+              spot={spot}
+              rating={{
+                date_time: spot.current_model_date_time,
+                rating: spot.current_potential,
+              }}
+              swell={spot.current_swell}
+              wind={spot.current_wind}
+              tide_current={spot.current_tide_snapshot}
+              tide_next={spot.next_tide}
+              highlight={this.state.orderBy}
+            />
+          </Link>
+
       );
     });
   }

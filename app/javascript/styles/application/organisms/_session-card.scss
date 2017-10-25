@@ -1,29 +1,5 @@
-
-.spots-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-
-  .spinner { margin: 0 auto; }
-
-  @include breakpoint(small only) {
-    .grid-padding-x > &.cell { padding: 0; }
-  }
-}
-
-.spot-tile {
-  margin: 6px 0;
-
-  @include breakpoint(medium up) {
-    flex: 1 1 auto;
-    min-width: 320px;
-    width: 50%;
-  }
-
-  @include breakpoint(large up) {
-    flex: 1 1 33%;
-    max-width: 33%;
-  }
+.session-card {
+  background: $white;
 
   &__label {
     font-size: rem-calc(12);
@@ -34,20 +10,19 @@
   }
 }
 
-.spot-tile.--expanded {
+.session-card.--expanded {
   .icon.--icon-navigation-2 {
     margin-right: -4px;
   }
 }
 
-.spot-tile__container {
+.session-card__container {
   display: flex;
   width: 100%;
   // max-height: 134px;
   height: 100%;
   padding: 12px;
   flex-wrap: wrap;
-  background: $white;
   color: $font-dark-primary;
   border-radius: 1px;
 
@@ -61,17 +36,11 @@
   }
 }
 
-.spot-tile a {
+a .session-card {
   @include clickable;
-
-  &:hover,
-  &:focus {
-    text-decoration: none;
-    color: $font-dark-primary;
-  }
 }
 
-.spot-tile__rating {
+.session-card__rating {
   flex: 1 1 auto;
   width: 12%;
 
@@ -79,15 +48,15 @@
     width: auto;
     display: flex;
 
-    .spot-tile__label {
+    .session-card__label {
       padding-left: 4px;
     }
   }
 }
 
-.spot-tile__name {
+.session-card__name {
   flex: 1 1 auto;
-  width: 69%;
+  width: 65%;
   margin-top: -3px; // attempt to align heading with rating (to the eye)
 
   h3,
@@ -109,9 +78,9 @@
   }
 }
 
-.spot-tile__updated {
+.session-card__updated {
   flex: 1 1 auto;
-  max-width: 19%;
+  max-width: 15%;
   text-align: right;
   font-size: rem-calc(11);
   line-height: rem-calc(11);
@@ -124,14 +93,14 @@
   }
 }
 
-.spot-tile__conditions {
+.session-card__conditions {
   flex: 1 1 auto;
   display: flex;
   width: 100%;
   margin-top: 4px;
 }
 
-.spot-tile__condition {
+.session-card__condition {
   flex: 1 1 33.33%;
   padding-right: rem-calc(6);
 
@@ -140,7 +109,7 @@
   }
 }
 
-.spot-tile__condition-primary {
+.session-card__condition-primary {
   display: block;
   font-size: 110%;
   font-weight: $font-weight-medium;
@@ -155,7 +124,7 @@
   }
 }
 
-.spot-tile__condition-secondary {
+.session-card__condition-secondary {
   display: block;
   color: $font-dark-secondary;
   font-size: 80%;

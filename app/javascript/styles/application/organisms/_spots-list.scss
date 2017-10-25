@@ -1,0 +1,36 @@
+.spots-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  .spinner { margin: 0 auto; }
+
+  @include breakpoint(small only) {
+    .grid-padding-x > &.cell { padding: 0; }
+  }
+
+  a {
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      color: $font-dark-primary;
+    }
+  }
+
+  a {
+    @include breakpoint(medium up) {
+      flex: 1 1 auto;
+      min-width: 320px;
+      width: 50%;
+    }
+
+    @include breakpoint(large up) {
+      flex: 1 1 33%;
+      max-width: 33%;
+    }
+  }
+
+  .session-card {
+    margin: 0 6px;
+  }
+}
