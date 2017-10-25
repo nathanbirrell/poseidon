@@ -76,15 +76,12 @@ class SessionCard extends React.PureComponent {
 
   _renderTideConditions() {
     const { tide } = this.props;
-    console.log(tide);
     const state = tide.state.toUpperCase();
     const height = MathUtil.round(tide.height, 1);
     const shiftRate = String(tide.shift_rate).capitalize().s;
     let stateIconRotate = 0;
 
     if (state === 'OUTGOING') { stateIconRotate = 180; }
-
-    console.log(state, stateIconRotate);
 
     return (
       <SessionCardCondition
