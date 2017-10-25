@@ -40,8 +40,7 @@ class Icon extends React.PureComponent {
     const styles = {};
 
     if (this.props.rotate) {
-      // minus 180 because the icon file's default position is 180 degrees
-      styles.transform = `rotate(${this.props.rotate - 180}deg)`;
+      styles.transform = `rotate(${this.props.rotate}deg)`;
     }
 
     styles.backgroundImage = `url('${require('images/icons/' + this.getIconFileName())}')`;
@@ -53,7 +52,7 @@ class Icon extends React.PureComponent {
 }
 
 Icon.defaultProps = {
-  size: Size.MEDIUM,
+  size: Size.SMALL,
 }
 
 Icon.propTypes = {

@@ -54,8 +54,9 @@ class SessionCard extends React.PureComponent {
     const { wind } = this.props;
     const direction = SpotUtil.degreesToText(wind.direction);
     const speed = MathUtil.round(SpotUtil.kphToKnots(wind.speed), 0);
-    const speed_in_words = SpotUtil.windKphToDescription(wind.speed).toUpperCase();
-    const direction_in_words = wind.direction_description;
+    const speedInWords = SpotUtil.windKphToDescription(wind.speed).toUpperCase();
+    const directionInWords = wind.direction_description;
+    const windIconRotate = wind.direction - 180; // minus 180 because the icon file's default position is 180 degrees
 
     return (
       <SessionCardCondition
@@ -65,8 +66,8 @@ class SessionCard extends React.PureComponent {
         primaryIndicator={wind.rating}
         secondary={(
           <span>
-            <Icon name="navigation-2" rotate={wind.direction} size={Icon.Size.SMALL} color="grey" /> {speed_in_words} <br />
-            <small>{direction_in_words}</small>
+            <Icon name="navigation-2" rotate={windIconRotate} size={Icon.Size.SMALL} color="grey" /> {speedInWords} <br />
+            <small>{directionInWords}</small>
           </span>
         )}
       />
@@ -78,7 +79,12 @@ class SessionCard extends React.PureComponent {
     console.log(tide);
     const state = tide.state.toUpperCase();
     const height = MathUtil.round(tide.height, 1);
-    const shift_rate = String(tide.shift_rate).capitalize().s;
+    const shiftRate = String(tide.shift_rate).capitalize().s;
+    let stateIconRotate = 0;
+
+    if (state === 'OUTGOING') { stateIconRotate = 180; }
+
+    console.log(state, stateIconRotate);
 
     return (
       <SessionCardCondition
@@ -88,8 +94,8 @@ class SessionCard extends React.PureComponent {
         primaryIndicator={tide.rating}
         secondary={(
           <span>
-            {state} <br />
-            <small>{shift_rate}</small>
+            <Icon name="arrow-up" color="grey" rotate={stateIconRotate} />{state} <br />
+            <small>{shiftRate}</small>
           </span>
         )}
       />
