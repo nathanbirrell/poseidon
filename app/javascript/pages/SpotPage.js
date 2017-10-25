@@ -173,6 +173,7 @@ class SpotPage extends React.Component {
                 forecasts={this.state.forecasts}
               />
               <SessionCard
+                isExpanded
                 rating={this.state.forecasts.overall_ratings[seed.value]}
                 swell={this.state.forecasts.swells[seed.value]}
                 wind={this.state.forecasts.winds[seed.value]}
