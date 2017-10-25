@@ -84,24 +84,28 @@ class SessionCard extends React.PureComponent {
   }
 
   _renderTideConditions() {
-    const { tide } = this.props;
-    const state = tide.state.toUpperCase();
-    const height = MathUtil.round(tide.height, 1);
-    const shiftRate = String(tide.shift_rate).capitalize().s;
-    let stateIconRotate = 0;
+    const { tide_current, tide_next } = this.props;
+    const state = tide_current.state.toUpperCase();
+    const height = MathUtil.round(tide_current.height, 1);
+    const shiftRate = String(tide_current.shift_rate).capitalize().s;
 
+    // TODO pass next tide in for expanded views
+    const next_tide_type = this.props.isExpanded ? null : String(tide_next.tide_type).capitalize().s;
+    const next_tide_height = this.props.isExpanded ? null : MathUtil.round(tide_next.height, 1);
+
+    let stateIconRotate = 0;
     if (state === 'OUTGOING') { stateIconRotate = 180; }
 
     return (
       <SessionCardCondition
         label="Tide"
-        primary={`${tide.height}`}
+        primary={`${tide_current.height}`}
         primaryUnit={`m`}
-        primaryIndicator={tide.rating}
+        primaryIndicator={tide_current.rating}
         secondary={(
           <span>
             <Icon name="arrow-up" color="grey" rotate={stateIconRotate} />{state} <br />
-            <small>{shiftRate}</small>
+            {this.props.isExpanded ? (<small>{shiftRate}</small>) : `${next_tide_type} ${moment(tide_next.date_time).fromNow()} (${next_tide_height}m)` }
           </span>
         )}
       />
@@ -170,10 +174,11 @@ SessionCard.defaultProps = {
 };
 
 SessionCard.propTypes = {
-  rating: PropTypes.object,
-  swell: PropTypes.object,
-  wind: PropTypes.object,
-  tide: PropTypes.object,
+  rating: PropTypes.object.isRequired,
+  swell: PropTypes.object.isRequired,
+  wind: PropTypes.object.isRequired,
+  tide_current: PropTypes.object.isRequired,
+  tide_next: PropTypes.object,
   isExpanded: PropTypes.bool,
   highlight: PropTypes.string,
   spot: PropTypes.object,

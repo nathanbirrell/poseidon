@@ -177,7 +177,7 @@ class SpotPage extends React.Component {
                 rating={this.state.forecasts.overall_ratings[seed.value]}
                 swell={this.state.forecasts.swells[seed.value]}
                 wind={this.state.forecasts.winds[seed.value]}
-                tide={this.state.forecasts.tides[seed.value]}
+                tide_current={this.state.forecasts.tides[seed.value]}
               />
               <SpotShareContainer
                 selectedMoment={date}

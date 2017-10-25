@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Api from 'lib/ApiUtil';
-import SpotTile from 'components/SpotTile';
+import SessionCard from 'components/SessionCard';
 import Row from 'components/Row';
 import Column from 'components/Column';
 import Spinner from 'components/Spinner';
@@ -49,7 +49,21 @@ class SpotsListContainer extends React.Component {
     filteredSpots = this.orderSpots(filteredSpots, this.state.orderBy);
 
     return filteredSpots.map(spot => {
-      return (<SpotTile spot={spot} highlight={this.state.orderBy} key={spot.id} />);
+      return (
+        <SessionCard
+          spot={spot}
+          rating={{
+            date_time: spot.current_model_date_time,
+            rating: spot.current_potential,
+          }}
+          swell={spot.current_swell}
+          wind={spot.current_wind}
+          tide_current={spot.current_tide_snapshot}
+          tide_next={spot.next_tide}
+          highlight={this.state.orderBy}
+          key={spot.id}
+        />
+      );
     });
   }
 

@@ -13,7 +13,7 @@ import Indicator from 'components/Indicator';
 
 const SpotTileCondition = (props) => {
   return (
-    <div className={"spot-tile__condition " + (props.highlighted ? "--highlighted" : "")}>
+    <div className={"" + (props.highlighted ? "--highlighted" : "")}>
       <span className="spot-tile__condition-primary">
         {props.primary}
         {props.primaryUnit ? <span className="spot-tile__condition-primary-unit">{props.primaryUnit}</span> : null }
