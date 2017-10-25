@@ -32,7 +32,7 @@ class SessionCard extends React.PureComponent {
     const direction = SpotUtil.degreesToText(swell.direction);
     const period = MathUtil.round(swell.period, 0);
     const size = MathUtil.round(SpotUtil.metresToFeet(swell.size), 1);
-    const size_in_words = SpotUtil.swellMetresToDescription(swell.size);
+    const size_in_words = String(SpotUtil.swellMetresToDescription(swell.size)).capitalize().s;
 
     return (
       <SessionCardCondition
@@ -43,7 +43,7 @@ class SessionCard extends React.PureComponent {
         secondary={(
           <span>
             {direction} @ {period}s <br />
-            {size_in_words}
+            <small>{size_in_words}</small>
           </span>
         )}
       />
@@ -66,7 +66,7 @@ class SessionCard extends React.PureComponent {
         secondary={(
           <span>
             <Icon name="navigation-2" rotate={wind.direction} size={Icon.Size.SMALL} color="grey" /> {speed_in_words} <br />
-            {direction_in_words}
+            <small>{direction_in_words}</small>
           </span>
         )}
       />
@@ -78,6 +78,7 @@ class SessionCard extends React.PureComponent {
     console.log(tide);
     const state = tide.state.toUpperCase();
     const height = MathUtil.round(tide.height, 1);
+    const shift_rate = String(tide.shift_rate).capitalize().s;
 
     return (
       <SessionCardCondition
@@ -88,7 +89,7 @@ class SessionCard extends React.PureComponent {
         secondary={(
           <span>
             {state} <br />
-            {tide.shift_rate}
+            <small>{shift_rate}</small>
           </span>
         )}
       />
