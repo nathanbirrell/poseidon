@@ -6,7 +6,9 @@
   width: 16px;
   transition: $natural-transition;
   background-repeat: no-repeat;
+  background-size: contain;
 
+  // TODO: should not be needed once all icons use the <Icon /> component (this component doesn't use pseudo elements)
   &:before {
     content: '';
     display: block;
@@ -27,6 +29,7 @@
 }
 
 // ALL of the icons.
+// Delete these once all icons in the site use <Icon />
 
 .--icon-chevron-up--white:before {
   background-image: url('images/icons/chevron-up--white.svg');

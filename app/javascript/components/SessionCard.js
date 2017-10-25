@@ -60,16 +60,12 @@ class SessionCard extends React.PureComponent {
     return (
       <SessionCardCondition
         label="Wind"
-        primary={(
-          <span>
-            <Icon name="navigation-2" rotate={wind.direction} /> {direction} {speed}
-          </span>
-        )}
+        primary={`${direction} ${speed}`}
         primaryUnit="kt"
         primaryIndicator={wind.rating}
         secondary={(
           <span>
-            {speed_in_words} <br />
+            <Icon name="navigation-2" rotate={wind.direction} size={Icon.Size.SMALL} color="grey" /> {speed_in_words} <br />
             {direction_in_words}
           </span>
         )}
