@@ -31,6 +31,10 @@
   }
 
   .session-card {
-    margin: 0 6px;
+    margin-bottom: 6px;
+
+    @include breakpoint(medium up) {
+      margin: 0 6px;
+    }
   }
 }
