@@ -8,15 +8,6 @@
   background-repeat: no-repeat;
   background-size: contain;
 
-  // TODO: should not be needed once all icons use the <Icon /> component (this component doesn't use pseudo elements)
-  &:before {
-    content: '';
-    display: block;
-    height: 100%;
-    width: 100%;
-    background-size: contain;
-  }
-
   &.--small {
     height: 12px;
     width: 12px;
@@ -25,6 +16,15 @@
   &.--large {
     height: 18px;
     width: 18px;
+  }
+
+  // TODO: should not be needed once all icons use the <Icon /> component (this component doesn't use pseudo elements)
+  &:before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-size: contain;
   }
 }
 
