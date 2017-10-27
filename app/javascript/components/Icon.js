@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Classnames from 'classnames';
 
+const iconContext = require.context("images/icons", true, /\.(png|jpg|svg)$/);
+
 const Size = Object.freeze({
   SMALL: 'small',
   MEDIUM: 'medium',
@@ -15,7 +17,7 @@ class Icon extends React.PureComponent {
 
   getIconFileName() {
     if (this.props.color) {
-      return `${this.props.name}-${this.props.color}.svg`;
+      return `./${this.props.name}-${this.props.color}.svg`;
     }
 
     return `${this.props.name}.svg`;
@@ -43,7 +45,7 @@ class Icon extends React.PureComponent {
       styles.transform = `rotate(${this.props.rotate}deg)`;
     }
 
-    styles.backgroundImage = `url('${require('images/icons/' + this.getIconFileName())}')`;
+    // styles.backgroundImage = `url(${iconContext(this.getIconFileName())})`;
 
     return (
       <i className={classes} style={styles} />
