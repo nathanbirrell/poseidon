@@ -30,6 +30,10 @@ class SpotUtil {
     return output;
   }
 
+  static getRatingColor(rating) {
+    return `hsl(${(Math.pow(rating, 2) + (7 * rating)) * 0.8},${(-1.8 * (Math.pow(rating, 2)) + (17 * rating) + 110) * 0.60}%,50%)`;
+  }
+
   static metresToFeet(number) {
     return (number * 3.28084);
   }
@@ -44,6 +48,16 @@ class SpotUtil {
     output = (degrees / 22.5) + 0.5;
     output = MathUtil.round(output, 0);
     return directions[(output % 16)];
+  }
+
+  static windDirectionRatingToDescription(rating) {
+    if (rating >= 75) {
+      return 'Offshore';
+    } else if (rating >= 50) {
+      return 'Cross-shore';
+    } else {
+      return 'Onshore';
+    }
   }
 
   static matchValueToDescription(number, values, descriptions) {
@@ -67,10 +81,14 @@ class SpotUtil {
     return this.matchValueToDescription(wind_kph, speeds, descriptions);
   }
 
-  static swellFeetToDescription(wave_feet) {
+  static swellMetresToDescription(swell_height_m) {
+    return this.swellFeetToDescription(this.metresToFeet(swell_height_m));
+  }
+
+  static swellFeetToDescription(swell_height_ft) {
     const heights = [0, 1, 3, 4, 5, 6.5, 8, 10, 15];
-    const descriptions = ['Flat', 'Knee-to-waist high','Chest-shoulder high', 'Head high', 'Overhead', 'Well overhead', 'Double overhead', 'Epic (double-to-triple overhead)'];
-    return this.matchValueToDescription(wave_feet, heights, descriptions);
+    const descriptions = ['Flat', 'Knee—waist high','Chest-shoulder high', 'Head high', 'Overhead', 'Well overhead', 'Double overhead', 'Epic (double-to-triple overhead)'];
+    return this.matchValueToDescription(swell_height_ft, heights, descriptions);
   }
 
   static tideDescription(last_tide_type) {

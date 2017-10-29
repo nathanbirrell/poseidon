@@ -69,9 +69,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # Automatically inject JavaScript needed for LiveReload
-  config.middleware.insert_after(ActionDispatch::Static, Rack::LiveReload)
-
   # Need to allow all origins for comparing us to competitors, don't allow this in prod!
   config.action_dispatch.default_headers = {
     'X-Frame-Options' => 'ALLOWALL'

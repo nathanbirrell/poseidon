@@ -1,0 +1,36 @@
+
+.modal {
+  background: $white;
+  z-index: 99;
+  border-radius: 3px;
+  box-shadow: $shadow-hover;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  margin-left: -160px;
+  margin-top: -80px;
+  text-align: center;
+  padding-bottom: 6px;
+
+  &__header {
+    background: $gainsboro;
+    font-size: rem-calc(14);
+    color: $font-dark-primary;
+    font-weight: $font-weight-black;
+    height: 24px;
+    width: 100%;
+    text-transform: uppercase;
+    line-height: 24px;
+
+    a {
+      float: right;
+      margin-right: 6px;
+      color: $font-dark-secondary;
+    }
+  }
+
+  &__body {
+    //
+  }
+}

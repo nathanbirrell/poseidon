@@ -1,0 +1,46 @@
+.nav-tabs {
+  height: 48px;
+  background: $white;
+  border-bottom: 1px solid $iron;
+  box-shadow: none;
+  transition: box-shadow 250ms;
+  margin-bottom: 12px;
+
+  a:hover { text-decoration: none; }
+
+  &.--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    display: block;
+    max-width: 62.5rem;
+    margin: 0 auto;
+    z-index: 99;
+    box-shadow: $shadow-subtle;
+  }
+
+  &__item {
+    text-align: center;
+    font-size: 14px;
+    line-height: 48px;
+    border-bottom: none;
+    cursor: pointer;
+    color: $black;
+
+    &.--focused {
+      color: $secondary-color;
+      line-height: 46px;
+      border-bottom: 2px solid $secondary-color;
+    }
+  }
+}
+
+.nav-tabs-spacer {
+  display: none;
+
+  &.--fixed {
+    display: block;
+    height: 45px;
+  }
+}

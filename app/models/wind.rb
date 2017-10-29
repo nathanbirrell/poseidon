@@ -14,6 +14,7 @@
 
 class Wind < WeatherForecast
   include WillyweatherClient
+  include SpotsHelper
   # default_scope { order(date_time: :desc) }
   belongs_to :spot
 
@@ -31,6 +32,15 @@ class Wind < WeatherForecast
       x_value: direction
     )
     poseidon_math.rating_given_x(data)
+  end
+
+  # TODO: move me out of this model! tsk tsk
+  def direction_description
+    return '' unless direction
+    dir_rating = direction_rating()
+    return 'Offshore' if dir_rating >= 75
+    return 'Cross-shore' if dir_rating >= 50
+    return 'Onshore' if dir_rating < 50
   end
 
   def speed_rating
@@ -52,10 +62,11 @@ class Wind < WeatherForecast
   def to_builder
     Jbuilder.new do |wind|
       wind.id id
+      wind.date_time date_time
       wind.speed speed
       wind.direction direction
       wind.direction_text direction_text
-      wind.date_time date_time
+      wind.direction_description direction_description
       wind.direction_rating direction_rating
       wind.speed_rating speed_rating
       wind.rating rating

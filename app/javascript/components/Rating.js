@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Classnames from 'classnames';
 
+import SpotUtil from 'lib/SpotUtil';
+
 class Rating extends React.Component {
   render() {
     if (!this.props.rating) { return null; }
@@ -15,7 +17,7 @@ class Rating extends React.Component {
 
     // Change rating background colour depending on rating. Uses custom math curves for Hue and Saturation to go between red-green
     const ratingStyles = {
-      background: `hsl(${(Math.pow(rating, 2) + (7 * rating)) * 0.8},${(-1.8 * (Math.pow(rating, 2)) + (17 * rating) + 110) * 0.60}%,50%)`,
+      background: SpotUtil.getRatingColor(rating),
     };
 
     return (

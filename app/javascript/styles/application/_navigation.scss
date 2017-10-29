@@ -1,0 +1,13 @@
+header {
+  //
+}
+
+nav.top-bar {
+  .menu-text { color: $font-dark-secondary; }
+
+  li a {
+    color: $font-dark-primary;
+    font-size: rem-calc(14);
+    font-weight: $font-weight-medium;
+  }
+}

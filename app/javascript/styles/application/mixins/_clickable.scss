@@ -1,0 +1,15 @@
+@mixin clickable($clickable: true) {
+	box-shadow: $shadow-subtle;
+	cursor: pointer;
+	transition: $natural-transition;
+
+	&:hover {
+		transform: translateY(-1px);
+		box-shadow: $shadow-hover;
+	}
+
+	&:active {
+		transform: translateY(1px);
+		box-shadow: $shadow-active;
+	}
+}

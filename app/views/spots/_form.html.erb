@@ -11,8 +11,8 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <div class="small-12 columns">
+  <div class="grid-x">
+    <div class="small-12 cell">
       <fieldset>
         <legend>About</legend>
 
@@ -22,35 +22,35 @@
         <%= f.label :description %>
         <%= f.text_area :description %>
 
-        <div class="row">
-          <div class="medium-4 columns">
+        <div class="grid-x">
+          <div class="medium-4 cell">
             <%= f.label :season %>
             <%= f.text_field :season %>
           </div>
-          <div class="medium-4 columns">
+          <div class="medium-4 cell">
             <%= f.label :latitude %>
             <%= f.text_field :latitude %>
           </div>
-          <div class="medium-4 columns">
+          <div class="medium-4 cell">
             <%= f.label :longitude %>
             <%= f.text_field :longitude %>
           </div>
         </div>
 
-        <div class="row">
-          <div class="medium-6 columns">
+        <div class="grid-x">
+          <div class="medium-6 cell">
             <%= f.label :region %>
             <%= f.select :region_id, options_for_select(Region.all.map{|r|[r.name, r.id]}) %>
           </div>
-          <div class="medium-6 columns">
+          <div class="medium-6 cell">
             <%= f.label :image %>
             <%= f.text_field :image %>
           </div>
         </div>
       </fieldset>
 
-      <div class="row">
-        <div class="medium-4 columns">
+      <div class="grid-x">
+        <div class="medium-4 cell">
           <fieldset>
             <legend>Swell</legend>
 
@@ -81,7 +81,7 @@
           </fieldset>
         </div>
 
-        <div class="medium-4 columns">
+        <div class="medium-4 cell">
           <fieldset>
             <legend>Wind</legend>
 
@@ -103,7 +103,7 @@
           </fieldset>
         </div>
 
-        <div class="medium-4 columns">
+        <div class="medium-4 cell">
           <fieldset>
             <legend>Tide</legend>
 

@@ -5,7 +5,7 @@
     <title><%= content_for?(:title) ? yield(:title) : "Poseidon" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Poseidon" %>">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet">
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_pack_tag 'styles' %>
     <%# Modernizr is required for Zurb Foundation %>
     <%= javascript_include_tag 'vendor/modernizr' %>
     <%= javascript_include_tag 'application' %>
@@ -28,7 +28,7 @@
 
 
           <div class="row text-center">
-            <footer class="small-12 columns">
+            <footer class="small-12 cell">
               <small>Built with code </> in Melbourne.</small> <br>
               <small>Copyright Surf Poseidon Pty Ltd <%= Time.current.year %></small>
             </footer>

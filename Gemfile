@@ -41,8 +41,6 @@ group :development do
   gem 'rails_layout'
   gem 'spring-commands-rspec'
   gem "guard", ">= 2.2.2", :require => false
-  gem "guard-livereload",  :require => false
-  gem "rack-livereload"
   gem "rb-fsevent",        :require => false
   gem "foreman"
 end

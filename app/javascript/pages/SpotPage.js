@@ -13,10 +13,12 @@ import SpotForecastContainer from 'containers/SpotForecastContainer';
 import SpotDayContainer from 'containers/SpotDayContainer';
 import SpotShareContainer from 'containers/SpotShareContainer';
 
+import Row from 'components/Row';
+import Column from 'components/Column';
 import SpotBanner from 'components/SpotBanner';
 import NavigationTabs from 'components/NavigationTabs';
-import SpotInfoCard from 'components/SpotInfoCard';
 import SpotTimeSlider from 'components/SpotTimeSlider';
+import SessionCard from 'components/SessionCard';
 
 class SpotPage extends React.Component {
   constructor (props) {
@@ -66,24 +68,25 @@ class SpotPage extends React.Component {
   }
 
   setNavItems() {
-    console.log(this.props.match);
+    const routeMatchUrl = this.props.match.url;
+
     this.setState({
       navItems: [
         {
           name: 'Forecast',
-          link: `${this.props.match.url}/forecast`
+          link: `${routeMatchUrl}/forecast`
         },
         {
           name: 'Today',
-          link: `${this.props.match.url}`
+          link: `${routeMatchUrl}`
         },
         {
           name: 'About',
-          link: `${this.props.match.url}/about`
+          link: `${routeMatchUrl}/about`
         },
         {
           name: 'History',
-          link: `${this.props.match.url}/history`
+          link: `${routeMatchUrl}/history`
         },
       ]
     });
@@ -127,12 +130,13 @@ class SpotPage extends React.Component {
             items={this.state.navItems}
           />
           <SpotBanner isBusy />
-          <SpotDayContainer />
         </div>
       );
     }
 
+    const routeMatchUrl = this.props.match.url;
     const date = this.state.selectedDateTime;
+    // TODO: rename to selectedForecast ?? Discuss w/ TB. ie selectedForecast.index (instead of value), etc.
     const seed = this.findForecastSeedFromTime(this.state.forecasts.swells, date);
 
     console.log('selectedDateTime: ', date);
@@ -149,63 +153,66 @@ class SpotPage extends React.Component {
     // TODO: refactor all these into individual components/containers
 
     return (
-      <div style={this.state.fixedNav ? fixedStyle : {}}>
+      <div>
         <NavigationTabs
           items={this.state.navItems}
         />
+        <Row withColumn>
+          {[`${routeMatchUrl}/about`, `${routeMatchUrl}/history`, `${routeMatchUrl}/forecast`].map((path, i) =>
+            <Route path={path} exact key={i} render={() => (
+              <SpotBanner
+                name={this.state.spot.name}
+                region={this.state.spot.region}
+              />
+            )} />
+          )}
 
-        {[`${this.props.match.url}/about`, `${this.props.match.url}/history`].map((path, i) => 
-          <Route path={path} exact key={i} render={() => (
-            <SpotBanner
-              current_potential={MathUtil.round(current_overall_rating.rating, 0)}
-              name={this.state.spot.name}
-              region={this.state.spot.region}
-            />
-          )} />
-        )}
-
-        <Route path={this.props.match.url} exact render={() => (
-          <SpotDayContainer
-            selectedTime={seed.value}
-            selectedMoment={date}
-            forecasts={this.state.forecasts}
-          />
-        )} />
-
-        <Route path={`${this.props.match.url}/forecast`} exact render={() => (
-          <SpotForecastContainer
-            forecasts={this.state.forecasts}
-          />
-        )} />
-
-        <Route path={`${this.props.match.url}/about`} exact render={() => (
-          <SpotAboutContainer
-            data={this.state.spot}
-          />
-        )} />
-
-        <Route path={`${this.props.match.url}/history`} exact render={() => (
-          <div id="history-section" className="row">
-            <div className="large-12 columns">
-              <h3>HISTORY COMING SOON</h3>
+          <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
+            <div className="spot-page__forecast">
+              <SpotForecastContainer
+                forecasts={this.state.forecasts}
+              />
+              <SessionCard
+                isExpanded
+                rating={this.state.forecasts.overall_ratings[seed.value]}
+                swell={this.state.forecasts.swells[seed.value]}
+                wind={this.state.forecasts.winds[seed.value]}
+                tide_current={this.state.forecasts.tides[seed.value]}
+              />
+              <SpotShareContainer
+                selectedMoment={date}
+                spotName={this.state.spot.name}
+              />
             </div>
-          </div>
-        )} />
+          )} />
 
-        {[`${this.props.match.url}`, `${this.props.match.url}/forecast`].map((path, i) => 
-          <Route path={path} exact key={i} render={() => (
-            <SpotShareContainer
-              selectedMoment={date}
-              spotName={this.state.spot.name}
+          <Route path={routeMatchUrl} exact render={() => (
+            <SpotDayContainer
+              selectedTime={seed.value}
+              forecasts={this.state.forecasts}
             />
           )} />
-        )}
 
-        <SpotTimeSlider
-          curveData={sliderData}
-          updateParent={this.updateSelectedDateTime}
-          seedTime={sliderSeedTime}
-        />
+          <Route path={`${routeMatchUrl}/about`} exact render={() => (
+            <SpotAboutContainer
+              data={this.state.spot}
+            />
+          )} />
+
+          <Route path={`${routeMatchUrl}/history`} exact render={() => (
+            <div id="history-section" className="grid-x">
+              <div className="large-12 cell">
+                <h3>HISTORY COMING SOON</h3>
+              </div>
+            </div>
+          )} />
+
+          <SpotTimeSlider
+            curveData={sliderData}
+            updateParent={this.updateSelectedDateTime}
+            seedTime={sliderSeedTime}
+          />
+        </Row>
       </div>
     );
   }

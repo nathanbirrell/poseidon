@@ -1,0 +1,136 @@
+.session-card {
+  background: $white;
+
+  &__label {
+    font-size: rem-calc(12);
+    text-transform: uppercase;
+    color: $font-dark-tertiary;
+    font-weight: $font-weight-medium;
+    line-height: rem-calc(14);
+  }
+}
+
+.session-card.--expanded {
+  .icon.--icon-navigation-2 {
+    margin-right: -4px;
+  }
+}
+
+.session-card__container {
+  display: flex;
+  width: 100%;
+  // max-height: 134px;
+  height: 100%;
+  padding: 12px;
+  flex-wrap: wrap;
+  color: $font-dark-primary;
+  border-radius: 1px;
+
+  @media #{$medium-up} {
+    width: auto;
+    margin: 6px;
+  }
+
+  .--expanded & {
+    max-height: none;
+  }
+}
+
+a .session-card {
+  @include clickable;
+}
+
+.session-card__rating {
+  flex: 1 1 auto;
+  width: 12%;
+
+  .--expanded & {
+    width: auto;
+    display: flex;
+
+    .session-card__label {
+      padding-left: 4px;
+    }
+  }
+}
+
+.session-card__name {
+  flex: 1 1 auto;
+  width: 65%;
+  margin-top: -3px; // attempt to align heading with rating (to the eye)
+
+  h3,
+  p {
+    @include clip-text-one-line;
+  }
+
+  h3 {
+    font-size: rem-calc(21);
+    margin: 0;
+    font-weight: $font-weight-medium;
+    line-height: rem-calc(26);
+  }
+  p {
+    font-size: rem-calc(14);
+    margin: 0;
+    color: $font-dark-tertiary;
+    line-height: rem-calc(15);
+  }
+}
+
+.session-card__updated {
+  flex: 1 1 auto;
+  max-width: 15%;
+  text-align: right;
+  font-size: rem-calc(11);
+  line-height: rem-calc(11);
+  color: $font-dark-secondary;
+
+  .--expanded & {
+    max-width: none;
+    margin-left: auto;
+    padding-right: 12px;
+  }
+}
+
+.session-card__conditions {
+  flex: 1 1 auto;
+  display: flex;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.session-card__condition {
+  flex: 1 1 33.33%;
+  padding-right: rem-calc(6);
+
+  &.--highlighted {
+    color: $secondary-color;
+  }
+}
+
+.session-card__condition-primary {
+  display: block;
+  font-size: 110%;
+  font-weight: $font-weight-medium;
+  word-break: break-word;
+
+  &-unit {
+    font-size: 80%;
+  }
+
+  .--expanded & {
+    font-size: 130%;
+  }
+}
+
+.session-card__condition-secondary {
+  display: block;
+  color: $font-dark-secondary;
+  font-size: 80%;
+  line-height: 120%;
+
+  .--expanded & {
+    font-size: 90%;
+  }
+}

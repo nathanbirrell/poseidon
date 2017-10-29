@@ -5,7 +5,8 @@
     <title><%= content_for?(:title) ? yield(:title) : "Poseidon" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Poseidon" %>">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet">
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_pack_tag 'styles' %>
+    <%= javascript_pack_tag 'application' %>
     <script>window.twttr = (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0],
         t = window.twttr || {};
@@ -27,31 +28,12 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="off-canvas-wrap" data-offcanvas>
-      <div class="inner-wrap">
-        <header>
-          <%= render 'layouts/navigation' %>
-        </header>
 
-        <section class="main-section">
-          <%= content_for?(:before_main) ? yield(:before_main) : "" %>
+    <div id="poseidon-app">
+      <%# TODO: remove this, just need to figure a way to pass messages down via an API %>
+      <%= render 'layouts/messages' %>
 
-          <main id="main" role="main">
-             <%= render 'layouts/messages' %>
-             <%= yield %>
-          </main>
-
-
-          <div class="row text-center">
-            <footer class="small-12 columns">
-              <small>Built with code </> in Melbourne.</small> <br>
-              <small>Copyright Surf Poseidon Pty Ltd <%= Time.current.year %></small>
-            </footer>
-          </div>
-        </section>
-
-        <a class="exit-off-canvas"></a>
-      </div>
+      <%= yield %>
     </div>
 
     <!-- Global Site Tag (gtag.js) - Google Analytics -->

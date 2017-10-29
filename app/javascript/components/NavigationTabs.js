@@ -13,11 +13,14 @@ class NavigationTabs extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
+    if (!this.props.isBusy) {
+      window.addEventListener('scroll', this.handleScroll);
+    }
   }
 
   compomentWillUnmount() {
-    window.addEventListener('scroll', this.handleScroll);
+    console.log('unmount');
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   handleScroll() {
@@ -45,10 +48,10 @@ class NavigationTabs extends React.Component {
 
     return (
       <div>
-        <div className={"row nav-tabs-spacer " + (this.state.fixed ? '--fixed' : '')}></div>
-        <div className={"row nav-tabs " + (this.state.fixed ? '--fixed' : '')}>
-          <div className="small-12 medium-5 columns">
-            <div className="row">
+        <div className={"grid nav-tabs-spacer " + (this.state.fixed ? '--fixed' : '')}></div>
+        <div className={"grid nav-tabs " + (this.state.fixed ? '--fixed' : '')}>
+          <div className="small-12 medium-5 cell">
+            <div className="grid-x">
               {this.props.items.map((item) => {
                 const isSelected = item.link === window.location.pathname;
                 // TODO: yarn add classnames, can't be having these conditionals
@@ -56,7 +59,7 @@ class NavigationTabs extends React.Component {
                   <Link
                     to={item.link}
                     key={item.link}
-                    className={"small-3 columns nav-tabs__item " + (isSelected ? '--focused' : '')}
+                    className={"small-3 cell nav-tabs__item " + (isSelected ? '--focused' : '')}
                   >
                     <span className="nav-tabs__label">{item.name}</span>
                   </Link>

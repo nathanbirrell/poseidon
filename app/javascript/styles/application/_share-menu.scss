@@ -1,0 +1,21 @@
+.share-menu {
+  .name {
+    color: $font-dark-primary;
+    margin: 6px auto 0px;
+  }
+
+  .date_time {
+    color: $font-dark-secondary;
+    margin: 0px auto 6px;
+  }
+
+  .btn {
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+
+  #copy-session-link {
+    display: block;
+    margin: 6px auto;
+  }
+}
