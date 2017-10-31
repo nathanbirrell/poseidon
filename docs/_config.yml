@@ -10,7 +10,7 @@ title: Poseidon - Surf forecasts Victoria
 email: nathanbirrell@gmail.com
 description: Surf like a god with data-driven, spot-specific surf recommendations.
 baseurl: "/" # the subpath of your site, e.g. /blog
-url: "https://surfposeidon.io" # the base hostname & protocol for your site
+url: "http://surfposeidon.io" # the base hostname & protocol for your site
 
 permalink: pretty
 
