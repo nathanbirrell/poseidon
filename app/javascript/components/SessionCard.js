@@ -34,10 +34,11 @@ const SessionCardCondition = (props) => {
 class SessionCard extends React.PureComponent {
   _renderSwellConditions() {
     const { swell } = this.props;
-    const direction = SpotUtil.degreesToText(swell.direction);
+    const directionInWords = SpotUtil.degreesToText(swell.direction);
     const period = MathUtil.round(swell.period, 0);
     const size = MathUtil.round(SpotUtil.metresToFeet(swell.size), 1);
-    const size_in_words = String(SpotUtil.swellMetresToDescription(swell.size)).capitalize().s;
+    const sizeInWords = String(SpotUtil.swellMetresToDescription(swell.size)).capitalize().s;
+    const directionIconRotate = swell.direction - 180; // minus 180 because the icon file's default position is 180 degrees
     const isHighlighted = this.props.highlight === 'current_swell.rating' || this.props.highlight === 'current_swell.size';
 
     return (
@@ -48,8 +49,8 @@ class SessionCard extends React.PureComponent {
         primaryIndicator={swell.rating}
         secondary={(
           <span>
-            {direction} @ {period}s <br />
-            <small>{size_in_words}</small>
+            <Icon name="navigation-2" rotate={directionIconRotate} size={Icon.Size.SMALL} color="grey" /> {directionInWords} @ {period}s <br />
+            <small>{sizeInWords}</small>
           </span>
         )}
         highlighted={isHighlighted}
