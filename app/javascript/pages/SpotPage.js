@@ -8,8 +8,9 @@ import SpotUtil from 'lib/SpotUtil';
 import Api from 'lib/ApiUtil';
 import UrlUtil from 'lib/UrlUtil';
 
+import SpotForecastPage from 'pages/SpotForecastPage';
+
 import SpotAboutContainer from 'containers/SpotAboutContainer';
-import SpotForecastContainer from 'containers/SpotForecastContainer';
 import SpotDayContainer from 'containers/SpotDayContainer';
 import SpotShareContainer from 'containers/SpotShareContainer';
 
@@ -36,21 +37,32 @@ class SpotPage extends React.Component {
   }
 
   componentDidMount() {
+    this.syncSpotInfoAndForecasts();
+
+    this.setNavItems();
+  }
+
+  syncSpotInfoAndForecasts() {
+    if (this.state.spotId) { return; }
     const { spotId } = this.props.match.params;
     let spot = Api.syncData(`/spots/${spotId}.json`);
     let forecasts = Api.syncData(`/spots/${spotId}/forecasts.json`);
 
-    Promise.all([spot, forecasts]).then(values => {
-      const spotJson = JSON.parse(values[0]);
-      const forecastsJson = JSON.parse(values[1]);
+    spot.then(values => {
+      const spotJson = JSON.parse(values);
       this.setState({
         spot: spotJson,
-        forecasts: forecastsJson,
+        spotId: spotId,
       });
     });
 
-    this.setState({ spotId: spotId });
-    this.setNavItems();
+    forecasts.then(values => {
+      const forecastsJson = JSON.parse(values);
+      this.setState({
+        forecasts: forecastsJson,
+        spotId: spotId,
+      });
+    });
   }
 
   initTime() {
@@ -121,17 +133,21 @@ class SpotPage extends React.Component {
     };
   }
 
+  renderIsBusy() {
+    return (
+      <div>
+        <NavigationTabs
+          isBusy
+          items={this.state.navItems}
+        />
+        <SpotBanner isBusy />
+      </div>
+    );
+  }
+
   render() {
     if (!this.state.spot || !this.state.forecasts) {
-      return (
-        <div>
-          <NavigationTabs
-            isBusy
-            items={this.state.navItems}
-          />
-          <SpotBanner isBusy />
-        </div>
-      );
+      return this.renderIsBusy();
     }
 
     const routeMatchUrl = this.props.match.url;
@@ -167,24 +183,7 @@ class SpotPage extends React.Component {
             )} />
           )}
 
-          <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
-            <div className="spot-page__forecast">
-              <SpotForecastContainer
-                forecasts={this.state.forecasts}
-              />
-              <SessionCard
-                isExpanded
-                rating={this.state.forecasts.overall_ratings[seed.value]}
-                swell={this.state.forecasts.swells[seed.value]}
-                wind={this.state.forecasts.winds[seed.value]}
-                tide_current={this.state.forecasts.tides[seed.value]}
-              />
-              <SpotShareContainer
-                selectedMoment={date}
-                spotName={this.state.spot.name}
-              />
-            </div>
-          )} />
+          <Route path={`${routeMatchUrl}/forecast`} exact component={SpotForecastPage} />
 
           <Route path={routeMatchUrl} exact render={() => (
             <SpotDayContainer
