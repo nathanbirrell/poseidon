@@ -2,17 +2,54 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpotUtil from 'lib/SpotUtil';
+import NavigationTabs from 'components/NavigationTabs';
+import Row from 'components/Row';
 import PlaceholderShimmer from 'components/PlaceholderShimmer';
 import Rating from 'components/Rating';
 
-class SpotBanner extends React.Component {
+class SpotHeader extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      navItems: [],
+    }
+
     this.isBusy = this.isBusy.bind(this);
+    this.setNavItems = this.setNavItems.bind(this);
+  }
+
+  componentDidMount() {
+    this.setNavItems();
   }
 
   isBusy() {
     return this.props.isBusy || !this.props.name;
+  }
+
+  setNavItems() {
+    const routeMatchUrl = this.props.match.url;
+
+    this.setState({
+      navItems: [
+        {
+          name: 'Forecast',
+          link: `${routeMatchUrl}/forecast`
+        },
+        {
+          name: 'Today',
+          link: `${routeMatchUrl}`
+        },
+        {
+          name: 'About',
+          link: `${routeMatchUrl}/about`
+        },
+        {
+          name: 'History',
+          link: `${routeMatchUrl}/history`
+        },
+      ]
+    });
   }
 
   renderRating() {
@@ -47,27 +84,33 @@ class SpotBanner extends React.Component {
   render() {
     return (
       <div className={`row spot-banner --${SpotUtil.getVerdict(this.props.current_potential)}`}>
-        <div className="spot-banner__content small-12 cell text-left">
+        <Row withColumn className="spot-banner__content small-12 cell text-left">
           {this.props.current_potential ? this.renderRating() : null}
           {this.renderDetails()}
-        </div>
+        </Row>
+        <NavigationTabs
+          isBusy={this.isBusy()}
+          items={this.state.navItems}
+        />
       </div>
     );
   }
 }
 
-SpotBanner.defaultProps = {
+SpotHeader.defaultProps = {
   isBusy: false,
   current_potential: null,
   name: null,
   region: null,
+  match: {},
 };
 
-SpotBanner.PropTypes = {
+SpotHeader.PropTypes = {
   current_potential: PropTypes.string,
   name: PropTypes.string,
   region_name: PropTypes.object,
   isBusy: PropTypes.bool,
+  match: PropTypes.object.isRequired,
 };
 
-export default SpotBanner;
+export default SpotHeader;

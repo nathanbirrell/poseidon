@@ -12,13 +12,13 @@
 .spot-banner {
   position: relative;
   overflow: hidden;
-  background-color: $ocean-mist;
 }
 
 .spot-banner__content {
   display: flex;
   padding-top: 12px;
   padding-bottom: 12px;
+  background-color: $white;
 
   .spot-banner__rating {
     display: inline-block;
@@ -58,21 +58,19 @@
     @media #{$small-only} {
       max-width: 280px;
     }
+  }
 
-    p,
-    span,
-    a {
-      color: $font-dark-secondary;
-      font-weight: lighter;
-      opacity: 0.90;
-    }
+  p,
+  span,
+  a {
+    color: $font-dark-secondary;
+    font-weight: lighter;
+    opacity: 0.90;
+  }
 
-    a {
-      text-decoration: underline;
-      &:visited {
-        opacity: 0.90;
-      }
-    }
+  a {
+    text-decoration: none;
+    &:hover { color: $font-dark-primary; }
   }
 
   h1 {

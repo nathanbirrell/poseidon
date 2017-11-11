@@ -15,8 +15,7 @@ import SpotShareContainer from 'containers/SpotShareContainer';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
-import SpotBanner from 'components/SpotBanner';
-import NavigationTabs from 'components/NavigationTabs';
+import SpotHeader from 'components/SpotHeader';
 import SpotTimeSlider from 'components/SpotTimeSlider';
 import SessionCard from 'components/SessionCard';
 
@@ -25,14 +24,12 @@ class SpotPage extends React.Component {
     super(props);
     this.state = {
       data: null,
-      navItems: [],
       spotId: null,
       selectedDateTime: this.initTime(),
     };
 
     this.findForecastSeedFromTime = this.findForecastSeedFromTime.bind(this);
     this.updateSelectedDateTime = this.updateSelectedDateTime.bind(this);
-    this.setNavItems = this.setNavItems.bind(this);
   }
 
   componentDidMount() {
@@ -50,7 +47,6 @@ class SpotPage extends React.Component {
     });
 
     this.setState({ spotId: spotId });
-    this.setNavItems();
   }
 
   initTime() {
@@ -65,31 +61,6 @@ class SpotPage extends React.Component {
       }
     }
     return moment();
-  }
-
-  setNavItems() {
-    const routeMatchUrl = this.props.match.url;
-
-    this.setState({
-      navItems: [
-        {
-          name: 'Forecast',
-          link: `${routeMatchUrl}/forecast`
-        },
-        {
-          name: 'Today',
-          link: `${routeMatchUrl}`
-        },
-        {
-          name: 'About',
-          link: `${routeMatchUrl}/about`
-        },
-        {
-          name: 'History',
-          link: `${routeMatchUrl}/history`
-        },
-      ]
-    });
   }
 
   updateSelectedDateTime(datetime) {
@@ -124,13 +95,7 @@ class SpotPage extends React.Component {
   render() {
     if (!this.state.spot || !this.state.forecasts) {
       return (
-        <div>
-          <NavigationTabs
-            isBusy
-            items={this.state.navItems}
-          />
-          <SpotBanner isBusy />
-        </div>
+        <SpotHeader isBusy />
       );
     }
 
@@ -154,19 +119,12 @@ class SpotPage extends React.Component {
 
     return (
       <div>
-        <NavigationTabs
-          items={this.state.navItems}
+        <SpotHeader
+          name={this.state.spot.name}
+          region={this.state.spot.region}
+          match={this.props.match}
         />
         <Row withColumn>
-          {[`${routeMatchUrl}/about`, `${routeMatchUrl}/history`, `${routeMatchUrl}/forecast`].map((path, i) =>
-            <Route path={path} exact key={i} render={() => (
-              <SpotBanner
-                name={this.state.spot.name}
-                region={this.state.spot.region}
-              />
-            )} />
-          )}
-
           <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
             <div className="spot-page__forecast">
               <SpotForecastContainer
