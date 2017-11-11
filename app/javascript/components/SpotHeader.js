@@ -53,10 +53,10 @@ class SpotHeader extends React.Component {
   }
 
   renderRating() {
-    if (this.isBusy()) { return (<div className="spot-banner__rating"></div>); }
+    if (this.isBusy()) { return (<div className="spot-header__rating"></div>); }
 
     return (
-      <div className="spot-banner__rating">
+      <div className="spot-header__rating">
         <Rating rating={this.props.current_potential} isLarge />
         <span className="rating-label">Surf Potential</span>
       </div>
@@ -66,7 +66,7 @@ class SpotHeader extends React.Component {
   renderDetails() {
     if (this.isBusy()) {
       return (
-        <div className="spot-banner__details">
+        <div className="spot-header__details">
           <PlaceholderShimmer width='220px' height='16px' />
           <PlaceholderShimmer width='100px' height='12px' />
         </div>
@@ -74,7 +74,7 @@ class SpotHeader extends React.Component {
     }
 
     return (
-      <div className="spot-banner__details">
+      <div className="spot-header__details">
         <h1>{this.props.name}</h1>
         <span><a href={`/regions/${this.props.region.id}`}>{this.props.region.name}</a>, <a href="#">{this.props.region.state}</a></span>
       </div>
@@ -83,8 +83,8 @@ class SpotHeader extends React.Component {
 
   render() {
     return (
-      <div className={`row spot-banner --${SpotUtil.getVerdict(this.props.current_potential)}`}>
-        <Row withColumn className="spot-banner__content small-12 cell text-left">
+      <div className={`row spot-header --${SpotUtil.getVerdict(this.props.current_potential)}`}>
+        <Row withColumn className="spot-header__content small-12 cell text-left">
           {this.props.current_potential ? this.renderRating() : null}
           {this.renderDetails()}
         </Row>
