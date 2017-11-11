@@ -2,16 +2,17 @@
 
 // Note: These need to go before vendors like Foundation because we use the variables in vendor settings
 @import "application/core/colours";
-@import "application/core/typography";
 @import "application/core/shadows";
 @import "application/core/transitions";
 
 // Foundation
 @import "settings";
-@import "foundation"; // TODO: strip back to strictly CSS modules we use.
+@import "foundation";
+// TODO: strip back to strictly CSS modules we use.
 @include foundation-everything;
 
 // Poseidon
+@import "application/core/typography";
 @import "application/mixins/clickable";
 @import "application/mixins/clip-text";
 
