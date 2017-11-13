@@ -127,7 +127,7 @@ class SpotsListContainer extends React.Component {
 
   render() {
     return (
-      <Row>
+      <Row className="spots-list-container">
         <Column widthMedium={10} offsetMedium={1} widthLarge={12} offsetLarge={0}>
           <Row>
             <Column widthMedium={12} widthLarge={10}>

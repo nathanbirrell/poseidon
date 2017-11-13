@@ -25,7 +25,7 @@ class NavigationTabs extends React.Component {
 
   handleScroll() {
     const yOffset = window.pageYOffset;
-    const cutoff = 45;
+    const cutoff = 130;
     if (this.state.fixed) {
       if (yOffset < cutoff) {
         this.setState({

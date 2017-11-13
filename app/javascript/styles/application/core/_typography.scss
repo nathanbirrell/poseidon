@@ -1,7 +1,11 @@
-$primary-font: 'Roboto', sans-serif;
+// $primary-font set in _settings.scss
 
 $font-weight-light: 300;
 $font-weight-normal: 400;
 $font-weight-medium: 500;
 $font-weight-bold: 700;
 $font-weight-black: 700;
+
+h1 {
+  color: $font-dark-primary;
+}

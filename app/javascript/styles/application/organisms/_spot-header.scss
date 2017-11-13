@@ -1,0 +1,41 @@
+.spot-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.spot-header__content {
+  display: flex;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: $white;
+
+  .spot-header__details {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+
+    @media #{$small-only} {
+      max-width: 280px;
+    }
+  }
+
+  p,
+  span,
+  a {
+    color: $font-dark-secondary;
+    font-weight: lighter;
+    opacity: 0.90;
+  }
+
+  a {
+    text-decoration: none;
+    &:hover { color: $font-dark-primary; }
+  }
+
+  h1 {
+    line-height: 1.2;
+    font-weight: $font-weight-black;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}

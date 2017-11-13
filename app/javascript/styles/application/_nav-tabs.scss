@@ -1,6 +1,9 @@
+$nav-tab-height: 48px;
+
 .nav-tabs {
-  height: 48px;
+  height: $nav-tab-height;
   background: $white;
+  border-top: 1px solid $smoke;
   border-bottom: 1px solid $iron;
   box-shadow: none;
   transition: box-shadow 250ms;
@@ -23,14 +26,14 @@
   &__item {
     text-align: center;
     font-size: 14px;
-    line-height: 48px;
+    line-height: $nav-tab-height - 2;
     border-bottom: none;
     cursor: pointer;
     color: $black;
 
     &.--focused {
       color: $secondary-color;
-      line-height: 46px;
+      line-height: $nav-tab-height - 2;
       border-bottom: 2px solid $secondary-color;
     }
   }
@@ -41,6 +44,6 @@
 
   &.--fixed {
     display: block;
-    height: 45px;
+    height: $nav-tab-height;
   }
 }
