@@ -143,7 +143,7 @@ class Spot < ApplicationRecord
   end
 
   def forecasts
-    swell_forecasts = swells.five_day_forecast
+    swell_forecasts = swells.seven_day_forecast
     date_times = swell_forecasts.pluck(:date_time)
     wind_forecasts = winds.where(date_time: date_times) # uses a sql IN method
     tide_forecasts = tides.get_snapshots(date_times, self)

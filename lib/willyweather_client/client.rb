@@ -16,7 +16,7 @@ module WillyweatherClient
         url.to_s,
         params: {
           'forecasts' => type,
-          'days' => 10
+          'days' => 10 # 8 Seems to be the maximum though, keeping as 10 to align with NOAA if max changes with Willyweather
         }
       )
 
