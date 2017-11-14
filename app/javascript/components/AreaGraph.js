@@ -103,20 +103,25 @@ class AreaGraph extends React.Component {
     if (parentConfig['axes']) {
       this.svg.selectAll('.axis-bottom').remove();
       this.svg.selectAll('.axis-right').remove();
-  
+
       const num = (x.domain()[1] / this.props.forecastDays);
+      let tickValues = [];
+      for (let i = 0; i < this.props.forecastDays; i++) {
+        tickValues.push(i * 8);
+      }
+      console.log(tickValues);
       const bottomAxis = this.svg.append("g")
         .attr('class', 'axis-bottom')
         .attr("transform", "translate(0," + height + ")")
         .call(
           d3.axisBottom(x)
-          .tickValues([0, 8, 16, 24, 32, 40])
+          .tickValues(tickValues)
           .tickFormat(function(d) {
             return moment().add((d / num), 'days').format('ddd');
           })
         );
       bottomAxis.selectAll(".tick text").attr("dx", x(3.4));
-  
+
       const rightAxis = this.svg.append("g")
         .attr('class', 'axis-right')
         .call(
@@ -166,7 +171,7 @@ class AreaGraph extends React.Component {
             .attr('opacity', graph.area.opacity || 1)
             .attr("d", area);
         }
-        
+
         if (graphConfigs[i]['line']) {
           const lineInstance = thisGraph
             .append('path')
@@ -229,13 +234,13 @@ class AreaGraph extends React.Component {
           output.value = value;
           return output;
         });
-  
+
         const vertSegments = this.svg
           .selectAll('.day-segment')
             .data(vertSegData, function(d){
               return d.modifier;
             });
-  
+
         vertSegments
           .enter()
             .append('rect')
@@ -263,7 +268,7 @@ class AreaGraph extends React.Component {
 
             vertSegments.exit().remove();
       }
-      
+
       topLevel.exit().remove();
   }
 
@@ -353,7 +358,7 @@ AreaGraph.defaultProps = {
   heightRatio: null,
   pointRadius: 3,
   legend: false,
-  forecastDays: null,
+  forecastDays: 7,
   showAxes: true,
 }
 
