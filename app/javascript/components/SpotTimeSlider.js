@@ -93,7 +93,7 @@ class SpotTimeSlider extends React.Component {
             showAxes={false}
           />
         </div>
-        <div className="time-slider__value --icon-chevron-down--iron">
+        <div className="time-slider__value">
           <select
               className="time-slider__date-select"
               onChange={this.handleChangeDays}
