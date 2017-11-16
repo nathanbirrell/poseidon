@@ -81,6 +81,29 @@
     }
   }
 
+  &.--tag {
+    background: $ocean-mist;
+    color: $font-dark-primary;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    padding-right: 6px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    text-transform: none;
+
+    &.--icon {
+      padding-left: 20px;
+    }
+
+    &::before {
+      top: 4px;
+      left: 5px;
+      height: 12px;
+      width: 12px;
+    }
+  }
+
   &.--slim {
     height: 38px;
     line-height: 38px;
