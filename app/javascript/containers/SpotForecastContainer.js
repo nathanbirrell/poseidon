@@ -71,109 +71,107 @@ class SpotForecastContainer extends React.Component {
       <div id="forecast-section">
         <Row>
           <Column widthSmall={12} widthMedium={12} widthLarge={12}>
-            <AreaGraph
-              heightRatio={0.2}
-              cssSelector='forecast-graph'
-              targetId='forecast-graph-combined'
-              graphs={[
-                {
-                  label: 'Overall rating',
-                  yVals: overallRatings['rating'],
-                  yMax: 110,
-                  line: {
-                    show: false,
+            <div className="forecast-graphs-parent">
+              <AreaGraph
+                heightRatio={0.2}
+                cssSelector='forecast-graph'
+                targetId='forecast-graph-combined'
+                graphs={[
+                  {
+                    label: 'Overall rating',
+                    yVals: overallRatings['rating'],
+                    yMax: 110,
+                    line: {
+                      show: false,
+                    },
+                    area: {
+                      show: true,
+                      opacity: 0.5,
+                    },
+                    points: {
+                      show: false,
+                    },
+                    color: '#27AE60'
                   },
-                  area: {
-                    show: true,
-                    opacity: 0.5,
+                  {
+                    label: 'Swell size',
+                    yVals: swellRatings['size'],
+                    yMax: Math.max.apply(Math, swellRatings['size']) + 2,
+                    directions: swellRatings['direction'],
+                    line: {
+                      show: true,
+                    },
+                    area: {
+                      show: false,
+                    },
+                    points: {
+                      show: true,
+                    },
+                    color: '#C377E0'
                   },
-                  points: {
-                    show: false,
+                  {
+                    label: 'Wind speed',
+                    yVals: windRatings['speed'],
+                    yMax: Math.max.apply(Math, windRatings['speed']) + 10,
+                    directions: windRatings['direction'],
+                    line: {
+                      show: true,
+                    },
+                    area: {
+                      show: false,
+                    },
+                    points: {
+                      show: true,
+                    },
+                    color: '#0079BF'
+                  }
+                ]}
+                legend={false}
+                forecastDays={5}
+              />
+              <AreaGraph
+                heightRatio={0.06}
+                cssSelector='forecast-graph'
+                targetId='forecast-graph-tide'
+                graphs={[
+                  {
+                    label: 'Tide rating',
+                    yVals: tideRatings['rating'],
+                    yMax: 110,
+                    line: {
+                      show: false,
+                    },
+                    area: {
+                      show: true,
+                      opacity: 0.5,
+                    },
+                    points: {
+                      show: false,
+                    },
+                    color: '#27AE60'
                   },
-                  color: '#27AE60'
-                },
-                {
-                  label: 'Swell size',
-                  yVals: swellRatings['size'],
-                  yMax: Math.max.apply(Math, swellRatings['size']) + 2,
-                  directions: swellRatings['direction'],
-                  line: {
-                    show: true,
-                  },
-                  area: {
-                    show: false,
-                  },
-                  points: {
-                    show: true,
-                  },
-                  color: '#C377E0'
-                },
-                {
-                  label: 'Wind speed',
-                  yVals: windRatings['speed'],
-                  yMax: Math.max.apply(Math, windRatings['speed']) + 10,
-                  directions: windRatings['direction'],
-                  line: {
-                    show: true,
-                  },
-                  area: {
-                    show: false,
-                  },
-                  points: {
-                    show: true,
-                  },
-                  color: '#0079BF'
-                }
-              ]}
-              legend={false}
-              forecastDays={5}
-            />
-          </Column>
-        </Row>
-        <Row>
-          <Column widthSmall={12} widthMedium={12} widthLarge={12}>
-            <AreaGraph
-              heightRatio={0.06}
-              cssSelector='forecast-graph'
-              targetId='forecast-graph-tide'
-              graphs={[
-                {
-                  label: 'Tide rating',
-                  yVals: tideRatings['rating'],
-                  yMax: 110,
-                  line: {
-                    show: false,
-                  },
-                  area: {
-                    show: true,
-                    opacity: 0.5,
-                  },
-                  points: {
-                    show: false,
-                  },
-                  color: '#27AE60'
-                },
-                {
-                  label: 'Tide height',
-                  yVals: tideRatings['height'],
-                  yMax: Math.max.apply(Math, tideRatings['height']) + 0.5,
-                  line: {
-                    show: false,
-                  },
-                  area: {
-                    show: true,
-                    flat: true,
-                  },
-                  points: {
-                    show: false,
-                  },
-                  color: '#CDCDCD'
-                }
-              ]}
-              legend={false}
-              showAxes={false}
-              forecastDays={5}
-            />
+                  {
+                    label: 'Tide height',
+                    yVals: tideRatings['height'],
+                    yMax: Math.max.apply(Math, tideRatings['height']) + 0.5,
+                    line: {
+                      show: false,
+                    },
+                    area: {
+                      show: true,
+                      flat: true,
+                    },
+                    points: {
+                      show: false,
+                    },
+                    color: '#CDCDCD'
+                  }
+                ]}
+                legend={false}
+                showAxes={false}
+                forecastDays={5}
+              />
+            </div>
           </Column>
         </Row>
         {this.renderAdvanced()}
