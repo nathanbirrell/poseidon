@@ -36,26 +36,47 @@
     }
     
 
-    .axis-right {
+    .axis-left {
       path.domain {
         display: none;
       }
-      .tick line {
-        stroke-width: 0.3;
-        &:not(:first-of-type) {
-          stroke: "#DDDDDD";
-          stroke-dasharray: "2,2";
+      g.tick {
+        line {
+          stroke-width: 0.5;
+          stroke: #DBDBDB;
         }
-      }
 
-      .tick text {
-        font-size: 6px;
-        text-anchor: end;
-        transform: translate(19px, -4px);
-      }
+        text {
+          font-size: 6px;
+          text-anchor: start;
+          font-weight: bold;
 
-      path {
-        stroke-width: 0.5;
+          &.label-1 {
+            transform: translate(1px, -3px);
+          }
+          &.label-2 {
+            transform: translate(1px, 6px);
+          }
+        }
+
+        &:first-of-type {
+          text {
+            display: none;
+          }
+
+          line {
+            stroke: $font-dark-secondary;
+          }
+        }
+        &:last-of-type {
+          text {
+            display: none;
+          }
+        }
+
+        path {
+          stroke-width: 0.5;
+        }
       }
     }
 
@@ -71,6 +92,8 @@
       }
 
       .tick line {
+        stroke: $font-dark-secondary;
+        transform: translateY(0.5px);
         stroke-width: 0.5;
       }
     }
@@ -90,14 +113,22 @@
         }
       }
 
-      .axis-right {
-        .tick line {
-          stroke-width: 1;
-        }
+      .axis-left {
+        g.tick {
+          line {
+            stroke-width: 1;
+          }
 
-        .tick text {
-          font-size: 14px;
-          transform: translate(15px, -10px);
+          text {
+            font-size: 14px;
+
+            &.label-1 {
+              transform: translate(5px, -8px);
+            }
+            &.label-2 {
+              transform: translate(5px, 14px);
+            }
+          }
         }
       }
 

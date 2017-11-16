@@ -102,7 +102,7 @@ class AreaGraph extends React.Component {
 
     if (parentConfig['axes']) {
       this.svg.selectAll('.axis-bottom').remove();
-      this.svg.selectAll('.axis-right').remove();
+      this.svg.selectAll('.axis-left').remove();
   
       const num = (x.domain()[1] / this.props.forecastDays);
       const bottomAxis = this.svg.append("g")
@@ -117,18 +117,28 @@ class AreaGraph extends React.Component {
         );
       bottomAxis.selectAll(".tick text").attr("dx", x(3.4));
   
-      const rightAxis = this.svg.append("g")
-        .attr('class', 'axis-right')
+      const leftAxis = this.svg.append("g")
+        .attr('class', 'axis-left')
         .call(
           d3.axisLeft(y)
-          .tickSize(dimensions.width)
+          .ticks(4)
+          .tickSize(-dimensions.width)
           .tickFormat(function(d) {
-            return d*100;
+            return (d*graphs[1].yMax).toFixed(0) + ' ' + graphs[1].axesSuffix;
           })
         );
-      rightAxis.selectAll(".tick:not(:first-of-type) line")
-        .attr("stroke", "#DDDDDD").attr("stroke-dasharray", "2,2");
-      rightAxis.selectAll(".tick text").attr("x", x(x.domain()[1]) - 20);
+      leftAxis.selectAll(".tick text")
+        .attr("class", "label-1")
+        .attr("x", x(x.domain()[0]))
+        .attr("fill", graphs[1].color);
+      leftAxis.selectAll(".tick")
+        .append('text')
+        .attr("class", 'label-2')
+        .text(function(d) { 
+          return (d*graphs[2].yMax).toFixed(0) + ' ' + graphs[2].axesSuffix;
+        })
+        .attr("x", x(x.domain()[0]))
+        .attr("fill", graphs[2].color);
     }
 
     const topLevel = this.svg.selectAll('g.graph')
@@ -332,7 +342,7 @@ class AreaGraph extends React.Component {
     let heightRatio = null;
     if (this.props.heightRatio) {
       heightRatio = {
-       paddingBottom: ((960 * this.props.heightRatio) + 30),
+       paddingBottom: (960 * this.props.heightRatio),
       };
     }
     return (

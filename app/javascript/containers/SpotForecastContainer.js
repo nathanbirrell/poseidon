@@ -62,16 +62,13 @@ class SpotForecastContainer extends React.Component {
     const swellRatings = this.getYVals(forecasts.swells, ['size_rating', 'direction_rating', 'rating', 'size', 'direction']);
     const windRatings = this.getYVals(forecasts.winds, ['speed_rating', 'direction_rating', 'rating', 'speed', 'direction']);
     const tideRatings = this.getYVals(forecasts.tides, ['rating', 'height']);
-    // console.log(overallRatings);
-    // console.log(swellRatings);
-    // console.log(windRatings);
-    // console.log(tideRatings);
 
     return (
       <div id="forecast-section">
         <Row>
           <Column widthSmall={12} widthMedium={12} widthLarge={12}>
             <div className="forecast-graphs-parent">
+              <h5> Swell &amp; Wind</h5>
               <AreaGraph
                 heightRatio={0.2}
                 cssSelector='forecast-graph'
@@ -98,6 +95,7 @@ class SpotForecastContainer extends React.Component {
                     yVals: swellRatings['size'],
                     yMax: Math.max.apply(Math, swellRatings['size']) + 2,
                     directions: swellRatings['direction'],
+                    axesSuffix: 'ft',
                     line: {
                       show: true,
                     },
@@ -114,6 +112,7 @@ class SpotForecastContainer extends React.Component {
                     yVals: windRatings['speed'],
                     yMax: Math.max.apply(Math, windRatings['speed']) + 10,
                     directions: windRatings['direction'],
+                    axesSuffix: 'kph',
                     line: {
                       show: true,
                     },
@@ -129,6 +128,7 @@ class SpotForecastContainer extends React.Component {
                 legend={false}
                 forecastDays={5}
               />
+              <h5>Tides</h5>
               <AreaGraph
                 heightRatio={0.06}
                 cssSelector='forecast-graph'
