@@ -26,7 +26,7 @@ class SpotForecastContainer extends React.Component {
     return (
       <Row>
         <Column widthSmall={6} widthMedium={6} widthLarge={4}>
-          <button className="btn">Advanced</button>
+          <button className="btn --slim">Advanced</button>
         </Column>
       </Row>
     );
