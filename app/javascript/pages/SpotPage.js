@@ -160,7 +160,11 @@ class SpotPage extends React.Component {
           <Route path={`${routeMatchUrl}/history`} exact render={() => (
             <div id="history-section" className="grid-x">
               <div className="large-12 cell">
-                <h3>HISTORY COMING SOON</h3>
+                <Row>
+                  <Column>
+                    <h1>Coming soon</h1>
+                  </Column>
+                </Row>
               </div>
             </div>
           )} />
