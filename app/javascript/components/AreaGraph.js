@@ -120,7 +120,7 @@ class AreaGraph extends React.Component {
       const rightAxis = this.svg.append("g")
         .attr('class', 'axis-right')
         .call(
-          d3.axisRight(y)
+          d3.axisLeft(y)
           .tickSize(dimensions.width)
           .tickFormat(function(d) {
             return d*100;
@@ -162,7 +162,9 @@ class AreaGraph extends React.Component {
             .append('path')
             .datum(graph.yVals)
             .attr('class', 'area')
-            .attr('fill', `url(#${targetId}_ratingGradient_${i})`)
+            .attr('fill', function() {
+             return !graph.area.flat ? `url(#${targetId}_ratingGradient_${i})` : graph.color;
+            })
             .attr('opacity', graph.area.opacity || 1)
             .attr("d", area);
         }
@@ -184,7 +186,7 @@ class AreaGraph extends React.Component {
             .selectAll('.point')
               .data(graph.yVals)
               .enter().append("line")
-              .attr('class', 'point')
+              .attr('class', 'point arrow')
               .attr('stroke', graph.points.color || graph.color)
               .attr('fill', graph.points.color || graph.color)
               .attr("x1", function(d, i) { return x(i) })
@@ -202,7 +204,7 @@ class AreaGraph extends React.Component {
           .selectAll('.point')
             .data(graph.yVals)
             .enter().append("svg:circle")
-            .attr('class', 'point')
+            .attr('class', 'point dot')
             .attr('stroke', graph.points.color || graph.color)
             .attr('fill', graph.points.color || graph.color)
             .attr("cx", function(d, i) { return x(i) })
@@ -247,16 +249,17 @@ class AreaGraph extends React.Component {
             .attr('height', vertSegHeight)
             .attr('fill', function(d, i) {
               const modulus = i%8;
-              if (d.modifier === 'selected') {
-                return 'red';
-              } else if (d.modifier === 'hovered') {
-                return 'yellow';
-              } else if (modulus <= 1 || modulus >= 6) {
+              // if (d.modifier === 'selected') {
+              //   return 'red';
+              // } else if (d.modifier === 'hovered') {
+              //   return 'yellow';
+              // } else if (modulus <= 1 || modulus >= 6) {
+              if (modulus <= 1 || modulus >= 6) {
                 return '#0D659D';
               }
               return 'none';
             })
-            .attr('opacity', 0.15)
+            .attr('opacity', 0.1)
             .on('click', this.handleClick)
             .on('mouseover', this.handleMouseOver)
             .on("mouseout", this.handleMouseOut);
@@ -323,25 +326,21 @@ class AreaGraph extends React.Component {
   }
 
   render() {
-    if (!this.props.targetId && !this.props.id) {
+    if (!this.props.targetId) {
       return false;
     }
-    if (!this.props.targetId) {
-      return (
-        <div>
-          <div id={this.props.id} className={`area-graph area-graph-${this.props.id}`} />
-          {this.props.legend ? this.renderLegend() : null}
-        </div>
-      );
+    let heightRatio = null;
+    if (this.props.heightRatio) {
+      heightRatio = {
+       paddingBottom: ((960 * this.props.heightRatio) + 30),
+      };
     }
-    if (this.props.targetId && this.props.legend) {
-      return (
-        <div>
-          {this.props.legend ? this.renderLegend() : null}
-        </div>
-      );
-    }
-    return null;
+    return (
+      <div>
+        <div id={this.props.targetId} className="forecast-graph-container" style={heightRatio}></div>
+        {this.props.legend ? this.renderLegend() : null}
+      </div>
+    );
   }
 }
 

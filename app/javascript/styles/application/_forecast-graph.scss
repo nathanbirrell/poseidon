@@ -19,13 +19,24 @@
     background: $ocean-mist;
 
     .graph {
-      .line,
-      .point {
+      .line {
         stroke-width: 1;
       }
+      .point {
+        &.dot {
+          stroke-width: 1;
+        }
+        &.arrow {
+          stroke-width: 0.8;
+        }
+      }
     }
+    
 
     .axis-right {
+      path.domain {
+        display: none;
+      }
       .tick line {
         stroke-width: 0.3;
         &:not(:first-of-type) {
@@ -63,9 +74,16 @@
 
     @media #{$medium-up} {
       .graph {
-        .line,
-        .point {
+        .line {
           stroke-width: 2;
+        }
+        .point {
+          &.dot {
+            stroke-width: 2;
+          }
+          &.arrow {
+            stroke-width: 1.6;
+          }
         }
       }
 
