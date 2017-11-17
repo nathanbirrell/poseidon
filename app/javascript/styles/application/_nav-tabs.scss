@@ -9,7 +9,10 @@ $nav-tab-height: 48px;
   transition: box-shadow 250ms;
   margin-bottom: 12px;
 
-  a:hover { text-decoration: none; }
+  a:hover,
+  a:focus { 
+    text-decoration: none;
+  }
 
   &.--fixed {
     position: fixed;
