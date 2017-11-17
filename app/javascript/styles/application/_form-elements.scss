@@ -53,6 +53,9 @@ input[type="text"] {
 
   &:focus {
     background: $white;
+    outline: none;
+    border: none;
+    box-shadow: none;
   }
 
   &::placeholder {
