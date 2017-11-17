@@ -37,8 +37,8 @@ class SpotHeader extends React.Component {
           link: `${routeMatchUrl}/forecast`
         },
         {
-          name: 'Today',
-          link: `${routeMatchUrl}`
+          name: 'Reports',
+          link: `${routeMatchUrl}/reports`
         },
         {
           name: 'About',
