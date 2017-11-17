@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Api from 'lib/ApiUtil';
+import UrlUtil from 'lib/UrlUtil';
 import SessionCard from 'components/SessionCard';
 import Row from 'components/Row';
 import Column from 'components/Column';
@@ -22,6 +23,7 @@ class SpotsListContainer extends React.Component {
     this.handleNameSearchChange = this.handleNameSearchChange.bind(this);
     this.handleOrderByChange = this.handleOrderByChange.bind(this);
     this.toggleAscDesc = this.toggleAscDesc.bind(this);
+    this.checkRegionUrlParam = this.checkRegionUrlParam.bind(this);
   }
 
   componentDidMount() {
@@ -29,8 +31,18 @@ class SpotsListContainer extends React.Component {
 
     spots.then(data => {
       data = JSON.parse(data);
-      this.setState({ spots: data });
+      this.setState({
+        spots: data,
+        selectedRegion: this.checkRegionUrlParam()
+      });
     });
+  }
+
+  checkRegionUrlParam() {
+    let query = UrlUtil.searchParams.get('region_id');
+    if (query !== null && query > 0) {
+      return query;
+    }
   }
 
   listSpots() {
