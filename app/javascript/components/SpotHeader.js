@@ -76,8 +76,8 @@ class SpotHeader extends React.Component {
     return (
       <div className="spot-header__details">
         <h1>{this.props.name}</h1>
-        <span><a href={`/regions/${this.props.region.id}`} className="btn --tag --icon --icon-map-pin--dark-secondary">{this.props.region.name}</a>
-        <a href="#" className="btn --tag --icon --icon-map-pin--dark-secondary">{this.props.region.state}</a></span>
+        <span><a href={`/?region_id=${this.props.region.id}`} className="btn --tag --icon --icon-map-pin--dark-secondary">{this.props.region.name}</a>
+        <a href="/" className="btn --tag --icon --icon-map-pin--dark-secondary">{this.props.region.state}</a></span>
       </div>
     );
   }
