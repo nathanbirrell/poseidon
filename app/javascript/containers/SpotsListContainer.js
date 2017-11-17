@@ -166,7 +166,7 @@ class SpotsListContainer extends React.Component {
                 <select
                   className="filter-select"
                   onChange={this.handleRegionChange}
-                  value={this.state.regionValue}
+                  value={this.state.selectedRegion}
                 >
                   <option value="">All regions</option>
                   <option value="1">Mornington Peninsula</option>
