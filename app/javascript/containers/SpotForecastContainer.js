@@ -134,22 +134,6 @@ class SpotForecastContainer extends React.Component {
                 targetId='forecast-graph-tide'
                 graphs={[
                   {
-                    label: 'Tide rating',
-                    yVals: tideRatings['rating'],
-                    yMax: 110,
-                    line: {
-                      show: false,
-                    },
-                    area: {
-                      show: true,
-                      opacity: 0.5,
-                    },
-                    points: {
-                      show: false,
-                    },
-                    color: '#27AE60'
-                  },
-                  {
                     label: 'Tide height',
                     yVals: tideRatings['height'],
                     yMax: Math.max.apply(Math, tideRatings['height']) + 0.5,
