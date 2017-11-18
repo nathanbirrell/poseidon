@@ -73,9 +73,9 @@ class SpotForecastContainer extends React.Component {
 
   windData() {
     const data = JSON.parse(JSON.stringify(this.props.forecasts.winds)); // Need to clone this, otherwise the reference gets updated too :(
-      data.forEach((row, i) => {
-        data[i].speed = SpotUtil.kphToKnots(row.speed);
-      });
+    data.forEach((row, i) => {
+      data[i].speed = SpotUtil.kphToKnots(row.speed);
+    });
     return this.getYVals(data, ['speed_rating', 'direction_rating', 'rating', 'speed', 'direction']);
   }
 
@@ -85,7 +85,7 @@ class SpotForecastContainer extends React.Component {
 
   getMaxSwellHeight() {
     const maxInDataset = Math.max.apply(Math, this.swellData()['size']) + 2;
-    const baseline = 8; // ft
+    const baseline = 9; // ft
     return Math.max.apply(Math, [maxInDataset, baseline]);
   }
 
@@ -106,7 +106,7 @@ class SpotForecastContainer extends React.Component {
         <Row>
           <Column widthSmall={12} widthMedium={12} widthLarge={12}>
             <div className="forecast-graphs-parent">
-              <h5> Swell &amp; Wind</h5>
+              <h5>Swell &amp; Wind</h5>
               <AreaGraph
                 heightRatio={0.2}
                 cssSelector='forecast-graph'
