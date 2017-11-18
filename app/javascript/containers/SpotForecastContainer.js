@@ -67,6 +67,18 @@ class SpotForecastContainer extends React.Component {
     return this.getYVals(this.props.forecasts.tides, ['rating', 'height']);
   }
 
+  getMaxSwellHeight() {
+    const maxInDataset = Math.max.apply(Math, this.swellRatings()['size']) + 2;
+    const baseline = 7; // 7 ft min
+    return Math.max.apply(Math, [maxInDataset, baseline]);
+  }
+
+  getMaxWindSpeed() {
+    const maxInDataset = Math.max.apply(Math, this.windRatings()['speed']) + 10;
+    const baseline = 30; // 30 knot baseline
+    return Math.max.apply(Math, [maxInDataset, baseline]);;
+  }
+
   render() {
     if (!this.props.forecasts) {
       // PUT LOADING STATE HERE
@@ -103,8 +115,8 @@ class SpotForecastContainer extends React.Component {
                   {
                     label: 'Swell size',
                     yVals: this.swellRatings()['size'],
-                    yMax: Math.max.apply(Math, this.swellRatings()['size']) + 2,
-                    directions: this.swellRatings()['direction'],
+                    yMax: this.getMaxSwellHeight(),
+                    // directions: this.swellRatings()['direction'],
                     axesSuffix: 'ft',
                     line: {
                       show: true,
@@ -113,14 +125,14 @@ class SpotForecastContainer extends React.Component {
                       show: false,
                     },
                     points: {
-                      show: true,
+                      show: false,
                     },
                     color: '#C377E0'
                   },
                   {
                     label: 'Wind speed',
                     yVals: this.windRatings()['speed'],
-                    yMax: Math.max.apply(Math, this.windRatings()['speed']) + 10,
+                    yMax: this.getMaxWindSpeed(),
                     directions: this.windRatings()['direction'],
                     axesSuffix: 'kph',
                     line: {
