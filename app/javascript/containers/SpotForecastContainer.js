@@ -66,14 +66,17 @@ class SpotForecastContainer extends React.Component {
   swellData() {
     const data = JSON.parse(JSON.stringify(this.props.forecasts.swells)); // Need to clone this, otherwise the reference gets updated too :(
     data.forEach((row, i) => {
-      data[i]['size'] = SpotUtil.metresToFeet(row['size']);
+      data[i].size = SpotUtil.metresToFeet(row.size);
     });
-
     return this.getYVals(data, ['size_rating', 'direction_rating', 'rating', 'size', 'direction']);
   }
 
   windData() {
-    return this.getYVals(this.props.forecasts.winds, ['speed_rating', 'direction_rating', 'rating', 'speed', 'direction']);
+    const data = JSON.parse(JSON.stringify(this.props.forecasts.winds)); // Need to clone this, otherwise the reference gets updated too :(
+      data.forEach((row, i) => {
+        data[i].speed = SpotUtil.kphToKnots(row.speed);
+      });
+    return this.getYVals(data, ['speed_rating', 'direction_rating', 'rating', 'speed', 'direction']);
   }
 
   tideData() {
@@ -82,13 +85,13 @@ class SpotForecastContainer extends React.Component {
 
   getMaxSwellHeight() {
     const maxInDataset = Math.max.apply(Math, this.swellData()['size']) + 2;
-    const baseline = 7; // 7 ft min
+    const baseline = 8; // ft
     return Math.max.apply(Math, [maxInDataset, baseline]);
   }
 
   getMaxWindSpeed() {
     const maxInDataset = Math.max.apply(Math, this.windData()['speed']) + 10;
-    const baseline = 30; // 30 knot baseline
+    const baseline = 35; // knots
     return Math.max.apply(Math, [maxInDataset, baseline]);;
   }
 
@@ -147,7 +150,7 @@ class SpotForecastContainer extends React.Component {
                     yVals: this.windData()['speed'],
                     yMax: this.getMaxWindSpeed(),
                     directions: this.windData()['direction'],
-                    axesSuffix: 'kph',
+                    axesSuffix: 'kt',
                     line: {
                       show: true,
                     },
