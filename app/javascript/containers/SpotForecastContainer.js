@@ -19,25 +19,14 @@ class SpotForecastContainer extends React.Component {
 
     this.getYVals = this.getYVals.bind(this);
     this.handleViewingChange = this.handleViewingChange.bind(this);
-    this.renderChooseForecast = this.renderChooseForecast.bind(this);
+    this.renderAdvanced = this.renderAdvanced.bind(this);
   }
 
-  renderChooseForecast() {
+  renderAdvanced() {
     return (
       <Row>
         <Column widthSmall={6} widthMedium={6} widthLarge={4}>
-          <div className="input-holder --icon --icon-bar-chart-2--dark-secondary --clickable">
-            <select
-              className="filter-select"
-              onChange={this.handleViewingChange}
-              value={this.state.viewing}
-            >
-              <option value="combined">Combined</option>
-              <option value="swell">Swell</option>
-              <option value="wind">Wind</option>
-              <option value="tide">Tide</option>
-            </select>
-          </div>
+          <button className="btn-incognito --icon --icon-chevron-down--dark-secondary">Advanced</button>
         </Column>
       </Row>
     );
@@ -73,21 +62,15 @@ class SpotForecastContainer extends React.Component {
     const swellRatings = this.getYVals(forecasts.swells, ['size_rating', 'direction_rating', 'rating', 'size', 'direction']);
     const windRatings = this.getYVals(forecasts.winds, ['speed_rating', 'direction_rating', 'rating', 'speed', 'direction']);
     const tideRatings = this.getYVals(forecasts.tides, ['rating', 'height']);
-    // console.log(overallRatings);
-    // console.log(swellRatings);
-    // console.log(windRatings);
-    // console.log(tideRatings);
 
     return (
       <div id="forecast-section">
-        {this.renderChooseForecast()}
-
-        {this.state.viewing === "combined" ?
-          <Row>
-            <Column widthSmall={12} widthMedium={12} widthLarge={12}>
-              <div id="forecast-graph-combined" className="forecast-graph-container"/>
+        <Row>
+          <Column widthSmall={12} widthMedium={12} widthLarge={12}>
+            <div className="forecast-graphs-parent">
+              <h5> Swell &amp; Wind</h5>
               <AreaGraph
-                heightRatio={0.25}
+                heightRatio={0.2}
                 cssSelector='forecast-graph'
                 targetId='forecast-graph-combined'
                 graphs={[
@@ -100,6 +83,7 @@ class SpotForecastContainer extends React.Component {
                     },
                     area: {
                       show: true,
+                      opacity: 0.5,
                     },
                     points: {
                       show: false,
@@ -111,6 +95,7 @@ class SpotForecastContainer extends React.Component {
                     yVals: swellRatings['size'],
                     yMax: Math.max.apply(Math, swellRatings['size']) + 2,
                     directions: swellRatings['direction'],
+                    axesSuffix: 'ft',
                     line: {
                       show: true,
                     },
@@ -120,13 +105,14 @@ class SpotForecastContainer extends React.Component {
                     points: {
                       show: true,
                     },
-                    color: '#F2994A'
+                    color: '#C377E0'
                   },
                   {
                     label: 'Wind speed',
                     yVals: windRatings['speed'],
                     yMax: Math.max.apply(Math, windRatings['speed']) + 10,
                     directions: windRatings['direction'],
+                    axesSuffix: 'kph',
                     line: {
                       show: true,
                     },
@@ -136,131 +122,16 @@ class SpotForecastContainer extends React.Component {
                     points: {
                       show: true,
                     },
-                    color: '#EB5757'
-                  },
-                  {
-                    label: 'Tide height',
-                    yVals: tideRatings['height'],
-                    yMax: Math.max.apply(Math, tideRatings['height']) * 3.5,
-                    line: {
-                      show: true,
-                    },
-                    area: {
-                      show: false,
-                    },
-                    points: {
-                      show: false,
-                    },
-                    color: '#2278F1'
+                    color: '#0079BF'
                   }
                 ]}
                 legend={false}
               />
-            </Column>
-          </Row>
-        : null}
-        {this.state.viewing === "swell" ?
-          <Row>
-            <Column widthSmall={12} widthMedium={12} widthLarge={12}>
-              <div id="forecast-graph-1" className="forecast-graph-container"/>
+              <h5>Tides</h5>
               <AreaGraph
-                heightRatio={0.25}
-                pointRadius={1}
+                heightRatio={0.06}
                 cssSelector='forecast-graph'
-                targetId='forecast-graph-1'
-                graphs={[
-                  {
-                    label: 'Swell rating',
-                    yVals: swellRatings['rating'],
-                    yMax: 110,
-                    line: {
-                      show: false,
-                    },
-                    area: {
-                      show: true,
-                    },
-                    points: {
-                      show: false,
-                    },
-                    color: '#27AE60'
-                  },
-                  {
-                    label: 'Swell height',
-                    yVals: swellRatings['size'],
-                    yMax: Math.max.apply(Math, swellRatings['size']) + 2,
-                    directions: swellRatings['direction'],
-                    line: {
-                      show: true,
-                    },
-                    area: {
-                      show: false,
-                    },
-                    points: {
-                      show: true,
-                    },
-                    color: '#F2994A'
-                  }
-                ]}
-                legend={false}
-              />
-            </Column>
-          </Row>
-        : null}
-        {this.state.viewing === "wind" ?
-          <Row>
-            <Column widthSmall={12} widthMedium={12} widthLarge={12}>
-              <div id="forecast-graph-2" className="forecast-graph-container"/>
-              <AreaGraph
-                heightRatio={0.25}
-                pointRadius={1}
-                cssSelector='forecast-graph'
-                targetId='forecast-graph-2'
-                graphs={[
-                  {
-                    label: 'Wind rating',
-                    yVals: windRatings['rating'],
-                    yMax: 110,
-                    line: {
-                      show: false,
-                    },
-                    area: {
-                      show: true,
-                    },
-                    points: {
-                      show: false,
-                    },
-                    color: '#27AE60'
-                  },
-                  {
-                    label: 'Wind speed',
-                    yVals: windRatings['speed'],
-                    yMax: Math.max.apply(Math, windRatings['speed']) + 10,
-                    directions: windRatings['direction'],
-                    line: {
-                      show: true,
-                    },
-                    area: {
-                      show: false,
-                    },
-                    points: {
-                      show: true,
-                    },
-                    color: '#F2994A'
-                  }
-                ]}
-                legend={false}
-              />
-            </Column>
-          </Row>
-        : null}
-        {this.state.viewing === "tide" ?
-          <Row>
-            <Column widthSmall={12} widthMedium={12} widthLarge={12}>
-              <div id="forecast-graph-3" className="forecast-graph-container"/>
-              <AreaGraph
-                heightRatio={0.25}
-                cssSelector='forecast-graph'
-                targetId='forecast-graph-3'
+                targetId='forecast-graph-tide'
                 graphs={[
                   {
                     label: 'Tide rating',
@@ -271,6 +142,7 @@ class SpotForecastContainer extends React.Component {
                     },
                     area: {
                       show: true,
+                      opacity: 0.5,
                     },
                     points: {
                       show: false,
@@ -282,22 +154,25 @@ class SpotForecastContainer extends React.Component {
                     yVals: tideRatings['height'],
                     yMax: Math.max.apply(Math, tideRatings['height']) + 0.5,
                     line: {
-                      show: true,
-                    },
-                    area: {
                       show: false,
                     },
-                    points: {
+                    area: {
                       show: true,
+                      flat: true,
                     },
-                    color: '#F2994A'
+                    points: {
+                      show: false,
+                    },
+                    color: '#CDCDCD'
                   }
                 ]}
                 legend={false}
+                showAxes={false}
               />
-            </Column>
-          </Row>
-        : null}
+            </div>
+          </Column>
+        </Row>
+        {this.renderAdvanced()}
       </div>
     );
   }

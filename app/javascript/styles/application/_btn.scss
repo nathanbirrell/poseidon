@@ -81,6 +81,29 @@
     }
   }
 
+  &.--tag {
+    background: $ocean-mist;
+    color: $font-dark-primary;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    padding-right: 6px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    text-transform: none;
+
+    &.--icon {
+      padding-left: 20px;
+    }
+
+    &::before {
+      top: 4px;
+      left: 5px;
+      height: 12px;
+      width: 12px;
+    }
+  }
+
   &.--slim {
     height: 38px;
     line-height: 38px;
@@ -127,5 +150,41 @@
   &:hover,
   &:focus {
     color: $secondary-color;
+  }
+}
+
+.btn-incognito {
+  display: inline-block;
+  text-align: left;
+  position: relative;
+  background: none;
+  color: $font-dark-secondary;
+  height: 30px;
+  line-height: 30px;
+  box-shadow: none;
+  border: none;
+  font-size: 12px;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:hover,
+  &:visited,
+  &:focus {
+    outline: none;
+  }
+
+  &.--icon {
+    padding-right: 20px;
+
+    &::before {
+      content: '';
+      height: 15px;
+      width: 15px;
+      display: block;
+      position: absolute;
+      background-size: contain;
+      top: 8px;
+      right: 2px;
+    }
   }
 }

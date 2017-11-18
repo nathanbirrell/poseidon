@@ -33,7 +33,7 @@ $nav-tab-height: 48px;
 
     &.--focused {
       color: $secondary-color;
-      line-height: $nav-tab-height - 2;
+      line-height: $nav-tab-height - 3;
       border-bottom: 2px solid $secondary-color;
     }
   }

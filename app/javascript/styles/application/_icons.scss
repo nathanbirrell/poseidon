@@ -43,10 +43,6 @@
   background-image: url('images/icons/bar-chart-2--dark-secondary.svg');
 }
 
-.--icon-map-pin--dark-secondary:before {
-  background-image: url('images/icons/map-pin--dark-secondary.svg');
-}
-
 .--icon-align-right--dark-secondary:before {
   background-image: url('images/icons/align-right--dark-secondary.svg');
 }
@@ -103,6 +99,10 @@
   background-image: url('images/icons/map.svg');
 }
 
+.--icon-map-pin--dark-secondary:before {
+  background-image: url('images/icons/map-pin--dark-secondary.svg');
+}
+
 .--icon-share:before {
   background-image: url('images/icons/share.svg');
 }
@@ -119,6 +119,6 @@
   background-image: url('images/icons/user--white.svg');
 }
 
-.--icon-chevron-down--iron:before {
-  background-image: url('images/icons/chevron-down--iron.svg');
+.--icon-chevron-down--dark-secondary:before {
+  background-image: url('images/icons/chevron-down--dark-secondary.svg');
 }

@@ -21,7 +21,7 @@ class SpotAboutContainer extends React.Component {
       <div id="about-section" className="row small-collapse medium-uncollapse">
         <div className="large-12 cell">
           <div className="small-12 cell">
-            <h4>Description</h4>
+            <h1>Description</h1>
           </div>
           <div className="small-12 cell">
             <h5 className="subheader">{data.description}</h5>
