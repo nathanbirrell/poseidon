@@ -4,10 +4,18 @@ import moment from 'moment';
 
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
+import Units from 'lib/Units';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
+
+const Colors = {
+  Rating: '#27AE60',
+  WindSpeed: '#C377E0',
+  SwellSize: '#0079BF',
+  TideHeight: '#CDCDCD',
+};
 
 class SpotForecastContainer extends React.Component {
   constructor(props) {
@@ -56,7 +64,12 @@ class SpotForecastContainer extends React.Component {
   }
 
   swellData() {
-    return this.getYVals(this.props.forecasts.swells, ['size_rating', 'direction_rating', 'rating', 'size', 'direction']);
+    const data = JSON.parse(JSON.stringify(this.props.forecasts.swells)); // Need to clone this, otherwise the reference gets updated too :(
+    data.forEach((row, i) => {
+      data[i]['size'] = SpotUtil.metresToFeet(row['size']);
+    });
+
+    return this.getYVals(data, ['size_rating', 'direction_rating', 'rating', 'size', 'direction']);
   }
 
   windData() {
@@ -110,7 +123,7 @@ class SpotForecastContainer extends React.Component {
                     points: {
                       show: false,
                     },
-                    color: '#27AE60'
+                    color: Colors.Rating,
                   },
                   {
                     label: 'Swell size',
@@ -125,9 +138,9 @@ class SpotForecastContainer extends React.Component {
                       show: false,
                     },
                     points: {
-                      show: false,
+                      show: true,
                     },
-                    color: '#C377E0'
+                    color: Colors.SwellSize,
                   },
                   {
                     label: 'Wind speed',
@@ -144,7 +157,7 @@ class SpotForecastContainer extends React.Component {
                     points: {
                       show: true,
                     },
-                    color: '#0079BF'
+                    color: Colors.WindSpeed
                   }
                 ]}
                 legend={false}
@@ -169,7 +182,7 @@ class SpotForecastContainer extends React.Component {
                     points: {
                       show: false,
                     },
-                    color: '#CDCDCD'
+                    color: Colors.TideHeight,
                   }
                 ]}
                 legend={false}
