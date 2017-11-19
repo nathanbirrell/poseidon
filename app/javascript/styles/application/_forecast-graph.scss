@@ -34,7 +34,7 @@
         }
       }
     }
-    
+
 
     .axis-left {
       path.domain {
@@ -86,15 +86,18 @@
       }
 
       .tick text {
+        fill: $jumbo;
         text-anchor: start;
         font-size: 6px;
+        text-transform: uppercase;
+        font-weight: bold;
         transform: translateY(-5px);
       }
 
       .tick line {
-        stroke: $font-dark-secondary;
+        stroke: $iron;
         transform: translateY(0.5px);
-        stroke-width: 0.5;
+        stroke-width: 1;
       }
     }
 

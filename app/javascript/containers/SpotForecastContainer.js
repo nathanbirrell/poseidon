@@ -4,10 +4,18 @@ import moment from 'moment';
 
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
+import Units from 'lib/Units';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
+
+const Colors = {
+  Rating: '#27AE60',
+  WindSpeed: '#C377E0',
+  SwellSize: '#0079BF',
+  TideHeight: '#CDCDCD',
+};
 
 class SpotForecastContainer extends React.Component {
   constructor(props) {
@@ -51,24 +59,54 @@ class SpotForecastContainer extends React.Component {
     });
   }
 
+  overallRatings() {
+    return this.getYVals(this.props.forecasts.overall_ratings, ['rating']);
+  }
+
+  swellData() {
+    const data = JSON.parse(JSON.stringify(this.props.forecasts.swells)); // Need to clone this, otherwise the reference gets updated too :(
+    data.forEach((row, i) => {
+      data[i].size = SpotUtil.metresToFeet(row.size);
+    });
+    return this.getYVals(data, ['size_rating', 'direction_rating', 'rating', 'size', 'direction']);
+  }
+
+  windData() {
+    const data = JSON.parse(JSON.stringify(this.props.forecasts.winds)); // Need to clone this, otherwise the reference gets updated too :(
+    data.forEach((row, i) => {
+      data[i].speed = SpotUtil.kphToKnots(row.speed);
+    });
+    return this.getYVals(data, ['speed_rating', 'direction_rating', 'rating', 'speed', 'direction']);
+  }
+
+  tideData() {
+    return this.getYVals(this.props.forecasts.tides, ['rating', 'height']);
+  }
+
+  getMaxSwellHeight() {
+    const maxInDataset = Math.max.apply(Math, this.swellData()['size']) + 2;
+    const baseline = 9; // ft
+    return Math.max.apply(Math, [maxInDataset, baseline]);
+  }
+
+  getMaxWindSpeed() {
+    const maxInDataset = Math.max.apply(Math, this.windData()['speed']) + 10;
+    const baseline = 35; // knots
+    return Math.max.apply(Math, [maxInDataset, baseline]);;
+  }
+
   render() {
     if (!this.props.forecasts) {
       // PUT LOADING STATE HERE
       return null;
     }
 
-    const forecasts = this.props.forecasts;
-    const overallRatings = this.getYVals(forecasts.overall_ratings, ['rating']);
-    const swellRatings = this.getYVals(forecasts.swells, ['size_rating', 'direction_rating', 'rating', 'size', 'direction']);
-    const windRatings = this.getYVals(forecasts.winds, ['speed_rating', 'direction_rating', 'rating', 'speed', 'direction']);
-    const tideRatings = this.getYVals(forecasts.tides, ['rating', 'height']);
-
     return (
       <div id="forecast-section">
         <Row>
           <Column widthSmall={12} widthMedium={12} widthLarge={12}>
             <div className="forecast-graphs-parent">
-              <h5> Swell &amp; Wind</h5>
+              <h5>Swell &amp; Wind</h5>
               <AreaGraph
                 heightRatio={0.2}
                 cssSelector='forecast-graph'
@@ -76,7 +114,7 @@ class SpotForecastContainer extends React.Component {
                 graphs={[
                   {
                     label: 'Overall rating',
-                    yVals: overallRatings['rating'],
+                    yVals: this.overallRatings()['rating'],
                     yMax: 110,
                     line: {
                       show: false,
@@ -88,13 +126,13 @@ class SpotForecastContainer extends React.Component {
                     points: {
                       show: false,
                     },
-                    color: '#27AE60'
+                    color: Colors.Rating,
                   },
                   {
                     label: 'Swell size',
-                    yVals: swellRatings['size'],
-                    yMax: Math.max.apply(Math, swellRatings['size']) + 2,
-                    directions: swellRatings['direction'],
+                    yVals: this.swellData()['size'],
+                    yMax: this.getMaxSwellHeight(),
+                    // directions: this.swellData()['direction'],
                     axesSuffix: 'ft',
                     line: {
                       show: true,
@@ -105,14 +143,14 @@ class SpotForecastContainer extends React.Component {
                     points: {
                       show: true,
                     },
-                    color: '#C377E0'
+                    color: Colors.SwellSize,
                   },
                   {
                     label: 'Wind speed',
-                    yVals: windRatings['speed'],
-                    yMax: Math.max.apply(Math, windRatings['speed']) + 10,
-                    directions: windRatings['direction'],
-                    axesSuffix: 'kph',
+                    yVals: this.windData()['speed'],
+                    yMax: this.getMaxWindSpeed(),
+                    directions: this.windData()['direction'],
+                    axesSuffix: 'kt',
                     line: {
                       show: true,
                     },
@@ -122,11 +160,10 @@ class SpotForecastContainer extends React.Component {
                     points: {
                       show: true,
                     },
-                    color: '#0079BF'
+                    color: Colors.WindSpeed
                   }
                 ]}
                 legend={false}
-                forecastDays={5}
               />
               <h5>Tides</h5>
               <AreaGraph
@@ -135,25 +172,9 @@ class SpotForecastContainer extends React.Component {
                 targetId='forecast-graph-tide'
                 graphs={[
                   {
-                    label: 'Tide rating',
-                    yVals: tideRatings['rating'],
-                    yMax: 110,
-                    line: {
-                      show: false,
-                    },
-                    area: {
-                      show: true,
-                      opacity: 0.5,
-                    },
-                    points: {
-                      show: false,
-                    },
-                    color: '#27AE60'
-                  },
-                  {
                     label: 'Tide height',
-                    yVals: tideRatings['height'],
-                    yMax: Math.max.apply(Math, tideRatings['height']) + 0.5,
+                    yVals: this.tideData()['height'],
+                    yMax: Math.max.apply(Math, this.tideData()['height']) + 0.5,
                     line: {
                       show: false,
                     },
@@ -164,12 +185,11 @@ class SpotForecastContainer extends React.Component {
                     points: {
                       show: false,
                     },
-                    color: '#CDCDCD'
+                    color: Colors.TideHeight,
                   }
                 ]}
                 legend={false}
                 showAxes={false}
-                forecastDays={5}
               />
             </div>
           </Column>

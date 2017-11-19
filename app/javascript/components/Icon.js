@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Classnames from 'classnames';
 
-const iconContext = require.context("images/icons", true, /\.(png|jpg|svg)$/);
+export const iconContext = require.context("images/icons", true, /\.(png|jpg|svg)$/);
 
 const Size = Object.freeze({
   SMALL: 'small',
