@@ -9,6 +9,7 @@ import Units from 'lib/Units';
 import Row from 'components/Row';
 import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
+import Spinner from 'components/Spinner';
 
 const Colors = {
   Rating: '#27AE60',
@@ -97,8 +98,7 @@ class SpotForecastContainer extends React.Component {
 
   render() {
     if (!this.props.forecasts) {
-      // PUT LOADING STATE HERE
-      return null;
+      return <Spinner />;
     }
 
     return (

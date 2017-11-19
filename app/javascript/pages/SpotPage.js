@@ -95,7 +95,12 @@ class SpotPage extends React.Component {
   render() {
     if (!this.state.spot || !this.state.forecasts) {
       return (
-        <SpotHeader isBusy />
+        <div>
+          <SpotHeader isBusy />
+          <SpotForecastContainer
+            forecasts={this.state.forecasts}
+          />
+        </div>
       );
     }
 
