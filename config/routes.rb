@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :spots
     resources :users
 
+    devise_for :users
+
     # TODO: the same as this but for Winds and Tides too
     get 'swells/:id', to: 'swells#show'
     get 'spots/:id/forecasts.json', to: 'spots#forecasts'
@@ -20,6 +22,4 @@ Rails.application.routes.draw do
   end
 
   root to: redirect('/users/sign_in')
-
-  devise_for :users
 end
