@@ -106,7 +106,7 @@ class SpotForecastContainer extends React.Component {
         <Row>
           <Column widthSmall={12} widthMedium={12} widthLarge={12}>
             <div className="forecast-graphs-parent">
-              <h5>Swell &amp; Wind</h5>
+              <h5>SWELL &amp; WIND</h5>
               <AreaGraph
                 heightRatio={0.2}
                 cssSelector='forecast-graph'
@@ -165,7 +165,8 @@ class SpotForecastContainer extends React.Component {
                 ]}
                 legend={false}
               />
-              <h5>Tides</h5>
+              <br /><br />{/* FIXME: Dodgy spacing */}
+              <h5>TIDE &amp; SUN</h5>
               <AreaGraph
                 heightRatio={0.06}
                 cssSelector='forecast-graph'

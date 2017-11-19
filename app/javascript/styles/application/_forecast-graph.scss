@@ -8,18 +8,19 @@
 .forecast-graph-container {
   position: relative;
   width: 100%;
-  padding-bottom: 275px; /* aspect ratio */
   white-space: nowrap;
   vertical-align: top;
 
   .forecast-graph {
-    display: inline;
-    position: absolute;
+    position: relative;
+    display: block;
     width: 960px;
-    height: 275px;
-    top: 6px;
-    left: 0;
+    height: 225px;
     background: $ocean-mist;
+
+    @include breakpoint(medium) {
+      // height: 275px;
+    }
 
     .graph {
       .line {
