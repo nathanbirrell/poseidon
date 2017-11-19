@@ -109,7 +109,7 @@ class AreaGraph extends React.Component {
       for (let i = 0; i < this.props.forecastDays; i++) {
         tickValues.push(i * 8);
       }
-      console.log(tickValues);
+      // console.log(tickValues);
       const bottomAxis = this.svg.append("g")
         .attr('class', 'axis-bottom')
         .attr("transform", "translate(0," + height + ")")
@@ -347,7 +347,7 @@ class AreaGraph extends React.Component {
     let heightRatio = null;
     if (this.props.heightRatio) {
       heightRatio = {
-       paddingBottom: (960 * this.props.heightRatio),
+       height: (960 * this.props.heightRatio),
       };
     }
     return (
