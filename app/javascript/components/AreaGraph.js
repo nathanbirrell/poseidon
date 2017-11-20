@@ -109,7 +109,6 @@ class AreaGraph extends React.Component {
       for (let i = 0; i < this.props.forecastDays; i++) {
         tickValues.push(i * 8);
       }
-      // console.log(tickValues);
       const bottomAxis = this.svg.append("g")
         .attr('class', 'axis-bottom')
         .attr("transform", "translate(0," + height + ")")
@@ -129,7 +128,7 @@ class AreaGraph extends React.Component {
           .ticks(4)
           .tickSize(-dimensions.width)
           .tickFormat(function(d) {
-            return (d*graphs[1].yMax).toFixed(0) + ' ' + graphs[1].axesSuffix;
+            return (d*graphs[1].yMax).toFixed(0) + graphs[1].axesSuffix;
           })
         );
       leftAxis.selectAll(".tick text")
@@ -140,7 +139,7 @@ class AreaGraph extends React.Component {
         .append('text')
         .attr("class", 'label-2')
         .text(function(d) {
-          return (d*graphs[2].yMax).toFixed(0) + ' ' + graphs[2].axesSuffix;
+          return (d*graphs[2].yMax).toFixed(0) + graphs[2].axesSuffix;
         })
         .attr("x", x(x.domain()[0]))
         .attr("fill", graphs[2].color);
@@ -166,7 +165,7 @@ class AreaGraph extends React.Component {
 
         // Set gradient
         const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.35\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.1\"/></linearGradient>`;
-        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"7\" markerHeight=\"7\" refX=\"0\" refY=\"2\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M0,0 L0,4 L6,2 z\" fill=\"${graph.color}\" /></marker>`
+        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"4.5\" refY=\"4.5\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.35)\" fill=\"${graph.color}\" stroke=\"${graph.color}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
         const defs = thisGraph
           .append('defs');
         defs.html(colouredGradient + " " + arrow);
@@ -191,7 +190,7 @@ class AreaGraph extends React.Component {
             .attr('class', 'line')
             .attr('stroke', graph.color)
             .attr('fill', 'none')
-            .attr('opacity', graph.line.opacity || 0.5)
+            .attr('opacity', graph.line.opacity || 1)
             .attr("d", line);
         }
 
@@ -205,11 +204,11 @@ class AreaGraph extends React.Component {
               .attr('stroke', graph.points.color || graph.color)
               .attr('fill', graph.points.color || graph.color)
               .attr("x1", function(d, i) { return x(i) })
-              .attr("y1", function(d, i) { return (y(d) - 5) })
+              .attr("y1", function(d, i) { return (y(d)) })
               .attr("x2", function(d, i) { return x(i) })
-              .attr("y2", function(d, i) { return (y(d) + 0)  })
+              .attr("y2", function(d, i) { return (y(d))  })
               .attr("transform", function(d, i) {
-                return "rotate(" + graph.directions[i] + " " + x(i) + " " + y(d) + ")";
+                return "rotate(" + (graph.directions[i] + 180) + " " + x(i) + " " + y(d) + ")"; // +180 converts it into magical weather speak, where the arrow shows the directional opposite to the degrees
               })
               .attr("stroke-width", 1)
               .attr("marker-end", `url(#${targetId}_arrow_${i})`);
@@ -231,11 +230,9 @@ class AreaGraph extends React.Component {
       this.svg.selectAll('.day-segment').remove();
 
       if (parentConfig.vertSegments) {
-
         const vertSegHeight = y(y.domain()[0]);
         const vertSegData = graphs[0].yVals.map((value, i) => {
           const output = {};
-          // console.log(state, i, state.hoveredIndex == i);
           if (state.selectedIndex == i) {
             output.modifier = 'selected';
           } else if (state.hoveredIndex == i) {
@@ -264,43 +261,59 @@ class AreaGraph extends React.Component {
             .attr('height', vertSegHeight)
             .attr('fill', function(d, i) {
               const modulus = i%8;
-              // if (d.modifier === 'selected') {
-              //   return 'red';
-              // } else if (d.modifier === 'hovered') {
-              //   return 'yellow';
-              // } else if (modulus <= 1 || modulus >= 6) {
               if (modulus <= 1 || modulus >= 6) {
                 return '#0D659D';
               }
-              return 'none';
+              return '#ffffff';
             })
-            .attr('opacity', 0.1)
+            .attr('opacity', function(d, i) {
+              const modulus = i%8;
+              if (modulus <= 1 || modulus >= 6) {
+                return 0.1;
+              }
+              return 0.01;
+            })
             .on('click', this.handleClick)
             .on('mouseover', this.handleMouseOver)
             .on("mouseout", this.handleMouseOut);
 
-            vertSegments.exit().remove();
+        vertSegments.exit().remove();
+      }
+
+      this.svg.selectAll('.selected-date-time').remove();
+      const selectedDateTimePosition = this.props.selectedDateTimePosition;
+      if (selectedDateTimePosition) {
+        const selectedDateTimeIndicatorHeight = y(y.domain()[0]);
+        const selectedDateTimeIndicator = this.svg
+          .append('rect')
+          .attr('class', 'selected-date-time')
+          .attr('x', function() { return x(selectedDateTimePosition) })
+          .attr('y', 0)
+          .attr('width', '1px')
+          .attr('height', selectedDateTimeIndicatorHeight)
+          .attr('fill', function() {
+            return '#EB5757';
+          })
+          .attr('opacity', 1);
       }
 
       topLevel.exit().remove();
   }
 
   handleClick(d, i) {
-    console.log('click: ', d, i);
-    this.setState({
-      selectedIndex: i
-    });
+    if (this.props.updateParent) {
+      this.props.updateParent(i);
+    }
   }
 
   handleMouseOver(d, i) {
-    console.log('mouseover: ', d, i);
-    this.setState({
-      hoveredIndex: i
-    });
+    if (this.props.updateParent) {
+      this.props.updateParent(i);
+    }
   }
 
   handleMouseOut(d, i){
-    console.log('mouseout: ', d, i);
+    // Mouse out func here
   }
 
   handleLegendClick(configOption, graph) {
@@ -369,6 +382,8 @@ AreaGraph.defaultProps = {
   legend: false,
   forecastDays: 7,
   showAxes: true,
+  updateParent: null,
+  selectedDateTimePosition: null,
 }
 
 AreaGraph.propTypes = {
@@ -381,6 +396,8 @@ AreaGraph.propTypes = {
   legend: PropTypes.bool,
   forecastDays: PropTypes.number,
   showAxes: PropTypes.bool,
+  updateParent: PropTypes.func,
+  selectedDateTimePosition: PropTypes.number,
 }
 
 export default AreaGraph;

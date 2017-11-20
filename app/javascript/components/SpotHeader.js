@@ -23,12 +23,18 @@ class SpotHeader extends React.Component {
     this.setNavItems();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const routeChanged = this.props.matchUrl !== nextProps.matchUrl;
+    if (routeChanged) { this.setNavItems(); }
+  }
+
   isBusy() {
     return this.props.isBusy || !this.props.name;
   }
 
   setNavItems() {
-    const routeMatchUrl = this.props.match.url;
+    console.log(this.props.matchUrl);
+    const routeMatchUrl = this.props.matchUrl;
 
     this.setState({
       navItems: [
@@ -103,7 +109,7 @@ SpotHeader.defaultProps = {
   current_potential: null,
   name: null,
   region: null,
-  match: {},
+  match: null,
 };
 
 SpotHeader.PropTypes = {
@@ -111,7 +117,7 @@ SpotHeader.PropTypes = {
   name: PropTypes.string,
   region_name: PropTypes.object,
   isBusy: PropTypes.bool,
-  match: PropTypes.object.isRequired,
+  matchUrl: PropTypes.string.isRequired,
 };
 
 export default SpotHeader;

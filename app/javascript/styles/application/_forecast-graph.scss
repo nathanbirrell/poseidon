@@ -36,6 +36,9 @@
       }
     }
 
+    .selected-date-time {
+      transform: translateX(-0.5px);
+    }
 
     .axis-left {
       path.domain {
@@ -83,7 +86,8 @@
 
     .axis-bottom {
       path {
-        stroke-width: 0.5;
+        stroke: $iron;
+        stroke-width: 1;
       }
 
       .tick text {
@@ -91,8 +95,7 @@
         text-anchor: start;
         font-size: 6px;
         text-transform: uppercase;
-        font-weight: bold;
-        transform: translateY(-5px);
+        transform: translate(-3px, -5px);
       }
 
       .tick line {

@@ -54,20 +54,18 @@ class SpotPage extends React.Component {
     if (query !== null) {
       query = query.replace(/\s+/g, '+');
       const output = moment(query);
-      console.log('query', query, output);
       if (output._isValid) {
-        console.log('URL Query is valid', output);
         return output;
       }
     }
     return moment();
   }
 
-  updateSelectedDateTime(datetime) {
+  updateSelectedDateTime(datetime, position) {
     console.log('update datetime: ', datetime);
     this.setState({
       selectedDateTime: datetime,
-      seedTime: null,
+      selectedDateTimePosition: position,
     });
   }
 
@@ -93,13 +91,19 @@ class SpotPage extends React.Component {
   }
 
   render() {
+    const routeMatchUrl = this.props.match.url;
+
     if (!this.state.spot || !this.state.forecasts) {
       return (
-        <SpotHeader isBusy />
+        <div>
+          <SpotHeader isBusy matchUrl={this.props.match.url} />
+          <SpotForecastContainer
+            forecasts={this.state.forecasts}
+          />
+        </div>
       );
     }
 
-    const routeMatchUrl = this.props.match.url;
     const date = this.state.selectedDateTime;
     // TODO: rename to selectedForecast ?? Discuss w/ TB. ie selectedForecast.index (instead of value), etc.
     const seed = this.findForecastSeedFromTime(this.state.forecasts.swells, date);
@@ -108,28 +112,31 @@ class SpotPage extends React.Component {
 
     const current_overall_rating = this.state.forecasts.overall_ratings[seed.value];
 
-    const sliderSeedTime = moment(this.state.forecasts.swells[seed.value].date_time);
-
     let dateCopy = date.toDate();
     let startDate = moment(date).startOf('day');
     let endDate = moment(date).endOf('day');
     const sliderData = this.state.forecasts.overall_ratings.filter(item => moment(item.date_time).isBetween(startDate, endDate));
 
     // TODO: refactor all these into individual components/containers
+    console.log(this.props.match.url);
 
     return (
       <div>
         <SpotHeader
           name={this.state.spot.name}
           region={this.state.spot.region}
-          match={this.props.match}
+          matchUrl={routeMatchUrl}
         />
         <Row withColumn>
           <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
             <div className="spot-page__forecast">
               <SpotForecastContainer
                 forecasts={this.state.forecasts}
+                updateParent={this.updateSelectedDateTime}
+                selectedDateTime={this.state.selectedDateTime}
+                selectedDateTimePosition={this.state.selectedDateTimePosition}
               />
+              <h5>Viewing: {moment(date).format("dd DD MMM YYYY hh:mm a")}</h5>
               <SessionCard
                 isExpanded
                 rating={this.state.forecasts.overall_ratings[seed.value]}
@@ -168,12 +175,6 @@ class SpotPage extends React.Component {
               </div>
             </div>
           )} />
-
-          <SpotTimeSlider
-            curveData={sliderData}
-            updateParent={this.updateSelectedDateTime}
-            seedTime={sliderSeedTime}
-          />
         </Row>
       </div>
     );

@@ -9,6 +9,7 @@ import Units from 'lib/Units';
 import Row from 'components/Row';
 import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
+import Spinner from 'components/Spinner';
 
 const Colors = {
   Rating: '#27AE60',
@@ -28,6 +29,7 @@ class SpotForecastContainer extends React.Component {
     this.getYVals = this.getYVals.bind(this);
     this.handleViewingChange = this.handleViewingChange.bind(this);
     this.renderAdvanced = this.renderAdvanced.bind(this);
+    this.updateParent = this.updateParent.bind(this);
   }
 
   renderAdvanced() {
@@ -95,11 +97,21 @@ class SpotForecastContainer extends React.Component {
     return Math.max.apply(Math, [maxInDataset, baseline]);;
   }
 
+  updateParent(n) {
+    const data = this.props.forecasts.swells[n];
+    const datetime = moment(data.date_time);
+    this.props.updateParent(datetime, n);
+  }
+
   render() {
     if (!this.props.forecasts) {
-      // PUT LOADING STATE HERE
-      return null;
+      return <Spinner />;
     }
+
+    const bespokeSpacing = {
+      paddingTop: '35px',
+    };
+    const selectedDateTimePosition = this.props.selectedDateTimePosition;
 
     return (
       <div id="forecast-section">
@@ -141,7 +153,7 @@ class SpotForecastContainer extends React.Component {
                       show: false,
                     },
                     points: {
-                      show: true,
+                      show: false,
                     },
                     color: Colors.SwellSize,
                   },
@@ -164,9 +176,10 @@ class SpotForecastContainer extends React.Component {
                   }
                 ]}
                 legend={false}
+                updateParent={this.updateParent}
+                selectedDateTimePosition={selectedDateTimePosition}
               />
-              <br /><br />{/* FIXME: Dodgy spacing */}
-              <h5>TIDE &amp; SUN</h5>
+              <h5 style={bespokeSpacing}>TIDE &amp; SUN</h5>
               <AreaGraph
                 heightRatio={0.06}
                 cssSelector='forecast-graph'
@@ -191,6 +204,8 @@ class SpotForecastContainer extends React.Component {
                 ]}
                 legend={false}
                 showAxes={false}
+                updateParent={this.updateParent}
+                selectedDateTimePosition={selectedDateTimePosition}
               />
             </div>
           </Column>
@@ -203,10 +218,16 @@ class SpotForecastContainer extends React.Component {
 
 SpotForecastContainer.defaultProps = {
   forecasts: null,
+  updateParent: null,
+  selectedDateTime: null,
+  selectedDateTimePosition: null,
 };
 
 SpotForecastContainer.PropTypes = {
   forecasts: PropTypes.object,
+  updateParent: PropTypes.func,
+  selectedDateTime: PropTypes.object,
+  selectedDateTimePosition: PropTypes.number,
 };
 
 export default SpotForecastContainer;
