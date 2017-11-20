@@ -101,6 +101,10 @@ class SpotForecastContainer extends React.Component {
       return <Spinner />;
     }
 
+    const bespokeSpacing = {
+      paddingTop: '35px',
+    };
+
     return (
       <div id="forecast-section">
         <Row>
@@ -165,8 +169,7 @@ class SpotForecastContainer extends React.Component {
                 ]}
                 legend={false}
               />
-              <br /><br />{/* FIXME: Dodgy spacing */}
-              <h5>TIDE &amp; SUN</h5>
+              <h5 style={bespokeSpacing}>TIDE &amp; SUN</h5>
               <AreaGraph
                 heightRatio={0.06}
                 cssSelector='forecast-graph'

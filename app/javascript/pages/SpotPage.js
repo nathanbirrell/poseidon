@@ -137,6 +137,7 @@ class SpotPage extends React.Component {
               <SpotForecastContainer
                 forecasts={this.state.forecasts}
               />
+              <h2>Viewing: {moment(date).format("dd DD MMM YYYY hh:mm a")}</h2>
               <SessionCard
                 isExpanded
                 rating={this.state.forecasts.overall_ratings[seed.value]}
@@ -175,12 +176,6 @@ class SpotPage extends React.Component {
               </div>
             </div>
           )} />
-
-          <SpotTimeSlider
-            curveData={sliderData}
-            updateParent={this.updateSelectedDateTime}
-            seedTime={sliderSeedTime}
-          />
         </Row>
       </div>
     );
