@@ -380,7 +380,7 @@ AreaGraph.defaultProps = {
   heightRatio: null,
   pointRadius: 3,
   legend: false,
-  forecastDays: 7,
+  forecastDays: 6,
   showAxes: true,
   updateParent: null,
   selectedDateTimePosition: null,
