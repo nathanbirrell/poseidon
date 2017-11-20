@@ -1,3 +1,35 @@
 .marketing-page {
-  //
+  .callout.large {
+    padding-left: 0;
+
+    .cell { padding-right: 4rem; }
+
+    @include breakpoint(medium) {
+      padding-left: 3rem;
+    }
+  }
+
+  .callout .cell {
+    z-index: 1;
+  }
+
+  .hero-image-container {
+    position: relative;
+    width: 100%;
+
+    @include breakpoint(medium) {
+      height: 100%;
+    }
+  }
+
+  .hero-image {
+    @include breakpoint(medium) {
+      position: absolute;
+      z-index: 0;
+      right: 0;
+      bottom: 0;
+      width: auto;
+      height: 290px;
+    }
+  }
 }

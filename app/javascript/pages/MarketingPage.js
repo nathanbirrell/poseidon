@@ -11,14 +11,17 @@ class HomePage extends React.Component {
     console.log(heroImg);
     return (
       <div className="marketing-page">
-        <Row className="hero-image callout large" style={{ backgroundImage: `url(${heroImg})` }}>
+        <Row className="callout large">
           <Column widthMedium={8}>
-            <h1>Intelligent and reliable surf forecasting built for you.</h1>
+            <h1>Intelligent, reliable surf forecasting built for you.</h1>
             <p className="lead">
               Surf like a God with dead-simple surf forecasts, spot recommendations and Australia's most reliable weather modelling.
             </p>
             <Button>JOIN THE WAITLIST</Button>
           </Column>
+          <div className="hero-image-container">
+            <img className="hero-image" src={heroImg} />
+          </div>
         </Row>
         <Row className="cvp-container" withYPadding withXPadding>
           <Column widthMedium={10} offsetMedium={1} widthLarge={10} offsetLarge={1}>
