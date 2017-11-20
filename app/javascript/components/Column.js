@@ -23,7 +23,7 @@ const Column = (props) => {
   });
 
   return (
-    <div className={classes}>
+    <div className={classes} style={props.style}>
       {children}
     </div>
   );
@@ -47,6 +47,7 @@ Column.PropTypes = {
   isCentered: PropTypes.bool,
   isAuto: PropTypes.bool,
   isAutoMediumUp: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 export default Column;
