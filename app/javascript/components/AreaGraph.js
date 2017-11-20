@@ -165,7 +165,7 @@ class AreaGraph extends React.Component {
 
         // Set gradient
         const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.35\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.1\"/></linearGradient>`;
-        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"7\" markerHeight=\"7\" refX=\"0\" refY=\"2\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M0,0 L0,4 L6,2 z\" fill=\"${graph.color}\" /></marker>`
+        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"4.5\" refY=\"4.5\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.35)\" fill=\"none\" stroke=\"${graph.color}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
         const defs = thisGraph
           .append('defs');
         defs.html(colouredGradient + " " + arrow);
@@ -204,11 +204,11 @@ class AreaGraph extends React.Component {
               .attr('stroke', graph.points.color || graph.color)
               .attr('fill', graph.points.color || graph.color)
               .attr("x1", function(d, i) { return x(i) })
-              .attr("y1", function(d, i) { return (y(d) - 5) })
+              .attr("y1", function(d, i) { return (y(d)) })
               .attr("x2", function(d, i) { return x(i) })
-              .attr("y2", function(d, i) { return (y(d) + 0)  })
+              .attr("y2", function(d, i) { return (y(d))  })
               .attr("transform", function(d, i) {
-                return "rotate(" + graph.directions[i] + " " + x(i) + " " + y(d) + ")";
+                return "rotate(" + (graph.directions[i] + 180) + " " + x(i) + " " + y(d) + ")"; // +180 converts it into magical weather speak, where the arrow shows the directional opposite to the degrees
               })
               .attr("stroke-width", 1)
               .attr("marker-end", `url(#${targetId}_arrow_${i})`);
