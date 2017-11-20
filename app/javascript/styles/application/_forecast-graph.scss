@@ -83,7 +83,8 @@
 
     .axis-bottom {
       path {
-        stroke-width: 0.5;
+        stroke: $iron;
+        stroke-width: 1;
       }
 
       .tick text {
@@ -91,7 +92,6 @@
         text-anchor: start;
         font-size: 6px;
         text-transform: uppercase;
-        font-weight: bold;
         transform: translateY(-5px);
       }
 
