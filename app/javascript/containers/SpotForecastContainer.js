@@ -153,7 +153,7 @@ class SpotForecastContainer extends React.Component {
                       show: false,
                     },
                     points: {
-                      show: true,
+                      show: false,
                     },
                     color: Colors.SwellSize,
                   },

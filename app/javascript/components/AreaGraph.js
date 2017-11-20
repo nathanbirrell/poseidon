@@ -190,7 +190,7 @@ class AreaGraph extends React.Component {
             .attr('class', 'line')
             .attr('stroke', graph.color)
             .attr('fill', 'none')
-            .attr('opacity', graph.line.opacity || 0.5)
+            .attr('opacity', graph.line.opacity || 1)
             .attr("d", line);
         }
 
