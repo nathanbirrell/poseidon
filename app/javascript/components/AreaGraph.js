@@ -128,7 +128,7 @@ class AreaGraph extends React.Component {
           .ticks(4)
           .tickSize(-dimensions.width)
           .tickFormat(function(d) {
-            return (d*graphs[1].yMax).toFixed(0) + ' ' + graphs[1].axesSuffix;
+            return (d*graphs[1].yMax).toFixed(0) + graphs[1].axesSuffix;
           })
         );
       leftAxis.selectAll(".tick text")
@@ -139,7 +139,7 @@ class AreaGraph extends React.Component {
         .append('text')
         .attr("class", 'label-2')
         .text(function(d) {
-          return (d*graphs[2].yMax).toFixed(0) + ' ' + graphs[2].axesSuffix;
+          return (d*graphs[2].yMax).toFixed(0) + graphs[2].axesSuffix;
         })
         .attr("x", x(x.domain()[0]))
         .attr("fill", graphs[2].color);
