@@ -6,6 +6,7 @@ import Footer from 'components/Footer';
 import Row from 'components/Row';
 import HomePage from 'pages/HomePage';
 import SpotPage from 'pages/SpotPage';
+import MarketingPage from 'pages/MarketingPage';
 
 MomentConfig();
 
@@ -20,6 +21,7 @@ class AppContainer extends React.Component {
             {/* TODO: organise routes properly brah */}
             <Route path="/" component={HomePage} exact />
             <Route path="/spots/:spotId" component={SpotPage} />
+            <Route path="/marketing" component={MarketingPage} />
             {/* TODO: follow the below convention for forecast/history/about */}
             {/* <Route path="/spots/:spotId/forecast" component={SpotForecastContainer} /> */}
           </main>
