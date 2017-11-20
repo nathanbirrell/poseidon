@@ -29,6 +29,7 @@ class SpotForecastContainer extends React.Component {
     this.getYVals = this.getYVals.bind(this);
     this.handleViewingChange = this.handleViewingChange.bind(this);
     this.renderAdvanced = this.renderAdvanced.bind(this);
+    this.updateParent = this.updateParent.bind(this);
   }
 
   renderAdvanced() {
@@ -96,6 +97,12 @@ class SpotForecastContainer extends React.Component {
     return Math.max.apply(Math, [maxInDataset, baseline]);;
   }
 
+  updateParent(n) {
+    const data = this.props.forecasts.swells[n];
+    const datetime = moment(data.date_time);
+    this.props.updateParent(datetime, n);
+  }
+
   render() {
     if (!this.props.forecasts) {
       return <Spinner />;
@@ -104,6 +111,7 @@ class SpotForecastContainer extends React.Component {
     const bespokeSpacing = {
       paddingTop: '35px',
     };
+    const selectedDateTimePosition = this.props.selectedDateTimePosition;
 
     return (
       <div id="forecast-section">
@@ -168,6 +176,8 @@ class SpotForecastContainer extends React.Component {
                   }
                 ]}
                 legend={false}
+                updateParent={this.updateParent}
+                selectedDateTimePosition={selectedDateTimePosition}
               />
               <h5 style={bespokeSpacing}>TIDE &amp; SUN</h5>
               <AreaGraph
@@ -194,6 +204,8 @@ class SpotForecastContainer extends React.Component {
                 ]}
                 legend={false}
                 showAxes={false}
+                updateParent={this.updateParent}
+                selectedDateTimePosition={selectedDateTimePosition}
               />
             </div>
           </Column>
@@ -206,10 +218,16 @@ class SpotForecastContainer extends React.Component {
 
 SpotForecastContainer.defaultProps = {
   forecasts: null,
+  updateParent: null,
+  selectedDateTime: null,
+  selectedDateTimePosition: null,
 };
 
 SpotForecastContainer.PropTypes = {
   forecasts: PropTypes.object,
+  updateParent: PropTypes.func,
+  selectedDateTime: PropTypes.object,
+  selectedDateTimePosition: PropTypes.number,
 };
 
 export default SpotForecastContainer;

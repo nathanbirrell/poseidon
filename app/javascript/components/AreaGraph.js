@@ -109,7 +109,6 @@ class AreaGraph extends React.Component {
       for (let i = 0; i < this.props.forecastDays; i++) {
         tickValues.push(i * 8);
       }
-      // console.log(tickValues);
       const bottomAxis = this.svg.append("g")
         .attr('class', 'axis-bottom')
         .attr("transform", "translate(0," + height + ")")
@@ -231,11 +230,9 @@ class AreaGraph extends React.Component {
       this.svg.selectAll('.day-segment').remove();
 
       if (parentConfig.vertSegments) {
-
         const vertSegHeight = y(y.domain()[0]);
         const vertSegData = graphs[0].yVals.map((value, i) => {
           const output = {};
-          // console.log(state, i, state.hoveredIndex == i);
           if (state.selectedIndex == i) {
             output.modifier = 'selected';
           } else if (state.hoveredIndex == i) {
@@ -264,43 +261,59 @@ class AreaGraph extends React.Component {
             .attr('height', vertSegHeight)
             .attr('fill', function(d, i) {
               const modulus = i%8;
-              // if (d.modifier === 'selected') {
-              //   return 'red';
-              // } else if (d.modifier === 'hovered') {
-              //   return 'yellow';
-              // } else if (modulus <= 1 || modulus >= 6) {
               if (modulus <= 1 || modulus >= 6) {
                 return '#0D659D';
               }
-              return 'none';
+              return '#ffffff';
             })
-            .attr('opacity', 0.1)
+            .attr('opacity', function(d, i) {
+              const modulus = i%8;
+              if (modulus <= 1 || modulus >= 6) {
+                return 0.1;
+              }
+              return 0.01;
+            })
             .on('click', this.handleClick)
             .on('mouseover', this.handleMouseOver)
             .on("mouseout", this.handleMouseOut);
 
-            vertSegments.exit().remove();
+        vertSegments.exit().remove();
+      }
+
+      this.svg.selectAll('.selected-date-time').remove();
+      const selectedDateTimePosition = this.props.selectedDateTimePosition;
+      if (selectedDateTimePosition) {
+        const selectedDateTimeIndicatorHeight = y(y.domain()[0]);
+        const selectedDateTimeIndicator = this.svg
+          .append('rect')
+          .attr('class', 'selected-date-time')
+          .attr('x', function() { return x(selectedDateTimePosition) })
+          .attr('y', 0)
+          .attr('width', '1px')
+          .attr('height', selectedDateTimeIndicatorHeight)
+          .attr('fill', function() {
+            return '#EB5757';
+          })
+          .attr('opacity', 1);
       }
 
       topLevel.exit().remove();
   }
 
   handleClick(d, i) {
-    console.log('click: ', d, i);
-    this.setState({
-      selectedIndex: i
-    });
+    if (this.props.updateParent) {
+      this.props.updateParent(i);
+    }
   }
 
   handleMouseOver(d, i) {
-    console.log('mouseover: ', d, i);
-    this.setState({
-      hoveredIndex: i
-    });
+    if (this.props.updateParent) {
+      this.props.updateParent(i);
+    }
   }
 
   handleMouseOut(d, i){
-    console.log('mouseout: ', d, i);
+    // Mouse out func here
   }
 
   handleLegendClick(configOption, graph) {
@@ -369,6 +382,8 @@ AreaGraph.defaultProps = {
   legend: false,
   forecastDays: 7,
   showAxes: true,
+  updateParent: null,
+  selectedDateTimePosition: null,
 }
 
 AreaGraph.propTypes = {
@@ -381,6 +396,8 @@ AreaGraph.propTypes = {
   legend: PropTypes.bool,
   forecastDays: PropTypes.number,
   showAxes: PropTypes.bool,
+  updateParent: PropTypes.func,
+  selectedDateTimePosition: PropTypes.number,
 }
 
 export default AreaGraph;

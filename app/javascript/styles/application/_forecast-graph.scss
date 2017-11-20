@@ -36,6 +36,9 @@
       }
     }
 
+    .selected-date-time {
+      transform: translateX(-0.5px);
+    }
 
     .axis-left {
       path.domain {

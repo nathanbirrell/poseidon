@@ -54,20 +54,18 @@ class SpotPage extends React.Component {
     if (query !== null) {
       query = query.replace(/\s+/g, '+');
       const output = moment(query);
-      console.log('query', query, output);
       if (output._isValid) {
-        console.log('URL Query is valid', output);
         return output;
       }
     }
     return moment();
   }
 
-  updateSelectedDateTime(datetime) {
+  updateSelectedDateTime(datetime, position) {
     console.log('update datetime: ', datetime);
     this.setState({
       selectedDateTime: datetime,
-      seedTime: null,
+      selectedDateTimePosition: position,
     });
   }
 
@@ -114,8 +112,6 @@ class SpotPage extends React.Component {
 
     const current_overall_rating = this.state.forecasts.overall_ratings[seed.value];
 
-    const sliderSeedTime = moment(this.state.forecasts.swells[seed.value].date_time);
-
     let dateCopy = date.toDate();
     let startDate = moment(date).startOf('day');
     let endDate = moment(date).endOf('day');
@@ -136,6 +132,9 @@ class SpotPage extends React.Component {
             <div className="spot-page__forecast">
               <SpotForecastContainer
                 forecasts={this.state.forecasts}
+                updateParent={this.updateSelectedDateTime}
+                selectedDateTime={this.state.selectedDateTime}
+                selectedDateTimePosition={this.state.selectedDateTimePosition}
               />
               <h2>Viewing: {moment(date).format("dd DD MMM YYYY hh:mm a")}</h2>
               <SessionCard
