@@ -31,7 +31,10 @@ class SpotUtil {
   }
 
   static getRatingColor(rating) {
-    return `hsl(${(Math.pow(rating, 2) + (7 * rating)) * 0.8},${(-1.8 * (Math.pow(rating, 2)) + (17 * rating) + 110) * 0.60}%,50%)`;
+    const hue = (Math.pow(rating, 2) + (5 * rating)) * 0.8;
+    const saturation = (-1.8 * (Math.pow(rating, 2)) + (17 * rating) + 110) * 0.60;
+    const lightness = 50;
+    return `hsl(${hue},${saturation}%,${lightness}%)`;
   }
 
   static metresToFeet(number) {
