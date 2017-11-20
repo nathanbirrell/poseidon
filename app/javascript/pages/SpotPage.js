@@ -93,10 +93,12 @@ class SpotPage extends React.Component {
   }
 
   render() {
+    const routeMatchUrl = this.props.match.url;
+
     if (!this.state.spot || !this.state.forecasts) {
       return (
         <div>
-          <SpotHeader isBusy />
+          <SpotHeader isBusy matchUrl={this.props.match.url} />
           <SpotForecastContainer
             forecasts={this.state.forecasts}
           />
@@ -104,7 +106,6 @@ class SpotPage extends React.Component {
       );
     }
 
-    const routeMatchUrl = this.props.match.url;
     const date = this.state.selectedDateTime;
     // TODO: rename to selectedForecast ?? Discuss w/ TB. ie selectedForecast.index (instead of value), etc.
     const seed = this.findForecastSeedFromTime(this.state.forecasts.swells, date);
@@ -121,13 +122,14 @@ class SpotPage extends React.Component {
     const sliderData = this.state.forecasts.overall_ratings.filter(item => moment(item.date_time).isBetween(startDate, endDate));
 
     // TODO: refactor all these into individual components/containers
+    console.log(this.props.match.url);
 
     return (
       <div>
         <SpotHeader
           name={this.state.spot.name}
           region={this.state.spot.region}
-          match={this.props.match}
+          matchUrl={routeMatchUrl}
         />
         <Row withColumn>
           <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
