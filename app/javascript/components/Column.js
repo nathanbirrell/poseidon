@@ -16,11 +16,14 @@ const Column = (props) => {
     [`medium-offset-${offsetMedium}`]: (offsetMedium || offsetMedium === 0),
     [`large-offset-${offsetLarge}`]: (offsetLarge || offsetLarge === 0),
 
+    [`auto`]: (props.isAuto),
+    [`medium-auto`]: (props.isAutoMediumUp),
+
     [`${props.className}`]: (className), // add any classes passed down
   });
 
   return (
-    <div className={classes}>
+    <div className={classes} style={props.style}>
       {children}
     </div>
   );
@@ -30,6 +33,7 @@ Column.defaultProps = {
   widthSmall: 12,
   widthMedium: 10,
   isCentered: false,
+  isAuto: false,
 };
 
 Column.PropTypes = {
@@ -41,6 +45,9 @@ Column.PropTypes = {
   offsetMedium: PropTypes.number,
   offsetLarge: PropTypes.number,
   isCentered: PropTypes.bool,
+  isAuto: PropTypes.bool,
+  isAutoMediumUp: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 export default Column;

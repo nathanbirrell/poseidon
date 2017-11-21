@@ -27,7 +27,7 @@ const Row = (props) => {
   }
 
   return (
-    <div className={classes}>
+    <div className={classes} style={props.style}>
       {children}
     </div>
   );
@@ -51,6 +51,7 @@ Row.PropTypes = {
   withXMargin: PropTypes.bool,
   withYMargin: PropTypes.bool,
   withColumn: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 export default Row;

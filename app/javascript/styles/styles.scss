@@ -25,6 +25,7 @@
 @import "application/atoms/floating-icon";
 @import "application/atoms/indicator";
 @import "application/atoms/placeholder-shimmer";
+@import "application/atoms/buttons";
 
 @import "application/molecules/modal";
 @import "application/molecules/tables";
@@ -33,9 +34,10 @@
 @import "application/organisms/spot-header";
 @import "application/organisms/session-card";
 
+@import "application/pages/marketing-page";
+
 // TODO: organise these bad boys
 @import "application/backgrounds";
-@import "application/btn";
 @import "application/column";
 @import "application/curtain";
 @import "application/footer";

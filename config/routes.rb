@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   authenticated :user do
-    root to: 'spots#index', as: :authenticated_root
+    root to: 'javascript_app#index', as: :authenticated_root
 
     resources :regions
     resources :spots
@@ -14,9 +14,12 @@ Rails.application.routes.draw do
     # These are React Router handled routes, leave them to the JS app
     # TODO: should probably change this logic to fallback to send ALL traffic
     #         to the js app, if not defined above.
-    get 'spots/:id/forecast', to: 'spots#show'
-    get 'spots/:id/about', to: 'spots#show'
-    get 'spots/:id/history', to: 'spots#show'
+    #       when ready to do this, use: `get '*path' => 'javascript_app#index'
+    get 'spots/:id/forecast', to: 'javascript_app#index'
+    get 'spots/:id/about', to: 'javascript_app#index'
+    get 'spots/:id/history', to: 'javascript_app#index'
+
+    get '*path' => 'javascript_app#index'
   end
 
   root to: redirect('/users/sign_in')
