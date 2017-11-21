@@ -44,8 +44,17 @@ class SessionCard extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.rating.date_time !== nextProps.rating.date_time) {
-      this.setState({ dateTimeChanged: true });
+      this._handleDateTimeChanged()
     }
+  }
+
+  _handleDateTimeChanged() {
+    this.setState({ dateTimeChanged: true });
+    // Highlight for 3 seconds
+    setTimeout(
+      () => { this.setState({ dateTimeChanged: false }); },
+      3000
+    );
   }
 
   _renderSwellConditions() {
