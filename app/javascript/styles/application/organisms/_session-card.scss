@@ -109,6 +109,13 @@ a .session-card {
   }
 }
 
+.session-card__updated {
+  &.--highlighted {
+    color: $secondary-color;
+    // font-weight: $font-weight-bold;
+  }
+}
+
 .session-card__condition-primary {
   display: block;
   font-size: 110%;

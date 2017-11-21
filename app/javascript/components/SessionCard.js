@@ -31,7 +31,23 @@ const SessionCardCondition = (props) => {
   );
 };
 
-class SessionCard extends React.PureComponent {
+class SessionCard extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dateTimeChanged: false,
+    }
+
+    this.renderDateTime = this.renderDateTime.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.rating.date_time !== nextProps.rating.date_time) {
+      this.setState({ dateTimeChanged: true });
+    }
+  }
+
   _renderSwellConditions() {
     const { swell } = this.props;
     const directionInWords = SpotUtil.degreesToText(swell.direction);
@@ -143,16 +159,25 @@ class SessionCard extends React.PureComponent {
     );
   }
 
-  renderBody() {
+  renderDateTime() {
     const date_time = moment(this.props.rating.date_time).calendar();
+    const classes = Classnames({
+      'session-card__updated': true,
+      '--highlighted': this.state.dateTimeChanged,
+    });
+    return (
+      <div className={classes}>
+        {date_time}
+      </div>
+    );
+  }
 
+  renderBody() {
     return (
       <div className="session-card__container">
         {this.renderRating()}
         {this.renderNameAndRegion()}
-        <div className="session-card__updated">
-          {date_time}
-        </div>
+        {this.renderDateTime()}
         <div className="session-card__conditions">
           { this._renderSwellConditions() }
           { this._renderWindConditions() }
