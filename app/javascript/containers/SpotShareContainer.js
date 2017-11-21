@@ -5,6 +5,9 @@ import clipboard from 'clipboard-js';
 import { Route } from 'react-router-dom';
 
 import Modal from 'components/Modal';
+import Button from 'components/Button';
+import Icon from 'components/Icon';
+import Row from 'components/Row';
 
 class SpotShareContainer extends React.Component {
   constructor(props) {
@@ -48,11 +51,11 @@ class SpotShareContainer extends React.Component {
   render() {
     return (
       <div>
-        <div className="grid-x">
-          <div className="cell">
-            <button className="btn --icon --icon-share-2--white" onClick={this.handleShareModalToggle}>Share session</button>
-          </div>
-        </div>
+        <Row withColumn withYPadding>
+          <Button type={Button.Type.SECONDARY} onClick={this.handleShareModalToggle}>
+            <Icon name="share-2" size={Icon.Size.MEDIUM} />Share session
+          </Button>
+        </Row>
 
         <Modal
           isOpen={this.state.isShareModalOpen}

@@ -1,4 +1,3 @@
-button,
 .button,
 .btn {
   @include clickable;
@@ -68,6 +67,7 @@ button,
     }
   }
 
+  // TODO: supercede this with Icon component as a child of Button. See below.
   &.--icon {
     padding-left: 40px;
 
@@ -81,6 +81,12 @@ button,
       top: 12px;
       left: 12px;
     }
+  }
+
+  .icon {
+    position: relative;
+    margin-bottom: -2px;
+    padding-right: 20px;
   }
 
   &.--tag {

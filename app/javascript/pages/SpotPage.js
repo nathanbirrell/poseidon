@@ -136,7 +136,6 @@ class SpotPage extends React.Component {
                 selectedDateTime={this.state.selectedDateTime}
                 selectedDateTimePosition={this.state.selectedDateTimePosition}
               />
-              <h5>Viewing: {moment(date).format("dd DD MMM YYYY hh:mm a")}</h5>
               <SessionCard
                 isExpanded
                 rating={this.state.forecasts.overall_ratings[seed.value]}
