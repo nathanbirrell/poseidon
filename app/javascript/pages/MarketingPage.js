@@ -15,7 +15,7 @@ class HomePage extends React.Component {
           <Column widthMedium={8}>
             <h1>Intelligent, reliable surf forecasting built for you.</h1>
             <p className="lead">
-              Surf like a God with dead-simple surf forecasts, spot recommendations and Australia's most reliable weather modelling.
+              Surf like a God with simple surf forecasts, spot recommendations and Australia's most reliable weather modelling.
             </p>
             <Button>JOIN THE WAITLIST</Button>
           </Column>
@@ -27,7 +27,7 @@ class HomePage extends React.Component {
           <Column widthMedium={10} offsetMedium={1} widthLarge={10} offsetLarge={1}>
             <Row>
               <Column isAutoMediumUp>
-                <h3>Australia's top modelling</h3>
+                <h3>Australia's top weather models</h3>
                 <p>Powered by BOM and the NOAA, you can now access all of surfing's most reliable sources in one place. TODO ADD BOM/NOAA IMAGES FOR LEGITNESS</p>
               </Column>
               <Column isAutoMediumUp>

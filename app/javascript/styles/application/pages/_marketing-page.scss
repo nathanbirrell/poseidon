@@ -1,13 +1,21 @@
 .marketing-page {
-  .callout.large {
-    padding-left: 0;
+  h1 {
+    font-weight: $font-weight-bold;
 
-    .cell { padding-right: 4rem; }
-
-    @include breakpoint(medium) {
-      padding-left: 3rem;
+    @include breakpoint(large) {
+      padding-right: 5rem;
     }
   }
+
+  .callout.large {
+    padding-left: 1rem;
+
+    @include breakpoint(medium) {
+      .cell { width: 60%; }
+    }
+  }
+
+  .cell { padding-right: 4rem; }
 
   .callout .cell {
     z-index: 1;
