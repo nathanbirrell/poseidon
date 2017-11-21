@@ -20,7 +20,7 @@ class Icon extends React.PureComponent {
       return `./${this.props.name}-${this.props.color}.svg`;
     }
 
-    return `${this.props.name}.svg`;
+    return `./${this.props.name}.svg`;
   }
 
   getIconClassName() {
@@ -45,6 +45,7 @@ class Icon extends React.PureComponent {
       styles.transform = `rotate(${this.props.rotate}deg)`;
     }
 
+    console.log(iconContext(this.getIconFileName()));
     styles.backgroundImage = `url(${iconContext(this.getIconFileName())})`;
 
     return (
