@@ -6,11 +6,29 @@ import Button from 'components/Button';
 
 import heroImg from 'images/marketing/hero.png';
 
-class HomePage extends React.Component {
+const MarketingPageNav = (props) => (
+  <header role="banner" className="header">
+    <nav className="top-bar">
+      <div className="top-bar-left">
+        <ul className="menu"><li><a href="/">POSEIDON<sup>(BETA)</sup></a></li></ul>
+      </div>
+      <div className="top-bar-right">
+        <ul className="menu">
+          <li><a href="http://app.surfposeidon.io" style={{fontWeight: '400'}}>Sign In</a></li>
+          <li><Button href="#join">Join the Waitlist</Button></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+);
+
+class MarketingPage extends React.Component {
   render() {
     console.log(heroImg);
     return (
       <div className="marketing-page">
+        <MarketingPageNav />
+
         <Row className="callout large">
           <Column widthMedium={8}>
             <h1>Intelligent, reliable surf forecasting built for you.</h1>
@@ -46,4 +64,4 @@ class HomePage extends React.Component {
   }
 }
 
-export default HomePage;
+export default MarketingPage;

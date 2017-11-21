@@ -1,10 +1,17 @@
 .marketing-page {
   h1 {
+    color: $font-dark-primary;
     font-weight: $font-weight-bold;
 
     @include breakpoint(large) {
       padding-right: 5rem;
     }
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 500;
+    color: $primary-color;
   }
 
   .callout.large {
