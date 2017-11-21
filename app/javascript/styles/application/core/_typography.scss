@@ -8,4 +8,13 @@ $font-weight-black: 700;
 
 h1 {
   color: $font-dark-primary;
+
+  @include breakpoint(medium) {
+    font-size: rem-calc(32);
+  }
+}
+
+h5 {
+  font-size: rem-calc(16);
+  line-height: 1;
 }
