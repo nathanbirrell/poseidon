@@ -18,8 +18,17 @@ class NavigationTabs extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const isBusyChanged = this.props.isBusy !== nextProps.isBusy;
+
+    if (isBusyChanged && !nextProps.isBusy) {
+      window.addEventListener('scroll', this.handleScroll);
+    } else if (isBusyChanged && nextProps.isBusy) {
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+  }
+
   compomentWillUnmount() {
-    console.log('unmount');
     window.removeEventListener('scroll', this.handleScroll);
   }
 
