@@ -27,9 +27,11 @@ class Button extends React.PureComponent {
       tabIndex: this.props.tabIndex,
     };
 
+    // Optional attributes
     if (this.props.onClick) { attributes.onClick = this.props.onClick; }
     if (this.props.href) { attributes.href = this.props.href; }
     if (this.props.to) { attributes.to = this.props.to; }
+    if (this.props.type) { attributes.type = this.props.type; }
 
     if (attributes.to) {
       return (
@@ -57,6 +59,7 @@ Button.PropTypes = {
   className: PropTypes.string,
   text: PropTypes.string,
   to: PropTypes.string,
+  type: PropTypes.string,
   onClick: PropTypes.function,
   href: PropTypes.string,
   disabled: PropTypes.bool,
