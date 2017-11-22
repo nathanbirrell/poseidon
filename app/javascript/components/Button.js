@@ -42,6 +42,14 @@ class Button extends React.PureComponent {
       );
     }
 
+    if (attributes.href) {
+      return (
+        <a {...attributes}>
+          {this.props.children || this.props.text}
+        </a>
+      );
+    }
+
     return (
       <button {...attributes} >
         {this.props.children || this.props.text}
