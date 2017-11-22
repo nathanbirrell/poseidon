@@ -145,6 +145,7 @@ class AreaGraph extends React.Component {
         .attr("fill", graphs[2].color);
     }
 
+    const forecastConfig = this.props.forecastConfig;
     const topLevel = this.svg.selectAll('g.graph')
       .data(graphs);
 
@@ -260,16 +261,18 @@ class AreaGraph extends React.Component {
             .attr('width', function(d, i) { return x(1) })
             .attr('height', vertSegHeight)
             .attr('fill', function(d, i) {
-              const modulus = i%8;
-              if (modulus <= 1 || modulus >= 6) {
-                return '#0D659D';
+              if (forecastConfig.showNightAndDay) {
+                const modulus = i%8;
+                if (modulus <= 1 || modulus >= 6) {
+                  return '#0D659D';
+                }
               }
               return '#ffffff';
             })
             .attr('opacity', function(d, i) {
               const modulus = i%8;
               if (modulus <= 1 || modulus >= 6) {
-                return 0.1;
+                return 0.15;
               }
               return 0.01;
             })
@@ -384,6 +387,7 @@ AreaGraph.defaultProps = {
   showAxes: true,
   updateParent: null,
   selectedDateTimePosition: null,
+  forecastConfig: null,
 }
 
 AreaGraph.propTypes = {
@@ -398,6 +402,7 @@ AreaGraph.propTypes = {
   showAxes: PropTypes.bool,
   updateParent: PropTypes.func,
   selectedDateTimePosition: PropTypes.number,
+  forecastConfig: PropTypes.object,
 }
 
 export default AreaGraph;

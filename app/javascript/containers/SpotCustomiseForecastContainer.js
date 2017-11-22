@@ -8,19 +8,24 @@ import Button from 'components/Button';
 import Icon from 'components/Icon';
 import Row from 'components/Row';''
 
-class SpotShareContainer extends React.Component {
+class SpotCustomiseForecastContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showOverallRating: this.props.shareOverallRating,
+      showOverallRating: this.props.forecastConfig.showOverallRating,
+      showNightAndDay: this.props.forecastConfig.showNightAndDay,
       isOpen: false,
     };
 
     this.handleToggle = this.handleToggle.bind(this);
     this.updateForecastConfig = this.updateForecastConfig.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleToggle() {
+    if (this.state.isOpen) {
+      this.updateForecastConfig();
+    }
     this.setState({
       isOpen: !this.state.isOpen
     });
@@ -30,6 +35,16 @@ class SpotShareContainer extends React.Component {
     this.props.updateParent({
       showOverallRating: this.state.showOverallRating,
       showNightAndDay: this.state.showNightAndDay,
+    });
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
     });
   }
 
@@ -47,12 +62,13 @@ class SpotShareContainer extends React.Component {
           header="Customise Forecasts"
         >
           <form>
+            <h5>Graph</h5>
             <label>
-              <input type="checkbox" checked={this.state.showOverallRating} />
+              <input type="checkbox" name="showOverallRating" checked={this.state.showOverallRating} onChange={this.handleInputChange} />
               Show overall rating
             </label>
             <label>
-              <input type="checkbox" checked={this.state.showNightAndDay} />
+              <input type="checkbox" name="showNightAndDay" checked={this.state.showNightAndDay} onChange={this.handleInputChange} />
               Show night and day
             </label>
           </form>
@@ -62,15 +78,14 @@ class SpotShareContainer extends React.Component {
   }
 }
 
-SpotShareContainer.defaultProps = {
-    showOverallRating: true,
-    showNightAndDay: true,
+SpotCustomiseForecastContainer.defaultProps = {
+    showOverallRating: null,
+    showNightAndDay: null,
 };
 
-SpotShareContainer.PropTypes = {
-  showOverallRating: PropTypes.bool,
-  showNightAndDay: PropTypes.bool,
+SpotCustomiseForecastContainer.PropTypes = {
+  forecastConfig: PropTypes.object,
   updateParent: PropTypes.func,
 };
 
-export default SpotShareContainer;
+export default SpotCustomiseForecastContainer;

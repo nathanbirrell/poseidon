@@ -27,10 +27,15 @@ class SpotPage extends React.Component {
       data: null,
       spotId: null,
       selectedDateTime: this.initTime(),
+      forecastConfig: {
+        showOverallRating: true,
+        showNightAndDay: true,
+      }
     };
 
     this.findForecastSeedFromTime = this.findForecastSeedFromTime.bind(this);
     this.updateSelectedDateTime = this.updateSelectedDateTime.bind(this);
+    this.updateForecastConfig = this.updateForecastConfig.bind(this);
   }
 
   componentDidMount() {
@@ -90,6 +95,12 @@ class SpotPage extends React.Component {
     };
   }
 
+  updateForecastConfig(forecastConfig) {
+    this.setState({
+      forecastConfig
+    });
+  }
+
   render() {
     const routeMatchUrl = this.props.match.url;
 
@@ -134,6 +145,7 @@ class SpotPage extends React.Component {
                 forecasts={this.state.forecasts}
                 updateParent={this.updateSelectedDateTime}
                 selectedDateTimePosition={seed.value}
+                forecastConfig={this.state.forecastConfig}
               />
               <SessionCard
                 isExpanded
@@ -147,7 +159,10 @@ class SpotPage extends React.Component {
                   selectedMoment={date}
                   spotName={this.state.spot.name}
                 />
-                <SpotCustomiseForecastContainer />
+                <SpotCustomiseForecastContainer
+                  forecastConfig={this.state.forecastConfig}
+                  updateParent={this.updateForecastConfig}
+                />
               </Row>
             </div>
           )} />

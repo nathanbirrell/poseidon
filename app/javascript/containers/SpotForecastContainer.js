@@ -100,6 +100,80 @@ class SpotForecastContainer extends React.Component {
       paddingTop: '35px',
     };
     const selectedDateTimePosition = this.props.selectedDateTimePosition;
+    const forecastConfig = this.props.forecastConfig;
+    console.log('SPOTFORECAST WITH', this.props.forecastConfig);
+
+    const combinedGraphs = [
+      {
+        label: 'Overall rating',
+        yVals: this.overallRatings()['rating'],
+        yMax: 110,
+        line: {
+          show: false,
+        },
+        area: {
+          show: forecastConfig.showOverallRating,
+          opacity: 0.5,
+        },
+        points: {
+          show: false,
+        },
+        color: Colors.Rating,
+      },
+      {
+        label: 'Swell size',
+        yVals: this.swellData()['size'],
+        yMax: this.getMaxSwellHeight(),
+        // directions: this.swellData()['direction'],
+        axesSuffix: 'ft',
+        line: {
+          show: true,
+        },
+        area: {
+          show: false,
+        },
+        points: {
+          show: false,
+        },
+        color: Colors.SwellSize,
+      },
+      {
+        label: 'Wind speed',
+        yVals: this.windData()['speed'],
+        yMax: this.getMaxWindSpeed(),
+        directions: this.windData()['direction'],
+        axesSuffix: 'kt',
+        line: {
+          show: true,
+        },
+        area: {
+          show: false,
+        },
+        points: {
+          show: true,
+        },
+        color: Colors.WindSpeed
+      }
+    ];
+
+    const tideGraphs = [
+      {
+        label: 'Tide height',
+        yVals: this.tideData()['height'],
+        yMax: Math.max.apply(Math, this.tideData()['height']) + 0.5,
+        line: {
+          show: false,
+        },
+        area: {
+          show: true,
+          flat: true,
+        },
+        points: {
+          show: false,
+        },
+        color: Colors.TideHeight,
+      }
+    ];
 
     return (
       <div id="forecast-section">
@@ -108,88 +182,22 @@ class SpotForecastContainer extends React.Component {
             <div className="forecast-graphs-parent">
               <h5>SWELL &amp; WIND</h5>
               <AreaGraph
+                forecastConfig={forecastConfig}
                 heightRatio={0.2}
                 cssSelector='forecast-graph'
                 targetId='forecast-graph-combined'
-                graphs={[
-                  {
-                    label: 'Overall rating',
-                    yVals: this.overallRatings()['rating'],
-                    yMax: 110,
-                    line: {
-                      show: false,
-                    },
-                    area: {
-                      show: true,
-                      opacity: 0.5,
-                    },
-                    points: {
-                      show: false,
-                    },
-                    color: Colors.Rating,
-                  },
-                  {
-                    label: 'Swell size',
-                    yVals: this.swellData()['size'],
-                    yMax: this.getMaxSwellHeight(),
-                    // directions: this.swellData()['direction'],
-                    axesSuffix: 'ft',
-                    line: {
-                      show: true,
-                    },
-                    area: {
-                      show: false,
-                    },
-                    points: {
-                      show: false,
-                    },
-                    color: Colors.SwellSize,
-                  },
-                  {
-                    label: 'Wind speed',
-                    yVals: this.windData()['speed'],
-                    yMax: this.getMaxWindSpeed(),
-                    directions: this.windData()['direction'],
-                    axesSuffix: 'kt',
-                    line: {
-                      show: true,
-                    },
-                    area: {
-                      show: false,
-                    },
-                    points: {
-                      show: true,
-                    },
-                    color: Colors.WindSpeed
-                  }
-                ]}
+                graphs={combinedGraphs}
                 legend={false}
                 updateParent={this.updateParent}
                 selectedDateTimePosition={selectedDateTimePosition}
               />
               <h5 style={bespokeSpacing}>TIDE &amp; SUN</h5>
               <AreaGraph
+                forecastConfig={forecastConfig}
                 heightRatio={0.06}
                 cssSelector='forecast-graph'
                 targetId='forecast-graph-tide'
-                graphs={[
-                  {
-                    label: 'Tide height',
-                    yVals: this.tideData()['height'],
-                    yMax: Math.max.apply(Math, this.tideData()['height']) + 0.5,
-                    line: {
-                      show: false,
-                    },
-                    area: {
-                      show: true,
-                      flat: true,
-                    },
-                    points: {
-                      show: false,
-                    },
-                    color: Colors.TideHeight,
-                  }
-                ]}
+                graphs={tideGraphs}
                 legend={false}
                 showAxes={false}
                 updateParent={this.updateParent}
@@ -207,12 +215,14 @@ SpotForecastContainer.defaultProps = {
   forecasts: null,
   updateParent: null,
   selectedDateTimePosition: null,
+  forecastConfig: null,
 };
 
 SpotForecastContainer.PropTypes = {
   forecasts: PropTypes.object,
   updateParent: PropTypes.func,
   selectedDateTimePosition: PropTypes.number,
+  forecastConfig: PropTypes.object.isRequired,
 };
 
 export default SpotForecastContainer;
