@@ -61,11 +61,10 @@ class SpotPage extends React.Component {
     return moment();
   }
 
-  updateSelectedDateTime(datetime, position) {
+  updateSelectedDateTime(datetime) {
     console.log('update datetime: ', datetime);
     this.setState({
-      selectedDateTime: datetime,
-      selectedDateTimePosition: position,
+      selectedDateTime: datetime
     });
   }
 
@@ -133,8 +132,7 @@ class SpotPage extends React.Component {
               <SpotForecastContainer
                 forecasts={this.state.forecasts}
                 updateParent={this.updateSelectedDateTime}
-                selectedDateTime={this.state.selectedDateTime}
-                selectedDateTimePosition={this.state.selectedDateTimePosition}
+                selectedDateTimePosition={seed.value}
               />
               <SessionCard
                 isExpanded

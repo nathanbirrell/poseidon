@@ -98,9 +98,8 @@ class SpotForecastContainer extends React.Component {
   }
 
   updateParent(n) {
-    const data = this.props.forecasts.swells[n];
-    const datetime = moment(data.date_time);
-    this.props.updateParent(datetime, n);
+    const datetime = moment(this.props.forecasts.swells[n].date_time);
+    this.props.updateParent(datetime);
   }
 
   render() {
@@ -219,14 +218,12 @@ class SpotForecastContainer extends React.Component {
 SpotForecastContainer.defaultProps = {
   forecasts: null,
   updateParent: null,
-  selectedDateTime: null,
   selectedDateTimePosition: null,
 };
 
 SpotForecastContainer.PropTypes = {
   forecasts: PropTypes.object,
   updateParent: PropTypes.func,
-  selectedDateTime: PropTypes.object,
   selectedDateTimePosition: PropTypes.number,
 };
 
