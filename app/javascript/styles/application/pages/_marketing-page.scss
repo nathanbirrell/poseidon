@@ -14,18 +14,17 @@
     color: $primary-color;
   }
 
-  .callout.large {
+  .callout.--hero {
     padding-left: 1rem;
 
     @include breakpoint(medium) {
       .cell { width: 60%; }
     }
-  }
 
-  .cell { padding-right: 4rem; }
-
-  .callout .cell {
-    z-index: 1;
+    .cell {
+      z-index: 1;
+      padding-right: 4rem;
+    }
   }
 
   .hero-image-container {
