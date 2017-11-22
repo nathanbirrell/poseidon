@@ -26,12 +26,14 @@ const MailChimpSignup = (props) => (
   <div id="mc_embed_signup">
     <form action="https://surfposeidon.us16.list-manage.com/subscribe/post?u=20c962b030d8c109b48ebb56d&amp;id=ae99fea08b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" className="validate" target="_blank" noValidate>
         <Row id="mc_embed_signup_scroll" withXPadding={false}>
-          <Column widthSmall={9} widthMedium={9} className="mc-field-group">
+          <Column widthSmall={12} widthMedium={8} className="mc-field-group">
             <label htmlFor="mce-EMAIL" className="hide">Email Address </label>
-            <input type="email" value="" placeholder="Enter your email&hellip;" name="EMAIL" className="required email" id="mce-EMAIL"/>
+            <div className="input-holder --icon --icon-mail">
+              <input type="email" value="" placeholder="Enter your email&hellip;" name="EMAIL" className="required email" id="mce-EMAIL" type="text" />
+            </div>
           </Column>
-          <Column widthSmall={3} widthMedium={3}>
-            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button --slim" />
+          <Column widthSmall={12} widthMedium={4}>
+            <input type="submit" value="FREE beta access" name="subscribe" id="mc-embedded-subscribe" className="button --slim" />
           </Column>
           <div id="mce-responses" className="clear">
             <div className="response" id="mce-error-response" style={{ display: 'none' }}></div>
@@ -56,7 +58,7 @@ class MarketingPage extends React.Component {
             <p className="lead">
               Surf like a God with simple surf forecasts, spot recommendations and Australia's most reliable weather modelling.
             </p>
-            <Button>JOIN THE WAITLIST</Button>
+            <Button href="#join">JOIN THE WAITLIST</Button>
           </Column>
           <div className="hero-image-container">
             <img className="hero-image" src={heroImg} />
@@ -82,9 +84,9 @@ class MarketingPage extends React.Component {
           </Column>
         </Row>
 
-        <Row id="join" className="callout large text-center">
+        <Row id="join" className="callout text-center">
           <Column isAutoMediumUp />
-          <Column widthMedium={8}>
+          <Column widthSmall={12} widthMedium={8} widthLarge={6}>
             <h3>Join the waitlist</h3>
             <p className="">
               While in beta, we&apos;re looking for people to test the app and provide feedback.
