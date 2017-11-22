@@ -25,18 +25,20 @@ const MarketingPageNav = (props) => (
 const MailChimpSignup = (props) => (
   <div id="mc_embed_signup">
     <form action="https://surfposeidon.us16.list-manage.com/subscribe/post?u=20c962b030d8c109b48ebb56d&amp;id=ae99fea08b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" className="validate" target="_blank" noValidate>
-        <div id="mc_embed_signup_scroll">
-          <div className="mc-field-group">
+        <Row id="mc_embed_signup_scroll" withXPadding={false}>
+          <Column widthSmall={9} widthMedium={9} className="mc-field-group">
             <label htmlFor="mce-EMAIL" className="hide">Email Address </label>
             <input type="email" value="" placeholder="Enter your email&hellip;" name="EMAIL" className="required email" id="mce-EMAIL"/>
-          </div>
+          </Column>
+          <Column widthSmall={3} widthMedium={3}>
+            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button --slim" />
+          </Column>
           <div id="mce-responses" className="clear">
             <div className="response" id="mce-error-response" style={{ display: 'none' }}></div>
             <div className="response" id="mce-success-response" style={{ display: 'none' }}></div>
           </div>
           <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true"><input type="text" name="b_20c962b030d8c109b48ebb56d_ae99fea08b" tabIndex="-1" value="" /></div>
-          <div className="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button" /></div>
-        </div>
+        </Row>
     </form>
   </div>
 );
