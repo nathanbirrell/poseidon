@@ -12,7 +12,7 @@ const MarketingPageNav = (props) => (
       <div className="top-bar-left">
         <ul className="menu"><li><a href="/">POSEIDON<sup>(BETA)</sup></a></li></ul>
       </div>
-      <div className="top-bar-right">
+      <div className="top-bar-right show-for-medium">
         <ul className="menu">
           <li><a href="http://app.surfposeidon.io" style={{fontWeight: '400'}}>Sign In</a></li>
           <li><Button href="#join">Join the Waitlist</Button></li>
@@ -27,7 +27,7 @@ const MailChimpSignup = (props) => (
     <form action="https://surfposeidon.us16.list-manage.com/subscribe/post?u=20c962b030d8c109b48ebb56d&amp;id=ae99fea08b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" className="validate" target="_blank" noValidate>
         <Row id="mc_embed_signup_scroll" withXPadding={false}>
           <Column widthSmall={12} widthMedium={8} className="mc-field-group">
-            <label htmlFor="mce-EMAIL" className="hide">Email Address </label>
+            <label htmlFor="mce-EMAIL" className="show-for-sr">Email Address </label>
             <div className="input-holder --icon --icon-mail">
               <input type="email" value="" placeholder="Enter your email&hellip;" name="EMAIL" className="required email" id="mce-EMAIL" type="text" />
             </div>
