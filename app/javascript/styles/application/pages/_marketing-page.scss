@@ -14,34 +14,23 @@
     color: $primary-color;
   }
 
-  .callout.--hero {
-    padding-left: 1rem;
-
-    @include breakpoint(medium) {
-      .cell { width: 60%; }
-    }
-
-    .cell {
-      z-index: 1;
-      padding-right: 4rem;
-    }
+  .callout.large {
+    padding: 3rem 0 3rem 0;
   }
 
   .hero-image-container {
-    position: relative;
-    width: 100%;
-
     @include breakpoint(medium) {
-      height: 100%;
+      position: absolute;
+      right: 0;
     }
   }
 
   .hero-image {
     @include breakpoint(medium) {
       position: absolute;
+      top: -20px;
+      right: 33px;
       z-index: 0;
-      right: 0;
-      bottom: 0;
       width: auto;
       height: 290px;
     }

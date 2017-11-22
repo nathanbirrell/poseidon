@@ -53,20 +53,28 @@ class MarketingPage extends React.Component {
         <MarketingPageNav />
 
         <Row className="callout --hero large">
-          <Column widthMedium={8}>
-            <h1>Intelligent, reliable surf forecasting built for you.</h1>
-            <p className="lead">
-              Surf like a God with simple surf forecasts, spot recommendations and Australia's most reliable weather modelling.
-            </p>
-            <Button href="#join">JOIN THE WAITLIST</Button>
+          <Column isAutoMediumUp />
+          <Column widthMedium={10} widthLarge={10}>
+            <Row>
+              <Column widthMedium={7}>
+                <h1>Intelligent, reliable surf forecasting built for you.</h1>
+                <p className="lead">
+                  Surf like a God with simple surf forecasts, spot recommendations and Australia's most reliable weather modelling.
+                </p>
+                <Button href="#join">JOIN THE WAITLIST</Button>
+              </Column>
+            </Row>
           </Column>
-          <div className="hero-image-container">
-            <img className="hero-image" src={heroImg} />
-          </div>
+          <Column isAutoMediumUp>
+            <Column className="hero-image-container">
+              <img className="hero-image" src={heroImg} />
+            </Column>
+          </Column>
         </Row>
 
         <Row className="cvp-container" withYPadding withXPadding>
-          <Column widthMedium={10} offsetMedium={1} widthLarge={10} offsetLarge={1}>
+          <Column isAutoMediumUp />
+          <Column widthMedium={10} widthLarge={10}>
             <Row>
               <Column isAutoMediumUp>
                 <h3>Australia's top weather models</h3>
@@ -82,9 +90,10 @@ class MarketingPage extends React.Component {
               </Column>
             </Row>
           </Column>
+          <Column isAutoMediumUp />
         </Row>
 
-        <Row id="join" className="callout text-center">
+        <Row id="join" className="callout large text-center">
           <Column isAutoMediumUp />
           <Column widthSmall={12} widthMedium={8} widthLarge={6}>
             <h3>Join the waitlist</h3>
