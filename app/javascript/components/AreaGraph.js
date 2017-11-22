@@ -270,9 +270,11 @@ class AreaGraph extends React.Component {
               return '#ffffff';
             })
             .attr('opacity', function(d, i) {
-              const modulus = i%8;
-              if (modulus <= 1 || modulus >= 6) {
-                return 0.15;
+              if (forecastConfig.showNightAndDay) {
+                const modulus = i%8;
+                if (modulus <= 1 || modulus >= 6) {
+                  return 0.15;
+                }
               }
               return 0.01;
             })
