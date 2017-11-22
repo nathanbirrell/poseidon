@@ -28,18 +28,7 @@ class SpotForecastContainer extends React.Component {
 
     this.getYVals = this.getYVals.bind(this);
     this.handleViewingChange = this.handleViewingChange.bind(this);
-    this.renderAdvanced = this.renderAdvanced.bind(this);
     this.updateParent = this.updateParent.bind(this);
-  }
-
-  renderAdvanced() {
-    return (
-      <Row>
-        <Column widthSmall={6} widthMedium={6} widthLarge={4}>
-          <button className="btn-incognito --icon --icon-chevron-down--dark-secondary">Advanced</button>
-        </Column>
-      </Row>
-    );
   }
 
   getYVals(dataset, keys) {
@@ -209,7 +198,6 @@ class SpotForecastContainer extends React.Component {
             </div>
           </Column>
         </Row>
-        {this.renderAdvanced()}
       </div>
     );
   }

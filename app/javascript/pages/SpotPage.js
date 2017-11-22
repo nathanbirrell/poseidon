@@ -12,6 +12,7 @@ import SpotAboutContainer from 'containers/SpotAboutContainer';
 import SpotForecastContainer from 'containers/SpotForecastContainer';
 import SpotDayContainer from 'containers/SpotDayContainer';
 import SpotShareContainer from 'containers/SpotShareContainer';
+import SpotCustomiseForecastContainer from 'containers/SpotCustomiseForecastContainer';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
@@ -120,7 +121,7 @@ class SpotPage extends React.Component {
     console.log(this.props.match.url);
 
     return (
-      <div>
+      <div className="display-inline">
         <SpotHeader
           name={this.state.spot.name}
           region={this.state.spot.region}
@@ -141,10 +142,13 @@ class SpotPage extends React.Component {
                 wind={this.state.forecasts.winds[seed.value]}
                 tide_current={this.state.forecasts.tides[seed.value]}
               />
-              <SpotShareContainer
-                selectedMoment={date}
-                spotName={this.state.spot.name}
-              />
+              <Row withColumn withYPadding>
+                <SpotShareContainer
+                  selectedMoment={date}
+                  spotName={this.state.spot.name}
+                />
+                <SpotCustomiseForecastContainer />
+              </Row>
             </div>
           )} />
 
