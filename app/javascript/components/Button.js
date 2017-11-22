@@ -20,6 +20,7 @@ class Button extends React.PureComponent {
       [`${this.props.className}`]: (this.props.className), // add any classes passed down
       '--secondary': (this.props.type === Type.SECONDARY),
       '--disabled': (this.props.disabled),
+      '--slim': (this.props.isSlim),
     });
 
     const attributes = {
@@ -63,6 +64,7 @@ Button.PropTypes = {
   onClick: PropTypes.function,
   href: PropTypes.string,
   disabled: PropTypes.bool,
+  isSlim: PropTypes.bool,
 };
 
 export default Button;
