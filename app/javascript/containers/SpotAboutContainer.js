@@ -66,7 +66,7 @@ class SpotAboutContainer extends React.Component {
         </div>
         <div id="location-view" className="grid-x">
           <div className="large-12 cell">
-            <a className="btn --icon --icon-alert-triangle--white" href="https://www.google.com.au/maps/dir//<%= @spot.latitude %>,<%= @spot.longitude %>/" target="_blank">
+            <a className="btn --icon --icon-alert-triangle--white" href={`https://www.google.com.au/maps/dir//${data.latitude},${data.longitude}/`} target="_blank">
               Get directions
             </a>
             <a className="btn --secondary --icon --icon-calendar--blue" href="#" target="_blank">

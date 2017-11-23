@@ -50,12 +50,10 @@ class SpotShareContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        <Row withColumn withYPadding>
-          <Button type={Button.Type.SECONDARY} onClick={this.handleShareModalToggle}>
-            <Icon name="share-2" size={Icon.Size.MEDIUM} />Share session
-          </Button>
-        </Row>
+      <div className="display-inline">
+        <Button type={Button.Type.PRIMARY} onClick={this.handleShareModalToggle}>
+          <Icon name="share-2--white" size={Icon.Size.MEDIUM} />Share session
+        </Button>
 
         <Modal
           isOpen={this.state.isShareModalOpen}

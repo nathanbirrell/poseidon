@@ -62,3 +62,41 @@ input[type="text"] {
     color: $font-dark-tertiary;
   }
 }
+
+input[type="checkbox"] {
+  appearance: none;
+  background-color: #fafafa;
+	border: 1px solid $iron;
+	padding: 10px;
+	border-radius: 4px;
+	display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  cursor: pointer;
+  margin: 6px 6px 6px 0;
+
+  &:checked {
+    background-color: $secondary-color;
+    color: $white;
+    border: 1px solid $secondary-color;
+
+    &:after {
+      content: '';
+      position: absolute;
+      height: 16px;
+      width: 16px;
+      top: 2px;
+      left: 2px;
+      color: $white;
+      background-image: url('images/icons/check--white.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  }
+  
+  &:focus,
+  &:hover,
+  &:active, {
+    outline: none;
+  }
+}
