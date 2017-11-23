@@ -16,15 +16,7 @@ class AreaGraph extends React.Component {
       parentConfig: {
         axes: this.props.showAxes || false,
         vertSegments: this.props.showVertSegments || true
-      },
-      graphConfigs: this.props.graphs.map((g, i) => {
-        return {
-          area: g.area.show || false,
-          line: g.line.show || false,
-          points: g.points.show || false,
-          directions: g.directions ? true : false,
-        }
-      })
+      }
     };
 
     this.updateDimensions = this.updateDimensions.bind(this);
@@ -67,7 +59,6 @@ class AreaGraph extends React.Component {
     const dimensions = this.updateDimensions();
     const state = this.state;
     const parentConfig = state.parentConfig;
-    const graphConfigs = state.graphConfigs;
 
     const x = d3.scaleLinear()
       .rangeRound([0, dimensions.width]);
@@ -184,7 +175,7 @@ class AreaGraph extends React.Component {
             .attr("d", area);
         }
 
-        if (graphConfigs[i]['line']) {
+        if (graphs[i]['line'].show) {
           const lineInstance = thisGraph
             .append('path')
             .datum(graph.yVals)
@@ -195,7 +186,7 @@ class AreaGraph extends React.Component {
             .attr("d", line);
         }
 
-        if (graphConfigs[i]['directions']) {
+        if (graphs[i]['directions']) {
           // DIRECTIONS ARROWS
           const pointsInstance = thisGraph
             .selectAll('.point')
@@ -213,7 +204,7 @@ class AreaGraph extends React.Component {
               })
               .attr("stroke-width", 1)
               .attr("marker-end", `url(#${targetId}_arrow_${i})`);
-        } else if (graphConfigs[i]['points']) {
+        } else if (graphs[i]['points'].show) {
           // REGULAR POINTS
           const pointsInstance = thisGraph
           .selectAll('.point')
@@ -321,43 +312,6 @@ class AreaGraph extends React.Component {
     // Mouse out func here
   }
 
-  handleLegendClick(configOption, graph) {
-    if (graph) {
-      const graphConfigs = this.state.graphConfigs;
-      graphConfigs[graph][configOption] = !graphConfigs[graph][configOption];
-      this.setState({graphConfigs});
-    } else {
-      const parentConfig = this.state.parentConfig;
-      parentConfig[configOption] = !parentConfig[configOption];
-      this.setState({parentConfig});
-    }
-  }
-
-  renderLegend() {
-    return (
-      <Row>
-        <Column>
-        <button className={"btn --slim --secondary " + (this.state.parentConfig['vertSegments'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('vertSegments')}}>Day/Night</button>
-          {this.props.graphs.map((graph, i) => {
-            const keyStyle = {
-              backgroundColor: graph.color
-            };
-            return (
-              <div key={`${graph.label}_controls`}>
-                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['area'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('area', i)}}><span style={keyStyle}></span>{graph.label} Area</button>
-                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['line'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('line', i)}}><span style={keyStyle}></span>{graph.label} Line</button>
-                <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['points'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('points', i)}}><span style={keyStyle}></span>{graph.label} Points</button>
-                {graph.directions ?
-                  <button className={"legend-key btn --slim --secondary " + (this.state.graphConfigs[i]['directions'] ? '--on' : '--off')} onClick={() => {this.handleLegendClick('directions', i)}}><span style={keyStyle}></span>{graph.label} Directions</button>
-                : null}
-              </div>
-            );
-          })}
-        </Column>
-      </Row>
-    );
-  }
-
   render() {
     if (!this.props.targetId) {
       return false;
@@ -371,7 +325,6 @@ class AreaGraph extends React.Component {
     return (
       <div>
         <div id={this.props.targetId} className="forecast-graph-container" style={heightRatio}></div>
-        {this.props.legend ? this.renderLegend() : null}
       </div>
     );
   }
