@@ -13,3 +13,7 @@
 		box-shadow: $shadow-active;
 	}
 }
+
+.--clickable {
+    @include clickable;
+  }

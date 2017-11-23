@@ -63,14 +63,28 @@ class SpotCustomiseForecastContainer extends React.Component {
         >
           <form>
             <h5>Graph</h5>
-            <label>
-              <input type="checkbox" name="showOverallRating" checked={this.state.showOverallRating} onChange={this.handleInputChange} />
-              Show overall rating
-            </label>
-            <label>
-              <input type="checkbox" name="showNightAndDay" checked={this.state.showNightAndDay} onChange={this.handleInputChange} />
-              Show night and day
-            </label>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="showOverallRating" checked={this.state.showOverallRating} onChange={this.handleInputChange} />
+                  </td>
+                  <td>
+                    <h6>Overall rating</h6>
+                    Show the overall spot potential behind the data in the wind and swell graph.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="showNightAndDay" checked={this.state.showNightAndDay} onChange={this.handleInputChange} />
+                  </td>
+                  <td>
+                    <h6>Night and Day</h6>
+                    Show night and day in different colours on both graphs.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </form>
         </Modal>
       </div>
