@@ -172,7 +172,7 @@ class AreaGraph extends React.Component {
         defs.html(colouredGradient + " " + arrow);
 
         // DRAW NEW GRAPH ELEMENTS
-        if (graphConfigs[i]['area']) {
+        if (graphs[i]['area'].show) {
           const areaInstance = thisGraph
             .append('path')
             .datum(graph.yVals)
