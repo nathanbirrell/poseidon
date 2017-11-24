@@ -26,14 +26,14 @@ const MailChimpSignup = (props) => (
   <div id="mc_embed_signup">
     <form action="https://surfposeidon.us16.list-manage.com/subscribe/post?u=20c962b030d8c109b48ebb56d&amp;id=ae99fea08b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" className="validate" target="_blank" noValidate>
         <Row id="mc_embed_signup_scroll" withXPadding={false}>
-          <Column widthSmall={12} widthMedium={8} className="mc-field-group">
+          <Column widthSmall={12} isAutoMediumUp className="mc-field-group">
             <label htmlFor="mce-EMAIL" className="show-for-sr">Email Address </label>
-            <div className="input-holder --icon --icon-mail">
+            <div className="input-holder --clickable --icon --icon-mail">
               <input type="email" value="" placeholder="Enter your email&hellip;" name="EMAIL" className="required email" id="mce-EMAIL" type="text" />
             </div>
           </Column>
-          <Column widthSmall={12} widthMedium={4}>
-            <input type="submit" value="Get FREE Beta Access" name="subscribe" id="mc-embedded-subscribe" className="button --slim" />
+          <Column widthSmall={12} widthMedium={5}>
+            <input type="submit" value="Get FREE Beta Access" name="subscribe" id="mc-embedded-subscribe" className="button --slim --secondary" />
           </Column>
           <div id="mce-responses" className="clear">
             <div className="response" id="mce-error-response" style={{ display: 'none' }}></div>
@@ -95,13 +95,17 @@ class MarketingPage extends React.Component {
           <Column isAutoMediumUp />
         </Row>
 
-        <Row id="join" className="callout large text-center">
+        <Row id="join" className="join callout large text-center">
           <Column isAutoMediumUp />
           <Column widthSmall={12} widthMedium={8} widthLarge={6}>
             <h3>Get FREE Beta Access</h3>
             <p className="lead">
-              Access to the Early Access program is <i>invitation-only</i>. Requests accepted until 31st of January 2018.
+              Surf like a God with simple spot recommendations, Australia's most trusted weather modelling and reports from local experts.
             </p>
+            <p className="small"><small>
+              Access to the Early Access program is <i>invitation-only</i>.<br />
+              Requests accepted until 31st of January 2018.
+            </small></p>
             <MailChimpSignup />
           </Column>
           <Column isAutoMediumUp />
