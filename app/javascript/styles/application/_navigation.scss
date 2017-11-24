@@ -11,6 +11,10 @@ nav.top-bar {
     font-size: rem-calc(14);
     font-weight: $font-weight-medium;
   }
+
+  li a.btn {
+    color: $white;
+  }
 }
 
 .menu a {

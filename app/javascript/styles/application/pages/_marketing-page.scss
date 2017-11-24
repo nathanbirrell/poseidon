@@ -28,11 +28,11 @@
   .hero-image {
     @include breakpoint(medium) {
       position: absolute;
-      top: -20px;
       right: 33px;
       z-index: 0;
-      width: auto;
-      height: 290px;
+      max-width: 50%;
+      height: auto;
+      max-height: 240px;
     }
   }
 }
