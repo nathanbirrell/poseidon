@@ -77,7 +77,7 @@ class MarketingPage extends React.Component {
         <Row className="cvp-container" withYPadding withXPadding>
           <Column isAutoMediumUp />
           <Column widthMedium={10} widthLarge={10}>
-            <Row>
+            <Row style={{ padding: '22px 0'}}>
               <Column isAutoMediumUp>
                 <h3>Australia's top weather models</h3>
                 <p>Powered by BOM and the NOAA, you can now access all of surfing&apos;s most reliable sources in one place. TODO ADD BOM/NOAA IMAGES FOR LEGITNESS</p>
@@ -87,7 +87,7 @@ class MarketingPage extends React.Component {
                 <p>Poseidon's <b>proprietary rating algorithm</b> tells you where&apos;s pumping, so you can forget about ideal swells, winds and tides and spend more time in the water.</p>
               </Column>
               <Column isAutoMediumUp>
-                <h3>Built by surfers, for surfers</h3>
+                <h3>Built by surfers, <br />for surfers</h3>
                 <p>We know the many issues with existing services, so we&apos;re building <b>mobile-first</b>, spot <b>notifications</b> and private <b>secret spots</b> for you and your mates.</p>
               </Column>
             </Row>
@@ -104,7 +104,7 @@ class MarketingPage extends React.Component {
             </p>
             <p className="small"><small>
               Access to the Early Access program is <i>invitation-only</i>.<br />
-              Requests accepted until 31st of January 2018.
+              Requests accepted until <b>31st of January 2018</b>.
             </small></p>
             <MailChimpSignup />
           </Column>
