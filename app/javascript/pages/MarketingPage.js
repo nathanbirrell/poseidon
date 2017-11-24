@@ -64,8 +64,6 @@ class MarketingPage extends React.Component {
                 </p>
 
                 <Button href="#join">Get FREE Beta Access</Button>
-
-                <p className="small">We're currently in Closed Beta (invitation-only). Requests accepted until 31st Jan 2018.</p>
               </Column>
             </Row>
           </Column>
@@ -82,15 +80,15 @@ class MarketingPage extends React.Component {
             <Row>
               <Column isAutoMediumUp>
                 <h3>Australia's top weather models</h3>
-                <p>Powered by BOM and the NOAA, you can now access all of surfing's most reliable sources in one place. TODO ADD BOM/NOAA IMAGES FOR LEGITNESS</p>
+                <p>Powered by BOM and the NOAA, you can now access all of surfing&apos;s most reliable sources in one place. TODO ADD BOM/NOAA IMAGES FOR LEGITNESS</p>
               </Column>
               <Column isAutoMediumUp>
                 <h3>Plan less, <br />surf more</h3>
-                <p>Poseidon's proprietary rating algorithm tells you where's pumping, so you can forget about ideal swells, winds and tides and spend more time in the water.</p>
+                <p>Poseidon's <b>proprietary rating algorithm</b> tells you where&apos;s pumping, so you can forget about ideal swells, winds and tides and spend more time in the water.</p>
               </Column>
               <Column isAutoMediumUp>
-                <h3>Mobile first, notifications m8</h3>
-                <p>Vivamus luctus urna sed urna ultricies ac tempor dui sagittis. In condimentum facilisis porta. Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna.</p>
+                <h3>Built by surfers, for surfers</h3>
+                <p>We know the many issues with existing services, so we&apos;re building <b>mobile-first</b>, spot <b>notifications</b> and private <b>secret spots</b> for you and your mates.</p>
               </Column>
             </Row>
           </Column>
@@ -100,9 +98,9 @@ class MarketingPage extends React.Component {
         <Row id="join" className="callout large text-center">
           <Column isAutoMediumUp />
           <Column widthSmall={12} widthMedium={8} widthLarge={6}>
-            <h3>Join the waitlist</h3>
-            <p className="">
-              While in beta, we&apos;re looking for people to test the app and provide feedback.
+            <h3>Get FREE Beta Access</h3>
+            <p className="lead">
+              Access to the Early Access program is <i>invitation-only</i>. Requests accepted until 31st of January 2018.
             </p>
             <MailChimpSignup />
           </Column>
