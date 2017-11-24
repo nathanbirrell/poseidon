@@ -15,7 +15,7 @@ const MarketingPageNav = (props) => (
       <div className="top-bar-right show-for-medium">
         <ul className="menu">
           <li><a href="http://app.surfposeidon.io" style={{fontWeight: '400'}}>Sign In</a></li>
-          <li><Button href="#join">Join the Waitlist</Button></li>
+          <li><Button href="#join">Get FREE Beta Access</Button></li>
         </ul>
       </div>
     </nav>
@@ -33,7 +33,7 @@ const MailChimpSignup = (props) => (
             </div>
           </Column>
           <Column widthSmall={12} widthMedium={4}>
-            <input type="submit" value="FREE beta access" name="subscribe" id="mc-embedded-subscribe" className="button --slim" />
+            <input type="submit" value="Get FREE Beta Access" name="subscribe" id="mc-embedded-subscribe" className="button --slim" />
           </Column>
           <div id="mce-responses" className="clear">
             <div className="response" id="mce-error-response" style={{ display: 'none' }}></div>
@@ -58,10 +58,14 @@ class MarketingPage extends React.Component {
             <Row>
               <Column widthMedium={7}>
                 <h1>Intelligent, reliable surf forecasting built for you.</h1>
+
                 <p className="lead">
-                  Surf like a God with simple surf forecasts, spot recommendations and Australia's most reliable weather modelling.
+                  Surf like a God with simple spot recommendations, Australia's most trusted weather modelling and reports from local experts.
                 </p>
-                <Button href="#join">JOIN THE WAITLIST</Button>
+
+                <Button href="#join">Get FREE Beta Access</Button>
+
+                <p className="small">We're currently in Closed Beta (invitation-only). Requests accepted until 31st Jan 2018.</p>
               </Column>
             </Row>
           </Column>
