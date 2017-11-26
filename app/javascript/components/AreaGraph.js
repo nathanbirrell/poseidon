@@ -264,7 +264,7 @@ class AreaGraph extends React.Component {
               if (forecastConfig.showNightAndDay) {
                 const modulus = i%8;
                 if (modulus <= 1 || modulus >= 6) {
-                  return 0.15;
+                  return 0.1;
                 }
               }
               return 0.01;

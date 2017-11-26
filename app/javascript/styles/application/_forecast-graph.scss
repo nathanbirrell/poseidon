@@ -1,8 +1,13 @@
 .forecast-graphs-parent {
+  position: relative;
+  background: $white;
   overflow-y: hidden;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
   width: 100%;
+  margin-bottom: 12px;
+  padding: 12px;
+  box-shadow: $shadow-subtle;
 }
 
 .forecast-graph-container {
@@ -16,7 +21,6 @@
     display: block;
     width: 960px;
     height: 225px;
-    background: $ocean-mist;
 
     @include breakpoint(medium) {
       // height: 275px;
