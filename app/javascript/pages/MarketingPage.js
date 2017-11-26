@@ -5,6 +5,7 @@ import Column from 'components/Column';
 import Button from 'components/Button';
 
 import heroImg from 'images/marketing/hero.png';
+import sourcesImg from 'images/marketing/bom-noaa.png';
 
 const MarketingPageNav = (props) => (
   <header role="banner" className="header">
@@ -47,7 +48,6 @@ const MailChimpSignup = (props) => (
 
 class MarketingPage extends React.Component {
   render() {
-    console.log(heroImg);
     return (
       <div className="marketing-page">
         <MarketingPageNav />
@@ -79,16 +79,19 @@ class MarketingPage extends React.Component {
           <Column widthMedium={10} widthLarge={10}>
             <Row style={{ padding: '22px 0'}}>
               <Column isAutoMediumUp>
-                <h3>Australia's top weather models</h3>
-                <p>Powered by BOM and the NOAA, you can now access all of surfing&apos;s most reliable sources in one place. TODO ADD BOM/NOAA IMAGES FOR LEGITNESS</p>
-              </Column>
-              <Column isAutoMediumUp>
-                <h3>Plan less, <br />surf more</h3>
+                <img className="" src="http://placehold.it/640x640?text=CVP+Image" />
+                <h3>Plan less, surf more</h3>
                 <p>Poseidon's <b>proprietary rating algorithm</b> tells you where&apos;s pumping, so you can forget about ideal swells, winds and tides and spend more time in the water.</p>
               </Column>
               <Column isAutoMediumUp>
-                <h3>Built by surfers, <br />for surfers</h3>
-                <p>We know the many issues with existing services, so we&apos;re building <b>mobile-first</b>, spot <b>notifications</b> and private <b>secret spots</b> for you and your mates.</p>
+                <img className="" src="http://placehold.it/640x640?text=CVP+Image" />
+                <h3>Built by surfers, for surfers</h3>
+                <p>We know the issues with modern-day surf forecasts, so we&apos;re building <b>mobile-first</b>, local spot <b>notifications</b> and private <b>secret spots</b> for you and your mates.</p>
+              </Column>
+              <Column isAutoMediumUp>
+                <img className="" src={sourcesImg} />
+                <h3>Australia's top weather models</h3>
+                <p>Powered by <b>BOM</b> and the <b>NOAA</b>, you can now access all of surfing&apos;s most reliable sources in one place. TODO ADD BOM/NOAA IMAGES FOR LEGITNESS</p>
               </Column>
             </Row>
           </Column>
