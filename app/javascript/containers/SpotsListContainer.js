@@ -152,7 +152,7 @@ class SpotsListContainer extends React.Component {
               <div className="input-holder --icon --icon-search--dark-secondary">
                 <input
                   type="text"
-                  className="search"
+                  className="search input"
                   value={this.state.nameSearch}
                   placeholder="Search spots"
                   onChange={this.handleNameSearchChange}
@@ -162,9 +162,9 @@ class SpotsListContainer extends React.Component {
             </Column>
 
             <Column widthSmall={12} widthMedium={6} widthLarge={4}>
-              <div className="input-holder --icon --icon-map-pin--dark-secondary --clickable">
+              <div className="input-holder --icon">
                 <select
-                  className="filter-select"
+                  className="filter-select input --clickable"
                   onChange={this.handleRegionChange}
                   value={this.state.selectedRegion}
                 >
@@ -175,9 +175,9 @@ class SpotsListContainer extends React.Component {
               </div>
             </Column>
             <Column className="flex-space-between" widthSmall={12} widthMedium={6} widthLarge={4}>
-              <div className="input-holder --icon --icon-align-right--dark-secondary --clickable">
+              <div className="input-holder --icon --icon-align-right--dark-secondary">
                 <select
-                  className="filter-select"
+                  className="filter-select input --clickable"
                   onChange={this.handleOrderByChange}
                   value={this.state.orderByValue}
                 >

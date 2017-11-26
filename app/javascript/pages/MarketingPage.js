@@ -31,7 +31,7 @@ const MailChimpSignup = (props) => (
           <Column widthSmall={12} isAutoMediumUp className="mc-field-group">
             <label htmlFor="mce-EMAIL" className="show-for-sr">Email Address </label>
             <div className="input-holder --clickable --icon --icon-mail">
-              <input type="email" value="" placeholder="Enter your email&hellip;" name="EMAIL" className="required email" id="mce-EMAIL" type="text" />
+              <input type="email" value="" placeholder="Enter your email&hellip;" name="EMAIL" className="required email input" id="mce-EMAIL" type="text" />
             </div>
           </Column>
           <Column widthSmall={12} widthMedium={5}>

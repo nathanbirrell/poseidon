@@ -67,7 +67,7 @@ class SpotCustomiseForecastContainer extends React.Component {
               <tbody>
                 <tr>
                   <td>
-                    <input type="checkbox" name="showOverallRating" checked={this.state.showOverallRating} onChange={this.handleInputChange} />
+                    <input className="input" type="checkbox" name="showOverallRating" checked={this.state.showOverallRating} onChange={this.handleInputChange} />
                   </td>
                   <td>
                     <h6>Overall rating</h6>
@@ -76,7 +76,7 @@ class SpotCustomiseForecastContainer extends React.Component {
                 </tr>
                 <tr>
                   <td>
-                    <input type="checkbox" name="showNightAndDay" checked={this.state.showNightAndDay} onChange={this.handleInputChange} />
+                    <input className="input" type="checkbox" name="showNightAndDay" checked={this.state.showNightAndDay} onChange={this.handleInputChange} />
                   </td>
                   <td>
                     <h6>Night and Day</h6>
