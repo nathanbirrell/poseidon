@@ -1,0 +1,28 @@
+.auth-page {
+  height: 100%;
+  background: $primary-color;
+
+  header, footer { border: none; }
+
+  header {
+    margin-top: 110px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  h1 {
+    color: $white;
+    font-weight: $font-weight-bold;
+    font-size: rem-calc(20);
+  }
+}
+
+.auth-container {
+  @include callout;
+  max-width: 430px;
+  margin: 0 auto 20px;
+  background: $white;
+  border-radius: 8px;
+  box-shadow: $shadow-subtle;
+}

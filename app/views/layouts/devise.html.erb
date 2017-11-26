@@ -13,12 +13,12 @@
   <%= csrf_meta_tags %>
 </head>
 
-<body>
+<body class="auth-page">
   <header>
     <h1>POSEIDON</h1>
   </header>
 
-  <section class="main-section">
+  <section class="auth-container">
     <main role="main">
       <%= render 'layouts/messages' %>
         <%= yield %>
@@ -26,32 +26,6 @@
   </section>
 
   <footer class="footer cell">
-    <div class="grid-x grid-padding-x grid-padding-y">
-      <div class="cell small-12 medium-10 medium-offset-1">
-        <div class="grid-x grid-padding-x">
-          <div class="cell small-12 medium-6">
-            <ul class="footer__links">
-              <li>
-                <a href="/">Home</a>
-              </li>
-              <li>
-                <a href="#">Account</a>
-              </li>
-              <li>
-                <a href="#">About</a>
-              </li>
-            </ul>
-          </div>
-          <div class="cell small-12 medium-6 text-right">
-            <p>
-              Built with stoke in Melbourne.
-              <br>
-              Copyright Surf Poseidon Pty Ltd 2017
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
   </footer>
 
   <!-- Global Site Tag (gtag.js) - Google Analytics -->
