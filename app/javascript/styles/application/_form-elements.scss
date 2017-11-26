@@ -15,6 +15,12 @@
     .input {
       @include clickable;
     }
+    &:hover .icon  {
+      transform: translateY(-1px);
+    }
+    &:active .icon {
+      transform: translateY(1px);
+    }
     .icon {
       z-index: 1;
     }

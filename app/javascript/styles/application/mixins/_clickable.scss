@@ -1,4 +1,4 @@
-@mixin clickable($clickable: true) {
+@mixin clickable() {
 	box-shadow: $shadow-subtle;
 	cursor: pointer;
 	transition: $natural-transition;
