@@ -11,6 +11,8 @@
 }
 
 .session-card.--expanded {
+  box-shadow: $shadow-subtle;
+
   .icon.--icon-navigation-2 {
     margin-right: -4px;
   }
@@ -29,6 +31,13 @@
   @media #{$medium-up} {
     width: auto;
     margin: 6px;
+  }
+
+  @media #{$large-up} {
+    .--expanded & {
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
   }
 
   .--expanded & {
@@ -89,7 +98,6 @@ a .session-card {
   .--expanded & {
     max-width: none;
     margin-left: auto;
-    padding-right: 12px;
   }
 }
 

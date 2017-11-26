@@ -202,14 +202,6 @@ class SessionCard extends React.Component {
       '--expanded': this.props.isExpanded,
     });
 
-    if (this.props.isExpanded) {
-      return (
-        <Column widthMedium={6} className={classes}>
-          {this.renderBody()}
-        </Column>
-      );
-    }
-
     return (
       <div className={classes}>
         {this.renderBody()}

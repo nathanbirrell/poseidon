@@ -34,16 +34,17 @@
 @import "application/organisms/spots-list";
 @import "application/organisms/spot-header";
 @import "application/organisms/session-card";
+@import "application/organisms/forecast-graph";
 
 @import "application/pages/marketing-page";
 @import "application/pages/auth-pages";
+@import "application/pages/spot-page";
 
 // TODO: organise these bad boys
 @import "application/backgrounds";
 @import "application/column";
 @import "application/curtain";
 @import "application/footer";
-@import "application/forecast-graph";
 @import "application/icons";
 @import "application/form-elements";
 @import "application/info-card";

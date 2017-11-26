@@ -132,21 +132,24 @@ class SpotPage extends React.Component {
     console.log(this.props.match.url);
 
     return (
-      <div className="display-inline">
+      <div>
         <SpotHeader
           name={this.state.spot.name}
           region={this.state.spot.region}
           matchUrl={routeMatchUrl}
         />
-        <Row withColumn>
-          <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
-            <div className="spot-page__forecast">
+
+        <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
+          <Row className="spot-page__forecast" withXPadding={false}>
+            <Column widthSmall={12} widthMedium={12} widthLarge={8}>
               <SpotForecastContainer
                 forecasts={this.state.forecasts}
                 updateParent={this.updateSelectedDateTime}
                 selectedDateTimePosition={seed.value}
                 forecastConfig={this.state.forecastConfig}
               />
+            </Column>
+            <Column widthMedium={6} widthLarge={4}>
               <SessionCard
                 isExpanded
                 rating={this.state.forecasts.overall_ratings[seed.value]}
@@ -154,44 +157,43 @@ class SpotPage extends React.Component {
                 wind={this.state.forecasts.winds[seed.value]}
                 tide_current={this.state.forecasts.tides[seed.value]}
               />
-              <Row withColumn withYPadding>
-                <SpotShareContainer
-                  selectedMoment={date}
-                  spotName={this.state.spot.name}
-                />
-                <SpotCustomiseForecastContainer
-                  forecastConfig={this.state.forecastConfig}
-                  updateParent={this.updateForecastConfig}
-                />
+              <SpotShareContainer
+                selectedMoment={date}
+                spotName={this.state.spot.name}
+              />
+              <SpotCustomiseForecastContainer
+                forecastConfig={this.state.forecastConfig}
+                updateParent={this.updateForecastConfig}
+              />
+            </Column>
+          </Row>
+        )} />
+
+        <Route path={`${routeMatchUrl}/reports`} exact render={() => (
+          <SpotDayContainer
+            selectedTime={seed.value}
+            forecasts={this.state.forecasts}
+          />
+        )} />
+
+        <Route path={`${routeMatchUrl}/about`} exact render={() => (
+          <SpotAboutContainer
+            data={this.state.spot}
+          />
+        )} />
+
+        <Route path={`${routeMatchUrl}/history`} exact render={() => (
+          <div id="history-section" className="grid-x">
+            <div className="large-12 cell">
+              <Row>
+                <Column>
+                  <h1>Coming soon</h1>
+                </Column>
               </Row>
             </div>
-          )} />
+          </div>
+        )} />
 
-          <Route path={`${routeMatchUrl}/reports`} exact render={() => (
-            <SpotDayContainer
-              selectedTime={seed.value}
-              forecasts={this.state.forecasts}
-            />
-          )} />
-
-          <Route path={`${routeMatchUrl}/about`} exact render={() => (
-            <SpotAboutContainer
-              data={this.state.spot}
-            />
-          )} />
-
-          <Route path={`${routeMatchUrl}/history`} exact render={() => (
-            <div id="history-section" className="grid-x">
-              <div className="large-12 cell">
-                <Row>
-                  <Column>
-                    <h1>Coming soon</h1>
-                  </Column>
-                </Row>
-              </div>
-            </div>
-          )} />
-        </Row>
       </div>
     );
   }

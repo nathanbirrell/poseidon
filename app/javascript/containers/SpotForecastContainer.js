@@ -176,36 +176,30 @@ class SpotForecastContainer extends React.Component {
     ];
 
     return (
-      <div id="forecast-section">
-        <Row>
-          <Column widthSmall={12} widthMedium={12} widthLarge={12}>
-            <div className="forecast-graphs-parent">
-              <h5>SWELL &amp; WIND</h5>
-              <AreaGraph
-                forecastConfig={forecastConfig}
-                heightRatio={0.2}
-                cssSelector='forecast-graph'
-                targetId='forecast-graph-combined'
-                graphs={combinedGraphs}
-                legend={false}
-                updateParent={this.updateParent}
-                selectedDateTimePosition={selectedDateTimePosition}
-              />
-              <h5 style={bespokeSpacing}>TIDE &amp; SUN</h5>
-              <AreaGraph
-                forecastConfig={forecastConfig}
-                heightRatio={0.06}
-                cssSelector='forecast-graph'
-                targetId='forecast-graph-tide'
-                graphs={tideGraphs}
-                legend={false}
-                showAxes={false}
-                updateParent={this.updateParent}
-                selectedDateTimePosition={selectedDateTimePosition}
-              />
-            </div>
-          </Column>
-        </Row>
+      <div className="forecast-graphs-parent">
+        <h5>SWELL &amp; WIND</h5>
+        <AreaGraph
+          forecastConfig={forecastConfig}
+          heightRatio={0.2}
+          cssSelector='forecast-graph'
+          targetId='forecast-graph-combined'
+          graphs={combinedGraphs}
+          legend={false}
+          updateParent={this.updateParent}
+          selectedDateTimePosition={selectedDateTimePosition}
+        />
+        <h5 style={bespokeSpacing}>TIDE &amp; SUN</h5>
+        <AreaGraph
+          forecastConfig={forecastConfig}
+          heightRatio={0.06}
+          cssSelector='forecast-graph'
+          targetId='forecast-graph-tide'
+          graphs={tideGraphs}
+          legend={false}
+          showAxes={false}
+          updateParent={this.updateParent}
+          selectedDateTimePosition={selectedDateTimePosition}
+        />
       </div>
     );
   }
