@@ -1,4 +1,15 @@
 .marketing-page {
+  .main {
+    max-width: none;
+  }
+
+  .marketing-page__container .grid-x > .cell {
+    max-width: $global-width;
+    // margin: 0 auto;
+  }
+}
+
+.marketing-page__container {
   h1 {
     color: $font-dark-primary;
     font-weight: $font-weight-bold;
@@ -18,23 +29,23 @@
     padding: 3rem 0 3rem 0;
   }
 
-  .hero-image-container {
-    @include breakpoint(medium) {
-      position: absolute;
-      right: 0;
-    }
-  }
-
-  .hero-image {
-    @include breakpoint(medium) {
-      position: absolute;
-      right: 33px;
-      z-index: 0;
-      max-width: 50%;
-      height: auto;
-      max-height: 240px;
-    }
-  }
+  // .hero-image-container {
+  //   @include breakpoint(medium) {
+  //     position: absolute;
+  //     right: 0;
+  //   }
+  // }
+  //
+  // .hero-image {
+  //   @include breakpoint(medium) {
+  //     position: absolute;
+  //     right: 33px;
+  //     z-index: 0;
+  //     max-width: 50%;
+  //     height: auto;
+  //     max-height: 240px;
+  //   }
+  // }
 
   .cvp-container {
     .cell {

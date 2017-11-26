@@ -30,7 +30,7 @@ const MailChimpSignup = (props) => (
         <Row id="mc_embed_signup_scroll" withXPadding={false}>
           <Column widthSmall={12} isAutoMediumUp className="mc-field-group">
             <label htmlFor="mce-EMAIL" className="show-for-sr">Email Address </label>
-            <div className="input-holder --clickable --icon --icon-mail">
+            <div className="input-holder --icon --icon-mail">
               <input type="email" value="" placeholder="Enter your email&hellip;" name="EMAIL" className="required email input" id="mce-EMAIL" type="text" />
             </div>
           </Column>
@@ -49,15 +49,17 @@ const MailChimpSignup = (props) => (
 
 class MarketingPage extends React.Component {
   render() {
+    document.body.classList.add('marketing-page');
+
     return (
-      <div className="marketing-page">
+      <div className="marketing-page__container">
         <MarketingPageNav />
 
         <Row className="callout --hero large">
           <Column isAutoMediumUp />
           <Column widthMedium={10} widthLarge={10}>
             <Row>
-              <Column widthMedium={7}>
+              <Column widthMedium={7} widthLarge={6}>
                 <h1>Intelligent, reliable surf forecasting built for you.</h1>
 
                 <p className="lead">
@@ -66,13 +68,15 @@ class MarketingPage extends React.Component {
 
                 <Button href="#join">Get FREE Beta Access</Button>
               </Column>
+
+              <Column widthLarge={6}>
+                <div className="hero-image-container">
+                  <img className="hero-image" src={heroImg} />
+                </div>
+              </Column>
             </Row>
           </Column>
-          <Column isAutoMediumUp>
-            <Column className="hero-image-container">
-              <img className="hero-image" src={heroImg} />
-            </Column>
-          </Column>
+          <Column isAutoMediumUp />
         </Row>
 
         <Row className="cvp-container" withYPadding withXPadding>
