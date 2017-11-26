@@ -112,14 +112,14 @@
     @media #{$medium-up} {
       .graph {
         .line {
-          stroke-width: 2;
+          stroke-width: 1.5;
         }
         .point {
           &.dot {
-            stroke-width: 2;
+            stroke-width: 1.5;
           }
           &.arrow {
-            stroke-width: 1.6;
+            stroke-width: 1.5;
           }
         }
       }
