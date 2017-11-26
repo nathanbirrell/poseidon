@@ -9,6 +9,7 @@ import Row from 'components/Row';
 import Column from 'components/Column';
 import Spinner from 'components/Spinner';
 import SpotInfoCard from 'components/SpotInfoCard';
+import Button from 'components/Button';
 
 class SpotDayContainer extends React.Component {
   render() {
@@ -27,7 +28,9 @@ class SpotDayContainer extends React.Component {
     return (
       <Row id="today-section">
         <Column>
-          <h1>Coming soon</h1>
+          <h1>Verified Reports Coming Soon</h1>
+
+          <Button type={Button.Type.SECONDARY} href="http://eepurl.com/dbMF59">Become a Verified Local Reporter</Button>
 
 
           <div id="today-section" className="grid-x">
