@@ -29,23 +29,17 @@
     padding: 3rem 0 3rem 0;
   }
 
-  // .hero-image-container {
-  //   @include breakpoint(medium) {
-  //     position: absolute;
-  //     right: 0;
-  //   }
-  // }
-  //
-  // .hero-image {
-  //   @include breakpoint(medium) {
-  //     position: absolute;
-  //     right: 33px;
-  //     z-index: 0;
-  //     max-width: 50%;
-  //     height: auto;
-  //     max-height: 240px;
-  //   }
-  // }
+  .hero-image-container {
+    @include breakpoint(large) {
+    }
+  }
+
+  .hero-image {
+    @include breakpoint(large) {
+      max-width: 115%;
+      margin-left: -15%;
+    }
+  }
 
   .cvp-container {
     .cell {
