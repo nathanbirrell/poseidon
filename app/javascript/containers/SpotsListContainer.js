@@ -7,6 +7,7 @@ import SessionCard from 'components/SessionCard';
 import Row from 'components/Row';
 import Column from 'components/Column';
 import Spinner from 'components/Spinner';
+import Icon from 'components/Icon';
 
 class SpotsListContainer extends React.Component {
   constructor (props) {
@@ -149,7 +150,8 @@ class SpotsListContainer extends React.Component {
 
           <Row>
             <Column widthMedium={12} widthLarge={4}>
-              <div className="input-holder --icon --icon-search--dark-secondary">
+              <div className="input-holder --icon">
+                <Icon name="search--dark-secondary" size={Icon.Size.LARGE} />
                 <input
                   type="text"
                   className="search input"
@@ -162,9 +164,10 @@ class SpotsListContainer extends React.Component {
             </Column>
 
             <Column widthSmall={12} widthMedium={6} widthLarge={4}>
-              <div className="input-holder --icon">
+              <div className="input-holder --icon --clickable">
+                <Icon name="map-pin--dark-secondary" size={Icon.Size.LARGE} />
                 <select
-                  className="filter-select input --clickable"
+                  className="input"
                   onChange={this.handleRegionChange}
                   value={this.state.selectedRegion}
                 >
@@ -175,9 +178,10 @@ class SpotsListContainer extends React.Component {
               </div>
             </Column>
             <Column className="flex-space-between" widthSmall={12} widthMedium={6} widthLarge={4}>
-              <div className="input-holder --icon --icon-align-right--dark-secondary">
+              <div className="input-holder --icon --clickable">
+                <Icon name="align-right--dark-secondary" size={Icon.Size.LARGE} />
                 <select
-                  className="filter-select input --clickable"
+                  className="input"
                   onChange={this.handleOrderByChange}
                   value={this.state.orderByValue}
                 >

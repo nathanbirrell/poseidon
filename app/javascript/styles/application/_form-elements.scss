@@ -11,8 +11,13 @@
     vertical-align: middle;
   }
 
-  &.--clickable .input {
-    @include clickable;
+  &.--clickable {
+    .input {
+      @include clickable;
+    }
+    .icon {
+      z-index: 1;
+    }
   }
 
   &.--icon {
@@ -86,9 +91,9 @@ select {
 
   &:focus {
     // outline: none;
-    background-color: $white;
-    border: none;
-    box-shadow: none;
+    // background-color: $white;
+    // border: none;
+    // box-shadow: none;
   }
 }
 
