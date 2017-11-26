@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
   authenticated :user do
     root to: 'javascript_app#index', as: :authenticated_root
 
@@ -24,5 +28,5 @@ Rails.application.routes.draw do
 
   root to: redirect('/users/sign_in')
 
-  devise_for :users
+  get '*path' => redirect('/')
 end
