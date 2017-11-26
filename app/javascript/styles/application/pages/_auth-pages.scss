@@ -21,8 +21,28 @@
 .auth-container {
   @include callout;
   max-width: 430px;
-  margin: 0 auto 20px;
   background: $white;
   border-radius: 8px;
   box-shadow: $shadow-subtle;
+  text-align: center;
+  margin: 0 18px;
+
+  @include breakpoint(medium) {
+    margin: 0 auto 20px;
+  }
+
+  h3 {
+    color: $primary-color;
+    margin: 20px 0 20px;
+    font-weight: $font-weight-normal;
+    font-size: rem-calc(22);
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  a {
+    color: $font-dark-secondary;
+  }
 }
