@@ -48,9 +48,15 @@ const MailChimpSignup = (props) => (
 );
 
 class MarketingPage extends React.Component {
-  render() {
+  componentDidMount() {
     document.body.classList.add('marketing-page');
+  }
 
+  componentWillUnmount() {
+    document.body.classList.remove('marketing-page');
+  }
+
+  render() {
     return (
       <div className="marketing-page__container">
         <MarketingPageNav />
