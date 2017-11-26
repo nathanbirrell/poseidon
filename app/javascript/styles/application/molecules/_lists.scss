@@ -1,0 +1,23 @@
+.list {
+  color: $font-dark-primary;
+}
+
+.list.--icon {
+  position: relative;
+  list-style: none;
+  margin-left: 0;
+
+  li {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .icon {
+    position: absolute;
+    left: 0;
+  }
+
+  .icon.--large {
+    top: 4px;
+  }
+}

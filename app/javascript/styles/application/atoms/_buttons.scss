@@ -28,6 +28,7 @@
 
   &:hover {
     background-color: lighten($secondary-color, 3%);
+    text-decoration: none;
   }
 
   &:active {
@@ -115,6 +116,7 @@
   &.--slim {
     height: 38px;
     line-height: 38px;
+    margin: 0;
 
     &::before {
       top: 10px;

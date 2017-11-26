@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= content_for?(:title) ? yield(:title) : "Poseidon" %>
+  </title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : " Poseidon " %>">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet">
+  <%= stylesheet_pack_tag 'styles' %>
+  <%= javascript_include_tag 'vendor/modernizr' %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+  <header>
+    <h1>POSEIDON</h1>
+  </header>
+
+  <section class="main-section">
+    <main role="main">
+      <%= render 'layouts/messages' %>
+        <%= yield %>
+    </main>
+  </section>
+
+  <footer class="footer cell">
+    <div class="grid-x grid-padding-x grid-padding-y">
+      <div class="cell small-12 medium-10 medium-offset-1">
+        <div class="grid-x grid-padding-x">
+          <div class="cell small-12 medium-6">
+            <ul class="footer__links">
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="#">Account</a>
+              </li>
+              <li>
+                <a href="#">About</a>
+              </li>
+            </ul>
+          </div>
+          <div class="cell small-12 medium-6 text-right">
+            <p>
+              Built with stoke in Melbourne.
+              <br>
+              Copyright Surf Poseidon Pty Ltd 2017
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Global Site Tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101910598-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments)
+    };
+    gtag('js', new Date());
+
+    gtag('config', 'UA-101910598-1');
+  </script>
+</body>
+
+</html>

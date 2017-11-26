@@ -16,9 +16,16 @@ const Row = (props) => {
     [`${props.className}`]: (className),
   });
 
+  const attributes = {
+    className: classes,
+    style: props.style,
+  }
+
+  if (props.id) { attributes.id = props.id }
+
   if (props.withColumn) {
     return (
-      <div className={classes}>
+      <div {...attributes} >
         <Column widthMedium={12} widthLarge={12}>
           {children}
         </Column>
@@ -27,7 +34,7 @@ const Row = (props) => {
   }
 
   return (
-    <div className={classes} style={props.style}>
+    <div {...attributes}>
       {children}
     </div>
   );
@@ -46,6 +53,7 @@ Row.defaultProps = {
 Row.PropTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  id: PropTypes.string,
   withXPadding: PropTypes.bool,
   withYPadding: PropTypes.bool,
   withXMargin: PropTypes.bool,
