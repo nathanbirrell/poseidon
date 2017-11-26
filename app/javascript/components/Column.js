@@ -4,7 +4,7 @@ import Classnames from 'classnames';
 
 // TODO: rename to Cell?
 const Column = (props) => {
-  const { children, widthSmall, widthMedium, widthLarge, className, isCentered, offset, offsetMedium, offsetLarge } = props; // eslint-disable-line
+  const { children, widthSmall, widthMedium, widthLarge, className, offset, offsetMedium, offsetLarge } = props; // eslint-disable-line
   const classes = Classnames({
     cell: true,
 
@@ -32,7 +32,6 @@ const Column = (props) => {
 Column.defaultProps = {
   widthSmall: 12,
   widthMedium: 10,
-  isCentered: false,
   isAuto: false,
 };
 
@@ -44,7 +43,6 @@ Column.PropTypes = {
   offset: PropTypes.number,
   offsetMedium: PropTypes.number,
   offsetLarge: PropTypes.number,
-  isCentered: PropTypes.bool,
   isAuto: PropTypes.bool,
   isAutoMediumUp: PropTypes.bool,
   style: PropTypes.object,

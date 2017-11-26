@@ -1,35 +1,65 @@
 .marketing-page {
-  .callout.large {
-    padding-left: 0;
+  h1 {
+    color: $font-dark-primary;
+    font-weight: $font-weight-bold;
 
-    .cell { padding-right: 4rem; }
-
-    @include breakpoint(medium) {
-      padding-left: 3rem;
+    @include breakpoint(large) {
+      padding-right: 5rem;
     }
   }
 
-  .callout .cell {
-    z-index: 1;
+  h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: $primary-color;
+  }
+
+  .callout.large {
+    padding: 3rem 0 3rem 0;
   }
 
   .hero-image-container {
-    position: relative;
-    width: 100%;
-
     @include breakpoint(medium) {
-      height: 100%;
+      position: absolute;
+      right: 0;
     }
   }
 
   .hero-image {
     @include breakpoint(medium) {
       position: absolute;
+      right: 33px;
       z-index: 0;
-      right: 0;
-      bottom: 0;
-      width: auto;
-      height: 290px;
+      max-width: 50%;
+      height: auto;
+      max-height: 240px;
     }
+  }
+
+  .cvp-container {
+    .cell {
+      padding-right: 24px;
+    }
+
+    h3 {
+      font-size: 20px;
+    }
+  }
+
+  .join {
+    background: $primary-color;
+
+    p, h3 { color: $white; }
+
+    .button.--secondary { color: $primary-color; }
+
+    .lead { font-weight: 300; }
+  }
+}
+
+#mc_embed_signup {
+  .email {
+  }
+  .button {
   }
 }

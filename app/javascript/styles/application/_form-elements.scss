@@ -27,6 +27,14 @@
       left: 12px;
     }
   }
+
+  &.--slightly-transparent {
+    background-color: rgba(255,255,255,0.95);
+
+    input[type="text"] {
+      background: transparent;
+    }
+  }
 }
 
 select {
@@ -93,7 +101,7 @@ input[type="checkbox"] {
       background-repeat: no-repeat;
     }
   }
-  
+
   &:focus,
   &:hover,
   &:active, {
