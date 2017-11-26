@@ -16,8 +16,7 @@ class WeatherForecast < ApplicationRecord
   end
 
   def self.seven_day_forecast
-    # Get from 4AM onwards
-    where('date_time >= ?', Date.current.beginning_of_day + 3.hour)
+    where('date_time >= ?', Date.current.beginning_of_day)
     .where('date_time <= ?', 4.day.from_now.end_of_day) # 5 day forecast
     .order(date_time: :asc)
   end
