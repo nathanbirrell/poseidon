@@ -36,12 +36,12 @@
   @media #{$large-up} {
     .--expanded & {
       margin-top: 0;
-      margin-bottom: 12px;
     }
   }
 
   .--expanded & {
     max-height: none;
+    margin-bottom: 12px;
   }
 }
 
