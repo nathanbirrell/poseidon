@@ -4,8 +4,11 @@
   "description": "A smarter surf forecasting platform",
   "main": "index.js",
   "repository": "git@github.com:nathanbirrell/poseidon.git",
-  "author": "<nathanbirrell@gmail.com>",
-  "license": "MIT",
+  "author": "Nathan Birrell <nathanbirrell@gmail.com>, Taylor Bett <taylor.bett@hotmail.com>",
+  "scripts": {
+    "start": "./bin/webpack-dev-server",
+    "build": "rails assets:precompile"
+  },
   "engines": {
     "node": "7.9.0"
   },
