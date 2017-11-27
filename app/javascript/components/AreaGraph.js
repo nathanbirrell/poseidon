@@ -44,6 +44,7 @@ class AreaGraph extends React.Component {
   }
 
   initGraph() {
+    this.clearNodeContents();
     this.svg = d3.select(`#${this.props.targetId}`).append('svg')
       .attr('preserveAspectRatio','xMinYMin meet')
       .attr('class', this.props.cssSelector);
@@ -51,6 +52,13 @@ class AreaGraph extends React.Component {
     const ratingGradient = "<linearGradient id=\"ratingGradient\" gradientTransform=\"rotate(90)\"><stop offset=\"30%\"  stop-color=\"#00de00\"/><stop offset=\"65%\"  stop-color=\"#e0f500\"/><stop offset=\"95%\" stop-color=\"#dd0017\"/></linearGradient>";
 
     this.renderGraph();
+  }
+
+  clearNodeContents() {
+    const node = document.getElementById(`#${this.props.targetId}`);
+    while (node && node.hasChildNodes()) {
+        node.removeChild(node.firstChild);
+    }
   }
 
   renderGraph() {
