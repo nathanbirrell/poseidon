@@ -54,11 +54,22 @@
   .join {
     background: $primary-color;
 
-    p, h3 { color: $white; }
+    p, h2 { color: $white; }
+
+    h2 {
+      font-weight: $font-weight-bold;
+    }
 
     .button.--secondary { color: $primary-color; }
 
     .lead { font-weight: 300; }
+  }
+
+  .on-the-web {
+    .icon {
+      width: 46px;
+      height: 46px;
+    }
   }
 }
 

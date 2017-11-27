@@ -102,7 +102,6 @@ class MarketingPage extends React.Component {
                   <li><Icon name="check-square" size={Icon.Size.LARGE} /><b>mobile-first</b></li>
                   <li><Icon name="check-square" size={Icon.Size.LARGE} />local spot <b>notifications</b></li>
                   <li><Icon name="check-square" size={Icon.Size.LARGE} />private <b>secret spots</b> for you and your mates</li>
-                  <li style={{ color: 'red' }}><Icon name="check-square" size={Icon.Size.LARGE} />something about community</li>
                 </ul>
               </Column>
               <Column isAutoMediumUp>
@@ -118,7 +117,7 @@ class MarketingPage extends React.Component {
         <Row id="join" className="join callout large text-center">
           <Column isAutoMediumUp />
           <Column widthSmall={12} widthMedium={8} widthLarge={6}>
-            <h3>Get FREE Beta Access</h3>
+            <h2>Get FREE Beta Access</h2>
             <p className="lead">
               Surf like a God with simple spot recommendations, Australia's most trusted weather modelling and reports from local experts.
             </p>
@@ -127,6 +126,37 @@ class MarketingPage extends React.Component {
               Requests accepted until <b>31st of January 2018</b>.
             </small></p>
             <MailChimpSignup />
+          </Column>
+          <Column isAutoMediumUp />
+        </Row>
+
+        <Row className="on-the-web text-center" withYPadding withXPadding>
+          <Column isAutoMediumUp />
+          <Column widthMedium={10} widthLarge={10}>
+            <h2>Poseidon on the web</h2>
+            <Row style={{ padding: '22px 0'}}>
+              <Column isAutoMediumUp>
+                <a href="https://instagram.com/surfposeidon">
+                  <Icon name="instagram" />
+                  <h3>Poseidon on the 'gram</h3>
+                </a>
+                <p>For your daily dose.</p>
+              </Column>
+              <Column isAutoMediumUp>
+                <a href="https://reddit.com/r/surfposeidon">
+                  <Icon name="reddit" />
+                  <h3>/r/surfposeidon on Reddit</h3>
+                </a>
+                <p>Have an idea? Join the community on Reddit.</p>
+              </Column>
+              <Column isAutoMediumUp>
+                <a href="https://twitter.com/surfposeidon">
+                  <Icon name="twitter" />
+                  <h3>Poseidon on Twitter</h3>
+                </a>
+                <p>Have a question? Shoot us a tweet.</p>
+              </Column>
+            </Row>
           </Column>
           <Column isAutoMediumUp />
         </Row>
