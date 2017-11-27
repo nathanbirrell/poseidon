@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import moment from 'moment';
+import ResizeSensor from 'css-element-queries/src/ResizeSensor';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
@@ -19,20 +20,36 @@ class AreaGraph extends React.Component {
       }
     };
 
+    this.resizeSensor = null;
+    this.graphContainerRef = null;
+
     this.updateDimensions = this.updateDimensions.bind(this);
     this.initGraph = this.initGraph.bind(this);
     this.renderGraph = this.renderGraph.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
+    this.clearNodeContents = this.clearNodeContents.bind(this);
   }
 
   componentDidMount() {
     this.initGraph();
+
+    this.resizeSensor = new ResizeSensor(this.graphContainerRef, this.renderGraph);
   }
 
   componentDidUpdate() {
     this.renderGraph();
+  }
+
+  componentWillUnmount() {
+    if (this.resizeSensor && this.resizeSensor.detach) {
+      this.resizeSensor.detach(this.graphContainerRef, this.renderGraph);
+    }
+
+    if (this.graphContainerRef && this.graphContainerRef.resizeSensor) {
+      delete this.graphContainerRef.resizeSensor;
+    }
   }
 
   updateDimensions() {
@@ -55,9 +72,13 @@ class AreaGraph extends React.Component {
   }
 
   clearNodeContents() {
-    const node = document.getElementById(`#${this.props.targetId}`);
-    while (node && node.hasChildNodes()) {
-        node.removeChild(node.firstChild);
+    // while (this.graphContainerRef && this.graphContainerRef.hasChildNodes()) {
+    //   console.log('clearing fam');
+    //   this.graphContainerRef.removeChild(this.graphContainerRef.firstChild);
+    // }
+
+    if (this.graphContainerRef && this.graphContainerRef.hasChildNodes()) {
+      this.graphContainerRef.innerHTML = '';
     }
   }
 
@@ -332,7 +353,12 @@ class AreaGraph extends React.Component {
     }
     return (
       <div>
-        <div id={this.props.targetId} className="forecast-graph-container" style={heightRatio}></div>
+        <div
+          id={this.props.targetId}
+          className="forecast-graph-container"
+          style={heightRatio}
+          ref={(ref) => { this.graphContainerRef = ref; }}
+        ></div>
       </div>
     );
   }
