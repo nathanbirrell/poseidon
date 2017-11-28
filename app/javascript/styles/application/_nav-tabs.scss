@@ -10,7 +10,7 @@ $nav-tab-height: 48px;
   margin-bottom: 12px;
 
   a:hover,
-  a:focus { 
+  a:focus {
     text-decoration: none;
   }
 
@@ -38,6 +38,13 @@ $nav-tab-height: 48px;
       color: $secondary-color;
       line-height: $nav-tab-height - 3;
       border-bottom: 2px solid $secondary-color;
+    }
+
+    &.small-3.medium-1 {
+      @include breakpoint(medium) {
+        width: auto;
+        min-width: 92px;
+      }
     }
   }
 }
