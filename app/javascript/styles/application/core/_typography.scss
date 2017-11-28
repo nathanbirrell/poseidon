@@ -38,3 +38,8 @@ ul {
 .small {
   font-size: 80%;
 }
+
+a.disabled {
+  color: $font-dark-tertiary;
+  cursor: not-allowed;
+}

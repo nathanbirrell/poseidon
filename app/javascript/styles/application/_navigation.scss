@@ -5,8 +5,11 @@ header {
 nav.top-bar {
   .menu-text { color: $font-dark-secondary; }
 
-  li a {
+  li a:not(.disabled) {
     color: $font-dark-primary;
+  }
+
+  li a {
     font-size: rem-calc(14);
     font-weight: $font-weight-medium;
   }
