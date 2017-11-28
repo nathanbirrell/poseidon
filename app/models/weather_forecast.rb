@@ -30,7 +30,7 @@ class WeatherForecast < ApplicationRecord
 
   def self.seven_day_forecast
     where('date_time >= ?', Date.current.beginning_of_day)
-    .where('date_time <= ?', 4.day.from_now.end_of_day) # 5 day forecast
+    .where('date_time <= ?', 6.day.from_now.end_of_day) # 5 day forecast
   end
 
   # Methods used by Swell, Wind, Tide models
