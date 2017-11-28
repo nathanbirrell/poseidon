@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Icon from 'components/Icon';
 
 class Header extends React.Component {
   render() {
@@ -17,7 +18,7 @@ class Header extends React.Component {
           </div>
           <div className="top-bar-right">
             <ul className="menu">
-              <li><a href="/users">ACCOUNT</a></li>
+              <li><a href="/users/sign_out"><Icon name="log-out" size={Icon.Size.MEDIUM} style={{  marginBottom: '-2px' }} /> Sign Out</a></li>
             </ul>
           </div>
         </nav>
