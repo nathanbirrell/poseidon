@@ -13,7 +13,14 @@ class WeatherForecast < ApplicationRecord
 
   def self.current
     # NOTE: Need to unscope due to default_scope above
-    self.unscoped.where('date_time <= ?', Time.current).order(date_time: :desc).first
+    last_record = self.unscoped.where('date_time <= ?', Time.current).order(date_time: :desc).first
+    next_record = self.unscoped.where('date_time >= ?', Time.current).order(date_time: :asc).first
+
+    time_since_last = (last_record.date_time.to_i - Time.current.to_i).abs
+    time_to_next = (next_record.date_time.to_i - Time.current.to_i).abs
+
+    return last_record if (time_to_next > time_since_last)
+    return next_record
   end
 
   def self.in_three_hours
