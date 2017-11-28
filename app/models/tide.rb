@@ -12,7 +12,6 @@
 #
 
 class Tide < WeatherForecast
-  # default_scope { order(date_time: :desc) }
   belongs_to :spot
 
   scope :last_tide, -> () {

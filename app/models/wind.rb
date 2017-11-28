@@ -15,7 +15,6 @@
 class Wind < WeatherForecast
   include WillyweatherClient
   include SpotsHelper
-  # default_scope { order(date_time: :desc) }
   belongs_to :spot
 
   def self.update_forecasts(spot)
