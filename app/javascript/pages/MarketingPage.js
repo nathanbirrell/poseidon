@@ -16,7 +16,7 @@ const MarketingPageNav = (props) => (
       </div>
       <div className="top-bar-right show-for-medium">
         <ul className="menu">
-          <li><a href="http://app.surfposeidon.io" style={{fontWeight: '400'}}>Sign In</a></li>
+          <li><Button href="http://app.surfposeidon.io" type={Button.Type.SECONDARY}>Sign In</Button></li>
           <li><Button href="#join">Get FREE Beta Access</Button></li>
         </ul>
       </div>
