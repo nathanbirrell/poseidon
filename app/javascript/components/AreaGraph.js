@@ -27,8 +27,6 @@ class AreaGraph extends React.Component {
     this.initGraph = this.initGraph.bind(this);
     this.renderGraph = this.renderGraph.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.handleMouseOver = this.handleMouseOver.bind(this);
-    this.handleMouseOut = this.handleMouseOut.bind(this);
     this.clearNodeContents = this.clearNodeContents.bind(this);
   }
 
@@ -298,9 +296,7 @@ class AreaGraph extends React.Component {
               }
               return 0.01;
             })
-            .on('click', this.handleClick)
-            .on('mouseover', this.handleMouseOver)
-            .on("mouseout", this.handleMouseOut);
+            .on('click', this.handleClick);
 
         vertSegments.exit().remove();
       }
@@ -329,16 +325,6 @@ class AreaGraph extends React.Component {
     if (this.props.updateParent) {
       this.props.updateParent(i);
     }
-  }
-
-  handleMouseOver(d, i) {
-    if (this.props.updateParent) {
-      this.props.updateParent(i);
-    }
-  }
-
-  handleMouseOut(d, i){
-    // Mouse out func here
   }
 
   render() {
