@@ -13,7 +13,6 @@
 #
 
 class Swell < WeatherForecast
-  default_scope { order(date_time: :asc) }
   belongs_to :spot
 
   def self.update_forecasts(spot)
