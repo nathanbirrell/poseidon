@@ -39,7 +39,7 @@ class Icon extends React.PureComponent {
       '--large': this.props.size === Size.LARGE,
     });
 
-    const styles = {};
+    const styles = this.props.style ? this.props.style : {};
 
     if (this.props.rotate) {
       styles.transform = `rotate(${this.props.rotate}deg)`;
