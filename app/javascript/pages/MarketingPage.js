@@ -69,7 +69,7 @@ class MarketingPage extends React.Component {
                 <h1>Intelligent, reliable surf forecasting built for you.</h1>
 
                 <p className="lead">
-                  Surf like a God with simple spot recommendations, Australia's most trusted weather modelling and reports from local experts.
+                  Surf like a god with simple spot recommendations, Australia's most trusted weather modelling and reports from local experts.
                 </p>
 
                 <Button href="#join">Get FREE Beta Access</Button>
@@ -138,7 +138,7 @@ class MarketingPage extends React.Component {
               <Column isAutoMediumUp>
                 <a href="https://instagram.com/surfposeidon">
                   <Icon name="instagram" />
-                  <h3>Poseidon on the 'gram</h3>
+                  <h3>Poseidon on Instagram</h3>
                 </a>
                 <p>For your daily dose.</p>
               </Column>
