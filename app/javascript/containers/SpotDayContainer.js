@@ -25,12 +25,14 @@ class SpotDayContainer extends React.Component {
     const current_tide =  this.props.forecasts.tides[this.props.selectedTime];
 
     return (
-      <Row id="today-section">
-        <Column>
-          <h1>Verified Reports Coming Soon</h1>
+      <Row id="today-section" className="text-center">
+        <Column isAutoMediumUp />
+        <Column widthMedium={5} widthLarge={5}>
+          <h2 className="--small">Verified Reports Coming Soon</h2>
 
           <Button type={Button.Type.SECONDARY} href="http://eepurl.com/dbMF59">Become a Verified Local Reporter</Button>
         </Column>
+        <Column isAutoMediumUp />
       </Row>
     );
   }
