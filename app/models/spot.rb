@@ -144,9 +144,15 @@ class Spot < ApplicationRecord
 
   def forecasts
     swell_forecasts = swells.seven_day_forecast
-    date_times = swell_forecasts.pluck(:date_time)
-    wind_forecasts = winds.where(date_time: date_times) # uses a sql IN method
-    tide_forecasts = tides.get_snapshots(date_times, self)
+    date_times = swell_forecasts
+                 .pluck(:date_time)
+                 .order(date_time: :asc)
+    wind_forecasts = winds
+                     .where(date_time: date_times)
+                     .order(date_time: :asc) # uses a sql IN method
+    tide_forecasts = tides
+                     .get_snapshots(date_times, self)
+                     .order(date_time: :asc)
     overall_ratings = []
 
     date_times.each do |date_time|
