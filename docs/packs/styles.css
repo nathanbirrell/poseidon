@@ -9640,6 +9640,13 @@ input[type="checkbox"]:focus, input[type="checkbox"]:hover, input[type="checkbox
   border-bottom: 2px solid #2278F1;
 }
 
+@media print, screen and (min-width: 40em) {
+  .nav-tabs__item.small-3.medium-1 {
+    width: auto;
+    min-width: 92px;
+  }
+}
+
 .nav-tabs-spacer {
   display: none;
 }
@@ -9665,6 +9672,10 @@ nav.top-bar li a {
 
 nav.top-bar li a.btn {
   color: #fefefe;
+}
+
+nav.top-bar li a.btn.\--secondary {
+  color: #2278F1;
 }
 
 .menu a {
