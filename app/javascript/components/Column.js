@@ -9,8 +9,8 @@ const Column = (props) => {
   let widthLarge = props.widthLarge;
 
   if (props.widthMediumUp) {
-    widthMedium = widthMediumUp;
-    widthLarge = widthMediumUp;
+    widthMedium = props.widthMediumUp;
+    widthLarge = props.widthMediumUp;
   }
 
   const classes = Classnames({
