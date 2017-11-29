@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170728062206) do
+ActiveRecord::Schema.define(version: 20171129070800) do
 
   create_table "regions", force: :cascade do |t|
     t.string "name"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20170728062206) do
     t.decimal "swell_optimal_direction_max"
     t.decimal "wind_optimal_direction_min"
     t.decimal "wind_optimal_direction_max"
+    t.boolean "hidden"
     t.index ["region_id"], name: "index_spots_on_region_id"
   end
 
