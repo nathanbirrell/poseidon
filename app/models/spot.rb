@@ -34,6 +34,7 @@
 class Spot < ApplicationRecord
   include ActiveModel::Validations
   include Math
+
   require 'poseidon_math'
 
   belongs_to :region
@@ -43,6 +44,8 @@ class Spot < ApplicationRecord
   has_many :swells
 
   validates :name, presence: true
+
+  scope :not_hidden, -> { where(hidden: false) }
 
   attr_reader :current_swell
   attr_reader :current_wind
@@ -61,7 +64,7 @@ class Spot < ApplicationRecord
   end
 
   def self.sorted_by_current_potential
-    Spot.all.sort_by(&:current_potential).reverse
+    Spot.not_hidden.sort_by(&:current_potential).reverse
   end
 
   def retrieve_forecast_data_if_needed
