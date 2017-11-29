@@ -32,7 +32,7 @@
 
     .graph {
       .line {
-        stroke-width: 1;
+        stroke-width: 0.8;
       }
       .point {
         &.dot {
@@ -55,7 +55,7 @@
       g.tick {
         line {
           stroke-width: 0.5;
-          stroke: #DBDBDB;
+          stroke: $font-dark-tertiary;
         }
 
         text {
