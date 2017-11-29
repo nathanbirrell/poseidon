@@ -23,7 +23,7 @@ class AreaGraph extends React.Component {
     this.resizeSensor = null;
     this.graphContainerRef = null;
 
-    this.updateDimensions = this.updateDimensions.bind(this);
+    this.getDimensions = this.getDimensions.bind(this);
     this.initGraph = this.initGraph.bind(this);
     this.renderGraph = this.renderGraph.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -50,21 +50,59 @@ class AreaGraph extends React.Component {
     }
   }
 
-  updateDimensions() {
+  getDimensions() {
     const el = d3.select(`#${this.props.targetId}`);
+    const width = parseInt(el.style('width'), 10);
+    let height = parseInt(el.style('height'), 10);
+
+    if (this.props.heightRatio) {
+      height = width * this.props.heightRatio;
+    }
+
     return {
-      width: parseInt(el.style('width'), 10),
-      height: parseInt(el.style('height'), 10)
+      width: width,
+      height: height
     };
   }
 
   initGraph() {
+    const graphs = this.props.graphs;
+    const dimensions = this.getDimensions();
     this.clearNodeContents();
     this.svg = d3.select(`#${this.props.targetId}`).append('svg')
       .attr('preserveAspectRatio','xMinYMin meet')
       .attr('class', this.props.cssSelector);
 
     const ratingGradient = "<linearGradient id=\"ratingGradient\" gradientTransform=\"rotate(90)\"><stop offset=\"30%\"  stop-color=\"#00de00\"/><stop offset=\"65%\"  stop-color=\"#e0f500\"/><stop offset=\"95%\" stop-color=\"#dd0017\"/></linearGradient>";
+
+    this.x = d3.scaleLinear().rangeRound([0, dimensions.width]);
+    this.y = d3.scaleLinear().rangeRound([dimensions.height, 0]);
+
+    // todo move to own fn
+    if (this.state.parentConfig['axes']) {
+      const leftAxis = this.svg.append("g")
+        .attr('class', 'axis-left')
+        .call(
+          d3.axisLeft(this.y)
+          .ticks(4)
+          .tickSize(-dimensions.width)
+          .tickFormat(function(d) {
+            return (d*graphs[1].yMax).toFixed(0) + graphs[1].axesSuffix;
+          })
+        );
+      leftAxis.selectAll(".tick text")
+        .attr("class", "label-1")
+        .attr("x", this.x(this.x.domain()[0]))
+        .attr("fill", graphs[1].color);
+      leftAxis.selectAll(".tick")
+        .append('text')
+        .attr("class", 'label-2')
+        .text(function(d) {
+          return (d*graphs[2].yMax).toFixed(0) + graphs[2].axesSuffix;
+        })
+        .attr("x", this.x(this.x.domain()[0]))
+        .attr("fill", graphs[2].color);
+    }
 
     this.renderGraph();
   }
@@ -83,25 +121,12 @@ class AreaGraph extends React.Component {
   renderGraph() {
     const graphs = this.props.graphs;
     const targetId = this.props.targetId;
-    const dimensions = this.updateDimensions();
     const state = this.state;
     const parentConfig = state.parentConfig;
 
-    const x = d3.scaleLinear()
-      .rangeRound([0, dimensions.width]);
-    let height;
+    const dimensions = this.getDimensions();
 
-    if (this.props.heightRatio) {
-      height = dimensions.width * this.props.heightRatio;
-    } else {
-       height = dimensions.height;
-    }
-
-    const y = d3.scaleLinear()
-      .rangeRound([height, 0]);
-    this.svg
-      .attr('viewBox','0 0 '+ dimensions.width +' '+ height);
-
+    this.svg.attr('viewBox','0 0 '+ dimensions.width +' '+ dimensions.height);
 
     const area = d3.area()
       .curve(d3.curveCardinal)
@@ -113,59 +138,35 @@ class AreaGraph extends React.Component {
       .x(function(d, i) { return x(i); })
       .y(function(d) { return y(d); });
 
-    x.domain(d3.extent(graphs[0].yVals, function(d, i) { return i; }));
+    this.x.domain(d3.extent(graphs[0].yVals, function(d, i) { return i; }));
     // y.domain([0, d3.max(graphs[i].yVals, function(d) { return d; })]);
-    area.y0(y(0));
+    area.y0(this.y(0));
 
 
     if (parentConfig['axes']) {
       this.svg.selectAll('.axis-bottom').remove();
       this.svg.selectAll('.axis-left').remove();
 
-      const num = (x.domain()[1] / this.props.forecastDays);
+      const num = (this.x.domain()[1] / this.props.forecastDays);
       let tickValues = [];
       for (let i = 0; i < this.props.forecastDays; i++) {
         tickValues.push(i * 8);
       }
       const bottomAxis = this.svg.append("g")
         .attr('class', 'axis-bottom')
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0," + dimensions.height + ")")
         .call(
-          d3.axisBottom(x)
+          d3.axisBottom(this.x)
           .tickValues(tickValues)
           .tickFormat(function(d) {
             return moment().add((d / num), 'days').format('ddd');
           })
         );
-      bottomAxis.selectAll(".tick text").attr("dx", x(3.4));
-
-      const leftAxis = this.svg.append("g")
-        .attr('class', 'axis-left')
-        .call(
-          d3.axisLeft(y)
-          .ticks(4)
-          .tickSize(-dimensions.width)
-          .tickFormat(function(d) {
-            return (d*graphs[1].yMax).toFixed(0) + graphs[1].axesSuffix;
-          })
-        );
-      leftAxis.selectAll(".tick text")
-        .attr("class", "label-1")
-        .attr("x", x(x.domain()[0]))
-        .attr("fill", graphs[1].color);
-      leftAxis.selectAll(".tick")
-        .append('text')
-        .attr("class", 'label-2')
-        .text(function(d) {
-          return (d*graphs[2].yMax).toFixed(0) + graphs[2].axesSuffix;
-        })
-        .attr("x", x(x.domain()[0]))
-        .attr("fill", graphs[2].color);
+      bottomAxis.selectAll(".tick text").attr("dx", this.x(3.4));
     }
 
     const forecastConfig = this.props.forecastConfig;
-    const topLevel = this.svg.selectAll('g.graph')
-      .data(graphs);
+    const topLevel = this.svg.selectAll('g.graph').data(graphs);
 
     topLevel.enter()
       .append('g')
@@ -174,7 +175,7 @@ class AreaGraph extends React.Component {
       .each(function(graph, i) {
         const thisGraph = d3.select(this);
         // Set custom y Domain for this graph
-        y.domain([0, graph.yMax]);
+        this.y.domain([0, graph.yMax]);
 
         // REMOVE PREVIOUS GRAPH ELEMENTS
         thisGraph.selectAll('defs').remove();
@@ -223,12 +224,12 @@ class AreaGraph extends React.Component {
               .attr('class', 'point arrow')
               .attr('stroke', graph.points.color || graph.color)
               .attr('fill', graph.points.color || graph.color)
-              .attr("x1", function(d, i) { return x(i) })
-              .attr("y1", function(d, i) { return (y(d)) })
-              .attr("x2", function(d, i) { return x(i) })
-              .attr("y2", function(d, i) { return (y(d))  })
+              .attr("x1", function(d, i) { return this.x(i) })
+              .attr("y1", function(d, i) { return (this.y(d)) })
+              .attr("x2", function(d, i) { return this.x(i) })
+              .attr("y2", function(d, i) { return (this.y(d))  })
               .attr("transform", function(d, i) {
-                return "rotate(" + (graph.directions[i] + 180) + " " + x(i) + " " + y(d) + ")"; // +180 converts it into magical weather speak, where the arrow shows the directional opposite to the degrees
+                return "rotate(" + (graph.directions[i] + 180) + " " + this.x(i) + " " + this.y(d) + ")"; // +180 converts it into magical weather speak, where the arrow shows the directional opposite to the degrees
               })
               .attr("stroke-width", 1)
               .attr("marker-end", `url(#${targetId}_arrow_${i})`);
@@ -241,8 +242,8 @@ class AreaGraph extends React.Component {
             .attr('class', 'point dot')
             .attr('stroke', graph.points.color || graph.color)
             .attr('fill', graph.points.color || graph.color)
-            .attr("cx", function(d, i) { return x(i) })
-            .attr("cy", function(d, i) { return y(d) })
+            .attr("cx", function(d, i) { return this.x(i) })
+            .attr("cy", function(d, i) { return this.y(d) })
             .attr("r", graph.points.radius || 1);
         }
       });
@@ -250,7 +251,7 @@ class AreaGraph extends React.Component {
       this.svg.selectAll('.day-segment').remove();
 
       if (parentConfig.vertSegments) {
-        const vertSegHeight = y(y.domain()[0]);
+        const vertSegHeight = this.y(this.y.domain()[0]);
         const vertSegData = graphs[0].yVals.map((value, i) => {
           const output = {};
           if (state.selectedIndex == i) {
@@ -275,9 +276,9 @@ class AreaGraph extends React.Component {
             .append('rect')
             .attr('class', 'day-segment')
             .attr('id', function(d, i) {return ('day-seg-' + i) })
-            .attr('x', function(d, i) { return x(i - 0.5) })
+            .attr('x', function(d, i) { return this.x(i - 0.5) })
             .attr('y', 0)
-            .attr('width', function(d, i) { return x(1) })
+            .attr('width', function(d, i) { return this.x(1) })
             .attr('height', vertSegHeight)
             .attr('fill', function(d, i) {
               if (forecastConfig.showNightAndDay) {
@@ -305,11 +306,11 @@ class AreaGraph extends React.Component {
       this.svg.selectAll('.selected-date-time').remove();
       const selectedDateTimePosition = this.props.selectedDateTimePosition;
       if (selectedDateTimePosition) {
-        const selectedDateTimeIndicatorHeight = y(y.domain()[0]);
+        const selectedDateTimeIndicatorHeight = y(this.y.domain()[0]);
         const selectedDateTimeIndicator = this.svg
           .append('rect')
           .attr('class', 'selected-date-time')
-          .attr('x', function() { return x(selectedDateTimePosition) })
+          .attr('x', function() { return this.x(selectedDateTimePosition) })
           .attr('y', 0)
           .attr('height', selectedDateTimeIndicatorHeight)
           .attr('fill', function() {
