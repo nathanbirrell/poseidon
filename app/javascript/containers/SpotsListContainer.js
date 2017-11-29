@@ -8,6 +8,7 @@ import Row from 'components/Row';
 import Column from 'components/Column';
 import Spinner from 'components/Spinner';
 import Icon from 'components/Icon';
+import Button from 'components/Button';
 
 class SpotsListContainer extends React.Component {
   constructor (props) {
@@ -16,7 +17,8 @@ class SpotsListContainer extends React.Component {
     this.state = {
       spots: null,
       orderBy: "current_potential",
-      ascending: false
+      ascending: false,
+      isError: false,
     };
 
     this.listSpots = this.listSpots.bind(this);
@@ -31,12 +33,21 @@ class SpotsListContainer extends React.Component {
     let spots = Api.syncData('/spots.json');
 
     spots.then(data => {
-      data = JSON.parse(data);
-      this.setState({
-        spots: data,
-        selectedRegion: this.checkRegionUrlParam()
-      });
+      try {
+        data = JSON.parse(data);
+        this.setState({
+          spots: data,
+          selectedRegion: this.checkRegionUrlParam(),
+          isError: false,
+        });
+      } catch (error) {
+        this.handleError();
+      }
     });
+  }
+
+  handleError(data) {
+    this.setState({ isError: true });
   }
 
   checkRegionUrlParam() {
@@ -109,8 +120,21 @@ class SpotsListContainer extends React.Component {
   }
 
   renderLoader() {
-    if (!this.state.spots) return (
+    if (!this.state.spots && !this.state.isError) return (
       <Spinner />
+    );
+  }
+
+  renderError() {
+    if (!this.state.isError) return;
+    return (
+      <Row withColumn className="text-center">
+        <h2>Oops, something went wrong!</h2>
+
+        <Button onClick={window.location.reload}>Try again</Button> <br />
+
+        Or, please <a href="mailto:surfposeidon@gmail.com">let us know</a> if it persists.
+      </Row>
     );
   }
 
@@ -139,6 +163,10 @@ class SpotsListContainer extends React.Component {
   }
 
   render() {
+    if (this.state.isError) {
+      return this.renderError();
+    }
+
     return (
       <Row className="spots-list-container">
         <Column widthMedium={10} offsetMedium={1} widthLarge={12} offsetLarge={0}>
