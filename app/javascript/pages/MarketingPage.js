@@ -14,10 +14,10 @@ const MarketingPageNav = (props) => (
       <div className="top-bar-left">
         <ul className="menu"><li><a href="/">POSEIDON<sup>(BETA)</sup></a></li></ul>
       </div>
-      <div className="top-bar-right show-for-medium">
+      <div className="top-bar-right">
         <ul className="menu">
           <li><Button href="http://app.surfposeidon.io" type={Button.Type.SECONDARY}>Sign In</Button></li>
-          <li><Button href="#join">Get FREE Beta Access</Button></li>
+          <li className="show-for-medium"><Button href="#join">Get FREE Beta Access</Button></li>
         </ul>
       </div>
     </nav>
