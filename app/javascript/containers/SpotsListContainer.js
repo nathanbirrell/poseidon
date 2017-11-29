@@ -8,7 +8,7 @@ import Row from 'components/Row';
 import Column from 'components/Column';
 import Spinner from 'components/Spinner';
 import Icon from 'components/Icon';
-import Button from 'components/Button';
+import GenericErrorMessage from 'components/GenericErrorMessage';
 
 class SpotsListContainer extends React.Component {
   constructor (props) {
@@ -125,19 +125,6 @@ class SpotsListContainer extends React.Component {
     );
   }
 
-  renderError() {
-    if (!this.state.isError) return;
-    return (
-      <Row withColumn className="text-center">
-        <h2>Oops, something went wrong!</h2>
-
-        <Button onClick={window.location.reload}>Try again</Button> <br />
-
-        Or, please <a href="mailto:surfposeidon@gmail.com">let us know</a> if it persists.
-      </Row>
-    );
-  }
-
   handleRegionChange(event) {
     this.setState({
       selectedRegion: event.target.value
@@ -164,7 +151,7 @@ class SpotsListContainer extends React.Component {
 
   render() {
     if (this.state.isError) {
-      return this.renderError();
+      return <GenericErrorMessage reload={window.location.reload.bind(window.location)} />;
     }
 
     return (
