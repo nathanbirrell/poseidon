@@ -46,6 +46,11 @@
 
     .selected-date-time {
       transform: translateX(-0.5px);
+      width: 0.6px;
+
+      @include breakpoint(medium) {
+        width: 0.9px;
+      }
     }
 
     .axis-left {
@@ -54,14 +59,14 @@
       }
       g.tick {
         line {
-          stroke-width: 0.5;
-          stroke: $font-dark-tertiary;
+          stroke-width: 0.30;
+          stroke: $gainsboro;
         }
 
         text {
           font-size: rem-calc(5);
           text-anchor: start;
-          font-weight: bold;
+          font-weight: $font-weight-medium;
 
           &.label-1 {
             transform: translate(1px, -3px);

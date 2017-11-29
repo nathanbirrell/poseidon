@@ -202,6 +202,7 @@ class AreaGraph extends React.Component {
             .attr("d", area);
         }
 
+        // Graph line
         if (graphs[i]['line'].show) {
           const lineInstance = thisGraph
             .append('path')
@@ -289,7 +290,7 @@ class AreaGraph extends React.Component {
             })
             .attr('opacity', function(d, i) {
               if (forecastConfig.showNightAndDay) {
-                const modulus = i%8;
+                const modulus = i % 8;
                 if (modulus <= 1 || modulus >= 6) {
                   return 0.1;
                 }
@@ -310,7 +311,6 @@ class AreaGraph extends React.Component {
           .attr('class', 'selected-date-time')
           .attr('x', function() { return x(selectedDateTimePosition) })
           .attr('y', 0)
-          .attr('width', '1px')
           .attr('height', selectedDateTimeIndicatorHeight)
           .attr('fill', function() {
             return '#EB5757';
