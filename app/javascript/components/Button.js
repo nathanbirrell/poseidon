@@ -20,7 +20,7 @@ class Button extends React.PureComponent {
       [`${this.props.className}`]: (this.props.className), // add any classes passed down
       '--secondary': (this.props.type === Type.SECONDARY),
       '--disabled': (this.props.disabled),
-      '--slim': (this.props.isSlim),
+      '--slim': (this.props.isSlim), // TODO: make this a TYPE
     });
 
     const attributes = {
@@ -33,6 +33,7 @@ class Button extends React.PureComponent {
     if (this.props.href) { attributes.href = this.props.href; }
     if (this.props.to) { attributes.to = this.props.to; }
     if (this.props.type) { attributes.type = this.props.type; }
+    if (this.props.style) { attributes.style = this.props.style; }
 
     if (attributes.to) {
       return (
@@ -73,6 +74,7 @@ Button.PropTypes = {
   href: PropTypes.string,
   disabled: PropTypes.bool,
   isSlim: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 export default Button;
