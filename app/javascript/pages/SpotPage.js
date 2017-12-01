@@ -55,6 +55,7 @@ class SpotPage extends React.Component {
           isError: false,
         });
       } catch (error) {
+        console.error(error);
         this.setState({ isError: true });
       }
     });

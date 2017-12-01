@@ -43,7 +43,6 @@ class Tide < WeatherForecast
   # Consider a snapshot like an instance of Tide, but for a specific time
   # See tide/tide_snapshot.rb for more
   def self.get_snapshots(date_times, spot)
-    # TODO
     # get a TideSnapshot for each date_times
     snapshots = []
 
