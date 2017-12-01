@@ -59,7 +59,6 @@ class Tide < WeatherForecast
 
   def to_builder
     Jbuilder.new do |tide|
-      tide.id id
       tide.tide_type tide_type
       tide.height height
       tide.date_time date_time

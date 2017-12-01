@@ -58,6 +58,8 @@ class Tide
         tide_snapshot.state state
         tide_snapshot.shift_rate shift_rate
         tide_snapshot.rating rating
+        tide_snapshot.tide_before tide_before.to_builder
+        tide_snapshot.tide_after tide_after.to_builder
       end
     end
 

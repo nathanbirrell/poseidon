@@ -156,6 +156,7 @@ class Spot < ApplicationRecord
                      .get_snapshots(date_times, self)
     overall_ratings = []
 
+    # Calculate potential ratings for forecasts
     date_times.each do |date_time|
       swell_forecast = swell_forecasts.find { |forecast| date_time == forecast.date_time }
       wind_forecast = wind_forecasts.find { |forecast| date_time == forecast.date_time }
