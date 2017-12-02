@@ -123,6 +123,7 @@ select {
 }
 
 input[type="checkbox"] {
+  height: auto;
   appearance: none;
   background-color: #fafafa;
 	border: 1px solid $iron;
