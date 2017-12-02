@@ -110,14 +110,24 @@ class SessionCard extends React.Component {
   }
 
   _renderTideConditions() {
-    const { tide_current, tide_next } = this.props;
+    const { tide_current } = this.props;
+    const tide_next = tide_current.tide_after;
     const state = tide_current.state.toUpperCase();
     const height = MathUtil.round(tide_current.height, 1);
-    const shiftRate = String(tide_current.shift_rate).capitalize().s;
+    let shiftRate = `(${String(tide_current.shift_rate).capitalize().s})`;
+
+    if (
+      // No need to explain normal shift rates
+      tide_current.shift_rate === 'medium' ||
+      // Don't show for condensed session card
+      !this.props.isExpanded
+    ) {
+      shiftRate = null;
+    }
 
     // TODO pass next tide in for expanded views
-    const next_tide_type = this.props.isExpanded ? null : String(tide_next.tide_type).capitalize().s;
-    const next_tide_height = this.props.isExpanded ? null : MathUtil.round(tide_next.height, 1);
+    const next_tide_type = String(tide_next.tide_type).toUpperCase().s;
+    const next_tide_height = MathUtil.round(tide_next.height, 1);
 
     let stateIconRotate = 0;
     if (state === 'OUTGOING') { stateIconRotate = 180; }
@@ -130,8 +140,8 @@ class SessionCard extends React.Component {
         primaryIndicator={tide_current.rating}
         secondary={(
           <span>
-            <Icon name="arrow-up" color="grey" rotate={stateIconRotate} />{state} <br />
-            {this.props.isExpanded ? (<small>{shiftRate}</small>) : `${next_tide_type} ${moment(tide_next.date_time).fromNow()} (${next_tide_height}m)` }
+            <small><Icon name="arrow-up" color="grey" rotate={stateIconRotate} /><b>{state}</b> {shiftRate}</small><br />
+            <small>{`${next_tide_type} ${moment(tide_next.date_time).fromNow()} (${next_tide_height}m)` }</small>
           </span>
         )}
       />
@@ -220,7 +230,6 @@ SessionCard.propTypes = {
   swell: PropTypes.object.isRequired,
   wind: PropTypes.object.isRequired,
   tide_current: PropTypes.object.isRequired,
-  tide_next: PropTypes.object,
   isExpanded: PropTypes.bool,
   highlight: PropTypes.string,
   spot: PropTypes.object,

@@ -88,7 +88,6 @@ class SpotsListContainer extends React.Component {
               swell={spot.current_swell}
               wind={spot.current_wind}
               tide_current={spot.current_tide_snapshot}
-              tide_next={spot.next_tide}
               highlight={this.state.orderBy}
             />
           </Link>
