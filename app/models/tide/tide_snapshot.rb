@@ -18,7 +18,7 @@ class Tide
       @date_time = date_time
       @spot = spot
       @tide_before = Tide.tide_before(date_time, @spot.id)
-      @tide_after = Tide.tide_after(date_time + 1.hour, @spot.id)
+      @tide_after = Tide.tide_after(date_time + 30.minute, @spot.id)
       @poseidon_math = PoseidonMath.new
       # begin
         set_tidal_range

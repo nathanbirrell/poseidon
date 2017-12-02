@@ -114,15 +114,20 @@ class SessionCard extends React.Component {
     const tide_next = tide_current.tide_after;
     const state = tide_current.state.toUpperCase();
     const height = MathUtil.round(tide_current.height, 1);
+    let next_tide_text = moment(tide_next.date_time).fromNow();
     let shiftRate = `(${String(tide_current.shift_rate).capitalize().s})`;
 
     if (
-      // No need to explain normal shift rates
       tide_current.shift_rate === 'medium' ||
-      // Don't show for condensed session card
       !this.props.isExpanded
     ) {
+      // No need to explain normal/medium shift rates
+      // Don't show for condensed session card
       shiftRate = null;
+    }
+
+    if (this.props.isExpanded) {
+      next_tide_text = moment(tide_next.date_time).format('h:mma');
     }
 
     // TODO pass next tide in for expanded views
@@ -140,8 +145,8 @@ class SessionCard extends React.Component {
         primaryIndicator={tide_current.rating}
         secondary={(
           <span>
-            <small><Icon name="arrow-up" color="grey" rotate={stateIconRotate} /><b>{state}</b> {shiftRate}</small><br />
-            <small>{`${next_tide_type} ${moment(tide_next.date_time).fromNow()} (${next_tide_height}m)` }</small>
+            <small><Icon name="arrow-up" color="grey" rotate={stateIconRotate} />{state} {shiftRate}</small><br />
+            <small>{`${next_tide_type} ${next_tide_text} ${next_tide_height}m ` }</small>
           </span>
         )}
       />
