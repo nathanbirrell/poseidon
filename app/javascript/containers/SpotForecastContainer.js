@@ -106,6 +106,7 @@ class SpotForecastContainer extends React.Component {
     const combinedGraphs = [
       {
         label: 'Overall rating',
+        name: 'rating',
         yVals: this.overallRatings()['rating'],
         yMax: 110,
         line: {
@@ -122,6 +123,7 @@ class SpotForecastContainer extends React.Component {
       },
       {
         label: 'Swell size',
+        name: 'swell-size',
         yVals: this.swellData()['size'],
         yMax: this.getMaxSwellHeight(),
         // directions: this.swellData()['direction'],
@@ -139,6 +141,7 @@ class SpotForecastContainer extends React.Component {
       },
       {
         label: 'Wind speed',
+        name: 'wind-speed',
         yVals: this.windData()['speed'],
         yMax: this.getMaxWindSpeed(),
         directions: this.windData()['direction'],
@@ -159,6 +162,7 @@ class SpotForecastContainer extends React.Component {
     const tideGraphs = [
       {
         label: 'Tide height',
+        name: 'tide-height',
         yVals: this.tideData()['height'],
         yMax: Math.max.apply(Math, this.tideData()['height']) + 0.5,
         line: {

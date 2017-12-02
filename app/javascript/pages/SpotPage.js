@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Route } from 'react-router-dom';
+import { Element } from 'react-scroll';
 
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
@@ -19,6 +20,7 @@ import Column from 'components/Column';
 import SpotHeader from 'components/SpotHeader';
 import SpotTimeSlider from 'components/SpotTimeSlider';
 import SessionCard from 'components/SessionCard';
+import GenericErrorMessage from 'components/GenericErrorMessage';
 
 class SpotPage extends React.Component {
   constructor (props) {
@@ -30,7 +32,8 @@ class SpotPage extends React.Component {
       forecastConfig: {
         showOverallRating: true,
         showNightAndDay: true,
-      }
+      },
+      isError: false,
     };
 
     this.findForecastSeedFromTime = this.findForecastSeedFromTime.bind(this);
@@ -44,12 +47,18 @@ class SpotPage extends React.Component {
     let forecasts = Api.syncData(`/spots/${spotId}/forecasts.json`);
 
     Promise.all([spot, forecasts]).then(values => {
-      const spotJson = JSON.parse(values[0]);
-      const forecastsJson = JSON.parse(values[1]);
-      this.setState({
-        spot: spotJson,
-        forecasts: forecastsJson,
-      });
+      try {
+        const spotJson = JSON.parse(values[0]);
+        const forecastsJson = JSON.parse(values[1]);
+        this.setState({
+          spot: spotJson,
+          forecasts: forecastsJson,
+          isError: false,
+        });
+      } catch (error) {
+        console.error(error);
+        this.setState({ isError: true });
+      }
     });
 
     this.setState({ spotId: spotId });
@@ -104,6 +113,10 @@ class SpotPage extends React.Component {
   render() {
     const routeMatchUrl = this.props.match.url;
 
+    if (this.state.isError) {
+      return <GenericErrorMessage reload={window.location.reload.bind(window.location)} />;
+    }
+
     if (!this.state.spot || !this.state.forecasts) {
       return (
         <div>
@@ -142,12 +155,14 @@ class SpotPage extends React.Component {
         <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
           <Row className="spot-page__forecast" withXPadding={false}>
             <Column widthSmall={12} widthMedium={12} widthLarge={8}>
-              <SpotForecastContainer
-                forecasts={this.state.forecasts}
-                updateParent={this.updateSelectedDateTime}
-                selectedDateTimePosition={seed.value}
-                forecastConfig={this.state.forecastConfig}
-              />
+              <Element name="forecast-graph-card">
+                <SpotForecastContainer
+                  forecasts={this.state.forecasts}
+                  updateParent={this.updateSelectedDateTime}
+                  selectedDateTimePosition={seed.value}
+                  forecastConfig={this.state.forecastConfig}
+                />
+              </Element>
             </Column>
             <Column widthMedium={6} widthLarge={4}>
               <SessionCard

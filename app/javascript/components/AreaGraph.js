@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import moment from 'moment';
 import ResizeSensor from 'css-element-queries/src/ResizeSensor';
+import { scroller } from 'react-scroll';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
@@ -17,7 +18,8 @@ class AreaGraph extends React.Component {
       parentConfig: {
         axes: this.props.showAxes || false,
         vertSegments: this.props.showVertSegments || true
-      }
+      },
+      isFirstClick: true,
     };
 
     this.resizeSensor = null;
@@ -204,11 +206,11 @@ class AreaGraph extends React.Component {
         }
 
         // Graph line
-        if (graphs[i]['line'].show) {
+        if (graphs[i].line.show) {
           const lineInstance = thisGraph
             .append('path')
             .datum(graph.yVals)
-            .attr('class', 'line')
+            .attr('class', `line ${graphs[i].name}`)
             .attr('stroke', graph.color)
             .attr('fill', 'none')
             .attr('opacity', graph.line.opacity || 1)
@@ -325,6 +327,15 @@ class AreaGraph extends React.Component {
   handleClick(d, i) {
     if (this.props.updateParent) {
       this.props.updateParent(i);
+    }
+
+    if (this.state.isFirstClick) {
+      scroller.scrollTo('forecast-graph-card', {
+        smooth: true,
+        offset: -53, // fixed menu height
+      });
+
+      this.setState({ isFirstClick: false });
     }
   }
 

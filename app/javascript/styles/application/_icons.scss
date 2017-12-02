@@ -18,6 +18,11 @@
     width: 18px;
   }
 
+  &.--massive {
+    height: 44px;
+    width: 44px;
+  }
+
   // TODO: should not be needed once all icons use the <Icon /> component (this component doesn't use pseudo elements)
   &:before {
     content: '';

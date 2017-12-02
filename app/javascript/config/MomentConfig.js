@@ -18,6 +18,14 @@ export default () => {
         MM: "%d months",
         y:  "a year",
         yy: "%d years"
+    },
+    calendar : {
+      lastDay : '[Yesterday] LT',
+      sameDay : '[Today] LT',
+      nextDay : '[Tomorrow] LT',
+      lastWeek : '[last] dddd LT',
+      nextWeek : 'dddd LT',
+      sameElse : 'L'
     }
   });
 }

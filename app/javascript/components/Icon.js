@@ -8,6 +8,8 @@ const Size = Object.freeze({
   SMALL: 'small',
   MEDIUM: 'medium',
   LARGE: 'large',
+  XLARGE: 'x-large',
+  MASSIVE: 'massive',
 });
 
 class Icon extends React.PureComponent {
@@ -35,8 +37,7 @@ class Icon extends React.PureComponent {
     const classes = Classnames({
       'icon': true,
       [this.getIconClassName()]: true,
-      '--small': this.props.size === Size.SMALL,
-      '--large': this.props.size === Size.LARGE,
+      [`--${this.props.size}`]: !!this.props.size,
     });
 
     const styles = this.props.style ? this.props.style : {};
