@@ -41,6 +41,7 @@ class SpotsListContainer extends React.Component {
           isError: false,
         });
       } catch (error) {
+        console.error(error);
         this.handleError();
       }
     });
