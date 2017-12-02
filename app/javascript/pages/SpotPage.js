@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Route } from 'react-router-dom';
+import { Element } from 'react-scroll';
 
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
@@ -154,12 +155,14 @@ class SpotPage extends React.Component {
         <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
           <Row className="spot-page__forecast" withXPadding={false}>
             <Column widthSmall={12} widthMedium={12} widthLarge={8}>
-              <SpotForecastContainer
-                forecasts={this.state.forecasts}
-                updateParent={this.updateSelectedDateTime}
-                selectedDateTimePosition={seed.value}
-                forecastConfig={this.state.forecastConfig}
-              />
+              <Element name="forecast-graph-card">
+                <SpotForecastContainer
+                  forecasts={this.state.forecasts}
+                  updateParent={this.updateSelectedDateTime}
+                  selectedDateTimePosition={seed.value}
+                  forecastConfig={this.state.forecastConfig}
+                />
+              </Element>
             </Column>
             <Column widthMedium={6} widthLarge={4}>
               <SessionCard
@@ -168,7 +171,6 @@ class SpotPage extends React.Component {
                 swell={this.state.forecasts.swells[seed.value]}
                 wind={this.state.forecasts.winds[seed.value]}
                 tide_current={this.state.forecasts.tides[seed.value]}
-                id="session-card"
               />
               <SpotShareContainer
                 selectedMoment={date}
