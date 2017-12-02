@@ -24,7 +24,7 @@ const SessionCardCondition = (props) => {
       <span className="session-card__condition-primary">
         {props.primary}
         {props.primaryUnit ? <span className="session-card__condition-primary-unit">{props.primaryUnit}</span> : null }
-        <Indicator rating={props.primaryIndicator} />
+        <Indicator rating={parseFloat(props.primaryIndicator)} />
       </span>
       <span className="session-card__condition-secondary">{props.secondary}</span>
     </div>
