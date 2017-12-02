@@ -203,11 +203,11 @@ class AreaGraph extends React.Component {
         }
 
         // Graph line
-        if (graphs[i]['line'].show) {
+        if (graphs[i].line.show) {
           const lineInstance = thisGraph
             .append('path')
             .datum(graph.yVals)
-            .attr('class', 'line')
+            .attr('class', `line ${graphs[i].name}`)
             .attr('stroke', graph.color)
             .attr('fill', 'none')
             .attr('opacity', graph.line.opacity || 1)
