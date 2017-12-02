@@ -218,7 +218,7 @@ class SessionCard extends React.Component {
     });
 
     return (
-      <div className={classes}>
+      <div className={classes} id={this.props.id}>
         {this.renderBody()}
       </div>
     );
@@ -238,6 +238,7 @@ SessionCard.propTypes = {
   isExpanded: PropTypes.bool,
   highlight: PropTypes.string,
   spot: PropTypes.object,
+  id: PropTypes.string,
 }
 
 export default SessionCard;
