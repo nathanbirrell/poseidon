@@ -34,6 +34,9 @@
       .line {
         stroke-width: 0.8;
       }
+      .line.wind-speed {
+        stroke-width: 0.5;
+      }
       .point {
         &.dot {
           stroke-width: 1;
@@ -122,6 +125,9 @@
       .graph {
         .line {
           stroke-width: 1.5;
+        }
+        .line.wind-speed {
+          stroke-width: 1;
         }
         .point {
           &.dot {
