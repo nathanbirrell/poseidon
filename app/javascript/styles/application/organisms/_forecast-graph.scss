@@ -32,7 +32,7 @@
 
     .graph {
       .line {
-        stroke-width: 0.8;
+        stroke-width: 1;
       }
       .line.wind-speed {
         stroke-width: 0.5;
@@ -109,9 +109,9 @@
       .tick text {
         fill: $jumbo;
         text-anchor: start;
-        font-size: 6px;
+        font-size: rem-calc(5);
         text-transform: uppercase;
-        transform: translate(-3px, -5px);
+        transform: translate(-1px, -5px);
       }
 
       .tick line {
@@ -124,7 +124,7 @@
     @media #{$medium-up} {
       .graph {
         .line {
-          stroke-width: 1.5;
+          stroke-width: 2;
         }
         .line.wind-speed {
           stroke-width: 1;
