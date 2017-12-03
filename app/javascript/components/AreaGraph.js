@@ -128,6 +128,9 @@ class AreaGraph extends React.Component {
 
     const dimensions = this.getDimensions();
 
+    const x = this.x;
+    const y = this.y;
+
     this.svg.attr('viewBox','0 0 '+ dimensions.width +' '+ dimensions.height);
 
     const area = d3.area()
