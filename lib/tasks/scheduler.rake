@@ -6,8 +6,9 @@ namespace :forecasts do
   end
 
   task :reset => :environment do
-    Swell.delete_all
-    Wind.delete_all
-    Tide.delete_all
+    # FIXME: add check here for dev environment!
+    # Swell.delete_all
+    # Wind.delete_all
+    # Tide.delete_all
   end
 end
