@@ -61,6 +61,7 @@ class Spot < ApplicationRecord
       Swell.update_forecasts(spot)
       Wind.update_forecasts(spot)
       Tide.update_forecasts(spot)
+      SunriseSunset.update_forecasts(spot)
     end
   end
 
