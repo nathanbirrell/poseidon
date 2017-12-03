@@ -24,9 +24,11 @@ module WillyweatherClient
     end
 
     def get_or_create_record(model, location_timezone, forecast_time, spot_id)
-      Time.zone = location_timezone # Willyweather provides datetimes in the timezone of the location, we need to parse it into UTC
+      # Willyweather provides times in the timezone of the _location_, so we
+      #   need to parse it into UTC, then reset back to app timezone
+      Time.zone = location_timezone
       forecast_datetime = Time.zone.parse(forecast_time)
-      Time.zone = Rails.application.config.time_zone # Reset back to config setting
+      Time.zone = Rails.application.config.time_zone
 
       model.where(
         date_time: forecast_datetime.utc,
