@@ -42,6 +42,7 @@ class Spot < ApplicationRecord
   has_many :tides
   has_many :winds
   has_many :swells
+  has_many :sunrise_sunsets
 
   validates :name, presence: true
 
