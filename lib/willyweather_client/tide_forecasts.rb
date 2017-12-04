@@ -24,16 +24,16 @@ module WillyweatherClient
     end
 
     def save_record(forecast)
-      tide_record = @client.get_or_create_record(
+      record = @client.get_or_create_record(
         Tide,
         @location['timeZone'],
         forecast['dateTime'],
         @spot.id
       )
 
-      tide_record.tide_type = forecast['type']
-      tide_record.height = forecast['height']
-      tide_record.save
+      record.tide_type = forecast['type']
+      record.height = forecast['height']
+      record.save
     end
   end
 end

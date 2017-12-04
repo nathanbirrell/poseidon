@@ -42,7 +42,7 @@ class NOAAClient
     def save_forecast(forecast)
         datetime = DateTime.parse(forecast["axes"]["time"]) # DateTime provided in UTC :)
 
-        swell_record = Swell.where(
+        record = Swell.where(
             date_time: datetime,
             spot_id: @spot.id
         ).first_or_initialize
@@ -51,14 +51,14 @@ class NOAAClient
 
         puts("No swell height for #{@spot.name} (#{@spot.id}). Update swell model lat/long.") if swell_size.nil?
 
-        swell_record.size = swell_size
-        swell_record.period = forecast["data"]["Primary_wave_mean_period_surface"]
-        swell_record.direction = forecast["data"]["Primary_wave_direction_surface"]
+        record.size = swell_size
+        record.period = forecast["data"]["Primary_wave_mean_period_surface"]
+        record.direction = forecast["data"]["Primary_wave_direction_surface"]
         # TODO: we should probably store these fields, need to create the cols first though
-        # swell_record.axes_reftime = DateTime.parse(forecast["axes"]["reftime"])
-        # swell_record.axes_lat = forecast["axes"]["latitude"]
-        # swell_record.axes_lon = forecast["axes"]["longitude"]
-        swell_record.save
+        # record.axes_reftime = DateTime.parse(forecast["axes"]["reftime"])
+        # record.axes_lat = forecast["axes"]["latitude"]
+        # record.axes_lon = forecast["axes"]["longitude"]
+        record.save
     end
 
     def count
