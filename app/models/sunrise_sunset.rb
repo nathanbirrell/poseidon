@@ -1,4 +1,4 @@
-class SunriseSunset < WeatherModel
+class SunriseSunset < ForecastModel
   belongs_to :spot
 
   def self.update_forecasts(spot)
