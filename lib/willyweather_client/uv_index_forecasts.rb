@@ -1,18 +1,18 @@
 module WillyweatherClient
-  class TideForecasts
+  class UvIndexForecasts
     attr_reader :location, :forecasts
+
+    def self.fetch(spot)
+      client = WillyweatherClient::Client.new(spot.willyweather_location_id)
+      response = client.fetch_forecasts('uv')
+      new(response, spot, client)
+    end
 
     def initialize(response, spot, client)
       @spot = spot
       @location = response['location']
-      @forecasts = response['forecasts']['tides']['days']
+      @forecasts = response['forecasts']['uv']['days']
       @client = client
-    end
-
-    def self.fetch(spot)
-      client = WillyweatherClient::Client.new(spot.willyweather_location_id)
-      response = client.fetch_forecasts('tides')
-      new(response, spot, client)
     end
 
     def save_entries
@@ -25,14 +25,14 @@ module WillyweatherClient
 
     def save_record(forecast)
       record = @client.get_or_create_record(
-        Tide,
+        UvIndex,
         @location['timeZone'],
         forecast['dateTime'],
         @spot.id
       )
 
-      record.tide_type = forecast['type']
-      record.height = forecast['height']
+      record.uv_index = forecast['index']
+      record.scale = forecast['scale']
       record.save
     end
   end

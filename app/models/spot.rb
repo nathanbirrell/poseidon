@@ -42,6 +42,11 @@ class Spot < ApplicationRecord
   has_many :tides
   has_many :winds
   has_many :swells
+
+  has_many :weather_day_summaries
+  has_many :weather_precis
+  has_many :uv_indices
+
   has_many :sunrise_sunsets
 
   validates :name, presence: true
@@ -63,6 +68,11 @@ class Spot < ApplicationRecord
       Swell.update_forecasts(spot)
       Wind.update_forecasts(spot)
       Tide.update_forecasts(spot)
+
+      UvIndex.update_forecasts(spot)
+      WeatherDaySummary.update_forecasts(spot)
+      WeatherPrecis.update_forecasts(spot)
+
       SunriseSunset.update_forecasts(spot)
     end
   end

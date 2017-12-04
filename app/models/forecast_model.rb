@@ -1,4 +1,4 @@
-class WeatherForecast < ApplicationRecord
+class ForecastModel < ApplicationRecord
   self.abstract_class = true
 
   # Class methods used in a similar way to named scopes

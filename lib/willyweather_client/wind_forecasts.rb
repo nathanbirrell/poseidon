@@ -24,18 +24,18 @@ module WillyweatherClient
     end
 
     def save_record(forecast)
-      wind_record = @client.get_or_create_record(
+      record = @client.get_or_create_record(
         Wind,
         @location['timeZone'],
         forecast['dateTime'],
         @spot.id
       )
 
-      wind_record.speed = forecast['speed']
-      wind_record.direction = forecast['direction']
-      wind_record.direction_text = forecast['directionText']
+      record.speed = forecast['speed']
+      record.direction = forecast['direction']
+      record.direction_text = forecast['directionText']
 
-      wind_record.save
+      record.save
     end
   end
 end
