@@ -46,6 +46,8 @@ class Spot < ApplicationRecord
 
   validates :name, presence: true
 
+  before_save :default_values
+
   scope :not_hidden, -> { where(hidden: false) }
 
   attr_reader :current_swell
@@ -312,5 +314,9 @@ class Spot < ApplicationRecord
 
   def poseidon_math
     @poseidon_math ||= PoseidonMath.new
+  end
+
+  def default_values
+    self.hidden = false if self.hidden.nil?
   end
 end
