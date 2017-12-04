@@ -1,5 +1,5 @@
 module WillyweatherClient
-  class TideForecasts
+  class WeatherDaySummaryForecasts
     attr_reader :location, :forecasts
 
     def initialize(response, spot, client)
