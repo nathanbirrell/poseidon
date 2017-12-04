@@ -44,6 +44,7 @@ class Spot < ApplicationRecord
   has_many :swells
   has_many :weather_day_summaries
   has_many :weather_precis
+  has_many :uv_indices
 
   validates :name, presence: true
 
