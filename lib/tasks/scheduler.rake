@@ -11,3 +11,11 @@ namespace :forecasts do
     Tide.delete_all
   end
 end
+
+namespace :weather do
+  task :update => :environment do
+    UvIndex.update_forecasts(spot)
+    WeatherDaySummary.update_forecasts(spot)
+    WeatherPrecis.update_forecasts(spot)
+  end
+end
