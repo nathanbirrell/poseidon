@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171204010605) do
+ActiveRecord::Schema.define(version: 20171204011457) do
 
   create_table "regions", force: :cascade do |t|
     t.string "name"
@@ -114,6 +114,18 @@ ActiveRecord::Schema.define(version: 20171204010605) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["spot_id"], name: "index_weather_day_summaries_on_spot_id"
+  end
+
+  create_table "weather_precis", force: :cascade do |t|
+    t.datetime "date_time"
+    t.string "precis_code"
+    t.string "precis"
+    t.string "precis_overlay_code"
+    t.boolean "night"
+    t.integer "spot_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_weather_precis_on_spot_id"
   end
 
   create_table "winds", force: :cascade do |t|
