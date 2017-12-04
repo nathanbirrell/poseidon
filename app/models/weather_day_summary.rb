@@ -1,4 +1,4 @@
-class WeatherDaySummary < WeatherForecast
+class WeatherDaySummary < ForecastModel
   belongs_to :spot
 
   def self.update_forecasts(spot)

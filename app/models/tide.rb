@@ -11,7 +11,7 @@
 #  date_time  :datetime
 #
 
-class Tide < WeatherForecast
+class Tide < ForecastModel
   belongs_to :spot
 
   scope :last_tide, -> () {

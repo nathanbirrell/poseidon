@@ -12,7 +12,7 @@
 #  spot_id    :integer
 #
 
-class Swell < WeatherForecast
+class Swell < ForecastModel
   belongs_to :spot
 
   def self.update_forecasts(spot)

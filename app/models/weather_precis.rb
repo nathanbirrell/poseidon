@@ -1,6 +1,6 @@
 # NOTE: forced plural on this model because the word "precis" is both singular
 #   and plural form
-class WeatherPrecis < WeatherForecast
+class WeatherPrecis < ForecastModel
   belongs_to :spot
 
   def self.update_forecasts(spot)

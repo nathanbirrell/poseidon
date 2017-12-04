@@ -12,7 +12,7 @@
 #  updated_at     :datetime         not null
 #
 
-class Wind < WeatherForecast
+class Wind < ForecastModel
   include WillyweatherClient
   include SpotsHelper
   belongs_to :spot
