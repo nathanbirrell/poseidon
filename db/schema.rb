@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171129070800) do
+ActiveRecord::Schema.define(version: 20171204010605) do
 
   create_table "regions", force: :cascade do |t|
     t.string "name"
@@ -52,6 +52,18 @@ ActiveRecord::Schema.define(version: 20171129070800) do
     t.index ["region_id"], name: "index_spots_on_region_id"
   end
 
+  create_table "sunrise_sunsets", force: :cascade do |t|
+    t.datetime "date_time"
+    t.integer "spot_id"
+    t.datetime "first_light"
+    t.datetime "sunrise"
+    t.datetime "sunset"
+    t.datetime "last_light"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_sunrise_sunsets_on_spot_id"
+  end
+
   create_table "swells", force: :cascade do |t|
     t.decimal "size"
     t.decimal "period"
@@ -89,6 +101,19 @@ ActiveRecord::Schema.define(version: 20171129070800) do
     t.string "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "weather_day_summaries", force: :cascade do |t|
+    t.datetime "date_time", null: false
+    t.integer "temp_min"
+    t.integer "temp_max"
+    t.string "precis_code"
+    t.string "precis"
+    t.string "precis_overlay_code"
+    t.integer "spot_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spot_id"], name: "index_weather_day_summaries_on_spot_id"
   end
 
   create_table "winds", force: :cascade do |t|
