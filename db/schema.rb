@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20171204012402) do
 
   create_table "uv_indices", force: :cascade do |t|
     t.datetime "date_time", null: false
-    t.integer "uv_index"
+    t.float "uv_index"
     t.string "scale"
     t.integer "spot_id", null: false
     t.datetime "created_at", null: false
