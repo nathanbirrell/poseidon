@@ -63,6 +63,9 @@ class Spot < ApplicationRecord
       Swell.update_forecasts(spot)
       Wind.update_forecasts(spot)
       Tide.update_forecasts(spot)
+      UvIndex.update_forecasts(spot)
+      WeatherDaySummary.update_forecasts(spot)
+      WeatherPrecis.update_forecasts(spot)
     end
   end
 
