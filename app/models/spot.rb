@@ -42,11 +42,16 @@ class Spot < ApplicationRecord
   has_many :tides
   has_many :winds
   has_many :swells
+
   has_many :weather_day_summaries
   has_many :weather_precis
   has_many :uv_indices
 
+  has_many :sunrise_sunsets
+
   validates :name, presence: true
+
+  before_save :default_values
 
   scope :not_hidden, -> { where(hidden: false) }
 
@@ -63,9 +68,12 @@ class Spot < ApplicationRecord
       Swell.update_forecasts(spot)
       Wind.update_forecasts(spot)
       Tide.update_forecasts(spot)
+
       UvIndex.update_forecasts(spot)
       WeatherDaySummary.update_forecasts(spot)
       WeatherPrecis.update_forecasts(spot)
+
+      SunriseSunset.update_forecasts(spot)
     end
   end
 
@@ -316,5 +324,9 @@ class Spot < ApplicationRecord
 
   def poseidon_math
     @poseidon_math ||= PoseidonMath.new
+  end
+
+  def default_values
+    self.hidden = false if self.hidden.nil?
   end
 end
