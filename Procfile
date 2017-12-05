@@ -1,3 +1,3 @@
 web: bundle exec rails s
-webpacker: ./bin/webpack-dev-server
-#forecasts: exec rails forecasts:update
+#webpacker: ./bin/webpack-dev-server
+release: rake db:migrate
