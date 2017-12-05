@@ -11,7 +11,7 @@
 #  date_time  :datetime
 #
 
-class Tide < WeatherForecast
+class Tide < ForecastModel
   belongs_to :spot
 
   scope :last_tide, -> () {
@@ -43,7 +43,6 @@ class Tide < WeatherForecast
   # Consider a snapshot like an instance of Tide, but for a specific time
   # See tide/tide_snapshot.rb for more
   def self.get_snapshots(date_times, spot)
-    # TODO
     # get a TideSnapshot for each date_times
     snapshots = []
 
@@ -60,7 +59,6 @@ class Tide < WeatherForecast
 
   def to_builder
     Jbuilder.new do |tide|
-      tide.id id
       tide.tide_type tide_type
       tide.height height
       tide.date_time date_time

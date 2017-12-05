@@ -40,7 +40,7 @@
         <div class="grid-x">
           <div class="medium-6 cell">
             <%= f.label :region %>
-            <%= f.select :region_id, options_for_select(Region.all.map{|r|[r.name, r.id]}) %>
+            <%= f.select :region_id, options_for_select(Region.all.map{ |r| [r.name, r.id] }, :selected => @spot.region_id) %>
           </div>
           <div class="medium-6 cell">
             <%= f.label :image %>

@@ -1,6 +1,9 @@
 require_relative 'willyweather_client/client'
 require_relative 'willyweather_client/wind_forecasts'
 require_relative 'willyweather_client/tide_forecasts'
+require_relative 'willyweather_client/uv_index_forecasts'
+require_relative 'willyweather_client/weather_precis_forecasts'
+require_relative 'willyweather_client/weather_day_summary_forecasts'
 
 module WillyweatherClient
 end

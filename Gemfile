@@ -42,7 +42,6 @@ group :development do
   gem 'spring-commands-rspec'
   gem "guard", ">= 2.2.2", :require => false
   gem "rb-fsevent",        :require => false
-  gem "foreman"
 end
 
 group :test do

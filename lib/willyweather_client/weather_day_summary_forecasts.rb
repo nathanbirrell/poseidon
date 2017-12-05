@@ -1,17 +1,17 @@
 module WillyweatherClient
-  class TideForecasts
+  class WeatherDaySummaryForecasts
     attr_reader :location, :forecasts
 
     def initialize(response, spot, client)
       @spot = spot
       @location = response['location']
-      @forecasts = response['forecasts']['tides']['days']
+      @forecasts = response['forecasts']['weather']['days']
       @client = client
     end
 
     def self.fetch(spot)
       client = WillyweatherClient::Client.new(spot.willyweather_location_id)
-      response = client.fetch_forecasts('tides')
+      response = client.fetch_forecasts('weather')
       new(response, spot, client)
     end
 
@@ -25,14 +25,17 @@ module WillyweatherClient
 
     def save_record(forecast)
       record = @client.get_or_create_record(
-        Tide,
+        WeatherDaySummary,
         @location['timeZone'],
         forecast['dateTime'],
         @spot.id
       )
 
-      record.tide_type = forecast['type']
-      record.height = forecast['height']
+      record.temp_min = forecast['min']
+      record.temp_max = forecast['max']
+      record.precis_code = forecast['precisCode']
+      record.precis = forecast['precis']
+      record.precis_overlay_code = forecast['precisOverlayCode']
       record.save
     end
   end
