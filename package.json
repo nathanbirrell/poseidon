@@ -6,7 +6,7 @@
   "repository": "git@github.com:nathanbirrell/poseidon.git",
   "author": "Nathan Birrell <nathanbirrell@gmail.com>, Taylor Bett <taylor.bett@hotmail.com>",
   "scripts": {
-    "start": "concurrently \"rails forecasts:update\" \"heroku local\" \"./bin/webpack-dev-server\" ",
+    "start": "concurrently --names \"HEROKU_LOCAL,WEBPACK_DEV\" -c \"bgBlue.bold,bgMagenta.bold\" \"heroku local\" \"./bin/webpack-dev-server\" ",
     "build": "rails assets:precompile"
   },
   "engines": {
