@@ -6,7 +6,7 @@
   "repository": "git@github.com:nathanbirrell/poseidon.git",
   "author": "Nathan Birrell <nathanbirrell@gmail.com>, Taylor Bett <taylor.bett@hotmail.com>",
   "scripts": {
-    "start": "./bin/webpack-dev-server",
+    "start": "concurrently \"rails forecasts:update\" \"heroku local\" \"./bin/webpack-dev-server\" ",
     "build": "rails assets:precompile"
   },
   "engines": {
@@ -27,6 +27,7 @@
     "coffee-loader": "^0.7.3",
     "coffee-script": "^1.12.7",
     "compression-webpack-plugin": "^1.0.0",
+    "concurrently": "^3.5.1",
     "css-element-queries": "^0.4.0",
     "css-loader": "^0.28.4",
     "d3": "^4.10.2",
