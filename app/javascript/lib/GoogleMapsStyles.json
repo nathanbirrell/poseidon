@@ -1,6 +1,4 @@
-// TODO: implement these
-
-export default [
+[
   {
     "elementType": "geometry",
     "stylers": [
@@ -229,4 +227,4 @@ export default [
       }
     ]
   }
-];
+]

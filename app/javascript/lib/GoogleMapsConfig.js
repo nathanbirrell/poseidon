@@ -1,0 +1,2 @@
+export const GOOGLE_MAPS_KEY = 'AIzaSyA5tiVF6TiP5qAn0vTmgh6ljnOIJNA5Gr8';
+export const GOOGLE_MAP_URL = `https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${GOOGLE_MAPS_KEY}`;

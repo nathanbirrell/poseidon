@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
-import GoogleMapsStyles from 'lib/GoogleMapsStyles';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
+import GoogleMap from 'components/GoogleMap';
+import Button from 'components/Button';
+import Icon from 'components/Icon';
 
 class SpotAboutContainer extends React.Component {
   render() {
@@ -68,20 +70,19 @@ class SpotAboutContainer extends React.Component {
           {/* <p><strong>Lat/long: </strong> {spot.latitude}, {spot.longitude}</p> */}
         </Column>
         <Column widthMediumUp={6}>
-          <a className="btn --icon --icon-alert-triangle--white" href={`https://www.google.com.au/maps/dir//${spot.latitude},${spot.longitude}/`} target="_blank">
-              Get directions
-            </a>
-            <a className="btn --secondary --icon --icon-calendar--blue" href="#" target="_blank">
-              Start a plan
-            </a>
-            <iframe
-              width="100%"
-              height="250"
-              frameBorder="0"
-              style={mapIframeStyle}
-              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDVFmco07GE43aqioYPI5Ccfl_DJlGkBJo&q=loc:${spot.latitude}+${spot.longitude}&zoom=15`}
-              allowFullScreen>
-            </iframe>
+          <Button href={`https://www.google.com.au/maps/dir/${spot.latitude},${spot.longitude}/`} target="_blank">
+            <Icon name="map--white" size={Icon.Size.LARGE} />
+            Get directions
+          </Button>
+
+          {/* <a className="btn --secondary --icon --icon-calendar--blue" href="#" target="_blank">
+            Start a plan
+          </a> */}
+
+          <GoogleMap
+            lat={spot.latitude}
+            lng={spot.longitude}
+          />
         </Column>
       </Row>
     );
