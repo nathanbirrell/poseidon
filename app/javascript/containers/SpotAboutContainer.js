@@ -16,6 +16,7 @@ class SpotAboutContainer extends React.Component {
     const size_min = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_min), 0);
     const size_max = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_max), 0);
     const wind_direction = SpotUtil.degreesToText(spot.optimals.wind.direction.optimal);
+    // TODO: tide height, cater for ANY tide (0 - 0)
 
     return (
       <ul className="information-list">
