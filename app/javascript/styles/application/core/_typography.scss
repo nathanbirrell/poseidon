@@ -47,7 +47,32 @@ ul {
   font-size: 80%;
 }
 
-a.disabled {
-  color: $font-dark-tertiary;
-  cursor: not-allowed;
+a,
+.link {
+  color: $secondary-color;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $secondary-color;
+  }
+
+  &.disabled {
+    color: $font-dark-tertiary;
+    cursor: not-allowed;
+  }
+
+  i {
+    // Vertical center icon children
+    margin-bottom: rem-calc(-2.5);
+    margin-right: rem-calc(5);
+  }
+}
+
+// A link-looking button
+.link {
+  display: inline-block;
+  height: 44px; // Same as .btn
+  line-height: 44px; // Same as .btn
+  padding: 0 12px;
 }
