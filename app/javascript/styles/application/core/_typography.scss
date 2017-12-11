@@ -15,6 +15,7 @@ h1 {
 }
 
 h2 {
+  color: $font-dark-primary;
   font-weight: $font-weight-bold;
 
   &.--small {
@@ -22,6 +23,12 @@ h2 {
     font-size: rem-calc(24);
     text-transform: uppercase;
   }
+}
+
+h3 {
+  font-size: rem-calc(22);
+  font-weight: $font-weight-medium;
+  color: $font-dark-secondary;
 }
 
 h5 {
