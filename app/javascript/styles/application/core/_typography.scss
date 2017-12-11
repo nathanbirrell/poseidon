@@ -57,7 +57,8 @@ a,
     color: $secondary-color;
   }
 
-  &.disabled {
+  &.disabled,
+  &.--disabled {
     color: $font-dark-tertiary;
     cursor: not-allowed;
   }

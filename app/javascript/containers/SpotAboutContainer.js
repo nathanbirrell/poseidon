@@ -25,8 +25,19 @@ class SpotAboutContainer extends React.Component {
 
     return (
       <Row id="about-section">
-        <Column widthMediumUp={12}>
+        <Column widthMediumUp={6}>
           <h2>About {spot.name}</h2>
+        </Column>
+        <Column widthMediumUp={6} style={{ display: 'flex' }}>
+          <Button href={`https://www.google.com.au/maps/dir/${spot.latitude},${spot.longitude}/`} target="_blank">
+            <Icon name="map--white" size={Icon.Size.LARGE} />
+            Get directions
+          </Button>
+
+          <Button type={Button.Type.LINK} disabled>
+            <Icon name="calendar" size={Icon.Size.LARGE} />
+            Start plan
+          </Button>
         </Column>
         <Column widthMediumUp={6}>
           <p>{spot.description}</p>
@@ -70,15 +81,6 @@ class SpotAboutContainer extends React.Component {
           {/* <p><strong>Lat/long: </strong> {spot.latitude}, {spot.longitude}</p> */}
         </Column>
         <Column widthMediumUp={6}>
-          <Button href={`https://www.google.com.au/maps/dir/${spot.latitude},${spot.longitude}/`} target="_blank">
-            <Icon name="map--white" size={Icon.Size.LARGE} />
-            Get directions
-          </Button>
-
-          {/* <a className="btn --secondary --icon --icon-calendar--blue" href="#" target="_blank">
-            Start a plan
-          </a> */}
-
           <GoogleMap
             lat={spot.latitude}
             lng={spot.longitude}
