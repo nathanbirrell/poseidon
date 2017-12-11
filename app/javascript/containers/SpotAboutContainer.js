@@ -19,14 +19,18 @@ class SpotAboutContainer extends React.Component {
     // TODO: tide height, cater for ANY tide (0 - 0)
 
     return (
-      <ul className="information-list">
-        <li className="information-list__item">
-          {size_min}&mdash;{size_max}ft <br />
+      <ul className="list --information-list">
+        <li>
+          <span className="item__primary">{size_min}&mdash;{size_max}ft <br /></span>
           Swell
         </li>
-        <li className="information-list__item">
-          {wind_direction} <br />
+        <li>
+          <span className="item__primary">{wind_direction} <br /></span>
           Wind
+        </li>
+        <li>
+          <span className="item__primary">0m <br /></span>
+          Tide
         </li>
       </ul>
     );
@@ -67,44 +71,10 @@ class SpotAboutContainer extends React.Component {
         </Column>
         <Column widthMediumUp={6}>
           <p>{spot.description}</p>
-          <h3>Ideal conditions:</h3>
+
+          {/* <h3>Ideal conditions:</h3> */}
 
           {this._renderOptimal()}
-
-          <table>
-            <tbody>
-              <tr>
-                <th></th>
-                <th>Optimal min</th>
-                <th>Optimal max</th>
-              </tr>
-              <tr>
-                <td><strong>Swell size:</strong></td>
-                <td>{spot.optimals.swell.size.optimal_min} m</td>
-                <td>{spot.optimals.swell.size.optimal_max} m</td>
-              </tr>
-              <tr>
-                <td><strong>Swell direction:</strong></td>
-                <td>{spot.optimals.swell.direction.optimal_min} deg</td>
-                <td>{spot.optimals.swell.direction.optimal_max} deg</td>
-              </tr>
-              <tr>
-                <td><strong>Wind strength:</strong></td>
-                <td>{spot.optimals.wind.speed.optimal_min} kph</td>
-                <td>{spot.optimals.wind.speed.optimal_max} kph</td>
-              </tr>
-              <tr>
-                <td><strong>Wind direction:</strong></td>
-                <td>{spot.optimals.wind.direction.optimal_min} deg</td>
-                <td>{spot.optimals.wind.direction.optimal_max} deg</td>
-              </tr>
-              <tr>
-                <td><strong>Tide height:</strong></td>
-                <td>{spot.optimals.tide.height.optimal_min} m</td>
-                <td>{spot.optimals.tide.height.optimal_max} m</td>
-              </tr>
-            </tbody>
-          </table>
 
           {/* <p><strong>Lat/long: </strong> {spot.latitude}, {spot.longitude}</p> */}
         </Column>
@@ -115,7 +85,7 @@ class SpotAboutContainer extends React.Component {
           />
         </Column>
         <Column widthMediumUp={12}>
-          <h3>todo: instagram location embed</h3>
+          <strong>todo: instagram location embed</strong>
         </Column>
       </Row>
     );

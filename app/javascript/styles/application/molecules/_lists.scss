@@ -21,3 +21,20 @@
     top: 4px;
   }
 }
+
+.list.--information-list {
+  display: flex;
+  position: relative;
+  list-style: none;
+  margin-left: 0;
+
+  li {
+    padding: 12px;
+    min-width: 80px;
+  }
+
+  li .item__primary {
+    font-weight: $font-weight-bold;
+    font-size: rem-calc(20);
+  }
+}
