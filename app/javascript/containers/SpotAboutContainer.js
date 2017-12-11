@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
+import GoogleMapsStyles from 'lib/GoogleMapsStyles';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
@@ -22,11 +23,13 @@ class SpotAboutContainer extends React.Component {
 
     return (
       <Row id="about-section">
-        <Column widthMediumUp={6}>
+        <Column widthMediumUp={12}>
           <h2>About {spot.name}</h2>
-          <h3>Description</h3>
+        </Column>
+        <Column widthMediumUp={6}>
           <p>{spot.description}</p>
           <h3>Optimal conditions:</h3>
+
           <table>
             <tbody>
               <tr>
@@ -61,8 +64,8 @@ class SpotAboutContainer extends React.Component {
               </tr>
             </tbody>
           </table>
-          <p><strong>Season:</strong> {spot.season}</p>
-          <p><strong>Lat/long: </strong> {spot.latitude}, {spot.longitude}</p>
+
+          {/* <p><strong>Lat/long: </strong> {spot.latitude}, {spot.longitude}</p> */}
         </Column>
         <Column widthMediumUp={6}>
           <a className="btn --icon --icon-alert-triangle--white" href={`https://www.google.com.au/maps/dir//${spot.latitude},${spot.longitude}/`} target="_blank">

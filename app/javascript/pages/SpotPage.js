@@ -193,7 +193,7 @@ class SpotPage extends React.Component {
 
         <Route path={`${routeMatchUrl}/about`} exact render={() => (
           <SpotAboutContainer
-            data={this.state.spot}
+            spot={this.state.spot}
           />
         )} />
 
