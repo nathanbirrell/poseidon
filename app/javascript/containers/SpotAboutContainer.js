@@ -9,12 +9,12 @@ import Column from 'components/Column';
 
 class SpotAboutContainer extends React.Component {
   render() {
-    if (!this.props.data) {
+    if (!this.props.spot) {
       // PUT LOADING STATE HERE
       return null;
     }
 
-    const data = this.props.data;
+    const spot = this.props.spot;
 
     const mapIframeStyle = {
       border: '0'
@@ -23,8 +23,9 @@ class SpotAboutContainer extends React.Component {
     return (
       <Row id="about-section">
         <Column widthMediumUp={6}>
+          <h2>About {spot.name}</h2>
           <h3>Description</h3>
-          <p>{data.description}</p>
+          <p>{spot.description}</p>
           <h3>Optimal conditions:</h3>
           <table>
             <tbody>
@@ -35,36 +36,36 @@ class SpotAboutContainer extends React.Component {
               </tr>
               <tr>
                 <td><strong>Swell size:</strong></td>
-                <td>{data.optimals.swell.size.optimal_min} m</td>
-                <td>{data.optimals.swell.size.optimal_max} m</td>
+                <td>{spot.optimals.swell.size.optimal_min} m</td>
+                <td>{spot.optimals.swell.size.optimal_max} m</td>
               </tr>
               <tr>
                 <td><strong>Swell direction:</strong></td>
-                <td>{data.optimals.swell.direction.optimal_min} deg</td>
-                <td>{data.optimals.swell.direction.optimal_max} deg</td>
+                <td>{spot.optimals.swell.direction.optimal_min} deg</td>
+                <td>{spot.optimals.swell.direction.optimal_max} deg</td>
               </tr>
               <tr>
                 <td><strong>Wind strength:</strong></td>
-                <td>{data.optimals.wind.speed.optimal_min} kph</td>
-                <td>{data.optimals.wind.speed.optimal_max} kph</td>
+                <td>{spot.optimals.wind.speed.optimal_min} kph</td>
+                <td>{spot.optimals.wind.speed.optimal_max} kph</td>
               </tr>
               <tr>
                 <td><strong>Wind direction:</strong></td>
-                <td>{data.optimals.wind.direction.optimal_min} deg</td>
-                <td>{data.optimals.wind.direction.optimal_max} deg</td>
+                <td>{spot.optimals.wind.direction.optimal_min} deg</td>
+                <td>{spot.optimals.wind.direction.optimal_max} deg</td>
               </tr>
               <tr>
                 <td><strong>Tide height:</strong></td>
-                <td>{data.optimals.tide.height.optimal_min} m</td>
-                <td>{data.optimals.tide.height.optimal_max} m</td>
+                <td>{spot.optimals.tide.height.optimal_min} m</td>
+                <td>{spot.optimals.tide.height.optimal_max} m</td>
               </tr>
             </tbody>
           </table>
-          <p><strong>Season:</strong> {data.season}</p>
-          <p><strong>Lat/long: </strong> {data.latitude}, {data.longitude}</p>
+          <p><strong>Season:</strong> {spot.season}</p>
+          <p><strong>Lat/long: </strong> {spot.latitude}, {spot.longitude}</p>
         </Column>
         <Column widthMediumUp={6}>
-          <a className="btn --icon --icon-alert-triangle--white" href={`https://www.google.com.au/maps/dir//${data.latitude},${data.longitude}/`} target="_blank">
+          <a className="btn --icon --icon-alert-triangle--white" href={`https://www.google.com.au/maps/dir//${spot.latitude},${spot.longitude}/`} target="_blank">
               Get directions
             </a>
             <a className="btn --secondary --icon --icon-calendar--blue" href="#" target="_blank">
@@ -75,7 +76,7 @@ class SpotAboutContainer extends React.Component {
               height="250"
               frameBorder="0"
               style={mapIframeStyle}
-              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDVFmco07GE43aqioYPI5Ccfl_DJlGkBJo&q=loc:${data.latitude}+${data.longitude}&zoom=15`}
+              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDVFmco07GE43aqioYPI5Ccfl_DJlGkBJo&q=loc:${spot.latitude}+${spot.longitude}&zoom=15`}
               allowFullScreen>
             </iframe>
         </Column>
@@ -85,11 +86,11 @@ class SpotAboutContainer extends React.Component {
 }
 
 SpotAboutContainer.defaultProps = {
-  data: null,
+  spot: null,
 };
 
 SpotAboutContainer.PropTypes = {
-  data: PropTypes.object,
+  spot: PropTypes.object,
 };
 
 export default SpotAboutContainer;
