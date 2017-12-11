@@ -212,6 +212,7 @@ class Spot < ApplicationRecord
     {
       size: {
         type: 'linear',
+        optimal: swell_size_at_rating(100)[:left].round(1),
         min: swell_size_at_rating(30.0)[:left].round(2),
         max: swell_size_at_rating(30.0)[:right].round(2),
         mixed_min: swell_size_at_rating(50.0)[:left].round(2),
@@ -222,6 +223,7 @@ class Spot < ApplicationRecord
       },
       direction: {
         type: 'direction',
+        optimal: swell_dir_at_rating(100)[:left].round(1),
         min: swell_dir_at_rating(30.0)[:left].round(1),
         max: swell_dir_at_rating(30.0)[:right].round(1),
         mixed_min: swell_dir_at_rating(50.0)[:left].round(1),
@@ -238,6 +240,7 @@ class Spot < ApplicationRecord
     {
       speed: {
         type: 'linear',
+        optimal: wind_speed_at_rating(100)[:left].round(1),
         min: wind_speed_at_rating(30.0)[:left].round(1),
         max: wind_speed_at_rating(30.0)[:right].round(1),
         mixed_min: wind_speed_at_rating(50.0)[:left].round(1),
@@ -248,6 +251,7 @@ class Spot < ApplicationRecord
       },
       direction: {
         type: 'direction',
+        optimal: wind_dir_at_rating(100)[:left].round(1),
         min: wind_dir_at_rating(30.0)[:left].round(1),
         max: wind_dir_at_rating(30.0)[:right].round(1),
         mixed_min: wind_dir_at_rating(50.0)[:left].round(1),
@@ -263,6 +267,7 @@ class Spot < ApplicationRecord
     {
       height: {
         type: 'linear',
+        optimal: tide_at_rating(100)[:left].round(1),
         min: tide_at_rating(30.0)[:left].round(1),
         max: tide_at_rating(30.0)[:right].round(1),
         mixed_min: tide_at_rating(50.0)[:left].round(1),
