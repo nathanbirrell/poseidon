@@ -38,6 +38,11 @@ class SpotAboutContainer extends React.Component {
             <Icon name="calendar" size={Icon.Size.LARGE} />
             Start plan
           </Button>
+
+          <Button type={Button.Type.LINK} disabled>
+            <Icon name="star" size={Icon.Size.LARGE} />
+            Favourite
+          </Button>
         </Column>
         <Column widthMediumUp={6}>
           <p>{spot.description}</p>
