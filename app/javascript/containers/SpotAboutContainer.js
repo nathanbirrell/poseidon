@@ -11,6 +11,26 @@ import Button from 'components/Button';
 import Icon from 'components/Icon';
 
 class SpotAboutContainer extends React.Component {
+  _renderOptimal() {
+    const { spot } = this.props;
+    const size_min = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_min), 0);
+    const size_max = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_max), 0);
+    const wind_direction = SpotUtil.degreesToText(spot.optimals.wind.direction.optimal);
+
+    return (
+      <ul className="information-list">
+        <li className="information-list__item">
+          {size_min}&mdash;{size_max}ft <br />
+          Swell
+        </li>
+        <li className="information-list__item">
+          {wind_direction} <br />
+          Wind
+        </li>
+      </ul>
+    );
+  }
+
   render() {
     if (!this.props.spot) {
       // PUT LOADING STATE HERE
@@ -46,7 +66,9 @@ class SpotAboutContainer extends React.Component {
         </Column>
         <Column widthMediumUp={6}>
           <p>{spot.description}</p>
-          <h3>Optimal conditions:</h3>
+          <h3>Ideal conditions:</h3>
+
+          {this._renderOptimal()}
 
           <table>
             <tbody>
@@ -90,6 +112,9 @@ class SpotAboutContainer extends React.Component {
             lat={spot.latitude}
             lng={spot.longitude}
           />
+        </Column>
+        <Column widthMediumUp={12}>
+          <h3>todo: instagram location embed</h3>
         </Column>
       </Row>
     );
