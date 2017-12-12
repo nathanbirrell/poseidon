@@ -16,8 +16,9 @@ class SpotAboutContainer extends React.Component {
     const swell_min = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_min), 0);
     const swell_max = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_max), 0);
     const wind_direction = SpotUtil.degreesToText(spot.optimals.wind.direction.optimal);
-    const tide_height = spot.optimals.tide.height.optimal;
-    // TODO: tide height, cater for ANY tide (0 - 0)
+    let tide_height = `${spot.optimals.tide.height.optimal}m`;
+
+    if (!spot.optimals.tide.height.optimal) { tide_height = 'Any'; }
 
     return (
       <ul className="list --information-list">
@@ -32,7 +33,7 @@ class SpotAboutContainer extends React.Component {
           Wind
         </li>
         <li>
-          <span className="item__primary">{tide_height}m <br /></span>
+          <span className="item__primary">{tide_height} <br /></span>
           <Icon name="moon" size={Icon.Size.MEDIUM} />
           Tide
         </li>
@@ -47,19 +48,19 @@ class SpotAboutContainer extends React.Component {
       <ul className="list --information-list text-center">
         <li>
           <span className="item__primary"><Icon name="heart" size={Icon.Size.XLARGE} /><br /></span>
-          Beginner friendly
+          <p>Beginner friendly</p>
         </li>
         <li>
           <span className="item__primary"><Icon name="activity" size={Icon.Size.XLARGE} /><br /></span>
-          Breaks left
+          <p>Breaks left</p>
         </li>
         <li>
           <span className="item__primary"><Icon name="users" size={Icon.Size.XLARGE} /><br /></span>
-          Low crowds
+          <p>Low crowds</p>
         </li>
         <li>
           <span className="item__primary"><Icon name="map-pin" size={Icon.Size.XLARGE} /><br /></span>
-          Easy access
+          <p>Easy access</p>
         </li>
       </ul>
     );

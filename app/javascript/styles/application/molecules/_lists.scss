@@ -38,4 +38,8 @@
     font-weight: $font-weight-bold;
     font-size: rem-calc(24);
   }
+
+  p {
+    line-height: 1.2;
+  }
 }
