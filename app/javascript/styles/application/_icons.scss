@@ -13,6 +13,12 @@
     width: 12px;
   }
 
+  &.--medium {
+    height: 16px;
+    width: 16px;
+    margin-right: 4px;
+  }
+
   &.--large {
     height: 18px;
     width: 18px;
@@ -90,14 +96,6 @@
 
 .--icon-calendar--blue:before {
   background-image: url('images/icons/calendar--blue.svg');
-}
-
-.--icon-activity:before {
-  background-image: url('images/icons/activity.svg');
-}
-
-.--icon-trending-up:before {
-  background-image: url('images/icons/trending-up.svg');
 }
 
 .--icon-award:before {

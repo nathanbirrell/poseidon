@@ -21,15 +21,18 @@ class SpotAboutContainer extends React.Component {
     return (
       <ul className="list --information-list">
         <li>
-          <span className="item__primary">{size_min}&mdash;{size_max}ft <br /></span>
+          <span className="item__primary">{size_min}-{size_max}ft <br /></span>
+          <Icon name="activity" size={Icon.Size.MEDIUM} />
           Swell
         </li>
         <li>
           <span className="item__primary">{wind_direction} <br /></span>
+          <Icon name="wind" size={Icon.Size.MEDIUM} />
           Wind
         </li>
         <li>
           <span className="item__primary">0m <br /></span>
+          <Icon name="moon" size={Icon.Size.MEDIUM} />
           Tide
         </li>
       </ul>
