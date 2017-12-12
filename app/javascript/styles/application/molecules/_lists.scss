@@ -29,13 +29,13 @@
   margin-left: 0;
 
   li {
-    padding: 12px;
-    padding-left: 0;
-    min-width: 80px;
+    padding-right: 16px;
+    min-width: 86px;
+    max-width: 86px;
   }
 
   li .item__primary {
     font-weight: $font-weight-bold;
-    font-size: rem-calc(20);
+    font-size: rem-calc(24);
   }
 }

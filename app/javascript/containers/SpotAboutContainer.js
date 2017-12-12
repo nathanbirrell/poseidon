@@ -11,17 +11,18 @@ import Button from 'components/Button';
 import Icon from 'components/Icon';
 
 class SpotAboutContainer extends React.Component {
-  _renderOptimal() {
+  _renderOptimals() {
     const { spot } = this.props;
-    const size_min = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_min), 0);
-    const size_max = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_max), 0);
+    const swell_min = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_min), 0);
+    const swell_max = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_max), 0);
     const wind_direction = SpotUtil.degreesToText(spot.optimals.wind.direction.optimal);
+    const tide_height = spot.optimals.tide.height.optimal;
     // TODO: tide height, cater for ANY tide (0 - 0)
 
     return (
       <ul className="list --information-list">
         <li>
-          <span className="item__primary">{size_min}-{size_max}ft <br /></span>
+          <span className="item__primary">{swell_min}-{swell_max}<small>ft</small> <br /></span>
           <Icon name="activity" size={Icon.Size.MEDIUM} />
           Swell
         </li>
@@ -31,9 +32,34 @@ class SpotAboutContainer extends React.Component {
           Wind
         </li>
         <li>
-          <span className="item__primary">0m <br /></span>
+          <span className="item__primary">{tide_height}m <br /></span>
           <Icon name="moon" size={Icon.Size.MEDIUM} />
           Tide
+        </li>
+      </ul>
+    );
+  }
+
+  _renderNotes() {
+    const { spot } = this.props;
+
+    return (
+      <ul className="list --information-list text-center">
+        <li>
+          <span className="item__primary"><Icon name="heart" size={Icon.Size.XLARGE} /><br /></span>
+          Beginner friendly
+        </li>
+        <li>
+          <span className="item__primary"><Icon name="activity" size={Icon.Size.XLARGE} /><br /></span>
+          Breaks left
+        </li>
+        <li>
+          <span className="item__primary"><Icon name="users" size={Icon.Size.XLARGE} /><br /></span>
+          Low crowds
+        </li>
+        <li>
+          <span className="item__primary"><Icon name="map-pin" size={Icon.Size.XLARGE} /><br /></span>
+          Easy access
         </li>
       </ul>
     );
@@ -52,7 +78,7 @@ class SpotAboutContainer extends React.Component {
     };
 
     return (
-      <Row id="about-section">
+      <Row className="spot-page__about">
         <Column widthMediumUp={6}>
           <h2>About {spot.name}</h2>
         </Column>
@@ -75,9 +101,14 @@ class SpotAboutContainer extends React.Component {
         <Column widthMediumUp={6}>
           <p>{spot.description}</p>
 
-          {/* <h3>Ideal conditions:</h3> */}
+          <h3>Optimal conditions:</h3>
 
-          {this._renderOptimal()}
+          {this._renderOptimals()}
+
+          <h3>Other notes:</h3>
+
+          {this._renderNotes()}
+          <small>TODO: build this out properly (NOT REAL DATA)</small>
 
           {/* <p><strong>Lat/long: </strong> {spot.latitude}, {spot.longitude}</p> */}
         </Column>
