@@ -108,7 +108,7 @@
 
       .tick text {
         fill: $jumbo;
-        text-anchor: start;
+        text-anchor: middle;
         font-size: rem-calc(5);
         text-transform: uppercase;
         transform: translate(-1px, -5px);
@@ -165,7 +165,7 @@
 
         .tick text {
           font-size: rem-calc(11);
-          transform: translateY(0);
+          transform: translateY(2px);
         }
       }
     }

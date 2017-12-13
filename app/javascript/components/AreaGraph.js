@@ -125,21 +125,26 @@ class AreaGraph extends React.Component {
       this.svg.selectAll('.axis-left').remove();
 
       const num = (x.domain()[1] / this.props.forecastDays);
-      let tickValues = [];
-      for (let i = 0; i < this.props.forecastDays; i++) {
-        tickValues.push(i * 8);
-      }
       const bottomAxis = this.svg.append("g")
         .attr('class', 'axis-bottom')
         .attr("transform", "translate(0," + height + ")")
         .call(
           d3.axisBottom(x)
-          .tickValues(tickValues)
-          .tickFormat(function(d) {
-            return moment().add((d / num), 'days').format('ddd');
+          .ticks(graphs[0].yVals.length)
+          .tickSize(4)
+          .tickFormat(function(d, i) {
+            const mod = i%8;
+            return mod === 0 ? moment().add((d / num), 'days').format('ddd') : '';
           })
         );
       bottomAxis.selectAll(".tick text").attr("dx", x(3.4));
+      bottomAxis.selectAll(".tick line")
+        .attr("y2", (d, i) => {
+          if (i%8 === 0) {
+            return 10;
+          }
+          return 5;
+        });
 
       const leftAxis = this.svg.append("g")
         .attr('class', 'axis-left')
