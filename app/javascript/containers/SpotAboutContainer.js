@@ -15,6 +15,7 @@ class SpotAboutContainer extends React.Component {
     const { spot } = this.props;
     const swell_min = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_min), 0);
     const swell_max = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_max), 0);
+    const swell_direction = SpotUtil.degreesToText(spot.optimals.swell.direction.optimal);
     const wind_direction = SpotUtil.degreesToText(spot.optimals.wind.direction.optimal);
     let tide_height = `${spot.optimals.tide.height.optimal}m`;
 
@@ -26,6 +27,11 @@ class SpotAboutContainer extends React.Component {
           <span className="item__primary">{swell_min}-{swell_max}<small>ft</small> <br /></span>
           <Icon name="activity" size={Icon.Size.MEDIUM} />
           Swell
+        </li>
+        <li>
+          <span className="item__primary">{swell_direction}<br /></span>
+          <Icon name="activity" size={Icon.Size.MEDIUM} />
+          Swell direction
         </li>
         <li>
           <span className="item__primary">{wind_direction} <br /></span>
@@ -52,7 +58,7 @@ class SpotAboutContainer extends React.Component {
         </li>
         <li>
           <span className="item__primary"><Icon name="activity" size={Icon.Size.XLARGE} /><br /></span>
-          <p>Breaks left</p>
+          <p>Left-handers</p>
         </li>
         <li>
           <span className="item__primary"><Icon name="users" size={Icon.Size.XLARGE} /><br /></span>
@@ -120,7 +126,7 @@ class SpotAboutContainer extends React.Component {
           />
         </Column>
         <Column widthMediumUp={12}>
-          <strong>todo: instagram location embed</strong>
+          <small>todo: instagram location embed</small>
         </Column>
       </Row>
     );
