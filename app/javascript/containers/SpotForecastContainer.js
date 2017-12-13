@@ -12,10 +12,10 @@ import AreaGraph from 'components/AreaGraph';
 import Spinner from 'components/Spinner';
 
 const Colors = {
-  Rating: '#27AE60',
-  WindSpeed: '#C377E0',
-  SwellSize: '#0079BF',
-  TideHeight: '#CDCDCD',
+  Rating: '#9ACD32',
+  WindSpeed: '#6F7C82',
+  SwellSize: '#6F7C82',
+  TideHeight: '#DBDBDB',
 };
 
 class SpotForecastContainer extends React.Component {
@@ -110,11 +110,13 @@ class SpotForecastContainer extends React.Component {
         yVals: this.overallRatings()['rating'],
         yMax: 110,
         line: {
-          show: false,
+          show: forecastConfig.showOverallRating,
+          opacity: 1,
+          dashed: true,
+          stroke: 2,
         },
         area: {
-          show: forecastConfig.showOverallRating,
-          opacity: 0.5,
+          show: false,
         },
         points: {
           show: false,
@@ -130,6 +132,7 @@ class SpotForecastContainer extends React.Component {
         axesSuffix: 'ft',
         line: {
           show: true,
+          stroke: 3,
         },
         area: {
           show: false,
@@ -148,6 +151,7 @@ class SpotForecastContainer extends React.Component {
         axesSuffix: 'kt',
         line: {
           show: true,
+          stroke: 0.75,
         },
         area: {
           show: false,
