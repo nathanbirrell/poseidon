@@ -46,8 +46,9 @@ class Spot < ApplicationRecord
   has_many :weather_day_summaries
   has_many :weather_precis
   has_many :uv_indices
-
   has_many :sunrise_sunsets
+
+  has_and_belongs_to_many :features
 
   validates :name, presence: true
 

@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171204012402) do
+ActiveRecord::Schema.define(version: 20171213233725) do
+
+  create_table "features", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "value"
+    t.string "friendly_name"
+    t.string "icon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "regions", force: :cascade do |t|
     t.string "name"
@@ -50,6 +59,13 @@ ActiveRecord::Schema.define(version: 20171204012402) do
     t.decimal "wind_optimal_direction_max"
     t.boolean "hidden"
     t.index ["region_id"], name: "index_spots_on_region_id"
+  end
+
+  create_table "spots_features", id: false, force: :cascade do |t|
+    t.integer "feature_id"
+    t.integer "spots_id"
+    t.index ["feature_id"], name: "index_spots_features_on_feature_id"
+    t.index ["spots_id"], name: "index_spots_features_on_spots_id"
   end
 
   create_table "sunrise_sunsets", force: :cascade do |t|
