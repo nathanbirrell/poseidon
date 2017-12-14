@@ -120,6 +120,22 @@
         </div>
       </div>
 
+      <div class="medium-4 cell">
+          <fieldset>
+            <legend>Features</legend>
+
+            <%# Feature.all.each do |feature| %>
+              <%# <%= f.check_box "spot[feature_ids][]", feature.id, spot.features.include?(feature) %>
+              <%#= f.check_box "spot[feature_ids][]", feature.id, spot.features.include?(feature) %>
+              <%#= f.label feature.friendly_name %>
+            <%# end %>
+
+            <%= f.collection_check_boxes(:feature_ids, Feature.all, :id, :friendly_name) %>
+
+          </fieldset>
+        </div>
+      </div>
+
       <div class="row actions">
         <%= f.submit 'Done', :class => 'btn large' %>
       </div>

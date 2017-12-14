@@ -8,7 +8,6 @@ class SpotsController < ApplicationController
   # GET /spots.json
   def index
     @spots = Spot.sorted_by_current_potential
-    @is_collapsed = true
   end
 
   # GET /spots/1
@@ -28,7 +27,8 @@ class SpotsController < ApplicationController
   end
 
   # GET /spots/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /spots
   # POST /spots.json
@@ -123,7 +123,8 @@ class SpotsController < ApplicationController
       :weighting_swell,
       :weighting_wind,
       :weighting_tide,
-      :wave_model_size_coefficient
+      :wave_model_size_coefficient,
+      :feature_ids => []
     )
   end
 end
