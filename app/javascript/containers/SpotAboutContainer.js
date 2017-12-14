@@ -10,6 +10,8 @@ import GoogleMap from 'components/GoogleMap';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
 
+import { Keys, Values } from 'lib/SpotFeatures';
+
 class SpotAboutContainer extends React.Component {
   _renderOptimals() {
     const { spot } = this.props;
@@ -47,28 +49,37 @@ class SpotAboutContainer extends React.Component {
     );
   }
 
-  _renderNotes() {
-    const { spot } = this.props;
-
+  _renderFeaturesWithIcons(feature) {
+    if (!feature.icon || !feature.friendly_name) { return null; }
     return (
-      <ul className="list --information-list text-center">
-        <li>
-          <span className="item__primary"><Icon name="heart" size={Icon.Size.XLARGE} /><br /></span>
-          <p>Beginner friendly</p>
-        </li>
-        <li>
-          <span className="item__primary"><Icon name="activity" size={Icon.Size.XLARGE} /><br /></span>
-          <p>Left-handers</p>
-        </li>
-        <li>
-          <span className="item__primary"><Icon name="users" size={Icon.Size.XLARGE} /><br /></span>
-          <p>Low crowds</p>
-        </li>
-        <li>
-          <span className="item__primary"><Icon name="map-pin" size={Icon.Size.XLARGE} /><br /></span>
-          <p>Easy access</p>
-        </li>
-      </ul>
+      <li>
+        <span className="item__primary"><Icon name={feature.icon} size={Icon.Size.XLARGE} /><br /></span>
+        <p>{feature.friendly_name}</p>
+      </li>
+    );
+  }
+  _renderFeaturesWithoutIcons(feature) {
+    if (feature.icon || !feature.friendly_name) { return null; }
+    return (
+      <li>
+        <Icon name="check-circle" />
+        {feature.friendly_name}
+      </li>
+    );
+  }
+
+  _renderFeatures() {
+    if (!this.props.spot.features.length) { return null; }
+    return (
+      <div>
+        <h3>Other notes:</h3>
+        <ul className="list --information-list text-center">
+          {this.props.spot.features.map((feature) => this._renderFeaturesWithIcons(feature))}
+        </ul>
+        <ul className="list --plain --color-secondary">
+          {this.props.spot.features.map((feature) => this._renderFeaturesWithoutIcons(feature))}
+        </ul>
+      </div>
     );
   }
 
@@ -112,10 +123,7 @@ class SpotAboutContainer extends React.Component {
 
           {this._renderOptimals()}
 
-          <h3>Other notes:</h3>
-
-          {this._renderNotes()}
-          <small>TODO: build this out properly (NOT REAL DATA)</small>
+          {this._renderFeatures()}
 
           {/* <p><strong>Lat/long: </strong> {spot.latitude}, {spot.longitude}</p> */}
         </Column>

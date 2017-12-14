@@ -1,5 +1,5 @@
 .list {
-  color: $font-dark-primary;
+  // color: $font-dark-primary;
 }
 
 .list.--icon {
@@ -40,5 +40,14 @@
 
   p {
     line-height: 1.2;
+  }
+}
+
+.list.--plain {
+  list-style: none;
+  margin-left: 0;
+
+  .icon {
+    margin-right: 4px;
   }
 }
