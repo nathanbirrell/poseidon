@@ -23,8 +23,7 @@ json.(
     :region,
     :works_on_all_tides?,
     :current_model_date_time, # TODO: Rename to updated_at
-    :current_potential,
-    :features
+    :current_potential
 )
 
 json.url spot_url(spot, format: :json)
@@ -32,3 +31,5 @@ json.url spot_url(spot, format: :json)
 json.current_swell spot.current_swell.to_builder
 json.current_wind spot.current_wind.to_builder
 json.current_tide_snapshot spot.current_tide_snapshot.to_builder
+
+json.features spot.features.collect { |feature| feature.to_builder.attributes! }
