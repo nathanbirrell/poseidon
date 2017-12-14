@@ -23,7 +23,8 @@ json.(
     :region,
     :works_on_all_tides?,
     :current_model_date_time, # TODO: Rename to updated_at
-    :current_potential
+    :current_potential,
+    :features
 )
 
 json.url spot_url(spot, format: :json)
