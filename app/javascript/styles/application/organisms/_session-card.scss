@@ -8,6 +8,10 @@
     font-weight: $font-weight-medium;
     line-height: rem-calc(14);
   }
+
+  .icon {
+    margin: 0;
+  }
 }
 
 .session-card.--expanded {
