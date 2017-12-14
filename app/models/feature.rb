@@ -2,7 +2,7 @@ class Feature < ApplicationRecord
   has_many :spots_features
   has_many :spots, :through => :spots_features
 
-  def friendly_name
+  def friendly_name_or_key
     self[:friendly_name] || "#{self[:key]} #{self[:value]}"
   end
 
