@@ -2,6 +2,10 @@ class Feature < ApplicationRecord
   has_many :spots_features
   has_many :spots, :through => :spots_features
 
+  def friendly_name
+    self[:friendly_name] || "#{self[:key]} #{self[:value]}"
+  end
+
   def to_builder
     Jbuilder.new do |feature|
       feature.id id
