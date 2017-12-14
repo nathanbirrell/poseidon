@@ -330,9 +330,24 @@ class AreaGraph extends React.Component {
             return '#EB5757';
           })
           .attr('opacity', 1);
+        
+        this.svg.selectAll('.selected-date-time-dot').remove();
+        for (var n = 0; n < graphs.length; n += 1) {
+          const graph = graphs[n];
+          if (!graph.directions) {
+            y.domain([0, graph.yMax]);
+            this.svg.append("svg:circle")
+              .attr('class', 'selected-date-time-dot')
+              .attr('stroke', '#EB5757')
+              .attr('fill', '#EB5757')
+              .attr('cx', function() { return x(selectedDateTimePosition) })
+              .attr("cy", function() { return y(graph.yVals[selectedDateTimePosition]) })
+              .attr("r", 2);
+          }
+        }
       }
 
-      topLevel.exit().remove();
+    topLevel.exit().remove();
   }
 
   handleClick(d, i) {
