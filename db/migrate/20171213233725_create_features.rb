@@ -8,9 +8,9 @@ class CreateFeatures < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    create_table :spots_features, id: false do |t|
-      t.belongs_to :feature, index: true
-      t.belongs_to :spots, index: true
+    create_table :spots_features do |t|
+      t.belongs_to :feature, index: true, null: false
+      t.belongs_to :spot, index: true, null: false
     end
 
     Feature.create!(

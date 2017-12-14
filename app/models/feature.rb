@@ -1,3 +1,4 @@
 class Feature < ApplicationRecord
-  has_and_belongs_to_many :spots
+  has_many :spots_features
+  has_many :spots, :through => :spots_features
 end

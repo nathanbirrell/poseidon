@@ -61,11 +61,11 @@ ActiveRecord::Schema.define(version: 20171213233725) do
     t.index ["region_id"], name: "index_spots_on_region_id"
   end
 
-  create_table "spots_features", id: false, force: :cascade do |t|
-    t.integer "feature_id"
-    t.integer "spots_id"
+  create_table "spots_features", force: :cascade do |t|
+    t.integer "feature_id", null: false
+    t.integer "spot_id", null: false
     t.index ["feature_id"], name: "index_spots_features_on_feature_id"
-    t.index ["spots_id"], name: "index_spots_features_on_spots_id"
+    t.index ["spot_id"], name: "index_spots_features_on_spot_id"
   end
 
   create_table "sunrise_sunsets", force: :cascade do |t|

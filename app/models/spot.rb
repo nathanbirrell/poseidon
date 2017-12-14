@@ -48,7 +48,8 @@ class Spot < ApplicationRecord
   has_many :uv_indices
   has_many :sunrise_sunsets
 
-  has_and_belongs_to_many :features
+  has_many :spots_features
+  has_many :features, :through => :spots_features
 
   validates :name, presence: true
 
