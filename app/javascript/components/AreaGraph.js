@@ -171,6 +171,7 @@ class AreaGraph extends React.Component {
     }
 
     const forecastConfig = this.props.forecastConfig;
+    const selectedDateTimePosition = this.props.selectedDateTimePosition;
     const topLevel = this.svg.selectAll('g.graph')
       .data(graphs);
 
@@ -191,10 +192,11 @@ class AreaGraph extends React.Component {
 
         // Set gradient
         const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.35\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.1\"/></linearGradient>`;
-        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"4.5\" refY=\"4.5\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.35)\" fill=\"${graph.color}\" stroke=\"${graph.color}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
+        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"4.5\" refY=\"4.5\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.35)\" fill=\"#fff\" stroke=\"${graph.color}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
+        const arrowHighlighted = `<marker id=\"${targetId}_arrow_highlighted_${i}\" class=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"4.5\" refY=\"4.5\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.35)\" fill=\"#fff\" stroke=\"#EB5757\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
         const defs = thisGraph
           .append('defs');
-        defs.html(colouredGradient + " " + arrow);
+        defs.html(colouredGradient + " " + arrow + " " + arrowHighlighted);
 
         // DRAW NEW GRAPH ELEMENTS
         if (graphs[i]['area'].show) {
@@ -216,6 +218,10 @@ class AreaGraph extends React.Component {
             .datum(graph.yVals)
             .attr('class', `line ${graphs[i].name}`)
             .attr('stroke', graph.color)
+            .attr('stroke-width', graph.line.stroke)
+            .attr('stroke-dasharray', (d, i) => {
+              return graph.line.dashed ? "4, 5" : null;
+            })
             .attr('fill', 'none')
             .attr('opacity', graph.line.opacity || 1)
             .attr("d", line);
@@ -238,7 +244,9 @@ class AreaGraph extends React.Component {
                 return "rotate(" + (graph.directions[i] + 180) + " " + x(i) + " " + y(d) + ")"; // +180 converts it into magical weather speak, where the arrow shows the directional opposite to the degrees
               })
               .attr("stroke-width", 1)
-              .attr("marker-end", `url(#${targetId}_arrow_${i})`);
+              .attr("marker-end", (d, n) => {
+                return n === selectedDateTimePosition ? `url(#${targetId}_arrow_highlighted_${i})` : `url(#${targetId}_arrow_${i})`;
+              });
         } else if (graphs[i]['points'].show) {
           // REGULAR POINTS
           const pointsInstance = thisGraph
@@ -310,7 +318,6 @@ class AreaGraph extends React.Component {
       }
 
       this.svg.selectAll('.selected-date-time').remove();
-      const selectedDateTimePosition = this.props.selectedDateTimePosition;
       if (selectedDateTimePosition) {
         const selectedDateTimeIndicatorHeight = y(y.domain()[0]);
         const selectedDateTimeIndicator = this.svg
@@ -323,9 +330,24 @@ class AreaGraph extends React.Component {
             return '#EB5757';
           })
           .attr('opacity', 1);
+        
+        this.svg.selectAll('.selected-date-time-dot').remove();
+        for (var n = 0; n < graphs.length; n += 1) {
+          const graph = graphs[n];
+          if (!graph.directions) {
+            y.domain([0, graph.yMax]);
+            this.svg.append("svg:circle")
+              .attr('class', 'selected-date-time-dot')
+              .attr('stroke', '#EB5757')
+              .attr('fill', '#EB5757')
+              .attr('cx', function() { return x(selectedDateTimePosition) })
+              .attr("cy", function() { return y(graph.yVals[selectedDateTimePosition]) })
+              .attr("r", 2);
+          }
+        }
       }
 
-      topLevel.exit().remove();
+    topLevel.exit().remove();
   }
 
   handleClick(d, i) {
