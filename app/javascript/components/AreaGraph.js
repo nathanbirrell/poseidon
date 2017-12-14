@@ -8,6 +8,11 @@ import { scroller } from 'react-scroll';
 import Row from 'components/Row';
 import Column from 'components/Column';
 
+const isNight = (i) => {
+  const modulus = i % 8;
+  return modulus <= 1 || modulus >= 7;
+}
+
 class AreaGraph extends React.Component {
   constructor (props) {
     super(props);
@@ -296,8 +301,7 @@ class AreaGraph extends React.Component {
             .attr('height', vertSegHeight)
             .attr('fill', function(d, i) {
               if (forecastConfig.showNightAndDay) {
-                const modulus = i%8;
-                if (modulus <= 1 || modulus >= 6) {
+                if (isNight(i)) {
                   return '#0D659D';
                 }
               }
@@ -305,8 +309,7 @@ class AreaGraph extends React.Component {
             })
             .attr('opacity', function(d, i) {
               if (forecastConfig.showNightAndDay) {
-                const modulus = i % 8;
-                if (modulus <= 1 || modulus >= 6) {
+                if (isNight(i)) {
                   return 0.1;
                 }
               }
@@ -330,7 +333,7 @@ class AreaGraph extends React.Component {
             return '#EB5757';
           })
           .attr('opacity', 1);
-        
+
         this.svg.selectAll('.selected-date-time-dot').remove();
         for (var n = 0; n < graphs.length; n += 1) {
           const graph = graphs[n];
