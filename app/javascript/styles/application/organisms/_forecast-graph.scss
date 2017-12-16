@@ -47,6 +47,25 @@
       }
     }
 
+    @media #{$medium-up} {
+      .graph {
+        .line {
+          stroke-width: 2;
+        }
+        .line.wind-speed {
+          stroke-width: 1;
+        }
+        .point {
+          &.dot {
+            stroke-width: 1.5;
+          }
+          &.arrow {
+            stroke-width: 1.5;
+          }
+        }
+      }
+    }
+
     .selected-date-time {
       transform: translateX(-0.5px);
       width: 0.6px;
@@ -98,48 +117,8 @@
           stroke-width: 0.5;
         }
       }
-    }
 
-    .axis-bottom {
-      path {
-        stroke: $iron;
-        stroke-width: 1;
-      }
-
-      .tick text {
-        fill: $jumbo;
-        text-anchor: middle;
-        font-size: rem-calc(5);
-        text-transform: uppercase;
-        transform: translate(-1px, -5px);
-      }
-
-      .tick line {
-        stroke: $iron;
-        transform: translateY(0.5px);
-        stroke-width: 1;
-      }
-    }
-
-    @media #{$medium-up} {
-      .graph {
-        .line {
-          stroke-width: 2;
-        }
-        .line.wind-speed {
-          stroke-width: 1;
-        }
-        .point {
-          &.dot {
-            stroke-width: 1.5;
-          }
-          &.arrow {
-            stroke-width: 1.5;
-          }
-        }
-      }
-
-      .axis-left {
+      @media #{$medium-up} {
         g.tick {
           line {
             stroke-width: 1;
@@ -157,7 +136,35 @@
           }
         }
       }
+    }
 
+    .axis-bottom {
+      path {
+        stroke: $iron;
+        stroke-width: 1;
+      }
+
+      .tick text {
+        font: $primary-font;
+        fill: $jumbo;
+        text-anchor: middle;
+        font-size: rem-calc(5);
+        text-transform: uppercase;
+        transform: translate(-1px, -5px);
+      }
+
+      .tick line {
+        stroke: $iron;
+        transform: translateY(0.5px);
+        stroke-width: 1;
+      }
+
+      .tick.long {
+        stroke: red;
+      }
+    }
+
+    @media #{$medium-up} {
       .axis-bottom {
         .tick line {
           stroke-width: 1;
