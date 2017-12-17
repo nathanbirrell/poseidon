@@ -22,8 +22,8 @@
     width: 960px;
     height: 225px;
 
-    @include breakpoint(medium) {
-      // height: 275px;
+    @include breakpoint(large) {
+      width: 100%;
     }
 
     text {
@@ -32,36 +32,17 @@
 
     .graph {
       .line {
-        stroke-width: 1;
+        stroke-width: 2;
       }
       .line.wind-speed {
-        stroke-width: 0.5;
+        stroke-width: 1;
       }
       .point {
         &.dot {
-          stroke-width: 1;
+          stroke-width: 1.5;
         }
         &.arrow {
-          stroke-width: 0.8;
-        }
-      }
-    }
-
-    @media #{$medium-up} {
-      .graph {
-        .line {
-          stroke-width: 2;
-        }
-        .line.wind-speed {
-          stroke-width: 1;
-        }
-        .point {
-          &.dot {
-            stroke-width: 1.5;
-          }
-          &.arrow {
-            stroke-width: 1.5;
-          }
+          stroke-width: 1.5;
         }
       }
     }
@@ -81,20 +62,20 @@
       }
       g.tick {
         line {
-          stroke-width: 0.30;
+          stroke-width: 1;
           stroke: $gainsboro;
         }
 
         text {
-          font-size: rem-calc(5);
+          font-size: rem-calc(11);
           text-anchor: start;
           font-weight: $font-weight-medium;
 
           &.label-1 {
-            transform: translate(1px, -3px);
+            transform: translate(5px, -8px);
           }
           &.label-2 {
-            transform: translate(1px, 5px);
+            transform: translate(5px, 10px);
           }
         }
 
@@ -117,25 +98,6 @@
           stroke-width: 0.5;
         }
       }
-
-      @media #{$medium-up} {
-        g.tick {
-          line {
-            stroke-width: 1;
-          }
-
-          text {
-            font-size: rem-calc(11);
-
-            &.label-1 {
-              transform: translate(5px, -8px);
-            }
-            &.label-2 {
-              transform: translate(5px, 10px);
-            }
-          }
-        }
-      }
     }
 
     .axis-bottom {
@@ -148,9 +110,9 @@
         font: $primary-font;
         fill: $jumbo;
         text-anchor: middle;
-        font-size: rem-calc(5);
         text-transform: uppercase;
-        transform: translate(-1px, -5px);
+        font-size: rem-calc(11);
+        transform: translateY(2px);
       }
 
       .tick line {
@@ -161,19 +123,6 @@
 
       .tick.long {
         stroke: red;
-      }
-    }
-
-    @media #{$medium-up} {
-      .axis-bottom {
-        .tick line {
-          stroke-width: 1;
-        }
-
-        .tick text {
-          font-size: rem-calc(11);
-          transform: translateY(2px);
-        }
       }
     }
   }
@@ -188,5 +137,32 @@
     display: inline-block;
     vertical-align: middle;
     margin-top: -3px;
+  }
+}
+
+$forecast-graph-width: 960px;
+
+#forecast-graph-combined {
+  width: $forecast-graph-width;
+  height: 170px;
+  margin-bottom: 25px;
+
+  @include breakpoint(medium) {
+    height: 200px;
+  }
+
+  @include breakpoint(large) {
+    width: 100%;
+  }
+}
+
+#forecast-graph-tide {
+  width: $forecast-graph-width;
+  height: 60px;
+
+  @include breakpoint(medium) {
+    width: 960px;
+    height: 45px;
+    margin-bottom: 12px;
   }
 }

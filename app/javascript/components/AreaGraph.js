@@ -330,7 +330,7 @@ class AreaGraph extends React.Component {
             return '#EB5757';
           })
           .attr('opacity', 1);
-        
+
         this.svg.selectAll('.selected-date-time-dot').remove();
         for (var n = 0; n < graphs.length; n += 1) {
           const graph = graphs[n];
@@ -376,14 +376,12 @@ class AreaGraph extends React.Component {
       };
     }
     return (
-      <div>
-        <div
-          id={this.props.targetId}
-          className="forecast-graph-container"
-          style={heightRatio}
-          ref={(ref) => { this.graphContainerRef = ref; }}
-        ></div>
-      </div>
+      <div
+        id={this.props.targetId}
+        className="forecast-graph-container"
+        style={heightRatio}
+        ref={(ref) => { this.graphContainerRef = ref; }}
+      ></div>
     );
   }
 }

@@ -1,11 +1,5 @@
 .spot-page__forecast {
-
-  @include breakpoint(medium) {
-    .cell {
-      &:nth-child(1) { padding-right: 6px; }
-      &:nth-child(2) { padding-left: 6px; }
-    }
-  }
+  //
 }
 
 .spot-page__about {
