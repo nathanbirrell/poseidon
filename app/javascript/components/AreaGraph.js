@@ -378,7 +378,7 @@ class AreaGraph extends React.Component {
     return (
       <div
         id={this.props.targetId}
-        className="forecast-graph-container"
+        className={`forecast-graph-container ${this.props.targetId}`}
         style={heightRatio}
         ref={(ref) => { this.graphContainerRef = ref; }}
       ></div>

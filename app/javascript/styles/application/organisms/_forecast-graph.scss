@@ -1,3 +1,5 @@
+$forecast-graph-width: 960px;
+
 .forecast-graphs-parent {
   position: relative;
   background: $white;
@@ -12,14 +14,18 @@
 
 .forecast-graph-container {
   position: relative;
-  width: 100%;
+  width: $forecast-graph-width;
   white-space: nowrap;
   vertical-align: top;
+
+  @include breakpoint(large) {
+    width: 100%;
+  }
 
   .forecast-graph {
     position: relative;
     display: block;
-    width: 960px;
+    width: $forecast-graph-width;
     height: 225px;
 
     @include breakpoint(large) {
@@ -140,28 +146,19 @@
   }
 }
 
-$forecast-graph-width: 960px;
-
-#forecast-graph-combined {
-  width: $forecast-graph-width;
+.forecast-graph-container.forecast-graph-combined {
   height: 170px;
   margin-bottom: 25px;
 
   @include breakpoint(medium) {
     height: 200px;
   }
-
-  @include breakpoint(large) {
-    width: 100%;
-  }
 }
 
-#forecast-graph-tide {
-  width: $forecast-graph-width;
+.forecast-graph-container.forecast-graph-tide {
   height: 60px;
 
   @include breakpoint(medium) {
-    width: 960px;
     height: 45px;
     margin-bottom: 12px;
   }
