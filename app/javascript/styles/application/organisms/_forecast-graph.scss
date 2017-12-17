@@ -135,6 +135,7 @@ $forecast-graph-width: 960px;
 
     .day-segment {
       -webkit-tap-highlight-color: rgba(0,0,0,0);
+      cursor: pointer;
     }
   }
 }
