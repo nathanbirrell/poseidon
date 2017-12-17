@@ -192,8 +192,9 @@ class AreaGraph extends React.Component {
 
         // Set gradient
         const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.35\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.1\"/></linearGradient>`;
-        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"4.5\" refY=\"4.5\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.35)\" fill=\"#fff\" stroke=\"${graph.color}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
-        const arrowHighlighted = `<marker id=\"${targetId}_arrow_highlighted_${i}\" class=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"4.5\" refY=\"4.5\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.35)\" fill=\"#fff\" stroke=\"#EB5757\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
+        const arrowDimension = 15; // square
+        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"${arrowDimension}\" markerHeight=\"${arrowDimension}\" refX=\"${arrowDimension/3}\" refY=\"${arrowDimension/3}\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.45)\" fill=\"#fff\" stroke=\"${graph.color}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
+        const arrowHighlighted = `<marker id=\"${targetId}_arrow_highlighted_${i}\" class=\"arrow\" markerWidth=\"${arrowDimension}\" markerHeight=\"${arrowDimension}\" refX=\"6\" refY=\"6\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.5)\" fill=\"#EB5757\" stroke=\"#EB5757\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
         const defs = thisGraph
           .append('defs');
         defs.html(colouredGradient + " " + arrow + " " + arrowHighlighted);
