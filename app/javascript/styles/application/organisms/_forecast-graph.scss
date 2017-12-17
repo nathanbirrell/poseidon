@@ -117,8 +117,9 @@ $forecast-graph-width: 960px;
         fill: $jumbo;
         text-anchor: middle;
         text-transform: uppercase;
-        font-size: rem-calc(11);
-        transform: translateY(2px);
+        font-size: rem-calc(14);
+        font-weight: $font-weight-normal;
+        transform: translateY(4px);
       }
 
       .tick line {
@@ -148,7 +149,7 @@ $forecast-graph-width: 960px;
 
 .forecast-graph-container.forecast-graph-combined {
   height: 170px;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 
   @include breakpoint(medium) {
     height: 200px;

@@ -134,7 +134,7 @@ class AreaGraph extends React.Component {
           .tickSize(4)
           .tickFormat(function(d, i) {
             const mod = i%8;
-            return mod === 0 ? moment().add((d / num), 'days').format('ddd') : '';
+            return mod === 0 ? moment().add((d / num), 'days').format('dddd') : '';
           })
         );
       bottomAxis.selectAll(".tick text").attr("dx", x(4));
