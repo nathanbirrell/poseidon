@@ -30,12 +30,23 @@ class AreaGraph extends React.Component {
     this.renderGraph = this.renderGraph.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.clearNodeContents = this.clearNodeContents.bind(this);
+    this.handleArrowPress = this.handleArrowPress.bind(this);
   }
 
   componentDidMount() {
     this.initGraph();
 
     this.resizeSensor = new ResizeSensor(this.graphContainerRef, this.renderGraph);
+
+    // Needs to be window/global scope so that *every* instance of AreaGraph on the
+    //     page check the same value (otherwise we'd get duplicates)
+    window.IS_ARROW_KEYS_BOUND = window.IS_ARROW_KEYS_BOUND === undefined ? false : window.IS_ARROW_KEYS_BOUND;
+
+    // Only bind to first instance, make sure false not `undefined`
+    if (window.IS_ARROW_KEYS_BOUND === false) {
+      document.addEventListener('keydown', this.handleArrowPress);
+      window.IS_ARROW_KEYS_BOUND = true;
+    }
   }
 
   componentDidUpdate() {
@@ -49,6 +60,11 @@ class AreaGraph extends React.Component {
 
     if (this.graphContainerRef && this.graphContainerRef.resizeSensor) {
       delete this.graphContainerRef.resizeSensor;
+    }
+
+    if (window.IS_ARROW_KEYS_BOUND) {
+      document.removeEventListener('keydown', this.handleArrowPress);
+      window.IS_ARROW_KEYS_BOUND = false;
     }
   }
 
@@ -351,6 +367,21 @@ class AreaGraph extends React.Component {
     topLevel.exit().remove();
   }
 
+  handleArrowPress(event) {
+    const LeftKeyCode = 37;
+    const RightKeyCode = 39;
+    switch (event.keyCode) {
+      case LeftKeyCode:
+        this.props.updateParent(this.props.selectedDateTimePosition - 1);
+        break;
+      case RightKeyCode:
+        this.props.updateParent(this.props.selectedDateTimePosition + 1);
+        break;
+    }
+
+    this.setState({ isArrowPressBound: true });
+  }
+
   handleClick(d, i) {
     if (this.props.updateParent) {
       this.props.updateParent(i);
@@ -359,7 +390,7 @@ class AreaGraph extends React.Component {
     if (this.state.isFirstClick) {
       scroller.scrollTo('forecast-graph-card', {
         smooth: true,
-        offset: -53, // fixed menu height
+        offset: -53, // fixed menu height // TODO: retrieve this value from an export
       });
 
       this.setState({ isFirstClick: false });
