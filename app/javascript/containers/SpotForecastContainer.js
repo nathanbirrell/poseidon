@@ -179,11 +179,16 @@ class SpotForecastContainer extends React.Component {
       }
     ];
 
+    const combinedGraphConfig = {
+      ...forecastConfig,
+      showNightAndDay: false,
+    };
+
     return (
       <div className="forecast-graphs-parent">
         <h5>SWELL &amp; WIND</h5>
         <AreaGraph
-          forecastConfig={forecastConfig}
+          forecastConfig={combinedGraphConfig}
           cssSelector='forecast-graph'
           targetId='forecast-graph-combined'
           graphs={combinedGraphs}
