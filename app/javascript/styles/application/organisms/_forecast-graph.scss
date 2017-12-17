@@ -132,6 +132,10 @@ $forecast-graph-width: 960px;
         stroke: red;
       }
     }
+
+    .day-segment {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
   }
 }
 
