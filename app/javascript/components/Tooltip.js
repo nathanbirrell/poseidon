@@ -8,9 +8,19 @@ const Type = {
   HELP: 'help',
 };
 
+const Side = {
+  TOP: 'top',
+  LEFT: 'left',
+  RIGHT: 'right',
+};
+
 class Tooltip extends React.PureComponent {
   static get Type() {
     return Type;
+  }
+
+  static get Side() {
+    return Side;
   }
 
   constructor(props) {
@@ -37,9 +47,10 @@ class Tooltip extends React.PureComponent {
       top: true,
       [`--${this.props.type}`]: true,
     });
+
     const tooltipClasses = Classnames({
       tooltip: true,
-      top: true,
+      [`${this.props.side}`]: !!this.props.side,
       'align-center': true,
       hide: this.state.hidden,
     });
@@ -64,12 +75,14 @@ class Tooltip extends React.PureComponent {
 
 Tooltip.defaultProps = {
   type: Type.LINK,
+  side: Side.TOP,
 };
 
 Tooltip.PropTypes = {
   children: PropTypes.oneOf([PropTypes.node, PropTypes.string]).isRequired,
   message: PropTypes.string.isRequired,
   type: PropTypes.oneOf(Object.values(Type)),
+  side: PropTypes.oneOf(Object.values(Side)),
 };
 
 export default Tooltip;
