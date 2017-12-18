@@ -8,8 +8,10 @@ import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
 import TideUtil from 'lib/TideUtil';
 import Units from 'lib/Units';
+import {mapCodeToIcon} from 'lib/WeatherPrecisUtil';
 
 import Row from 'components/Row';
+import Icon from 'components/Icon';
 import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
 import Spinner from 'components/Spinner';
@@ -105,6 +107,7 @@ class SpotForecastTideAndWeather extends React.Component {
         <div className="tide-sun-values">
           {this.state.weatherDaily.map((day) => (
             <div className="day-block --weather" key={day.date}>
+              <Icon name={mapCodeToIcon(day.precis_code)} size={Icon.Size.LARGE} /> <br />
               <strong className="temp-max">{day.temp_max}&#8451;</strong> <span className="temp-min">/ {day.temp_min}&#8451; </span><br/>
               {day.precis}
             </div>
