@@ -1,7 +1,7 @@
-# swells = []
+rows = []
 
-# @forecast_surf[:swells].each do |swell|
-#   swells << swell.to_builder.attributes!
-# end
+@forecast_uv_index.each do |row|
+  rows << row.to_builder.attributes!
+end
 
-json.array! @forecast_uv_index
+json.array! rows

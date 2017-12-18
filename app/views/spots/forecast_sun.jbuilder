@@ -1,7 +1,7 @@
-# swells = []
+rows = []
 
-# @forecast_sun.each do |swell|
-#   swells << swell.to_builder.attributes!
-# end
+@forecast_sun.each do |row|
+  rows << row.to_builder.attributes!
+end
 
-json.array! @forecast_sun
+json.array! rows
