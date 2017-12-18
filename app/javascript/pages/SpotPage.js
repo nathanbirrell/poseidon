@@ -186,6 +186,7 @@ class SpotPage extends React.Component {
 
         <Route path={`${routeMatchUrl}/reports`} exact render={() => (
           <SpotDayContainer
+            spot={this.state.spot}
             selectedTime={seed.value}
             forecasts={this.state.forecasts}
           />
