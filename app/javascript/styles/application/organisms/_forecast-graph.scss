@@ -25,8 +25,6 @@ $forecast-graph-width: 960px;
     width: 100%;
   }
 
-  &.forecast-graph-tide .forecast-graph { height: 60px; }
-
   .forecast-graph {
     position: relative;
     display: block;
@@ -172,12 +170,8 @@ $forecast-graph-width: 960px;
 }
 
 .forecast-graph-container.forecast-graph-tide {
-  height: 60px;
-
-  @include breakpoint(medium) {
-    height: 45px;
-    margin-bottom: 12px;
-  }
+  height: 45px;
+  margin-bottom: 12px;
 }
 
 .tide-sun-values {
@@ -200,10 +194,11 @@ $forecast-graph-width: 960px;
   .day-block {
     flex: 1 1 auto;
     min-width: 197px;
-    padding: 0 58px;
+    padding: 0 38px;
 
     @include breakpoint(large) {
       min-width: 20.5%;
+      padding: 0 58px;
     }
 
     &.--weather {
