@@ -165,14 +165,14 @@ class AreaGraph extends React.Component {
             return 10;
           }
           return 5;
-        });
+      });
 
       const leftAxis = this.svg.append("g")
         .attr('class', 'axis-left')
         .call(
           d3.axisLeft(y)
           .ticks(4)
-          .tickSize(-dimensions.width)
+          .tickSize(-dimensions.width) // Horizontal lines
           .tickFormat(function(d) {
             return (d*graphs[1].yMax).toFixed(0) + graphs[1].axesSuffix;
           })
