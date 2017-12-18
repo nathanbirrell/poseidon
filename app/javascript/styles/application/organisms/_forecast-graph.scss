@@ -206,6 +206,10 @@ $forecast-graph-width: 960px;
       margin-top: 8px;
       padding-top: 8px;
     }
+
+    &.--sun {
+      margin-top: 6px;
+    }
   }
 
   .icon {}
