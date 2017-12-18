@@ -44,7 +44,7 @@ class Spot < ApplicationRecord
   has_many :swells
 
   has_many :weather_day_summaries
-  has_many :weather_precis
+  has_many :weather_precis, class_name: 'WeatherPrecis' # Force singular, inflector won't pick it up
   has_many :uv_indices
   has_many :sunrise_sunsets
 

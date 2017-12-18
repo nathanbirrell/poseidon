@@ -1,5 +1,5 @@
 class SpotsController < ApplicationController
-  before_action :set_spot, only: %i[show edit update destroy clone forecast_surf forecast_weather_daily forecast_weather_precis forecast_uv_index]
+  before_action :set_spot, only: %i[show edit update destroy clone forecast_surf forecast_weather_daily forecast_weather_precis forecast_uv_index forecast_sun]
   before_action :set_region, only: [:show]
 
   layout 'javascript_application', :only => [:show, :index]
