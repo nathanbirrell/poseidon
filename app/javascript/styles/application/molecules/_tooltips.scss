@@ -1,0 +1,13 @@
+// Overriding Foundation's base
+
+.has-tip {
+  &.--link {
+    cursor: pointer;
+  }
+
+  .tooltip {
+    top: initial;
+    bottom: 26px;
+    left: -50%;
+  }
+}
