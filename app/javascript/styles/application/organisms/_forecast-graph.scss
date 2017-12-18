@@ -66,10 +66,15 @@ $forecast-graph-width: 960px;
       path.domain {
         display: none;
       }
+
       g.tick {
         line {
           stroke-width: 1;
           stroke: $smoke;
+        }
+
+        &:last-child {
+          display: none;
         }
 
         text {
