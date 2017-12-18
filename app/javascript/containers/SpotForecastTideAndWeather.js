@@ -16,12 +16,7 @@ import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
 import Spinner from 'components/Spinner';
 
-const Colors = {
-  Rating: '#9ACD32',
-  WindSpeed: '#6F7C82',
-  SwellSize: '#6F7C82',
-  TideHeight: '#DBDBDB',
-};
+const TIME_FORMAT = 'h:mma';
 
 class SpotForecastTideAndWeather extends React.Component {
   constructor(props) {
@@ -30,6 +25,7 @@ class SpotForecastTideAndWeather extends React.Component {
     this.state = {
       tidesDaily: null,
       weatherDaily: null,
+      sunDaily: null,
     }
 
     this.isDark = this.isDark.bind(this);
@@ -39,6 +35,7 @@ class SpotForecastTideAndWeather extends React.Component {
   componentDidMount() {
     this.fetchTides();
     this.fetchWeather();
+    this.fetchSun();
   }
 
   fetchTides() {
@@ -70,6 +67,20 @@ class SpotForecastTideAndWeather extends React.Component {
     });
   }
 
+  fetchSun() {
+    let sun = Api.syncData(`/spots/${this.props.spot.id}/forecast/sun.json`);
+
+    sun.then(sunResponse => {
+      try {
+        this.setState({
+          sunDaily: JSON.parse(sunResponse),
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  }
+
   isDark(time) {
     // TODO: make this dynamic based on sunrise/sunset times!!
     // Don't render if before 6:00 or after 20:30 (it's summer :))
@@ -84,7 +95,7 @@ class SpotForecastTideAndWeather extends React.Component {
     if (this.isDark(tide.date_time)) { return null; }
 
     const type = String(tide.tide_type).titleCase().s
-    const time = moment(tide.date_time).format('h:mma');
+    const time = moment(tide.date_time).format(TIME_FORMAT);
     return (
       <span key={time}>
         <strong>{type}</strong>: {time} <small>({tide.height}m)</small> <br />
@@ -93,7 +104,7 @@ class SpotForecastTideAndWeather extends React.Component {
   }
 
   render() {
-    if (!this.state.tidesDaily || !this.state.weatherDaily) { return <Spinner isSmall />; }
+    if (!this.state.tidesDaily || !this.state.weatherDaily || !this.state.sunDaily) { return <Spinner isSmall />; }
 
     return (
       <div>
@@ -104,14 +115,19 @@ class SpotForecastTideAndWeather extends React.Component {
             </div>
           ))}
         </div>
+
         <div className="tide-sun-values">
           {/* TODO */}
-          {[0,1,2,3,4].map((i) => (
-            <div className="day-block --sun" key={i}>
-              <span><Icon name="sunrise" /> 00:00am <Icon name="sunset" /> 00:00pm</span>
+          {this.state.sunDaily.map((day) => (
+            <div className="day-block --sun" key={day.id}>
+              <span>
+                <Icon name="sunrise" /> {moment(day.sunrise).format(TIME_FORMAT)} &nbsp;
+                <Icon name="sunset" /> {moment(day.sunset).format(TIME_FORMAT)}
+              </span>
             </div>
           ))}
         </div>
+
         <div className="tide-sun-values">
           {this.state.weatherDaily.map((day) => (
             <div className="day-block --weather" key={day.date}>
