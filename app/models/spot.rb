@@ -197,6 +197,22 @@ class Spot < ApplicationRecord
     }
   end
 
+  def forecast_weather_daily
+    weather_day_summaries.seven_day_forecast
+  end
+
+  def forecast_weather_precis
+    weather_precis.seven_day_forecast
+  end
+
+  def forecast_uv_index
+    uv_indices.seven_day_forecast
+  end
+
+  def forecast_sun
+    sunrise_sunsets.seven_day_forecast
+  end
+
   def optimals
     spot_optimals = {}
     spot_optimals[:swell] = optimal_swell
