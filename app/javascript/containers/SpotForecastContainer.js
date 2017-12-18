@@ -6,6 +6,8 @@ import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
 import Units from 'lib/Units';
 
+import SpotForecastTideAndWeather from 'containers/SpotForecastTideAndWeather';
+
 import Row from 'components/Row';
 import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
@@ -210,43 +212,7 @@ class SpotForecastContainer extends React.Component {
             selectedDateTimePosition={selectedDateTimePosition}
           />
 
-          <div className="tide-sun-values">
-            <div className="tide-sun-values__day-block">
-              <span>
-                <strong>Low:</strong> 11:11am <br />
-                <strong>High:</strong> 11:11am <br />
-                <strong>Low:</strong> 11:11am <br />
-              </span>
-            </div>
-            <div className="tide-sun-values__day-block">
-              <span>
-                <strong>Low:</strong> 11:11am <br />
-                <strong>High:</strong> 11:11am <br />
-                <strong>Low:</strong> 11:11am <br />
-              </span>
-            </div>
-            <div className="tide-sun-values__day-block">
-              <span>
-                <strong>Low:</strong> 11:11am <br />
-                <strong>High:</strong> 11:11am <br />
-                <strong>Low:</strong> 11:11am <br />
-              </span>
-            </div>
-            <div className="tide-sun-values__day-block">
-              <span>
-                <strong>Low:</strong> 11:11am <br />
-                <strong>High:</strong> 11:11am <br />
-                <strong>Low:</strong> 11:11am <br />
-              </span>
-            </div>
-            <div className="tide-sun-values__day-block">
-              <span>
-                <strong>Low:</strong> 11:11am <br />
-                <strong>High:</strong> 11:11am <br />
-                <strong>Low:</strong> 11:11am <br />
-              </span>
-            </div>
-          </div>
+          <SpotForecastTideAndWeather spot={this.props.spot} />
         </div>
       </div>
     );
@@ -265,6 +231,7 @@ SpotForecastContainer.PropTypes = {
   updateParent: PropTypes.func,
   selectedDateTimePosition: PropTypes.number,
   forecastConfig: PropTypes.object.isRequired,
+  spot: PropTypes.object,
 };
 
 export default SpotForecastContainer;

@@ -157,6 +157,7 @@ class SpotPage extends React.Component {
             <Column widthSmall={12} widthMedium={12} widthLarge={12}>
               <Element name="forecast-graph-card">
                 <SpotForecastContainer
+                  spot={this.state.spot}
                   forecasts={this.state.forecasts}
                   updateParent={this.updateSelectedDateTime}
                   selectedDateTimePosition={seed.value}
