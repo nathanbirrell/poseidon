@@ -94,46 +94,21 @@ class SpotForecastTideAndWeather extends React.Component {
     if (!this.state.tidesDaily || !this.state.weatherDaily) { return <Spinner isSmall />; }
 
     return (
-      <div className="tide-sun-values">
-        {this.state.tidesDaily.map((day) => (
-          <div className="tide-sun-values__day-block" key={day.date}>
-            {day.tides.map(this.renderTide)}
-          </div>
-        ))}
-        <div className="tide-sun-values__day-block">
-          <span>
-            <small>TODO</small>
-            <strong>Low:</strong> 11:11am <br />
-            <strong>High:</strong> 11:11am <br />
-          </span>
+      <div>
+        <div className="tide-sun-values">
+          {this.state.tidesDaily.map((day) => (
+            <div className="day-block --tide" key={day.date}>
+              {day.tides.map(this.renderTide)}
+            </div>
+          ))}
         </div>
-        <div className="tide-sun-values__day-block">
-          <span>
-            <small>TODO</small>
-            <strong>Low:</strong> 11:11am <br />
-            <strong>High:</strong> 11:11am <br />
-          </span>
-        </div>
-        <div className="tide-sun-values__day-block">
-          <span>
-            <small>TODO</small>
-            <strong>Low:</strong> 11:11am <br />
-            <strong>High:</strong> 11:11am <br />
-          </span>
-        </div>
-        <div className="tide-sun-values__day-block">
-          <span>
-            <small>TODO</small>
-            <strong>Low:</strong> 11:11am <br />
-            <strong>High:</strong> 11:11am <br />
-          </span>
-        </div>
-        <div className="tide-sun-values__day-block">
-          <span>
-            <small>TODO</small>
-            <strong>Low:</strong> 11:11am <br />
-            <strong>High:</strong> 11:11am <br />
-          </span>
+        <div className="tide-sun-values">
+          {this.state.weatherDaily.map((day) => (
+            <div className="day-block --weather" key={day.date}>
+              <strong className="temp-max">{day.temp_max}&#8451;</strong> <span className="temp-min">/ {day.temp_min}&#8451; </span><br/>
+              {day.precis}
+            </div>
+          ))}
         </div>
       </div>
     );

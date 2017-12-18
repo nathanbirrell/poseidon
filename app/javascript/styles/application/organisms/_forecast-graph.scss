@@ -197,12 +197,27 @@ $forecast-graph-width: 960px;
     width: 100%;
   }
 
-  &__day-block {
+  .day-block {
     flex: 1 1 auto;
     min-width: 197px;
+    padding: 0 58px;
 
     @include breakpoint(large) {
       min-width: 20.5%;
     }
+
+    &.--weather {
+      border-top: 1px dotted $gainsboro;
+      margin-top: 8px;
+      padding-top: 8px;
+    }
+  }
+
+  .temp-max {
+    font-size: rem-calc(12);
+  }
+
+  .temp-min {
+    color: $iron;
   }
 }
