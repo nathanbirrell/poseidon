@@ -44,7 +44,7 @@ class SpotPage extends React.Component {
   componentDidMount() {
     const { spotId } = this.props.match.params;
     let spot = Api.syncData(`/spots/${spotId}.json`);
-    let forecasts = Api.syncData(`/spots/${spotId}/forecasts.json`);
+    let forecasts = Api.syncData(`/spots/${spotId}/forecast/surf.json`);
 
     Promise.all([spot, forecasts]).then(values => {
       try {

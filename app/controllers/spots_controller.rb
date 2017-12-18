@@ -1,5 +1,5 @@
 class SpotsController < ApplicationController
-  before_action :set_spot, only: %i[show edit update destroy clone forecasts]
+  before_action :set_spot, only: %i[show edit update destroy clone forecast_surf]
   before_action :set_region, only: [:show]
 
   layout 'javascript_application', :only => [:show, :index]
@@ -70,9 +70,9 @@ class SpotsController < ApplicationController
     end
   end
 
-  # GET /spots/1/forecasts.json
-  def forecasts
-    @forecasts = @spot.forecasts
+  # GET /spots/1/forecast/surf.json
+  def forecast_surf
+    @forecast_surf = @spot.forecasts
   end
 
   # GET /spots/1/clone

@@ -3,19 +3,19 @@ swells = []
 winds = []
 tides = []
 
-@forecasts[:overall_ratings].each do |rating|
+@forecast_surf[:overall_ratings].each do |rating|
   overall_ratings << rating
 end
 
-@forecasts[:swells].each do |swell|
+@forecast_surf[:swells].each do |swell|
   swells << swell.to_builder.attributes!
 end
 
-@forecasts[:winds].each do |wind|
+@forecast_surf[:winds].each do |wind|
   winds << wind.to_builder.attributes!
 end
 
-@forecasts[:tides].each do |tide|
+@forecast_surf[:tides].each do |tide|
   tides << tide.to_builder.attributes!
 end
 
