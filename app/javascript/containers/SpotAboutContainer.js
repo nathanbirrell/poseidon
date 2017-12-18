@@ -49,35 +49,40 @@ class SpotAboutContainer extends React.Component {
     );
   }
 
-  _renderFeaturesWithIcons(feature) {
-    if (!feature.icon || !feature.friendly_name) { return null; }
-    return (
-      <li>
-        <span className="item__primary"><Icon name={feature.icon} size={Icon.Size.XLARGE} /><br /></span>
-        <p>{feature.friendly_name}</p>
-      </li>
-    );
-  }
-  _renderFeaturesWithoutIcons(feature) {
-    if (feature.icon || !feature.friendly_name) { return null; }
-    return (
-      <li>
-        <Icon name="check-circle" />
-        {feature.friendly_name}
-      </li>
-    );
+  _renderFeaturesWithIcons(features) {
+    return features.map((feature, index) => {
+      if (!feature.friendly_name) { return null; }
+      return (
+        <li key={index}>
+          <span className="item__primary"><Icon name={feature.icon} size={Icon.Size.XLARGE} /><br /></span>
+          <p>{feature.friendly_name}</p>
+        </li>
+      );
+    });
   }
 
-  _renderFeatures() {
+  _renderFeaturesWithoutIcons(features) {
+    return features.map((feature, index) => {
+      if (!feature.friendly_name) { return null; }
+      return (
+        <li key={index}>
+          <Icon name="check-circle" />
+          {feature.friendly_name}
+        </li>
+      );
+    });
+  }
+
+  _renderFeatures(data) {
     if (!this.props.spot.features.length) { return null; }
     return (
       <div>
         <h3>Other notes:</h3>
         <ul className="list --information-list text-center">
-          {this.props.spot.features.map((feature) => this._renderFeaturesWithIcons(feature))}
+          {this._renderFeaturesWithIcons(data.filter((feature) => feature.icon))}
         </ul>
         <ul className="list --plain --color-secondary">
-          {this.props.spot.features.map((feature) => this._renderFeaturesWithoutIcons(feature))}
+          {this._renderFeaturesWithoutIcons(data.filter((feature) => !feature.icon))}
         </ul>
       </div>
     );
@@ -123,7 +128,7 @@ class SpotAboutContainer extends React.Component {
 
           {this._renderOptimals()}
 
-          {this._renderFeatures()}
+          {this._renderFeatures(this.props.spot.features)}
 
           {/* <p><strong>Lat/long: </strong> {spot.latitude}, {spot.longitude}</p> */}
         </Column>
