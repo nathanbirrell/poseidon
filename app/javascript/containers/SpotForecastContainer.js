@@ -95,10 +95,6 @@ class SpotForecastContainer extends React.Component {
     if (!this.props.forecasts) {
       return <Spinner />;
     }
-
-    const bespokeSpacing = {
-      paddingTop: '35px',
-    };
     const selectedDateTimePosition = this.props.selectedDateTimePosition;
     const forecastConfig = this.props.forecastConfig;
     console.log('SPOTFORECAST WITH', this.props.forecastConfig);
@@ -183,12 +179,16 @@ class SpotForecastContainer extends React.Component {
       }
     ];
 
+    const combinedGraphConfig = {
+      ...forecastConfig,
+      showNightAndDay: false,
+    };
+
     return (
       <div className="forecast-graphs-parent">
         <h5>SWELL &amp; WIND</h5>
         <AreaGraph
-          forecastConfig={forecastConfig}
-          heightRatio={0.2}
+          forecastConfig={combinedGraphConfig}
           cssSelector='forecast-graph'
           targetId='forecast-graph-combined'
           graphs={combinedGraphs}
@@ -196,10 +196,9 @@ class SpotForecastContainer extends React.Component {
           updateParent={this.updateParent}
           selectedDateTimePosition={selectedDateTimePosition}
         />
-        <h5 style={bespokeSpacing}>TIDE &amp; SUN</h5>
+        <h5>TIDE &amp; SUN</h5>
         <AreaGraph
           forecastConfig={forecastConfig}
-          heightRatio={0.06}
           cssSelector='forecast-graph'
           targetId='forecast-graph-tide'
           graphs={tideGraphs}

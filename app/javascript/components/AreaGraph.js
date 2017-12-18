@@ -35,12 +35,23 @@ class AreaGraph extends React.Component {
     this.renderGraph = this.renderGraph.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.clearNodeContents = this.clearNodeContents.bind(this);
+    this.handleArrowPress = this.handleArrowPress.bind(this);
   }
 
   componentDidMount() {
     this.initGraph();
 
     this.resizeSensor = new ResizeSensor(this.graphContainerRef, this.renderGraph);
+
+    // Needs to be window/global scope so that *every* instance of AreaGraph on the
+    //     page check the same value (otherwise we'd get duplicates)
+    window.IS_ARROW_KEYS_BOUND = window.IS_ARROW_KEYS_BOUND === undefined ? false : window.IS_ARROW_KEYS_BOUND;
+
+    // Only bind to first instance, make sure false not `undefined`
+    if (window.IS_ARROW_KEYS_BOUND === false) {
+      document.addEventListener('keydown', this.handleArrowPress);
+      window.IS_ARROW_KEYS_BOUND = true;
+    }
   }
 
   componentDidUpdate() {
@@ -54,6 +65,11 @@ class AreaGraph extends React.Component {
 
     if (this.graphContainerRef && this.graphContainerRef.resizeSensor) {
       delete this.graphContainerRef.resizeSensor;
+    }
+
+    if (window.IS_ARROW_KEYS_BOUND) {
+      document.removeEventListener('keydown', this.handleArrowPress);
+      window.IS_ARROW_KEYS_BOUND = false;
     }
   }
 
@@ -139,7 +155,7 @@ class AreaGraph extends React.Component {
           .tickSize(4)
           .tickFormat(function(d, i) {
             const mod = i%8;
-            return mod === 0 ? moment().add((d / num), 'days').format('ddd') : '';
+            return mod === 0 ? moment().add((d / num), 'days').format('dddd') : '';
           })
         );
       bottomAxis.selectAll(".tick text").attr("dx", x(4));
@@ -197,8 +213,9 @@ class AreaGraph extends React.Component {
 
         // Set gradient
         const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.35\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.1\"/></linearGradient>`;
-        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"4.5\" refY=\"4.5\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.35)\" fill=\"#fff\" stroke=\"${graph.color}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
-        const arrowHighlighted = `<marker id=\"${targetId}_arrow_highlighted_${i}\" class=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"4.5\" refY=\"4.5\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.35)\" fill=\"#fff\" stroke=\"#EB5757\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
+        const arrowDimension = 15; // square
+        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"${arrowDimension}\" markerHeight=\"${arrowDimension}\" refX=\"${arrowDimension/3}\" refY=\"${arrowDimension/3}\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.45)\" fill=\"#fff\" stroke=\"${graph.color}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
+        const arrowHighlighted = `<marker id=\"${targetId}_arrow_highlighted_${i}\" class=\"arrow\" markerWidth=\"${arrowDimension}\" markerHeight=\"${arrowDimension}\" refX=\"6\" refY=\"6\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.5)\" fill=\"#EB5757\" stroke=\"#EB5757\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
         const defs = thisGraph
           .append('defs');
         defs.html(colouredGradient + " " + arrow + " " + arrowHighlighted);
@@ -353,6 +370,21 @@ class AreaGraph extends React.Component {
     topLevel.exit().remove();
   }
 
+  handleArrowPress(event) {
+    const LeftKeyCode = 37;
+    const RightKeyCode = 39;
+    switch (event.keyCode) {
+      case LeftKeyCode:
+        this.props.updateParent(this.props.selectedDateTimePosition - 1);
+        break;
+      case RightKeyCode:
+        this.props.updateParent(this.props.selectedDateTimePosition + 1);
+        break;
+    }
+
+    this.setState({ isArrowPressBound: true });
+  }
+
   handleClick(d, i) {
     if (this.props.updateParent) {
       this.props.updateParent(i);
@@ -361,7 +393,7 @@ class AreaGraph extends React.Component {
     if (this.state.isFirstClick) {
       scroller.scrollTo('forecast-graph-card', {
         smooth: true,
-        offset: -53, // fixed menu height
+        offset: -53, // fixed menu height // TODO: retrieve this value from an export
       });
 
       this.setState({ isFirstClick: false });
@@ -379,14 +411,12 @@ class AreaGraph extends React.Component {
       };
     }
     return (
-      <div>
-        <div
-          id={this.props.targetId}
-          className="forecast-graph-container"
-          style={heightRatio}
-          ref={(ref) => { this.graphContainerRef = ref; }}
-        ></div>
-      </div>
+      <div
+        id={this.props.targetId}
+        className={`forecast-graph-container ${this.props.targetId}`}
+        style={heightRatio}
+        ref={(ref) => { this.graphContainerRef = ref; }}
+      ></div>
     );
   }
 }

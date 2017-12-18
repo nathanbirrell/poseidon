@@ -154,7 +154,7 @@ class SpotPage extends React.Component {
 
         <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
           <Row className="spot-page__forecast" withXPadding={false}>
-            <Column widthSmall={12} widthMedium={12} widthLarge={8}>
+            <Column widthSmall={12} widthMedium={12} widthLarge={12}>
               <Element name="forecast-graph-card">
                 <SpotForecastContainer
                   forecasts={this.state.forecasts}
