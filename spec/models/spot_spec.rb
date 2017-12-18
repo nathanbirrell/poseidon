@@ -21,14 +21,15 @@
 #  wave_model_lat                :decimal(, )
 #  wave_model_lon                :decimal(, )
 #  willyweather_location_id      :integer
-#  weighting_swell               :decimal(1, 2)
-#  weighting_wind                :decimal(1, 2)
-#  weighting_tide                :decimal(1, 2)
-#  wave_model_size_coefficient   :decimal(1, 3)
+#  weighting_swell               :decimal(3, 2)
+#  weighting_wind                :decimal(3, 2)
+#  weighting_tide                :decimal(3, 2)
+#  wave_model_size_coefficient   :decimal(4, 3)
 #  swell_optimal_direction_min   :decimal(, )
 #  swell_optimal_direction_max   :decimal(, )
 #  wind_optimal_direction_min    :decimal(, )
 #  wind_optimal_direction_max    :decimal(, )
+#  hidden                        :boolean
 #
 
 require 'rails_helper'
