@@ -178,7 +178,7 @@ $forecast-graph-width: 960px;
   display: flex;
   flex-wrap: nowrap;
   width: $forecast-graph-width;
-  overflow: hidden; // Need to crop due to graph crop issue
+  // overflow: hidden; // Need to crop due to graph crop issue
   text-align: center;
   font-size: rem-calc(11);
   letter-spacing: -0.2px;
@@ -220,5 +220,16 @@ $forecast-graph-width: 960px;
 
   .temp-min {
     color: $iron;
+  }
+
+  .has-tip {
+    border-bottom: none;
+    font-weight: inherit;
+  }
+
+  .tooltip.right {
+    padding: 8px;
+    max-width: 90px;
+    right: -100px;
   }
 }

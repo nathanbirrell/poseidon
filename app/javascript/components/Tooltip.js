@@ -80,7 +80,7 @@ Tooltip.defaultProps = {
 
 Tooltip.PropTypes = {
   children: PropTypes.oneOf([PropTypes.node, PropTypes.string]).isRequired,
-  message: PropTypes.string.isRequired,
+  message: PropTypes.oneOf([PropTypes.node, PropTypes.string]).isRequired,
   type: PropTypes.oneOf(Object.values(Type)),
   side: PropTypes.oneOf(Object.values(Side)),
 };

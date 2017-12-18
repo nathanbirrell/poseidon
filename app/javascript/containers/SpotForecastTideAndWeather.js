@@ -15,6 +15,7 @@ import Icon from 'components/Icon';
 import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
 import Spinner from 'components/Spinner';
+import Tooltip from 'components/Tooltip';
 
 const TIME_FORMAT = 'h:mma';
 
@@ -118,19 +119,33 @@ class SpotForecastTideAndWeather extends React.Component {
 
         <div className="tide-sun-values">
           {/* TODO */}
-          {this.state.sunDaily.map((day) => (
-            <div className="day-block --sun" key={day.id}>
+          {this.state.sunDaily.map((day) => {
+            const tooltipMessage = (
               <span>
-                <Icon name="sunrise" /> {moment(day.sunrise).format(TIME_FORMAT)} &nbsp;
-                <Icon name="sunset" /> {moment(day.sunset).format(TIME_FORMAT)}
+                First light: {moment(day.first_light).format(TIME_FORMAT)} <br />
+                Last light: {moment(day.last_light).format(TIME_FORMAT)}
               </span>
-            </div>
-          ))}
+            );
+
+            return (
+              <div className="day-block --sun" key={day.id}>
+                <Tooltip
+                  message={tooltipMessage}
+                  side={Tooltip.Side.RIGHT}
+                >
+                  <span>
+                    <Icon name="sunrise" /> {moment(day.sunrise).format(TIME_FORMAT)} &nbsp;
+                    <Icon name="sunset" /> {moment(day.sunset).format(TIME_FORMAT)}
+                  </span>
+                </Tooltip>
+              </div>
+            );
+          })}
         </div>
 
         <div className="tide-sun-values">
           {this.state.weatherDaily.map((day) => (
-            <div className="day-block --weather" key={day.date}>
+            <div className="day-block --weather" key={day.id}>
               <Icon name={mapCodeToIcon(day.precis_code)} size={Icon.Size.LARGE} /> <br />
               <strong className="temp-max">{day.temp_max}&#8451;</strong> <span className="temp-min">/ {day.temp_min}&#8451; </span><br/>
               {day.precis}
