@@ -185,28 +185,69 @@ class SpotForecastContainer extends React.Component {
     };
 
     return (
-      <div className="forecast-graphs-parent">
-        <h5>SWELL &amp; WIND</h5>
-        <AreaGraph
-          forecastConfig={combinedGraphConfig}
-          cssSelector='forecast-graph'
-          targetId='forecast-graph-combined'
-          graphs={combinedGraphs}
-          legend={false}
-          updateParent={this.updateParent}
-          selectedDateTimePosition={selectedDateTimePosition}
-        />
-        <h5>TIDE &amp; SUN</h5>
-        <AreaGraph
-          forecastConfig={forecastConfig}
-          cssSelector='forecast-graph'
-          targetId='forecast-graph-tide'
-          graphs={tideGraphs}
-          legend={false}
-          showAxes={false}
-          updateParent={this.updateParent}
-          selectedDateTimePosition={selectedDateTimePosition}
-        />
+      <div className="forecast-graph-card">
+        <div className="forecast-graphs-parent">
+          <h5>SWELL &amp; WIND</h5>
+          <AreaGraph
+            forecastConfig={combinedGraphConfig}
+            cssSelector='forecast-graph'
+            targetId='forecast-graph-combined'
+            graphs={combinedGraphs}
+            legend={false}
+            updateParent={this.updateParent}
+            selectedDateTimePosition={selectedDateTimePosition}
+          />
+
+          <h5>TIDE &amp; SUN</h5>
+          <AreaGraph
+            forecastConfig={forecastConfig}
+            cssSelector='forecast-graph'
+            targetId='forecast-graph-tide'
+            graphs={tideGraphs}
+            legend={false}
+            showAxes={false}
+            updateParent={this.updateParent}
+            selectedDateTimePosition={selectedDateTimePosition}
+          />
+
+          <div className="tide-sun-values">
+            <div className="tide-sun-values__day-block">
+              <span>
+                <strong>Low:</strong> 11:11am <br />
+                <strong>High:</strong> 11:11am <br />
+                <strong>Low:</strong> 11:11am <br />
+              </span>
+            </div>
+            <div className="tide-sun-values__day-block">
+              <span>
+                <strong>Low:</strong> 11:11am <br />
+                <strong>High:</strong> 11:11am <br />
+                <strong>Low:</strong> 11:11am <br />
+              </span>
+            </div>
+            <div className="tide-sun-values__day-block">
+              <span>
+                <strong>Low:</strong> 11:11am <br />
+                <strong>High:</strong> 11:11am <br />
+                <strong>Low:</strong> 11:11am <br />
+              </span>
+            </div>
+            <div className="tide-sun-values__day-block">
+              <span>
+                <strong>Low:</strong> 11:11am <br />
+                <strong>High:</strong> 11:11am <br />
+                <strong>Low:</strong> 11:11am <br />
+              </span>
+            </div>
+            <div className="tide-sun-values__day-block">
+              <span>
+                <strong>Low:</strong> 11:11am <br />
+                <strong>High:</strong> 11:11am <br />
+                <strong>Low:</strong> 11:11am <br />
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
