@@ -26,9 +26,10 @@ class ForecastModel < ApplicationRecord
       .first
   end
 
-  def self.five_day_forecast
+  def self.week_forecast(days = 5)
+    forecast_length = days - 1 # Retreiving to the end of the 4th day ahead
     where('date_time >= ?', Date.current.beginning_of_day)
-      .where('date_time <= ?', 4.day.from_now.end_of_day) # 5 day forecast
+      .where('date_time <= ?', forecast_length.day.from_now.end_of_day) # 5 day forecast
       .order(date_time: :asc)
   end
 

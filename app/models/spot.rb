@@ -171,7 +171,7 @@ class Spot < ApplicationRecord
   end
 
   def forecasts
-    swell_forecasts = swells.five_day_forecast
+    swell_forecasts = swells.week_forecast(5)
     date_times = swell_forecasts
                  .pluck(:date_time)
     wind_forecasts = winds
