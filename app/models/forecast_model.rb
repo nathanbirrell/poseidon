@@ -26,7 +26,7 @@ class ForecastModel < ApplicationRecord
       .first
   end
 
-  def self.seven_day_forecast
+  def self.five_day_forecast
     where('date_time >= ?', Date.current.beginning_of_day)
       .where('date_time <= ?', 4.day.from_now.end_of_day) # 5 day forecast
       .order(date_time: :asc)

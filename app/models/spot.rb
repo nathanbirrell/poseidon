@@ -171,7 +171,7 @@ class Spot < ApplicationRecord
   end
 
   def forecasts
-    swell_forecasts = swells.seven_day_forecast
+    swell_forecasts = swells.five_day_forecast
     date_times = swell_forecasts
                  .pluck(:date_time)
     wind_forecasts = winds
@@ -199,19 +199,19 @@ class Spot < ApplicationRecord
   end
 
   def forecast_weather_daily
-    weather_day_summaries.seven_day_forecast
+    weather_day_summaries.five_day_forecast
   end
 
   def forecast_weather_precis
-    weather_precis.seven_day_forecast
+    weather_precis.five_day_forecast
   end
 
   def forecast_uv_index
-    uv_indices.seven_day_forecast
+    uv_indices.five_day_forecast
   end
 
   def forecast_sun
-    sunrise_sunsets.seven_day_forecast
+    sunrise_sunsets.five_day_forecast
   end
 
   def optimals
