@@ -21,4 +21,16 @@ class SunriseSunset < ForecastModel
     forecasts = WillyweatherClient::SunForecasts.fetch(spot)
     forecasts.save_entries
   end
+
+  def to_builder
+    Jbuilder.new do |row|
+      row.id id
+      row.date_time date_time
+      row.spot_id spot_id
+      row.first_light first_light
+      row.sunrise sunrise
+      row.sunset sunset
+      row.last_light last_light
+    end
+  end
 end

@@ -21,4 +21,14 @@ class UvIndex < ForecastModel
     forecasts = WillyweatherClient::UvIndexForecasts.fetch(spot)
     forecasts.save_entries
   end
+
+  def to_builder
+    Jbuilder.new do |row|
+      row.id id
+      row.date_time date_time
+      row.spot_id spot_id
+      row.uv_index uv_index
+      row.scale scale
+    end
+  end
 end

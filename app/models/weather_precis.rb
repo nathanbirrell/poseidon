@@ -23,4 +23,16 @@ class WeatherPrecis < ForecastModel
     forecasts = WillyweatherClient::WeatherPrecisForecasts.fetch(spot)
     forecasts.save_entries
   end
+
+  def to_builder
+    Jbuilder.new do |row|
+      row.id id
+      row.date_time date_time
+      row.spot_id spot_id
+      row.precis_code precis_code
+      row.precis precis
+      row.precis_overlay_code precis_overlay_code
+      row.night night
+    end
+  end
 end

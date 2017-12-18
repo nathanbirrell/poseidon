@@ -22,4 +22,17 @@ class WeatherDaySummary < ForecastModel
     forecasts = WillyweatherClient::WeatherDaySummaryForecasts.fetch(spot)
     forecasts.save_entries
   end
+
+  def to_builder
+    Jbuilder.new do |row|
+      row.id id
+      row.date_time date_time
+      row.spot_id spot_id
+      row.temp_min temp_min
+      row.temp_max temp_max
+      row.precis_code precis_code
+      row.precis precis
+      row.precis_overlay_code precis_overlay_code
+    end
+  end
 end
