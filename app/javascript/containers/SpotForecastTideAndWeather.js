@@ -87,7 +87,7 @@ class SpotForecastTideAndWeather extends React.Component {
     const time = moment(tide.date_time).format('h:mma');
     return (
       <span key={time}>
-        <strong>{type}</strong>: {time} ({tide.height}m) <br />
+        <strong>{type}</strong>: {time} <small>({tide.height}m)</small> <br />
       </span>
     );
   }
@@ -101,6 +101,14 @@ class SpotForecastTideAndWeather extends React.Component {
           {this.state.tidesDaily.map((day) => (
             <div className="day-block --tide" key={day.date}>
               {day.tides.map(this.renderTide)}
+            </div>
+          ))}
+        </div>
+        <div className="tide-sun-values">
+          {/* TODO */}
+          {[0,1,2,3,4].map((i) => (
+            <div className="day-block --sun" key={i}>
+              <span><Icon name="sunrise" /> 00:00am <Icon name="sunset" /> 00:00pm</span>
             </div>
           ))}
         </div>

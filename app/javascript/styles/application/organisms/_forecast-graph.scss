@@ -198,7 +198,7 @@ $forecast-graph-width: 960px;
 
     @include breakpoint(large) {
       min-width: 20.5%;
-      padding: 0 58px;
+      padding: 0 48px;
     }
 
     &.--weather {
