@@ -7,15 +7,10 @@ class Spinner extends React.Component {
       textAlign: 'center',
       padding: '12px 0 12px 0',
     };
-    let size = 38;
-
-    if (this.props.isSmall) {
-      size = 22;
-    }
 
     return (
       <div className="spinner" style={styles}>
-        <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} xmlns="http://www.w3.org/2000/svg" stroke={this.props.fill}>
+        <svg width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke={this.props.fill}>
           <g fill="none" fillRule="evenodd">
             <g transform="translate(1 1)" strokeWidth="2">
               <circle strokeOpacity=".1" cx="18" cy="18" r="18"/>
@@ -38,12 +33,10 @@ class Spinner extends React.Component {
 
 Spinner.defaultProps = {
   fill: '#2278F1',
-  isSmall: false,
 };
 
 Spinner.PropTypes = {
   fill: PropTypes.string,
-  isSmall: PropTypes.bool,
 };
 
 export default Spinner;
