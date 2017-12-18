@@ -208,7 +208,9 @@ $forecast-graph-width: 960px;
     }
 
     &.--sun {
-      margin-top: 6px;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dotted $gainsboro;
     }
   }
 
