@@ -46,8 +46,10 @@ class Spot < ApplicationRecord
   has_many :weather_day_summaries
   has_many :weather_precis
   has_many :uv_indices
-
   has_many :sunrise_sunsets
+
+  has_many :spots_features
+  has_many :features, :through => :spots_features
 
   validates :name, presence: true
 
@@ -78,7 +80,15 @@ class Spot < ApplicationRecord
   end
 
   def self.sorted_by_current_potential
-    Spot.not_hidden.sort_by(&:current_potential).reverse
+    response = []
+    spots = Spot.not_hidden.sort_by(&:current_potential).reverse
+
+    # Filter spots without forecast data
+    spots.each do |spot|
+      response << spot if spot.has_forecast_data?
+    end
+
+    response
   end
 
   def retrieve_forecast_data_if_needed
@@ -197,6 +207,10 @@ class Spot < ApplicationRecord
 
   def no_forecast_data?
     swells.empty? || winds.empty? || tides.empty?
+  end
+
+  def has_forecast_data?
+    !no_forecast_data?
   end
 
   def current_model_date_time

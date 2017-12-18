@@ -1,21 +1,7 @@
 <%# DEPRECATED in JS app %>
 
-<nav class="tab-bar">
-  <section class="left-small">
-    <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
-  </section>
-
-  <section class="middle tab-bar-section">
-    <h1><%= link_to 'Poseidon Alpha 1.0' , root_path, class: 'title' %></h1>
-  </section>
-
-  <section class="right-small">
-    <a class="right-off-canvas-toggle" href="#"><%= render partial: 'partials/floating-icon',  locals: {type: '', icon: 'user--white', size: 'reg'} %></a>
-  </section>
-</nav>
-
-<aside class="left-off-canvas-menu">
-  <ul class="off-canvas-list">
+  <ul class="menu">
+    <li><%= link_to 'Poseidon Alpha 1.0' , root_path, class: 'title' %></li>
     <li><%= link_to 'Home', root_path %></li>
     <li><%= link_to 'Spots', spots_path %></li>
     <li><%= link_to 'Regions', regions_path %></li>
@@ -23,23 +9,13 @@
     <% if user_signed_in? %>
       <li><%= link_to 'Users', users_path %></li>
     <% end %>
-  </ul>
-</aside>
 
-<aside class="right-off-canvas-menu">
-  <ul class="off-canvas-list">
     <% if user_signed_in? %>
-      <li class="has-dropdown">
-        <a href="#">Sup, <%= current_user.name if current_user.name %></a>
-
-        <ul class="dropdown">
-          <li><%= link_to 'Edit account', edit_user_registration_path %></li>
-          <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
-        </ul>
-      </li>
+      <li><%= link_to 'Edit account', edit_user_registration_path %></li>
+      <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
     <% else %>
       <li><%= link_to 'Sign in', new_user_session_path %></li>
       <li><%= link_to 'Sign up', new_user_registration_path %></li>
     <% end %>
   </ul>
-</aside>
+

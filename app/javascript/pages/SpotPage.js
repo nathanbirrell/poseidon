@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { Element } from 'react-scroll';
 
 import MathUtil from 'lib/MathUtil';
@@ -207,6 +207,10 @@ class SpotPage extends React.Component {
               </Row>
             </div>
           </div>
+        )} />
+
+        <Route path={`${routeMatchUrl}`} exact render={() => (
+          <Redirect to={`${routeMatchUrl}/forecast`} />
         )} />
 
       </div>
