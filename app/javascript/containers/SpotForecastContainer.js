@@ -6,6 +6,8 @@ import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
 import Units from 'lib/Units';
 
+import SpotForecastTideAndWeather from 'containers/SpotForecastTideAndWeather';
+
 import Row from 'components/Row';
 import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
@@ -185,28 +187,33 @@ class SpotForecastContainer extends React.Component {
     };
 
     return (
-      <div className="forecast-graphs-parent">
-        <h5>SWELL &amp; WIND</h5>
-        <AreaGraph
-          forecastConfig={combinedGraphConfig}
-          cssSelector='forecast-graph'
-          targetId='forecast-graph-combined'
-          graphs={combinedGraphs}
-          legend={false}
-          updateParent={this.updateParent}
-          selectedDateTimePosition={selectedDateTimePosition}
-        />
-        <h5>TIDE &amp; SUN</h5>
-        <AreaGraph
-          forecastConfig={forecastConfig}
-          cssSelector='forecast-graph'
-          targetId='forecast-graph-tide'
-          graphs={tideGraphs}
-          legend={false}
-          showAxes={false}
-          updateParent={this.updateParent}
-          selectedDateTimePosition={selectedDateTimePosition}
-        />
+      <div className="forecast-graph-card">
+        <div className="forecast-graphs-parent">
+          <h5>SWELL &amp; WIND</h5>
+          <AreaGraph
+            forecastConfig={combinedGraphConfig}
+            cssSelector='forecast-graph'
+            targetId='forecast-graph-combined'
+            graphs={combinedGraphs}
+            legend={false}
+            updateParent={this.updateParent}
+            selectedDateTimePosition={selectedDateTimePosition}
+          />
+
+          <h5>TIDE &amp; SUN</h5>
+          <AreaGraph
+            forecastConfig={forecastConfig}
+            cssSelector='forecast-graph'
+            targetId='forecast-graph-tide'
+            graphs={tideGraphs}
+            legend={false}
+            showAxes={false}
+            updateParent={this.updateParent}
+            selectedDateTimePosition={selectedDateTimePosition}
+          />
+
+          <SpotForecastTideAndWeather spot={this.props.spot} />
+        </div>
       </div>
     );
   }
@@ -224,6 +231,7 @@ SpotForecastContainer.PropTypes = {
   updateParent: PropTypes.func,
   selectedDateTimePosition: PropTypes.number,
   forecastConfig: PropTypes.object.isRequired,
+  spot: PropTypes.object,
 };
 
 export default SpotForecastContainer;

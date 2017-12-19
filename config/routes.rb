@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :spots
     get 'spots', to: 'spots#index'
     get 'spots/:id/forecast/surf.json', to: 'spots#forecast_surf'
+    get 'spots/:id/forecast/tides.json', to: 'spots#forecast_tides'
     get 'spots/:id/forecast/weather-daily.json', to: 'spots#forecast_weather_daily'
     get 'spots/:id/forecast/weather-precis.json', to: 'spots#forecast_weather_precis'
     get 'spots/:id/forecast/uv-index.json', to: 'spots#forecast_uv_index'

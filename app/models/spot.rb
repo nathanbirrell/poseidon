@@ -200,20 +200,24 @@ class Spot < ApplicationRecord
     }
   end
 
+  def forecast_tides
+    tides.week_forecast
+  end
+
   def forecast_weather_daily
-    weather_day_summaries.five_day_forecast
+    weather_day_summaries.week_forecast
   end
 
   def forecast_weather_precis
-    weather_precis.five_day_forecast
+    weather_precis.week_forecast
   end
 
   def forecast_uv_index
-    uv_indices.five_day_forecast
+    uv_indices.week_forecast
   end
 
   def forecast_sun
-    sunrise_sunsets.five_day_forecast
+    sunrise_sunsets.week_forecast
   end
 
   def optimals
