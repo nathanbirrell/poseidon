@@ -19,6 +19,10 @@ class ExpandCollapseCard extends React.PureComponent {
     this.setState({ isExpanded: !this.state.isExpanded });
   }
 
+  showCardContent() {
+    return (this.state.isExpanded && this.props.isCollapseable) || !this.props.isCollapseable;
+  }
+
   renderTitle() {
     const attributes = {};
     let icon = null;
@@ -40,7 +44,7 @@ class ExpandCollapseCard extends React.PureComponent {
   render() {
     const classes = Classnames({
       'expand-collapse-card': true,
-      '--expanded': this.state.isExpanded,
+      '--collapsed': !this.showCardContent(),
       '--collapseable': this.props.isCollapseable,
       [`${this.props.className}`]: !!this.props.className,
     });
@@ -48,7 +52,7 @@ class ExpandCollapseCard extends React.PureComponent {
     return (
       <div className={classes}>
         {this.renderTitle()}
-        {this.props.children}
+        {this.showCardContent() ? this.props.children : null}
       </div>
     );
   }

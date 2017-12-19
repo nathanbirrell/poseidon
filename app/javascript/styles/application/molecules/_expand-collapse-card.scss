@@ -4,6 +4,11 @@
   margin-bottom: 12px;
   box-shadow: $shadow-subtle;
 
+  &.--collapsed {
+    max-height: 40px;
+    overflow: hidden;
+  }
+
   &.--collapseable .card-title {
     display: block;
     cursor: pointer;
