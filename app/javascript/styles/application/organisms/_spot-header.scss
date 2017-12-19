@@ -15,7 +15,9 @@
     vertical-align: top;
 
     @media #{$small-only} {
-      max-width: 280px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
   }
 

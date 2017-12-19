@@ -1,5 +1,7 @@
 $nav-tab-height: 48px;
 
+.nav-tabs-container {}
+
 .nav-tabs {
   height: $nav-tab-height;
   background: $white;
@@ -14,7 +16,7 @@ $nav-tab-height: 48px;
     text-decoration: none;
   }
 
-  &.--fixed {
+  .--fixed & {
     position: fixed;
     top: 0;
     left: 0;
@@ -33,6 +35,7 @@ $nav-tab-height: 48px;
     border-bottom: none;
     cursor: pointer;
     color: $black;
+    background: $white;
 
     &.--focused {
       color: $secondary-color;
@@ -52,8 +55,12 @@ $nav-tab-height: 48px;
 .nav-tabs-spacer {
   display: none;
 
-  &.--fixed {
+  .--fixed & {
     display: block;
     height: $nav-tab-height;
+  }
+
+  .--fixed.--with-title {
+    height: $nav-tab-height * 2;
   }
 }
