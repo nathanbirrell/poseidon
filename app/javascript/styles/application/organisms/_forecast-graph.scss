@@ -129,13 +129,13 @@ $forecast-graph-width: 960px;
         text-transform: uppercase;
         font-size: rem-calc(14);
         font-weight: $font-weight-normal;
-        transform: translateY(2px);
+        transform: translateY(4px);
       }
 
       .tick .tick-subtext {
         fill: $font-dark-tertiary;
         font-size: rem-calc(10);
-        transform: translateY(30px);
+        transform: translateY(32px);
       }
 
       .tick line {
@@ -170,7 +170,7 @@ $forecast-graph-width: 960px;
 
 .forecast-graph-container.forecast-graph-combined {
   height: 170px;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 
   @include breakpoint(medium) {
     height: 200px;
