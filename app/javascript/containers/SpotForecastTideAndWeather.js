@@ -135,7 +135,8 @@ class SpotForecastTideAndWeather extends React.Component {
                 >
                   <span>
                     <Icon name="sunrise" /> {moment(day.sunrise).format(TIME_FORMAT)} &nbsp;
-                    <Icon name="sunset" /> {moment(day.sunset).format(TIME_FORMAT)}
+                    <Icon name="sunset" /> {moment(day.sunset).format(TIME_FORMAT)} &nbsp;
+                    <Icon name="info" />
                   </span>
                 </Tooltip>
               </div>

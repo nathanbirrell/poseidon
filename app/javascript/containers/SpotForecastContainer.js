@@ -12,6 +12,8 @@ import Row from 'components/Row';
 import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
 import Spinner from 'components/Spinner';
+import Icon from 'components/Icon';
+import ExpandCollapseCard from 'components/ExpandCollapseCard';
 
 const Colors = {
   Rating: '#9ACD32',
@@ -187,33 +189,37 @@ class SpotForecastContainer extends React.Component {
     };
 
     return (
-      <div className="forecast-graph-card">
-        <div className="forecast-graphs-parent">
-          <h5>SWELL &amp; WIND</h5>
-          <AreaGraph
-            forecastConfig={combinedGraphConfig}
-            cssSelector='forecast-graph'
-            targetId='forecast-graph-combined'
-            graphs={combinedGraphs}
-            legend={false}
-            updateParent={this.updateParent}
-            selectedDateTimePosition={selectedDateTimePosition}
-          />
+      <div className="forecast-graph-cards">
+        <ExpandCollapseCard title="Swell &amp; Wind" isCollapseable={false}>
+          <div className="forecast-graphs-parent">
+            <AreaGraph
+              forecastConfig={combinedGraphConfig}
+              cssSelector='forecast-graph'
+              targetId='forecast-graph-combined'
+              graphs={combinedGraphs}
+              legend={false}
+              updateParent={this.updateParent}
+              selectedDateTimePosition={selectedDateTimePosition}
+            />
+          </div>
+        </ExpandCollapseCard>
 
-          <h5>TIDE &amp; SUN</h5>
-          <AreaGraph
-            forecastConfig={forecastConfig}
-            cssSelector='forecast-graph'
-            targetId='forecast-graph-tide'
-            graphs={tideGraphs}
-            legend={false}
-            showAxes={false}
-            updateParent={this.updateParent}
-            selectedDateTimePosition={selectedDateTimePosition}
-          />
+        <ExpandCollapseCard title="Tide, Weather &amp; Sun">
+          <div className="forecast-graphs-parent">
+            <AreaGraph
+              forecastConfig={forecastConfig}
+              cssSelector='forecast-graph'
+              targetId='forecast-graph-tide'
+              graphs={tideGraphs}
+              legend={false}
+              showAxes={false}
+              updateParent={this.updateParent}
+              selectedDateTimePosition={selectedDateTimePosition}
+            />
 
-          <SpotForecastTideAndWeather spot={this.props.spot} />
-        </div>
+            <SpotForecastTideAndWeather spot={this.props.spot} />
+          </div>
+        </ExpandCollapseCard>
       </div>
     );
   }
