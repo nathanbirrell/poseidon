@@ -28,6 +28,10 @@ $forecast-graph-width: 960px;
   &.forecast-graph-combined {
     .forecast-graph {
       height: 225px;
+
+      @include breakpoint(medium) {
+        height: 240px;
+      }
     }
   }
 
@@ -127,12 +131,18 @@ $forecast-graph-width: 960px;
 
       .tick text {
         font: $primary-font;
-        fill: $jumbo;
+        fill: $font-dark-secondary;
         text-anchor: middle;
         text-transform: uppercase;
         font-size: rem-calc(14);
         font-weight: $font-weight-normal;
-        transform: translateY(4px);
+        transform: translateY(2px);
+      }
+
+      .tick .tick-subtext {
+        fill: $font-dark-tertiary;
+        font-size: rem-calc(10);
+        transform: translateY(30px);
       }
 
       .tick line {

@@ -153,11 +153,20 @@ class AreaGraph extends React.Component {
           d3.axisBottom(x)
           .ticks(graphs[0].yVals.length)
           .tickSize(4)
-          .tickFormat(function(d, i) {
+          .tickFormat((d, i) => {
             const mod = i%8;
             return mod === 0 ? moment().add((d / num), 'days').format('dddd') : '';
           })
         );
+
+      bottomAxis.selectAll('.tick')
+        .append('text')
+        .attr('class', 'tick-subtext')
+        .text((d, i) => {
+          const mod = i%8;
+          return mod === 0 ? moment().add((i / num), 'days').format('D MMM') : '';
+        });
+
       bottomAxis.selectAll(".tick text").attr("dx", x(4));
       bottomAxis.selectAll(".tick line")
         .attr("y2", (d, i) => {
