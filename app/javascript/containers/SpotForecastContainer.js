@@ -8,6 +8,9 @@ import Units from 'lib/Units';
 
 import SpotForecastTideAndWeather from 'containers/SpotForecastTideAndWeather';
 
+import ScrollSync from 'components/ScrollSync';
+import ScrollSyncPane from 'components/ScrollSyncPane';
+
 import Row from 'components/Row';
 import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
@@ -189,38 +192,44 @@ class SpotForecastContainer extends React.Component {
     };
 
     return (
-      <div className="forecast-graph-cards">
-        <ExpandCollapseCard title="Swell &amp; Wind" isCollapseable={false}>
-          <div className="forecast-graphs-parent">
-            <AreaGraph
-              forecastConfig={combinedGraphConfig}
-              cssSelector='forecast-graph'
-              targetId='forecast-graph-combined'
-              graphs={combinedGraphs}
-              legend={false}
-              updateParent={this.updateParent}
-              selectedDateTimePosition={selectedDateTimePosition}
-            />
-          </div>
-        </ExpandCollapseCard>
+      <ScrollSync>
+        <div className="forecast-graph-cards">
+          <ExpandCollapseCard title="Swell &amp; Wind" isCollapseable={false}>
+            <ScrollSyncPane>
+              <div className="forecast-graphs-parent">
+                <AreaGraph
+                  forecastConfig={combinedGraphConfig}
+                  cssSelector='forecast-graph'
+                  targetId='forecast-graph-combined'
+                  graphs={combinedGraphs}
+                  legend={false}
+                  updateParent={this.updateParent}
+                  selectedDateTimePosition={selectedDateTimePosition}
+                />
+              </div>
+            </ScrollSyncPane>
+          </ExpandCollapseCard>
 
-        <ExpandCollapseCard title="Tide, Weather &amp; Sun">
-          <div className="forecast-graphs-parent">
-            <AreaGraph
-              forecastConfig={forecastConfig}
-              cssSelector='forecast-graph'
-              targetId='forecast-graph-tide'
-              graphs={tideGraphs}
-              legend={false}
-              showAxes={false}
-              updateParent={this.updateParent}
-              selectedDateTimePosition={selectedDateTimePosition}
-            />
+          <ExpandCollapseCard title="Tide, Weather &amp; Sun">
+            <ScrollSyncPane>
+              <div className="forecast-graphs-parent">
+                <AreaGraph
+                  forecastConfig={forecastConfig}
+                  cssSelector='forecast-graph'
+                  targetId='forecast-graph-tide'
+                  graphs={tideGraphs}
+                  legend={false}
+                  showAxes={false}
+                  updateParent={this.updateParent}
+                  selectedDateTimePosition={selectedDateTimePosition}
+                />
 
-            <SpotForecastTideAndWeather spot={this.props.spot} />
-          </div>
-        </ExpandCollapseCard>
-      </div>
+                <SpotForecastTideAndWeather spot={this.props.spot} />
+              </div>
+            </ScrollSyncPane>
+          </ExpandCollapseCard>
+        </div>
+      </ScrollSync>
     );
   }
 }
