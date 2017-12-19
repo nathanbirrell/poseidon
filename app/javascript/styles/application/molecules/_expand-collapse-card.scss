@@ -1,0 +1,11 @@
+.expand-collapse-card {
+  background: $white;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: $shadow-subtle;
+
+  .card-title {
+    display: block;
+    cursor: pointer;
+  }
+}
