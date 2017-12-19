@@ -19,20 +19,35 @@ class ExpandCollapseCard extends React.PureComponent {
     this.setState({ isExpanded: !this.state.isExpanded });
   }
 
+  renderTitle() {
+    const attributes = {};
+    let icon = null;
+
+    attributes.className = 'card-title';
+
+    if (this.props.isCollapseable) {
+      attributes.onClick = this.toggleExpanded;
+
+      icon = <Icon name="chevron-down" />;
+      if (this.state.isExpanded) { icon = <Icon name="chevron-up" />; }
+    }
+
+    return (
+      <h5 {...attributes}>{this.props.title} {icon}</h5>
+    );
+  }
+
   render() {
     const classes = Classnames({
       'expand-collapse-card': true,
       '--expanded': this.state.isExpanded,
+      '--collapseable': this.props.isCollapseable,
       [`${this.props.className}`]: !!this.props.className,
     });
 
-    let icon = 'chevron-down';
-
-    if (this.state.isExpanded) { icon = 'chevron-up'; }
-
     return (
       <div className={classes}>
-        <h5 className="card-title" onClick={this.toggleExpanded}>{this.props.title} <Icon name={icon} /></h5>
+        {this.renderTitle()}
         {this.props.children}
       </div>
     );
@@ -41,12 +56,14 @@ class ExpandCollapseCard extends React.PureComponent {
 
 ExpandCollapseCard.defaultProps = {
   className: null,
+  isCollapseable: true,
 };
 
 ExpandCollapseCard.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
   className: PropTypes.string,
+  isCollapseable: PropTypes.bool,
 };
 
 export default ExpandCollapseCard;

@@ -4,7 +4,7 @@
   margin-bottom: 12px;
   box-shadow: $shadow-subtle;
 
-  .card-title {
+  &.--collapseable .card-title {
     display: block;
     cursor: pointer;
   }

@@ -13,6 +13,7 @@ import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
 import Spinner from 'components/Spinner';
 import Icon from 'components/Icon';
+import ExpandCollapseCard from 'components/ExpandCollapseCard';
 
 const Colors = {
   Rating: '#9ACD32',
@@ -189,9 +190,8 @@ class SpotForecastContainer extends React.Component {
 
     return (
       <div className="forecast-graph-cards">
-        <div className="forecast-graph-card">
+        <ExpandCollapseCard title="Swell &amp; Wind" isCollapseable={false}>
           <div className="forecast-graphs-parent">
-            <h5>SWELL &amp; WIND</h5>
             <AreaGraph
               forecastConfig={combinedGraphConfig}
               cssSelector='forecast-graph'
@@ -202,11 +202,10 @@ class SpotForecastContainer extends React.Component {
               selectedDateTimePosition={selectedDateTimePosition}
             />
           </div>
-        </div>
-        <div className="forecast-graph-card">
-          <div className="forecast-graphs-parent">
-            <h5>Tide, Weather &amp; Sun <Icon name="chevron-down" /></h5>
+        </ExpandCollapseCard>
 
+        <ExpandCollapseCard title="Tide, Weather &amp; Sun">
+          <div className="forecast-graphs-parent">
             <AreaGraph
               forecastConfig={forecastConfig}
               cssSelector='forecast-graph'
@@ -220,7 +219,7 @@ class SpotForecastContainer extends React.Component {
 
             <SpotForecastTideAndWeather spot={this.props.spot} />
           </div>
-        </div>
+        </ExpandCollapseCard>
       </div>
     );
   }
