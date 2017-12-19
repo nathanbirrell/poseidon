@@ -25,11 +25,16 @@ $forecast-graph-width: 960px;
     width: 100%;
   }
 
+  &.forecast-graph-combined {
+    .forecast-graph {
+      height: 225px;
+    }
+  }
+
   .forecast-graph {
     position: relative;
     display: block;
     width: $forecast-graph-width;
-    height: 225px;
 
     @include breakpoint(large) {
       width: 100%;
