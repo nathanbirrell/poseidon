@@ -160,7 +160,7 @@ class SessionCard extends React.Component {
       return (
         <div className="session-card__rating">
           <Rating rating={current_rating} isLarge />
-          <span className="session-card__label">OVERALL<br />POTENTIAL</span>
+          <span className="session-card__label --dark">OVERALL<br />POTENTIAL</span>
         </div>
       );
     }
