@@ -25,6 +25,16 @@ const Colors = {
   TideHeight: '#DBDBDB',
 };
 
+const LegendKey = ({ backgroundColor, isThin }) => (
+  <span style={{
+    display: 'inline-block',
+    height: isThin ? '4px' : '6px',
+    width: '12px',
+    marginBottom: isThin ? '2px' : '4px',
+    backgroundColor,
+  }} />
+);
+
 class SpotForecastContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -196,7 +206,13 @@ class SpotForecastContainer extends React.Component {
         <div className="forecast-graph-cards">
           <ExpandCollapseCard
             title="Swell &amp; Wind"
-            rightHandSide={<small>Legend</small>}
+            rightHandSide={
+              <small>
+                <LegendKey backgroundColor={Colors.Rating} /> Surf Potential &nbsp;
+                <LegendKey backgroundColor={Colors.SwellSize} /> Swell &nbsp;
+                <LegendKey backgroundColor={Colors.WindSpeed} isThin /> Wind &nbsp;
+              </small>
+            }
             isCollapseable={false}
           >
             <ScrollSyncPane>
