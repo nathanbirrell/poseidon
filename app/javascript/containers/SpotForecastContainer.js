@@ -6,16 +6,23 @@ import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
 import Units from 'lib/Units';
 
+import SpotForecastTideAndWeather from 'containers/SpotForecastTideAndWeather';
+
+import ScrollSync from 'components/ScrollSync';
+import ScrollSyncPane from 'components/ScrollSyncPane';
+
 import Row from 'components/Row';
 import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
 import Spinner from 'components/Spinner';
+import Icon from 'components/Icon';
+import ExpandCollapseCard from 'components/ExpandCollapseCard';
 
 const Colors = {
-  Rating: '#27AE60',
-  WindSpeed: '#C377E0',
-  SwellSize: '#0079BF',
-  TideHeight: '#CDCDCD',
+  Rating: '#9ACD32',
+  WindSpeed: '#6F7C82',
+  SwellSize: '#6F7C82',
+  TideHeight: '#DBDBDB',
 };
 
 class SpotForecastContainer extends React.Component {
@@ -95,10 +102,6 @@ class SpotForecastContainer extends React.Component {
     if (!this.props.forecasts) {
       return <Spinner />;
     }
-
-    const bespokeSpacing = {
-      paddingTop: '35px',
-    };
     const selectedDateTimePosition = this.props.selectedDateTimePosition;
     const forecastConfig = this.props.forecastConfig;
     console.log('SPOTFORECAST WITH', this.props.forecastConfig);
@@ -110,11 +113,13 @@ class SpotForecastContainer extends React.Component {
         yVals: this.overallRatings()['rating'],
         yMax: 110,
         line: {
-          show: false,
+          show: forecastConfig.showOverallRating,
+          opacity: 1,
+          dashed: true,
+          stroke: 2,
         },
         area: {
-          show: forecastConfig.showOverallRating,
-          opacity: 0.5,
+          show: false,
         },
         points: {
           show: false,
@@ -130,6 +135,7 @@ class SpotForecastContainer extends React.Component {
         axesSuffix: 'ft',
         line: {
           show: true,
+          stroke: 3,
         },
         area: {
           show: false,
@@ -148,6 +154,7 @@ class SpotForecastContainer extends React.Component {
         axesSuffix: 'kt',
         line: {
           show: true,
+          stroke: 0.75,
         },
         area: {
           show: false,
@@ -179,32 +186,50 @@ class SpotForecastContainer extends React.Component {
       }
     ];
 
+    const combinedGraphConfig = {
+      ...forecastConfig,
+      showNightAndDay: false,
+    };
+
     return (
-      <div className="forecast-graphs-parent">
-        <h5>SWELL &amp; WIND</h5>
-        <AreaGraph
-          forecastConfig={forecastConfig}
-          heightRatio={0.2}
-          cssSelector='forecast-graph'
-          targetId='forecast-graph-combined'
-          graphs={combinedGraphs}
-          legend={false}
-          updateParent={this.updateParent}
-          selectedDateTimePosition={selectedDateTimePosition}
-        />
-        <h5 style={bespokeSpacing}>TIDE &amp; SUN</h5>
-        <AreaGraph
-          forecastConfig={forecastConfig}
-          heightRatio={0.06}
-          cssSelector='forecast-graph'
-          targetId='forecast-graph-tide'
-          graphs={tideGraphs}
-          legend={false}
-          showAxes={false}
-          updateParent={this.updateParent}
-          selectedDateTimePosition={selectedDateTimePosition}
-        />
-      </div>
+      <ScrollSync>
+        <div className="forecast-graph-cards">
+          <ExpandCollapseCard title="Swell &amp; Wind" isCollapseable={false}>
+            <ScrollSyncPane>
+              <div className="forecast-graphs-parent">
+                <AreaGraph
+                  forecastConfig={combinedGraphConfig}
+                  cssSelector='forecast-graph'
+                  targetId='forecast-graph-combined'
+                  graphs={combinedGraphs}
+                  legend={false}
+                  updateParent={this.updateParent}
+                  selectedDateTimePosition={selectedDateTimePosition}
+                />
+              </div>
+            </ScrollSyncPane>
+          </ExpandCollapseCard>
+
+          <ExpandCollapseCard title="Tide, Weather &amp; Sun">
+            <ScrollSyncPane>
+              <div className="forecast-graphs-parent">
+                <AreaGraph
+                  forecastConfig={forecastConfig}
+                  cssSelector='forecast-graph'
+                  targetId='forecast-graph-tide'
+                  graphs={tideGraphs}
+                  legend={false}
+                  showAxes={false}
+                  updateParent={this.updateParent}
+                  selectedDateTimePosition={selectedDateTimePosition}
+                />
+
+                <SpotForecastTideAndWeather spot={this.props.spot} />
+              </div>
+            </ScrollSyncPane>
+          </ExpandCollapseCard>
+        </div>
+      </ScrollSync>
     );
   }
 }
@@ -221,6 +246,7 @@ SpotForecastContainer.PropTypes = {
   updateParent: PropTypes.func,
   selectedDateTimePosition: PropTypes.number,
   forecastConfig: PropTypes.object.isRequired,
+  spot: PropTypes.object,
 };
 
 export default SpotForecastContainer;

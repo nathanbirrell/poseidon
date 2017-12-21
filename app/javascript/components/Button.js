@@ -7,6 +7,7 @@ const Type = Object.freeze({
   PRIMARY: 'primary',
   SECONDARY: 'secondary',
   DARK: 'dark',
+  LINK: 'link',
 });
 
 class Button extends React.PureComponent {
@@ -16,9 +17,10 @@ class Button extends React.PureComponent {
 
   render() {
     const classes = Classnames({
-      'btn': true,
+      'btn': (this.props.type !== Type.LINK),
+      'link': (this.props.type === Type.LINK),
       [`${this.props.className}`]: (this.props.className), // add any classes passed down
-      '--secondary': (this.props.type === Type.SECONDARY),
+      [`--${this.props.type}`]: (this.props.type !== Type.LINK),
       '--disabled': (this.props.disabled),
       '--slim': (this.props.isSlim), // TODO: make this a TYPE
     });
@@ -38,7 +40,7 @@ class Button extends React.PureComponent {
     if (attributes.to) {
       return (
         <Link {...attributes}>
-          {this.props.children || this.props.text}
+          <span className="btn__content">{this.props.children || this.props.text}</span>
         </Link>
       );
     }
@@ -46,14 +48,14 @@ class Button extends React.PureComponent {
     if (attributes.href) {
       return (
         <a {...attributes}>
-          {this.props.children || this.props.text}
+          <span className="btn__content">{this.props.children || this.props.text}</span>
         </a>
       );
     }
 
     return (
       <button {...attributes} >
-        {this.props.children || this.props.text}
+        <span className="btn__content">{this.props.children || this.props.text}</span>
       </button>
     );
   }

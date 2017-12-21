@@ -53,6 +53,20 @@ class Tide < ForecastModel
     snapshots
   end
 
+  def self.get_hourly_snapshots(spot, days)
+    forecast_length = days - 1 # Retreiving to the end of the 4th day ahead
+    snapshots = []
+    date_time = Date.current.beginning_of_day + 2.hour # Our forecasts start at 2am
+
+    loop do
+      snapshots << TideSnapshot.new(date_time, spot)
+      date_time += 1.hour
+      break if date_time >= forecast_length.day.from_now.end_of_day
+    end
+
+    snapshots
+  end
+
   def self.current_snapshot(spot)
     TideSnapshot.new(Time.current, spot)
   end

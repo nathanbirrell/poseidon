@@ -1,0 +1,26 @@
+// Overriding Foundation's base
+
+.has-tip {
+  &.--link {
+    cursor: pointer;
+  }
+
+  .tooltip {
+    top: initial;
+    bottom: 26px;
+    left: -50%;
+    border-radius: 2px;
+  }
+
+  .tooltip.left {
+    left: -100%;
+    bottom: -50%;
+    right: initial;
+  }
+
+  .tooltip.right {
+    right: -100%;
+    bottom: -50%;
+    left: initial;
+  }
+}

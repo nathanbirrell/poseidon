@@ -1,0 +1,16 @@
+.expand-collapse-card {
+  background: $white;
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: $shadow-subtle;
+
+  &.--collapsed {
+    max-height: 40px;
+    overflow: hidden;
+  }
+
+  &.--collapseable .card-title {
+    display: block;
+    cursor: pointer;
+  }
+}

@@ -31,3 +31,5 @@ json.url spot_url(spot, format: :json)
 json.current_swell spot.current_swell.to_builder
 json.current_wind spot.current_wind.to_builder
 json.current_tide_snapshot spot.current_tide_snapshot.to_builder
+
+json.features spot.features.collect { |feature| feature.to_builder.attributes! }

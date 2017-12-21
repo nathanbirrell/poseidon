@@ -146,7 +146,7 @@ class SessionCard extends React.Component {
         secondary={(
           <span>
             <small><Icon name="arrow-up" color="grey" rotate={stateIconRotate} />{state} {shiftRate}</small><br />
-            <small>{`${next_tide_type} ${next_tide_text} ${next_tide_height}m ` }</small>
+            <small>{`${next_tide_type} ${next_tide_text} (${next_tide_height}m) ` }</small>
           </span>
         )}
       />
@@ -160,7 +160,7 @@ class SessionCard extends React.Component {
       return (
         <div className="session-card__rating">
           <Rating rating={current_rating} isLarge />
-          <span className="session-card__label">OVERALL<br />POTENTIAL</span>
+          <span className="session-card__label --dark">OVERALL<br />POTENTIAL</span>
         </div>
       );
     }

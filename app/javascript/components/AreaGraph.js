@@ -8,6 +8,11 @@ import { scroller } from 'react-scroll';
 import Row from 'components/Row';
 import Column from 'components/Column';
 
+const isNight = (i) => {
+  const modulus = i % 8;
+  return modulus <= 1 || modulus >= 7;
+}
+
 class AreaGraph extends React.Component {
   constructor (props) {
     super(props);
@@ -30,12 +35,23 @@ class AreaGraph extends React.Component {
     this.renderGraph = this.renderGraph.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.clearNodeContents = this.clearNodeContents.bind(this);
+    this.handleArrowPress = this.handleArrowPress.bind(this);
   }
 
   componentDidMount() {
     this.initGraph();
 
     this.resizeSensor = new ResizeSensor(this.graphContainerRef, this.renderGraph);
+
+    // Needs to be window/global scope so that *every* instance of AreaGraph on the
+    //     page check the same value (otherwise we'd get duplicates)
+    window.IS_ARROW_KEYS_BOUND = window.IS_ARROW_KEYS_BOUND === undefined ? false : window.IS_ARROW_KEYS_BOUND;
+
+    // Only bind to first instance, make sure false not `undefined`
+    if (window.IS_ARROW_KEYS_BOUND === false) {
+      document.addEventListener('keydown', this.handleArrowPress);
+      window.IS_ARROW_KEYS_BOUND = true;
+    }
   }
 
   componentDidUpdate() {
@@ -49,6 +65,11 @@ class AreaGraph extends React.Component {
 
     if (this.graphContainerRef && this.graphContainerRef.resizeSensor) {
       delete this.graphContainerRef.resizeSensor;
+    }
+
+    if (window.IS_ARROW_KEYS_BOUND) {
+      document.removeEventListener('keydown', this.handleArrowPress);
+      window.IS_ARROW_KEYS_BOUND = false;
     }
   }
 
@@ -125,28 +146,42 @@ class AreaGraph extends React.Component {
       this.svg.selectAll('.axis-left').remove();
 
       const num = (x.domain()[1] / this.props.forecastDays);
-      let tickValues = [];
-      for (let i = 0; i < this.props.forecastDays; i++) {
-        tickValues.push(i * 8);
-      }
       const bottomAxis = this.svg.append("g")
         .attr('class', 'axis-bottom')
         .attr("transform", "translate(0," + height + ")")
         .call(
           d3.axisBottom(x)
-          .tickValues(tickValues)
-          .tickFormat(function(d) {
-            return moment().add((d / num), 'days').format('ddd');
+          .ticks(graphs[0].yVals.length)
+          .tickSize(4)
+          .tickFormat((d, i) => {
+            const mod = i%8;
+            return mod === 0 ? moment().add((d / num), 'days').format('dddd') : '';
           })
         );
-      bottomAxis.selectAll(".tick text").attr("dx", x(3.4));
+
+      bottomAxis.selectAll('.tick')
+        .append('text')
+        .attr('class', 'tick-subtext')
+        .text((d, i) => {
+          const mod = i%8;
+          return mod === 0 ? moment().add((i / num), 'days').format('D MMM') : '';
+        });
+
+      bottomAxis.selectAll(".tick text").attr("dx", x(4));
+      bottomAxis.selectAll(".tick line")
+        .attr("y2", (d, i) => {
+          if (i%8 === 0) {
+            return 10;
+          }
+          return 5;
+      });
 
       const leftAxis = this.svg.append("g")
         .attr('class', 'axis-left')
         .call(
           d3.axisLeft(y)
           .ticks(4)
-          .tickSize(-dimensions.width)
+          .tickSize(-dimensions.width) // Horizontal lines
           .tickFormat(function(d) {
             return (d*graphs[1].yMax).toFixed(0) + graphs[1].axesSuffix;
           })
@@ -166,6 +201,7 @@ class AreaGraph extends React.Component {
     }
 
     const forecastConfig = this.props.forecastConfig;
+    const selectedDateTimePosition = this.props.selectedDateTimePosition;
     const topLevel = this.svg.selectAll('g.graph')
       .data(graphs);
 
@@ -186,10 +222,12 @@ class AreaGraph extends React.Component {
 
         // Set gradient
         const colouredGradient = `<linearGradient id=\"${targetId}_ratingGradient_${i}\" gradientTransform=\"rotate(90)\"><stop offset=\"20%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.35\"/><stop offset=\"90%\"  stop-color=\"${graph.color}\" stop-opacity=\"0.1\"/></linearGradient>`;
-        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"4.5\" refY=\"4.5\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.35)\" fill=\"${graph.color}\" stroke=\"${graph.color}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
+        const arrowDimension = 15; // square
+        const arrow = `<marker id=\"${targetId}_arrow_${i}\" class=\"arrow\" markerWidth=\"${arrowDimension}\" markerHeight=\"${arrowDimension}\" refX=\"${arrowDimension/3}\" refY=\"${arrowDimension/3}\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.45)\" fill=\"#fff\" stroke=\"${graph.color}\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
+        const arrowHighlighted = `<marker id=\"${targetId}_arrow_highlighted_${i}\" class=\"arrow\" markerWidth=\"${arrowDimension}\" markerHeight=\"${arrowDimension}\" refX=\"6\" refY=\"6\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M12 2 19 21 12 17 5 21 12 2z\" transform=\"scale(0.5)\" fill=\"#EB5757\" stroke=\"#EB5757\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\"/></marker>`
         const defs = thisGraph
           .append('defs');
-        defs.html(colouredGradient + " " + arrow);
+        defs.html(colouredGradient + " " + arrow + " " + arrowHighlighted);
 
         // DRAW NEW GRAPH ELEMENTS
         if (graphs[i]['area'].show) {
@@ -211,6 +249,10 @@ class AreaGraph extends React.Component {
             .datum(graph.yVals)
             .attr('class', `line ${graphs[i].name}`)
             .attr('stroke', graph.color)
+            .attr('stroke-width', graph.line.stroke)
+            .attr('stroke-dasharray', (d, i) => {
+              return graph.line.dashed ? "4, 5" : null;
+            })
             .attr('fill', 'none')
             .attr('opacity', graph.line.opacity || 1)
             .attr("d", line);
@@ -233,7 +275,9 @@ class AreaGraph extends React.Component {
                 return "rotate(" + (graph.directions[i] + 180) + " " + x(i) + " " + y(d) + ")"; // +180 converts it into magical weather speak, where the arrow shows the directional opposite to the degrees
               })
               .attr("stroke-width", 1)
-              .attr("marker-end", `url(#${targetId}_arrow_${i})`);
+              .attr("marker-end", (d, n) => {
+                return n === selectedDateTimePosition ? `url(#${targetId}_arrow_highlighted_${i})` : `url(#${targetId}_arrow_${i})`;
+              });
         } else if (graphs[i]['points'].show) {
           // REGULAR POINTS
           const pointsInstance = thisGraph
@@ -283,8 +327,7 @@ class AreaGraph extends React.Component {
             .attr('height', vertSegHeight)
             .attr('fill', function(d, i) {
               if (forecastConfig.showNightAndDay) {
-                const modulus = i%8;
-                if (modulus <= 1 || modulus >= 6) {
+                if (isNight(i)) {
                   return '#0D659D';
                 }
               }
@@ -292,8 +335,7 @@ class AreaGraph extends React.Component {
             })
             .attr('opacity', function(d, i) {
               if (forecastConfig.showNightAndDay) {
-                const modulus = i % 8;
-                if (modulus <= 1 || modulus >= 6) {
+                if (isNight(i)) {
                   return 0.1;
                 }
               }
@@ -305,7 +347,6 @@ class AreaGraph extends React.Component {
       }
 
       this.svg.selectAll('.selected-date-time').remove();
-      const selectedDateTimePosition = this.props.selectedDateTimePosition;
       if (selectedDateTimePosition) {
         const selectedDateTimeIndicatorHeight = y(y.domain()[0]);
         const selectedDateTimeIndicator = this.svg
@@ -318,9 +359,39 @@ class AreaGraph extends React.Component {
             return '#EB5757';
           })
           .attr('opacity', 1);
+
+        this.svg.selectAll('.selected-date-time-dot').remove();
+        for (var n = 0; n < graphs.length; n += 1) {
+          const graph = graphs[n];
+          if (!graph.directions) {
+            y.domain([0, graph.yMax]);
+            this.svg.append("svg:circle")
+              .attr('class', 'selected-date-time-dot')
+              .attr('stroke', '#EB5757')
+              .attr('fill', '#EB5757')
+              .attr('cx', function() { return x(selectedDateTimePosition) })
+              .attr("cy", function() { return y(graph.yVals[selectedDateTimePosition]) })
+              .attr("r", 2);
+          }
+        }
       }
 
-      topLevel.exit().remove();
+    topLevel.exit().remove();
+  }
+
+  handleArrowPress(event) {
+    const LeftKeyCode = 37;
+    const RightKeyCode = 39;
+    switch (event.keyCode) {
+      case LeftKeyCode:
+        this.props.updateParent(this.props.selectedDateTimePosition - 1);
+        break;
+      case RightKeyCode:
+        this.props.updateParent(this.props.selectedDateTimePosition + 1);
+        break;
+    }
+
+    this.setState({ isArrowPressBound: true });
   }
 
   handleClick(d, i) {
@@ -331,7 +402,7 @@ class AreaGraph extends React.Component {
     if (this.state.isFirstClick) {
       scroller.scrollTo('forecast-graph-card', {
         smooth: true,
-        offset: -53, // fixed menu height
+        offset: -53, // fixed menu height // TODO: retrieve this value from an export
       });
 
       this.setState({ isFirstClick: false });
@@ -349,14 +420,12 @@ class AreaGraph extends React.Component {
       };
     }
     return (
-      <div>
-        <div
-          id={this.props.targetId}
-          className="forecast-graph-container"
-          style={heightRatio}
-          ref={(ref) => { this.graphContainerRef = ref; }}
-        ></div>
-      </div>
+      <div
+        id={this.props.targetId}
+        className={`forecast-graph-container ${this.props.targetId}`}
+        style={heightRatio}
+        ref={(ref) => { this.graphContainerRef = ref; }}
+      ></div>
     );
   }
 }

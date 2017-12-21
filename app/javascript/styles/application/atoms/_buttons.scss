@@ -1,3 +1,5 @@
+$btn-height: 44px;
+
 .button,
 .btn {
   @include clickable;
@@ -9,8 +11,8 @@
   text-align: center;
   position: relative;
   font-size: 14px;
-  height: 44px;
-  line-height: 44px;
+  height: $btn-height;
+  line-height: $btn-height;
   margin: 0 12px 12px 0;
   text-transform: uppercase;
   letter-spacing: 0.025em;
@@ -84,6 +86,10 @@
     }
   }
 
+  .btn__content {
+    // margin: auto;
+  }
+
   .icon {
     position: relative;
     margin-bottom: -2px;
@@ -124,8 +130,8 @@
   }
 
   &.--circle {
-    width: 44px;
-    height: 44px;
+    width: $btn-height;
+    height: $btn-height;
     border-radius: 100%;
 
     &.--icon {
@@ -150,16 +156,6 @@
     &:hover {
       color: lighten(#00aced, 10%);
     }
-  }
-}
-
-.link {
-  color: $secondary-color;
-  text-decoration: none;
-
-  &:hover,
-  &:focus {
-    color: $secondary-color;
   }
 }
 

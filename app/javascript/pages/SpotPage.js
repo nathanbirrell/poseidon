@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { Element } from 'react-scroll';
 
 import MathUtil from 'lib/MathUtil';
@@ -44,7 +44,7 @@ class SpotPage extends React.Component {
   componentDidMount() {
     const { spotId } = this.props.match.params;
     let spot = Api.syncData(`/spots/${spotId}.json`);
-    let forecasts = Api.syncData(`/spots/${spotId}/forecasts.json`);
+    let forecasts = Api.syncData(`/spots/${spotId}/forecast/surf.json`);
 
     Promise.all([spot, forecasts]).then(values => {
       try {
@@ -154,9 +154,10 @@ class SpotPage extends React.Component {
 
         <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
           <Row className="spot-page__forecast" withXPadding={false}>
-            <Column widthSmall={12} widthMedium={12} widthLarge={8}>
+            <Column widthSmall={12} widthMedium={12} widthLarge={12}>
               <Element name="forecast-graph-card">
                 <SpotForecastContainer
+                  spot={this.state.spot}
                   forecasts={this.state.forecasts}
                   updateParent={this.updateSelectedDateTime}
                   selectedDateTimePosition={seed.value}
@@ -186,6 +187,7 @@ class SpotPage extends React.Component {
 
         <Route path={`${routeMatchUrl}/reports`} exact render={() => (
           <SpotDayContainer
+            spot={this.state.spot}
             selectedTime={seed.value}
             forecasts={this.state.forecasts}
           />
@@ -193,7 +195,7 @@ class SpotPage extends React.Component {
 
         <Route path={`${routeMatchUrl}/about`} exact render={() => (
           <SpotAboutContainer
-            data={this.state.spot}
+            spot={this.state.spot}
           />
         )} />
 
@@ -207,6 +209,10 @@ class SpotPage extends React.Component {
               </Row>
             </div>
           </div>
+        )} />
+
+        <Route path={`${routeMatchUrl}`} exact render={() => (
+          <Redirect to={`${routeMatchUrl}/forecast`} />
         )} />
 
       </div>

@@ -21,14 +21,15 @@
 #  wave_model_lat                :decimal(, )
 #  wave_model_lon                :decimal(, )
 #  willyweather_location_id      :integer
-#  weighting_swell               :decimal(1, 2)
-#  weighting_wind                :decimal(1, 2)
-#  weighting_tide                :decimal(1, 2)
-#  wave_model_size_coefficient   :decimal(1, 3)
+#  weighting_swell               :decimal(3, 2)
+#  weighting_wind                :decimal(3, 2)
+#  weighting_tide                :decimal(3, 2)
+#  wave_model_size_coefficient   :decimal(4, 3)
 #  swell_optimal_direction_min   :decimal(, )
 #  swell_optimal_direction_max   :decimal(, )
 #  wind_optimal_direction_min    :decimal(, )
 #  wind_optimal_direction_max    :decimal(, )
+#  hidden                        :boolean
 #
 
 class Spot < ApplicationRecord
@@ -44,10 +45,12 @@ class Spot < ApplicationRecord
   has_many :swells
 
   has_many :weather_day_summaries
-  has_many :weather_precis
+  has_many :weather_precis, class_name: 'WeatherPrecis' # Force singular, inflector won't pick it up
   has_many :uv_indices
-
   has_many :sunrise_sunsets
+
+  has_many :spots_features
+  has_many :features, :through => :spots_features
 
   validates :name, presence: true
 
@@ -78,7 +81,15 @@ class Spot < ApplicationRecord
   end
 
   def self.sorted_by_current_potential
-    Spot.not_hidden.sort_by(&:current_potential).reverse
+    response = []
+    spots = Spot.not_hidden.sort_by(&:current_potential).reverse
+
+    # Filter spots without forecast data
+    spots.each do |spot|
+      response << spot if spot.has_forecast_data?
+    end
+
+    response
   end
 
   def retrieve_forecast_data_if_needed
@@ -160,14 +171,16 @@ class Spot < ApplicationRecord
   end
 
   def forecasts
-    swell_forecasts = swells.seven_day_forecast
+    forecast_days = 5
+    swell_forecasts = swells.week_forecast(forecast_days)
     date_times = swell_forecasts
                  .pluck(:date_time)
     wind_forecasts = winds
                      .where(date_time: date_times)
                      .order(date_time: :asc) # uses a sql IN method
     tide_forecasts = tides
-                     .get_snapshots(date_times, self)
+                      .get_snapshots(date_times, self)
+                    #  .get_hourly_snapshots(self, forecast_days)
     overall_ratings = []
 
     # Calculate potential ratings for forecasts
@@ -187,6 +200,26 @@ class Spot < ApplicationRecord
     }
   end
 
+  def forecast_tides
+    tides.week_forecast
+  end
+
+  def forecast_weather_daily
+    weather_day_summaries.week_forecast
+  end
+
+  def forecast_weather_precis
+    weather_precis.week_forecast
+  end
+
+  def forecast_uv_index
+    uv_indices.week_forecast
+  end
+
+  def forecast_sun
+    sunrise_sunsets.week_forecast
+  end
+
   def optimals
     spot_optimals = {}
     spot_optimals[:swell] = optimal_swell
@@ -197,6 +230,10 @@ class Spot < ApplicationRecord
 
   def no_forecast_data?
     swells.empty? || winds.empty? || tides.empty?
+  end
+
+  def has_forecast_data?
+    !no_forecast_data?
   end
 
   def current_model_date_time
@@ -212,6 +249,7 @@ class Spot < ApplicationRecord
     {
       size: {
         type: 'linear',
+        optimal: swell_size_at_rating(100)[:left].round(1),
         min: swell_size_at_rating(30.0)[:left].round(2),
         max: swell_size_at_rating(30.0)[:right].round(2),
         mixed_min: swell_size_at_rating(50.0)[:left].round(2),
@@ -222,6 +260,7 @@ class Spot < ApplicationRecord
       },
       direction: {
         type: 'direction',
+        optimal: swell_dir_at_rating(100)[:left].round(1),
         min: swell_dir_at_rating(30.0)[:left].round(1),
         max: swell_dir_at_rating(30.0)[:right].round(1),
         mixed_min: swell_dir_at_rating(50.0)[:left].round(1),
@@ -238,6 +277,7 @@ class Spot < ApplicationRecord
     {
       speed: {
         type: 'linear',
+        optimal: wind_speed_at_rating(100)[:left].round(1),
         min: wind_speed_at_rating(30.0)[:left].round(1),
         max: wind_speed_at_rating(30.0)[:right].round(1),
         mixed_min: wind_speed_at_rating(50.0)[:left].round(1),
@@ -248,6 +288,7 @@ class Spot < ApplicationRecord
       },
       direction: {
         type: 'direction',
+        optimal: wind_dir_at_rating(100)[:left].round(1),
         min: wind_dir_at_rating(30.0)[:left].round(1),
         max: wind_dir_at_rating(30.0)[:right].round(1),
         mixed_min: wind_dir_at_rating(50.0)[:left].round(1),
@@ -263,6 +304,7 @@ class Spot < ApplicationRecord
     {
       height: {
         type: 'linear',
+        optimal: tide_at_rating(100)[:left].round(1),
         min: tide_at_rating(30.0)[:left].round(1),
         max: tide_at_rating(30.0)[:right].round(1),
         mixed_min: tide_at_rating(50.0)[:left].round(1),

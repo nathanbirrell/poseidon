@@ -7,6 +7,14 @@
     color: $font-dark-tertiary;
     font-weight: $font-weight-medium;
     line-height: rem-calc(14);
+
+    &.--dark {
+      color: $font-dark-secondary;
+    }
+  }
+
+  .icon {
+    margin: 0;
   }
 }
 

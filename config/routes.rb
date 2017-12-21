@@ -7,13 +7,19 @@ Rails.application.routes.draw do
     root to: 'javascript_app#index', as: :authenticated_root
 
     resources :regions
-    resources :spots
     resources :users
 
-    # TODO: the same as this but for Winds and Tides too
-    get 'swells/:id', to: 'swells#show'
-    get 'spots/:id/forecasts.json', to: 'spots#forecasts'
+    resources :spots
+    get 'spots', to: 'spots#index'
+    get 'spots/:id/forecast/surf.json', to: 'spots#forecast_surf'
+    get 'spots/:id/forecast/tides.json', to: 'spots#forecast_tides'
+    get 'spots/:id/forecast/weather-daily.json', to: 'spots#forecast_weather_daily'
+    get 'spots/:id/forecast/weather-precis.json', to: 'spots#forecast_weather_precis'
+    get 'spots/:id/forecast/uv-index.json', to: 'spots#forecast_uv_index'
+    get 'spots/:id/forecast/sun.json', to: 'spots#forecast_sun'
     get 'spots/:id/clone', to: 'spots#clone', as: 'clone_spot'
+    # TODO: the same as this below but for Winds and Tides too
+    # get 'swells/:id', to: 'swells#show'
 
     # These are React Router handled routes, leave them to the JS app
     # TODO: should probably change this logic to fallback to send ALL traffic

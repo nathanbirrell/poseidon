@@ -42,6 +42,7 @@ group :development do
   gem 'spring-commands-rspec'
   gem "guard", ">= 2.2.2", :require => false
   gem "rb-fsevent",        :require => false
+  gem 'binding_of_caller'
 end
 
 group :test do

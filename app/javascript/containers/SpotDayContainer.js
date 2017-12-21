@@ -28,9 +28,13 @@ class SpotDayContainer extends React.Component {
       <Row id="today-section" className="text-center">
         <Column isAutoMediumUp />
         <Column widthMedium={5} widthLarge={5}>
-          <h2 className="--small">Verified Reports Coming Soon</h2>
+          <h2 className="--small">{this.props.spot.name} surf reports coming soon</h2>
 
-          <Button type={Button.Type.SECONDARY} href="http://eepurl.com/dbMF59">Become a Verified Local Reporter</Button>
+          <br /><br />
+
+          <h3>Live near {this.props.spot.name}?</h3>
+
+          <Button type={Button.Type.SECONDARY} href="http://eepurl.com/dbMF59">Become a Local Reporter</Button>
         </Column>
         <Column isAutoMediumUp />
       </Row>
@@ -40,12 +44,14 @@ class SpotDayContainer extends React.Component {
 
 SpotDayContainer.defaultProps = {
   forecasts: null,
-  selectedTime: null
+  selectedTime: null,
+  spot: null,
 };
 
 SpotDayContainer.PropTypes = {
   forecasts: PropTypes.object,
-  selectedTime: PropTypes.number
+  selectedTime: PropTypes.number,
+  spot: PropTypes.object.isRequired,
 };
 
 export default SpotDayContainer;

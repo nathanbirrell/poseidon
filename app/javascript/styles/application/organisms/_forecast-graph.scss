@@ -1,29 +1,40 @@
+$forecast-graph-width: 960px;
+
 .forecast-graphs-parent {
   position: relative;
-  background: $white;
   overflow-y: hidden;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
   width: 100%;
-  margin-bottom: 12px;
-  padding: 12px;
-  box-shadow: $shadow-subtle;
 }
 
 .forecast-graph-container {
   position: relative;
-  width: 100%;
+  width: $forecast-graph-width;
   white-space: nowrap;
   vertical-align: top;
+
+  @include breakpoint(large) {
+    width: 100%;
+  }
+
+  &.forecast-graph-combined {
+    .forecast-graph {
+      height: 225px;
+
+      @include breakpoint(medium) {
+        height: 240px;
+      }
+    }
+  }
 
   .forecast-graph {
     position: relative;
     display: block;
-    width: 960px;
-    height: 225px;
+    width: $forecast-graph-width;
 
-    @include breakpoint(medium) {
-      // height: 275px;
+    @include breakpoint(large) {
+      width: 100%;
     }
 
     text {
@@ -32,17 +43,17 @@
 
     .graph {
       .line {
-        stroke-width: 1;
+        stroke-width: 2;
       }
       .line.wind-speed {
-        stroke-width: 0.5;
+        stroke-width: 1;
       }
       .point {
         &.dot {
-          stroke-width: 1;
+          stroke-width: 1.5;
         }
         &.arrow {
-          stroke-width: 0.8;
+          stroke-width: 1.5;
         }
       }
     }
@@ -60,22 +71,27 @@
       path.domain {
         display: none;
       }
+
       g.tick {
         line {
-          stroke-width: 0.30;
-          stroke: $gainsboro;
+          stroke-width: 1;
+          stroke: $smoke;
+        }
+
+        &:last-child {
+          display: none;
         }
 
         text {
-          font-size: rem-calc(5);
+          font-size: rem-calc(11);
           text-anchor: start;
           font-weight: $font-weight-medium;
 
           &.label-1 {
-            transform: translate(1px, -3px);
+            transform: translate(5px, -8px);
           }
           &.label-2 {
-            transform: translate(1px, 5px);
+            transform: translate(5px, 10px);
           }
         }
 
@@ -107,11 +123,19 @@
       }
 
       .tick text {
-        fill: $jumbo;
-        text-anchor: start;
-        font-size: rem-calc(5);
+        font: $primary-font;
+        fill: $font-dark-secondary;
+        text-anchor: middle;
         text-transform: uppercase;
-        transform: translate(-1px, -5px);
+        font-size: rem-calc(14);
+        font-weight: $font-weight-normal;
+        transform: translateY(4px);
+      }
+
+      .tick .tick-subtext {
+        fill: $font-dark-tertiary;
+        font-size: rem-calc(10);
+        transform: translateY(32px);
       }
 
       .tick line {
@@ -119,55 +143,15 @@
         transform: translateY(0.5px);
         stroke-width: 1;
       }
+
+      .tick.long {
+        stroke: red;
+      }
     }
 
-    @media #{$medium-up} {
-      .graph {
-        .line {
-          stroke-width: 2;
-        }
-        .line.wind-speed {
-          stroke-width: 1;
-        }
-        .point {
-          &.dot {
-            stroke-width: 1.5;
-          }
-          &.arrow {
-            stroke-width: 1.5;
-          }
-        }
-      }
-
-      .axis-left {
-        g.tick {
-          line {
-            stroke-width: 1;
-          }
-
-          text {
-            font-size: rem-calc(11);
-
-            &.label-1 {
-              transform: translate(5px, -8px);
-            }
-            &.label-2 {
-              transform: translate(5px, 10px);
-            }
-          }
-        }
-      }
-
-      .axis-bottom {
-        .tick line {
-          stroke-width: 1;
-        }
-
-        .tick text {
-          font-size: rem-calc(11);
-          transform: translateY(0);
-        }
-      }
+    .day-segment {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      cursor: pointer;
     }
   }
 }
@@ -181,5 +165,84 @@
     display: inline-block;
     vertical-align: middle;
     margin-top: -3px;
+  }
+}
+
+.forecast-graph-container.forecast-graph-combined {
+  height: 170px;
+  margin-bottom: 35px;
+
+  @include breakpoint(medium) {
+    height: 200px;
+  }
+}
+
+.forecast-graph-container.forecast-graph-tide {
+  height: 45px;
+  margin-bottom: 12px;
+}
+
+.tide-sun-values {
+  display: flex;
+  flex-wrap: nowrap;
+  width: $forecast-graph-width;
+  // overflow: hidden; // Need to crop due to graph crop issue
+  text-align: center;
+  font-size: rem-calc(11);
+  letter-spacing: -0.2px;
+
+  strong {
+    font-weight: $font-weight-medium;
+  }
+
+  @include breakpoint(large) {
+    width: 100%;
+  }
+
+  .day-block {
+    flex: 1 1 auto;
+    min-width: 197px;
+    padding: 0 36px;
+
+    @include breakpoint(large) {
+      min-width: 20.5%;
+      padding: 0 46px;
+    }
+
+    &.--weather {
+      border-top: 1px dotted $gainsboro;
+      margin-top: 8px;
+      padding-top: 8px;
+    }
+
+    &.--sun {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dotted $gainsboro;
+    }
+
+    &:last-child {
+      min-width: 170px;
+      padding-right: 12px;
+    }
+  }
+
+  .temp-max {
+    font-size: rem-calc(12);
+  }
+
+  .temp-min {
+    color: $iron;
+  }
+
+  .has-tip {
+    border-bottom: none;
+    font-weight: inherit;
+  }
+
+  .tooltip.right {
+    padding: 8px;
+    max-width: 90px;
+    right: -100px;
   }
 }

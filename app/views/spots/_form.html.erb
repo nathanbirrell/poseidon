@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="grid-x">
-    <div class="small-12 cell">
+    <div class="medium-10 medium-offset-1 cell">
       <fieldset>
         <legend>About</legend>
 
@@ -118,11 +118,26 @@
 
           </fieldset>
         </div>
-      </div>
 
-      <div class="row actions">
-        <%= f.submit 'Done', :class => 'btn large' %>
-      </div>
+        <div class="medium-12 cell">
+          <fieldset>
+            <legend>Features</legend>
+
+            <%# Feature.all.each do |feature| %>
+              <%# <%= f.check_box "spot[feature_ids][]", feature.id, spot.features.include?(feature) %>
+              <%#= f.check_box "spot[feature_ids][]", feature.id, spot.features.include?(feature) %>
+              <%#= f.label feature.friendly_name %>
+            <%# end %>
+
+            <%= f.collection_check_boxes(:feature_ids, Feature.all, :id, :friendly_name_or_key) %>
+
+          </fieldset>
+        </div>
+
+        <div class="small-12 cell actions">
+          <%= f.submit 'Done', :class => 'btn large' %>
+        </div>
+    </div>
   </div>
 </div>
 <% end %>

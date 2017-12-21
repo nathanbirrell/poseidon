@@ -1,5 +1,5 @@
 .list {
-  color: $font-dark-primary;
+  // color: $font-dark-primary;
 }
 
 .list.--icon {
@@ -19,5 +19,37 @@
 
   .icon.--large {
     top: 4px;
+  }
+}
+
+.list.--information-list {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  list-style: none;
+  margin-left: 0;
+
+  li {
+    padding-right: 16px;
+    min-width: 86px;
+    max-width: 86px;
+  }
+
+  li .item__primary {
+    font-weight: $font-weight-bold;
+    font-size: rem-calc(24);
+  }
+
+  p {
+    line-height: 1.2;
+  }
+}
+
+.list.--plain {
+  list-style: none;
+  margin-left: 0;
+
+  .icon {
+    margin-right: 4px;
   }
 }

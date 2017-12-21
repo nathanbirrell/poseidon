@@ -62,7 +62,7 @@ class SpotCustomiseForecastContainer extends React.Component {
           header="Customise Forecasts"
         >
           <form>
-            <h5>Graph</h5>
+            <h5>Graphs</h5>
             <table>
               <tbody>
                 <tr>
@@ -71,7 +71,7 @@ class SpotCustomiseForecastContainer extends React.Component {
                   </td>
                   <td>
                     <h6>Overall rating</h6>
-                    Show the overall spot potential behind the data in the wind and swell graph.
+                    Show overall spot potential data
                   </td>
                 </tr>
                 <tr>
@@ -80,7 +80,7 @@ class SpotCustomiseForecastContainer extends React.Component {
                   </td>
                   <td>
                     <h6>Night and Day</h6>
-                    Show night and day in different colours on both graphs.
+                    Show data for night-time hours
                   </td>
                 </tr>
               </tbody>
