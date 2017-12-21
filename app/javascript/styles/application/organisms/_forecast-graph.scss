@@ -202,11 +202,11 @@ $forecast-graph-width: 960px;
   .day-block {
     flex: 1 1 auto;
     min-width: 197px;
-    padding: 0 38px;
+    padding: 0 36px;
 
     @include breakpoint(large) {
       min-width: 20.5%;
-      padding: 0 48px;
+      padding: 0 46px;
     }
 
     &.--weather {
@@ -219,6 +219,11 @@ $forecast-graph-width: 960px;
       margin-top: 8px;
       padding-top: 8px;
       border-top: 1px dotted $gainsboro;
+    }
+
+    &:last-child {
+      min-width: 170px;
+      padding-right: 12px;
     }
   }
 

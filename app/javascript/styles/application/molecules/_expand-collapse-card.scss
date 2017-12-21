@@ -13,4 +13,18 @@
     display: block;
     cursor: pointer;
   }
+
+  &.--not-collapseable h5 {
+    display: inline-block;
+  }
+
+  .expand-collapse-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    small {
+      margin-bottom: auto;
+    }
+  }
 }
