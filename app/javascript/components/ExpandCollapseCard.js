@@ -25,6 +25,7 @@ class ExpandCollapseCard extends React.PureComponent {
 
   renderTitle() {
     const attributes = {};
+    let iconStyles = {};
     let icon = null;
 
     attributes.className = 'card-title';
@@ -32,12 +33,13 @@ class ExpandCollapseCard extends React.PureComponent {
     if (this.props.isCollapseable) {
       attributes.onClick = this.toggleExpanded;
 
-      icon = <Icon name="chevron-down" />;
-      if (this.state.isExpanded) { icon = <Icon name="chevron-up" />; }
+      if (this.state.isExpanded) {
+        iconStyles.transform = `rotate(180deg)`;
+      }
     }
 
     return (
-      <h5 {...attributes}>{this.props.title} {icon}</h5>
+      <h5 {...attributes}>{this.props.title} <Icon name="chevron-down" style={iconStyles} /></h5>
     );
   }
 
