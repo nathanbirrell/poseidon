@@ -37,7 +37,6 @@ export const mapCodeToIcon = (code) => {
     case WeatherPrecisCodes.MOSTLY_CLOUDY:
     case WeatherPrecisCodes.CLOUDY:
     case WeatherPrecisCodes.OVERCAST:
-    case WeatherPrecisCodes.SHOWER_OR_TWO:
     case WeatherPrecisCodes.CHANCE_SHOWER_FINE:
     case WeatherPrecisCodes.CHANCE_SHOWER_CLOUD:
     case WeatherPrecisCodes.CHANCE_THUNDERSTORM_CLOUD:
@@ -46,10 +45,11 @@ export const mapCodeToIcon = (code) => {
       return 'cloud';
       break;
     case WeatherPrecisCodes.WIND:
-      return 'wind'; // Snow looks like drizzle ;)
+      return 'wind';
       break;
+    case WeatherPrecisCodes.SHOWER_OR_TWO:
     case WeatherPrecisCodes.DRIZZLE:
-      return 'cloud-drizzle'; // Snow looks like drizzle ;)
+      return 'cloud-drizzle';
       break;
     case WeatherPrecisCodes.FEW_SHOWERS:
     case WeatherPrecisCodes.SHOWERS_RAIN:
