@@ -106,9 +106,9 @@ class SpotAboutContainer extends React.Component {
           <h2>About {spot.name}</h2>
         </Column>
         <Column widthMediumUp={6} style={{ display: 'flex' }}>
-          <Button href={`https://www.google.com.au/maps/dir/${spot.latitude},${spot.longitude}/`} target="_blank">
+          <Button href={`https://www.google.com.au/maps/dir//${spot.latitude},${spot.longitude}/`} target="_blank">
             <Icon name="map--white" size={Icon.Size.LARGE} />
-            Get directions
+            Go
           </Button>
 
           <Button type={Button.Type.LINK} disabled>
