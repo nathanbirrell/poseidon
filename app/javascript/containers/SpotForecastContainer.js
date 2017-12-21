@@ -194,7 +194,11 @@ class SpotForecastContainer extends React.Component {
     return (
       <ScrollSync>
         <div className="forecast-graph-cards">
-          <ExpandCollapseCard title="Swell &amp; Wind" isCollapseable={false}>
+          <ExpandCollapseCard
+            title="Swell &amp; Wind"
+            rightHandSide={<small>Legend</small>}
+            isCollapseable={false}
+          >
             <ScrollSyncPane>
               <div className="forecast-graphs-parent">
                 <AreaGraph

@@ -46,12 +46,16 @@ class ExpandCollapseCard extends React.PureComponent {
       'expand-collapse-card': true,
       '--collapsed': !this.showCardContent(),
       '--collapseable': this.props.isCollapseable,
+      '--not-collapseable': !this.props.isCollapseable,
       [`${this.props.className}`]: !!this.props.className,
     });
 
     return (
       <div className={classes}>
-        {this.renderTitle()}
+        <div className="expand-collapse-card__top">
+          {this.renderTitle()}
+          {this.props.rightHandSide}
+        </div>
         {this.showCardContent() ? this.props.children : null}
       </div>
     );
@@ -61,11 +65,13 @@ class ExpandCollapseCard extends React.PureComponent {
 ExpandCollapseCard.defaultProps = {
   className: null,
   isCollapseable: true,
+  rightHandSide: null,
 };
 
 ExpandCollapseCard.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
+  rightHandSide: PropTypes.node,
   className: PropTypes.string,
   isCollapseable: PropTypes.bool,
 };
