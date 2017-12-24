@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import String from 'string';
 import Classnames from 'classnames';
+import { Link } from 'react-router-dom';
 
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
-import { Link } from 'react-router-dom';
+import {mapCodeToIcon} from 'lib/WeatherPrecisUtil';
+
 import Row from 'components/Row';
 import Column from 'components/Column';
 import Rating from 'components/Rating';
@@ -153,6 +155,22 @@ class SessionCard extends React.Component {
     )
   }
 
+  _renderWeatherConditions() {
+    return (
+      <SessionCardCondition
+        label="Weather"
+        primary="28"
+        primaryUnit={<span>&#8451;</span>}
+        secondary={(
+          <span>
+            <Icon name={mapCodeToIcon('sunny')} /> Mostly sunny <br />
+            <small>18&#8451; / 28 &#8451;</small>
+          </span>
+        )}
+      />
+    );
+  }
+
   renderRating() {
     const current_rating = parseFloat(this.props.rating.rating);
 
@@ -206,6 +224,9 @@ class SessionCard extends React.Component {
           { this._renderSwellConditions() }
           { this._renderWindConditions() }
           { this._renderTideConditions() }
+        </div>
+        <div className="session-card__conditions">
+          { this._renderWeatherConditions() }
         </div>
       </div>
     );
