@@ -19,7 +19,7 @@ class Footer extends React.Component {
                 </ul>
               </Column>
 
-              <Column widthMedium={6} className="text-right">
+              <Column widthMedium={6} className="footer__text">
                 <p>
                   Built with stoke in Melbourne. <br />
                   Copyright Surf Poseidon Pty Ltd 2017
