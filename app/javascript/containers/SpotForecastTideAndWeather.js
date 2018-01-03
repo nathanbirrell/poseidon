@@ -113,12 +113,12 @@ class SpotForecastTideAndWeather extends React.Component {
           {this.state.tidesDaily.map((day) => (
             <div className="day-block --tide" key={day.date}>
               {day.tides.map(this.renderTide)}
+              {/* <Icon name="plus-circle" /> */}
             </div>
           ))}
         </div>
 
         <div className="tide-sun-values">
-          {/* TODO */}
           {this.state.sunDaily.map((day) => {
             const tooltipMessage = (
               <span>

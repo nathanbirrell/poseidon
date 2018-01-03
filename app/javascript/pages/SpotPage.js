@@ -173,6 +173,8 @@ class SpotPage extends React.Component {
                 wind={this.state.forecasts.winds[seed.value]}
                 tide_current={this.state.forecasts.tides[seed.value]}
               />
+            </Column>
+            <Row withColumn>
               <SpotShareContainer
                 selectedMoment={date}
                 spotName={this.state.spot.name}
@@ -181,7 +183,7 @@ class SpotPage extends React.Component {
                 forecastConfig={this.state.forecastConfig}
                 updateParent={this.updateForecastConfig}
               />
-            </Column>
+            </Row>
           </Row>
         )} />
 

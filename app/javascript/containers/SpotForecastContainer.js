@@ -28,9 +28,9 @@ const Colors = {
 const LegendKey = ({ backgroundColor, isThin }) => (
   <span style={{
     display: 'inline-block',
-    height: isThin ? '3px' : '6px',
+    height: isThin ? '2px' : '4px',
     width: '12px',
-    marginBottom: isThin ? '4px' : '3px',
+    marginBottom: isThin ? '5px' : '4px',
     borderRadius: '1px',
     backgroundColor,
   }} />

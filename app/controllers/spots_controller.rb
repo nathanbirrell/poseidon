@@ -126,6 +126,7 @@ class SpotsController < ApplicationController
     params.require(:spot).permit(
       :name,
       :description,
+      :hidden,
       :season,
       :created_at,
       :updated_at,

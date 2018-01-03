@@ -12,9 +12,24 @@
 .footer__links {
   list-style: none;
   margin: 0;
+  margin-bottom: 8px;
+  text-align: center;
+
+  @include breakpoint(medium) {
+    text-align: left;
+  }
 
   li {
     display: inline-block;
     @include xy-gutters($gutter-position: left right);
+  }
+}
+
+.footer__text {
+  text-align: center;
+  font-size: rem-calc(11);
+
+  @include breakpoint(medium) {
+    text-align: right;
   }
 }
