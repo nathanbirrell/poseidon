@@ -28,6 +28,7 @@ class Button extends React.PureComponent {
     const attributes = {
       className: classes,
       tabIndex: this.props.tabIndex,
+      title: this.props.title,
     };
 
     // Optional attributes
