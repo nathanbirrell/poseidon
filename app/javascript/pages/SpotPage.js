@@ -13,7 +13,6 @@ import SpotAboutContainer from 'containers/SpotAboutContainer';
 import SpotForecastContainer from 'containers/SpotForecastContainer';
 import SpotDayContainer from 'containers/SpotDayContainer';
 import SpotShareContainer from 'containers/SpotShareContainer';
-import SpotCustomiseForecastContainer from 'containers/SpotCustomiseForecastContainer';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
@@ -29,16 +28,11 @@ class SpotPage extends React.Component {
       data: null,
       spotId: null,
       selectedDateTime: this.initTime(),
-      forecastConfig: {
-        showOverallRating: true,
-        showNightAndDay: true,
-      },
       isError: false,
     };
 
     this.findForecastSeedFromTime = this.findForecastSeedFromTime.bind(this);
     this.updateSelectedDateTime = this.updateSelectedDateTime.bind(this);
-    this.updateForecastConfig = this.updateForecastConfig.bind(this);
   }
 
   componentDidMount() {
@@ -104,12 +98,6 @@ class SpotPage extends React.Component {
     };
   }
 
-  updateForecastConfig(forecastConfig) {
-    this.setState({
-      forecastConfig
-    });
-  }
-
   render() {
     const routeMatchUrl = this.props.match.url;
 
@@ -154,18 +142,8 @@ class SpotPage extends React.Component {
 
         <Route path={`${routeMatchUrl}/forecast`} exact render={() => (
           <Row className="spot-page__forecast" withXPadding={false}>
-            <Column widthSmall={12} widthMedium={12} widthLarge={12}>
-              <Element name="forecast-graph-card">
-                <SpotForecastContainer
-                  spot={this.state.spot}
-                  forecasts={this.state.forecasts}
-                  updateParent={this.updateSelectedDateTime}
-                  selectedDateTimePosition={seed.value}
-                  forecastConfig={this.state.forecastConfig}
-                />
-              </Element>
-            </Column>
-            <Column widthMedium={6} widthLarge={4}>
+
+            <Column widthMedium={12} widthLarge={6}>
               <SessionCard
                 isExpanded
                 rating={this.state.forecasts.overall_ratings[seed.value]}
@@ -174,15 +152,26 @@ class SpotPage extends React.Component {
                 tide_current={this.state.forecasts.tides[seed.value]}
               />
             </Column>
+
+            <Column widthSmall={12} widthMedium={12} widthLarge={12}>
+              <Element name="forecast-graph-card">
+                <SpotForecastContainer
+                  spot={this.state.spot}
+                  forecasts={this.state.forecasts}
+                  updateParent={this.updateSelectedDateTime}
+                  selectedDateTimePosition={seed.value}
+                  // forecastConfig={this.state.forecastConfig}
+                />
+              </Element>
+            </Column>
+
             <Row withColumn>
-              <SpotShareContainer
-                selectedMoment={date}
-                spotName={this.state.spot.name}
-              />
-              <SpotCustomiseForecastContainer
-                forecastConfig={this.state.forecastConfig}
-                updateParent={this.updateForecastConfig}
-              />
+              <Column widthMedium={6} widthLarge={4}>
+                <SpotShareContainer
+                  selectedMoment={date}
+                  spotName={this.state.spot.name}
+                />
+              </Column>
             </Row>
           </Row>
         )} />

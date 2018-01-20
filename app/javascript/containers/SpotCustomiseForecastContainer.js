@@ -51,9 +51,8 @@ class SpotCustomiseForecastContainer extends React.Component {
   render() {
     return (
       <div className="display-inline">
-        <Button type={Button.Type.SECONDARY} onClick={this.handleToggle}>
-          <Icon name="edit" size={Icon.Size.MEDIUM} />
-          Customise
+        <Button type={Button.Type.LINK} onClick={this.handleToggle} title="Customise Graph">
+          <Icon name="edit" size={Icon.Size.MEDIUM} color="grey" />
         </Button>
 
         <Modal
