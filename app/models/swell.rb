@@ -39,11 +39,19 @@ class Swell < ForecastModel
 
   def size_rating
     return 0 unless size
-    poseidon_math.rating_given_x(
+
+    is_under_2ft = size < 0.6096
+
+    rating = poseidon_math.rating_given_x(
       min_x: spot.swell_optimal_size_min_metres,
       max_x: spot.swell_optimal_size_max_metres,
       x_value: size
     )
+
+    # Cheap hack to curb size_rating on tiny swell (FIXME)
+    return (rating / 2) if is_under_2ft
+
+    rating
   end
 
   def period_rating
