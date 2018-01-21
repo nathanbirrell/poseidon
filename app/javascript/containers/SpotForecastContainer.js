@@ -46,6 +46,7 @@ class SpotForecastContainer extends React.Component {
       forecastConfig: {
         showOverallRating: true,
         showNightAndDay: true,
+        showSwellAndWind: true,
       },
     }
 
@@ -157,7 +158,7 @@ class SpotForecastContainer extends React.Component {
         // directions: this.swellData()['direction'],
         axesSuffix: 'ft',
         line: {
-          show: true,
+          show: forecastConfig.showSwellAndWind,
           stroke: 3,
         },
         area: {
@@ -173,17 +174,17 @@ class SpotForecastContainer extends React.Component {
         name: 'wind-speed',
         yVals: this.windData()['speed'],
         yMax: this.getMaxWindSpeed(),
-        directions: this.windData()['direction'],
+        directions: forecastConfig.showSwellAndWind ? this.windData()['direction'] : null,
         axesSuffix: 'kt',
         line: {
-          show: true,
+          show: forecastConfig.showSwellAndWind,
           stroke: 0.75,
         },
         area: {
           show: false,
         },
         points: {
-          show: true,
+          show: forecastConfig.showSwellAndWind,
         },
         color: Colors.WindSpeed
       }
@@ -221,6 +222,7 @@ class SpotForecastContainer extends React.Component {
             title="Swell &amp; Wind"
             rightHandSide={
               <small className="forecast-graph-legend">
+                {/* // TODO: check config to confirm each is visible on graph before render*/}
                 <LegendKey backgroundColor={Colors.Rating} /> Surf Potential &nbsp;
                 <LegendKey backgroundColor={Colors.SwellSize} /> Swell &nbsp;
                 <LegendKey backgroundColor={Colors.WindSpeed} isThin /> Wind &nbsp;

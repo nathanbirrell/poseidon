@@ -12,8 +12,7 @@ class SpotCustomiseForecastContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showOverallRating: this.props.forecastConfig.showOverallRating,
-      showNightAndDay: this.props.forecastConfig.showNightAndDay,
+      ...this.props.forecastConfig, // TODO: maybe better to drop this into its own object
       isOpen: false,
     };
 
@@ -35,6 +34,7 @@ class SpotCustomiseForecastContainer extends React.Component {
     this.props.updateParent({
       showOverallRating: this.state.showOverallRating,
       showNightAndDay: this.state.showNightAndDay,
+      showSwellAndWind: this.state.showSwellAndWind,
     });
   }
 
@@ -80,6 +80,14 @@ class SpotCustomiseForecastContainer extends React.Component {
                   <td>
                     <h6>Night and Day</h6>
                     Show data for night-time hours
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input className="input" type="checkbox" name="showSwellAndWind" checked={this.state.showSwellAndWind} onChange={this.handleInputChange} />
+                  </td>
+                  <td>
+                    <h6>Show swell and wind</h6>
                   </td>
                 </tr>
               </tbody>
