@@ -6,7 +6,6 @@ $forecast-graph-width: 960px;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
   width: 100%;
-  padding: 0 0 0 24px;
 }
 
 .forecast-graph-container {
@@ -246,4 +245,8 @@ $forecast-graph-width: 960px;
     max-width: 90px;
     right: -100px;
   }
+}
+
+.forecast-graph-legend {
+  color: $font-dark-secondary;
 }

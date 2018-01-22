@@ -7,6 +7,7 @@ import SpotUtil from 'lib/SpotUtil';
 import Units from 'lib/Units';
 
 import SpotForecastTideAndWeather from 'containers/SpotForecastTideAndWeather';
+import SpotCustomiseForecastContainer from 'containers/SpotCustomiseForecastContainer';
 
 import ScrollSync from 'components/ScrollSync';
 import ScrollSyncPane from 'components/ScrollSyncPane';
@@ -42,11 +43,17 @@ class SpotForecastContainer extends React.Component {
 
     this.state = {
       viewing: "combined",
+      forecastConfig: {
+        showOverallRating: true,
+        showNightAndDay: true,
+        showSwellAndWind: true,
+      },
     }
 
     this.getYVals = this.getYVals.bind(this);
     this.handleViewingChange = this.handleViewingChange.bind(this);
     this.updateParent = this.updateParent.bind(this);
+    this.updateForecastConfig = this.updateForecastConfig.bind(this);
   }
 
   getYVals(dataset, keys) {
@@ -109,13 +116,19 @@ class SpotForecastContainer extends React.Component {
     this.props.updateParent(datetime);
   }
 
+  updateForecastConfig(forecastConfig) {
+    this.setState({
+      forecastConfig
+    });
+  }
+
   render() {
     if (!this.props.forecasts) {
       return <Spinner />;
     }
     const selectedDateTimePosition = this.props.selectedDateTimePosition;
-    const forecastConfig = this.props.forecastConfig;
-    console.log('SPOTFORECAST WITH', this.props.forecastConfig);
+    const forecastConfig = this.state.forecastConfig;
+    console.log('SPOTFORECAST WITH', this.state.forecastConfig);
 
     const combinedGraphs = [
       {
@@ -145,7 +158,7 @@ class SpotForecastContainer extends React.Component {
         // directions: this.swellData()['direction'],
         axesSuffix: 'ft',
         line: {
-          show: true,
+          show: forecastConfig.showSwellAndWind,
           stroke: 3,
         },
         area: {
@@ -161,17 +174,17 @@ class SpotForecastContainer extends React.Component {
         name: 'wind-speed',
         yVals: this.windData()['speed'],
         yMax: this.getMaxWindSpeed(),
-        directions: this.windData()['direction'],
+        directions: forecastConfig.showSwellAndWind ? this.windData()['direction'] : null,
         axesSuffix: 'kt',
         line: {
-          show: true,
+          show: forecastConfig.showSwellAndWind,
           stroke: 0.75,
         },
         area: {
           show: false,
         },
         points: {
-          show: true,
+          show: forecastConfig.showSwellAndWind,
         },
         color: Colors.WindSpeed
       }
@@ -208,10 +221,16 @@ class SpotForecastContainer extends React.Component {
           <ExpandCollapseCard
             title="Swell &amp; Wind"
             rightHandSide={
-              <small>
+              <small className="forecast-graph-legend">
+                {/* // TODO: check config to confirm each is visible on graph before render*/}
                 <LegendKey backgroundColor={Colors.Rating} /> Surf Potential &nbsp;
                 <LegendKey backgroundColor={Colors.SwellSize} /> Swell &nbsp;
                 <LegendKey backgroundColor={Colors.WindSpeed} isThin /> Wind &nbsp;
+
+                <SpotCustomiseForecastContainer
+                  forecastConfig={this.state.forecastConfig}
+                  updateParent={this.updateForecastConfig}
+                />
               </small>
             }
             isCollapseable={false}
