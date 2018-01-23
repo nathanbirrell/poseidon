@@ -8,7 +8,6 @@
     <%= favicon_link_tag %>
 
     <%= stylesheet_pack_tag 'styles' %>
-    <%= javascript_pack_tag 'application' %>
 
     <script>window.twttr = (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0],
@@ -38,6 +37,8 @@
 
       <%= yield %>
     </div>
+
+    <%= javascript_pack_tag 'application' %>
 
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-101910598-1"></script>
