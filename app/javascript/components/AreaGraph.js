@@ -363,7 +363,7 @@ class AreaGraph extends React.Component {
         this.svg.selectAll('.selected-date-time-dot').remove();
         for (var n = 0; n < graphs.length; n += 1) {
           const graph = graphs[n];
-          if (!graph.directions) {
+          if (!graph.directions && (graphs[n].line.show || graphs[n].points.show)) {
             y.domain([0, graph.yMax]);
             this.svg.append("svg:circle")
               .attr('class', 'selected-date-time-dot')
