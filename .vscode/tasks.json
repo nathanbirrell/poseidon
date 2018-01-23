@@ -5,7 +5,7 @@
     "tasks": [
         {
             "taskName": "Rails Dev",
-            "command": "foreman start",
+            "command": "npm start",
             "type": "shell",
             "group": {
                 "kind": "build",
