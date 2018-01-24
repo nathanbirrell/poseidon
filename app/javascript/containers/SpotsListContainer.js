@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Api from 'lib/ApiUtil';
 import UrlUtil from 'lib/UrlUtil';
@@ -11,12 +13,12 @@ import Icon from 'components/Icon';
 import GenericErrorMessage from 'components/GenericErrorMessage';
 
 class SpotsListContainer extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
-      spots: null,
-      orderBy: "current_potential",
+      spots: this.props.spots,
+      orderBy: 'current_potential',
       ascending: false,
       isError: false,
     };
@@ -30,71 +32,21 @@ class SpotsListContainer extends React.Component {
   }
 
   componentDidMount() {
-    let spots = Api.syncData('/spots.json');
+    // const spots = Api.syncData('/spots.json');
 
-    spots.then(data => {
-      try {
-        data = JSON.parse(data);
-        this.setState({
-          spots: data,
-          selectedRegion: this.checkRegionUrlParam(),
-          isError: false,
-        });
-      } catch (error) {
-        console.error(error);
-        this.handleError();
-      }
-    });
-  }
-
-  handleError(data) {
-    this.setState({ isError: true });
-  }
-
-  checkRegionUrlParam() {
-    let query = UrlUtil.searchParams.get('region_id');
-    if (query !== null && query > 0) {
-      return query;
-    }
-  }
-
-  listSpots() {
-    if (!this.state.spots) return null;
-
-    let filteredSpots = this.state.selectedRegion ?
-      this.state.spots.filter(spot => {
-        return spot.region_id == this.state.selectedRegion
-      }) : this.state.spots;
-
-    if (this.state.searchQuery) {
-      filteredSpots = filteredSpots.slice().filter(spot => {
-        return (spot.name.toLowerCase().indexOf(this.state.searchQuery) >= 0 || spot.region.name.toLowerCase().indexOf(this.state.searchQuery) >= 0)
-      });
-    }
-
-    filteredSpots = this.orderSpots(filteredSpots, this.state.orderBy);
-
-    return filteredSpots.map(spot => {
-      const link = `/spots/${spot.id}/forecast`;
-
-      return (
-
-          <Link to={link} key={spot.id}>
-            <SessionCard
-              spot={spot}
-              rating={{
-                date_time: spot.current_model_date_time,
-                rating: spot.current_potential,
-              }}
-              swell={spot.current_swell}
-              wind={spot.current_wind}
-              tide_current={spot.current_tide_snapshot}
-              highlight={this.state.orderBy}
-            />
-          </Link>
-
-      );
-    });
+    // spots.then(data => {
+    //   try {
+    //     const parsedData = JSON.parse(data);
+    //     this.setState({
+    //       spots: parsedData,
+    //       selectedRegion: this.checkRegionUrlParam(),
+    //       isError: false,
+    //     });
+    //   } catch (error) {
+    //     console.error(error);
+    //     this.handleError();
+    //   }
+    // });
   }
 
   getChildPropertyRecursively(object, keys) {
@@ -109,44 +61,100 @@ class SpotsListContainer extends React.Component {
     return output;
   }
 
+  listSpots() {
+    if (!this.state.spots) return null;
+
+    let filteredSpots = this.state.selectedRegion ?
+      this.state.spots.filter(spot => {
+        return spot.region_id == this.state.selectedRegion;
+      }) : this.state.spots;
+
+    if (this.state.searchQuery) {
+      filteredSpots = filteredSpots.slice().filter(spot => {
+        return (spot.name.toLowerCase().indexOf(this.state.searchQuery) >= 0 || spot.region.name.toLowerCase().indexOf(this.state.searchQuery) >= 0);
+      });
+    }
+
+    filteredSpots = this.orderSpots(filteredSpots, this.state.orderBy);
+
+    return filteredSpots.map(spot => {
+      const link = `/spots/${spot.id}/forecast`;
+
+      return (
+
+        <Link to={link} key={spot.id}>
+          <SessionCard
+            spot={spot}
+            rating={{
+              date_time: spot.current_model_date_time,
+              rating: spot.current_potential,
+            }}
+            swell={spot.current_swell}
+            wind={spot.current_wind}
+            tide_current={spot.current_tide_snapshot}
+            highlight={this.state.orderBy}
+          />
+        </Link>
+
+      );
+    });
+  }
+
+  checkRegionUrlParam() {
+    const query = UrlUtil.searchParams.get('region_id');
+    if (query !== null && query > 0) {
+      return query;
+    }
+
+    return undefined;
+  }
+
+  handleError() {
+    this.setState({ isError: true });
+  }
+
   orderSpots(spots, orderBy) {
     const orderLevels = orderBy.split('.');
     const output = spots.sort((a, b) => {
-      let  Ametric = this.getChildPropertyRecursively(a, orderLevels);
-      let Bmetric = this.getChildPropertyRecursively(b, orderLevels);
+      const Ametric = this.getChildPropertyRecursively(a, orderLevels);
+      const Bmetric = this.getChildPropertyRecursively(b, orderLevels);
       return this.state.ascending ? Ametric - Bmetric : Bmetric - Ametric;
     });
     return output;
   }
 
-  renderLoader() {
-    if (!this.state.spots && !this.state.isError) return (
-      <Spinner />
-    );
-  }
-
   handleRegionChange(event) {
     this.setState({
-      selectedRegion: event.target.value
+      selectedRegion: event.target.value,
     });
   }
 
   handleNameSearchChange(event) {
     this.setState({
-      searchQuery: event.target.value.toLowerCase()
+      searchQuery: event.target.value.toLowerCase(),
     });
   }
 
   handleOrderByChange(event) {
     this.setState({
-      orderBy: event.target.value
+      orderBy: event.target.value,
     });
   }
 
   toggleAscDesc() {
     this.setState({
-      ascending: !this.state.ascending
+      ascending: !this.state.ascending,
     });
+  }
+
+  renderLoader() {
+    if (!this.state.spots && !this.state.isError) {
+      return (
+        <Spinner />
+      );
+    }
+
+    return null;
   }
 
   render() {
@@ -173,8 +181,7 @@ class SpotsListContainer extends React.Component {
                   value={this.state.nameSearch}
                   placeholder="Search spots"
                   onChange={this.handleNameSearchChange}
-                >
-                </input>
+                 />
               </div>
             </Column>
 
@@ -207,8 +214,8 @@ class SpotsListContainer extends React.Component {
                   <option value="current_wind.speed">Wind speed</option>
                 </select>
               </div>
-              <button className={"btn --icon --slim " + (this.state.ascending ? "--icon-chevron-up--white" : "--icon-chevron-down--white")} onClick={this.toggleAscDesc}>
-                <span className="show-for-medium">{this.state.ascending ? "Asc." : "Desc."}</span>
+              <button className={'btn --icon --slim ' + (this.state.ascending ? '--icon-chevron-up--white' : '--icon-chevron-down--white')} onClick={this.toggleAscDesc}>
+                <span className="show-for-medium">{this.state.ascending ? 'Asc.' : 'Desc.'}</span>
               </button>
             </Column>
           </Row>
@@ -225,4 +232,18 @@ class SpotsListContainer extends React.Component {
   }
 }
 
-export default SpotsListContainer;
+SpotsListContainer.defaultProps = {
+  spots: {},
+};
+
+SpotsListContainer.propTypes = {
+  spots: PropTypes.array,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    spots: state.spots,
+  };
+};
+
+export default connect(mapStateToProps)(SpotsListContainer);
