@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { bindActionCreators } from 'redux';
+import * as Actions from '../actions';
+
 import Api from 'lib/ApiUtil';
 import UrlUtil from 'lib/UrlUtil';
 import SessionCard from 'components/SessionCard';
@@ -17,7 +20,6 @@ class SpotsListContainer extends React.Component {
     super(props);
 
     this.state = {
-      spots: this.props.spots,
       orderBy: 'current_potential',
       ascending: false,
       isError: false,
@@ -32,21 +34,9 @@ class SpotsListContainer extends React.Component {
   }
 
   componentDidMount() {
-    // const spots = Api.syncData('/spots.json');
-
-    // spots.then(data => {
-    //   try {
-    //     const parsedData = JSON.parse(data);
-    //     this.setState({
-    //       spots: parsedData,
-    //       selectedRegion: this.checkRegionUrlParam(),
-    //       isError: false,
-    //     });
-    //   } catch (error) {
-    //     console.error(error);
-    //     this.handleError();
-    //   }
-    // });
+    if (!this.props.spots.length) {
+      this.props.actions.syncSpots();
+    }
   }
 
   getChildPropertyRecursively(object, keys) {
@@ -62,12 +52,12 @@ class SpotsListContainer extends React.Component {
   }
 
   listSpots() {
-    if (!this.state.spots) return null;
+    if (!this.props.spots) return null;
 
     let filteredSpots = this.state.selectedRegion ?
-      this.state.spots.filter(spot => {
-        return spot.region_id == this.state.selectedRegion;
-      }) : this.state.spots;
+      this.props.spots.filter(spot => {
+        return spot.region_id === this.state.selectedRegion;
+      }) : this.props.spots;
 
     if (this.state.searchQuery) {
       filteredSpots = filteredSpots.slice().filter(spot => {
@@ -148,7 +138,7 @@ class SpotsListContainer extends React.Component {
   }
 
   renderLoader() {
-    if (!this.state.spots && !this.state.isError) {
+    if (!this.props.spots && !this.state.isError) {
       return (
         <Spinner />
       );
@@ -237,13 +227,20 @@ SpotsListContainer.defaultProps = {
 };
 
 SpotsListContainer.propTypes = {
+  actions: PropTypes.object.isRequired,
   spots: PropTypes.array,
 };
 
 const mapStateToProps = (state) => {
   return {
-    spots: state.spots,
+    spots: state.spots.data,
   };
 };
 
-export default connect(mapStateToProps)(SpotsListContainer);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(Actions, dispatch),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SpotsListContainer);
