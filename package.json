@@ -25,6 +25,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
+    "bluebird": "^3.5.1",
     "classnames": "^2.2.5",
     "clipboard-js": "^0.3.5",
     "coffee-loader": "^0.7.3",
@@ -69,6 +70,7 @@
     "sass-loader": "^6.0.6",
     "string": "^3.3.3",
     "style-loader": "^0.18.2",
+    "superagent": "^3.8.2",
     "webpack": "^3.8.1",
     "webpack-manifest-plugin": "^1.2.1",
     "webpack-merge": "^4.1.0"
