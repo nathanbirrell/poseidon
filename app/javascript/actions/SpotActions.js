@@ -1,15 +1,20 @@
+import 'regenerator-runtime/runtime'; // See https://github.com/redux-saga/redux-saga/issues/280
+import { call, put } from 'redux-saga/effects';
 import SpotsService from 'services/SpotsService';
 
-// TODO: move to constants.js
-export const SPOTS_UPDATE = 'SPOTS_UPDATE';
-// export const SPOTS_SYNC_REQUEST = 'SPOTS_SYNC_REQUEST';
-// export const SPOTS_SYNC_FAILED = 'SPOTS_SYNC_FAILED';
+import * as Types from 'types';
 
-export const syncSpots = () => {
-  const data = SpotsService.syncSpots();
+export const fetchSpotsRequest = () => ({
+  type: Types.FETCH_SPOTS_REQUEST,
+});
 
-  return {
-    type: SPOTS_UPDATE,
-    payload: data,
-  };
-};
+export function* fetchSpots(action) {
+  try {
+    const spots = yield call(SpotsService.fetchSpots);
+    console.log(spots);
+    yield put({ type: Types.FETCH_SPOTS_SUCCESS, data: spots.body });
+  } catch (error) {
+    yield put({ type: Types.FETCH_SPOTS_SUCCESS, data: error });
+    console.error(error);
+  }
+}

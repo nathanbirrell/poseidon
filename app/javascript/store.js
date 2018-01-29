@@ -1,15 +1,17 @@
 import { createStore, compose, applyMiddleware } from 'redux';
-import ReduxPromise from 'redux-promise';
+import createSagaMiddleware from 'redux-saga';
+
+import rootSaga from 'sagas';
 import rootReducer from './reducers';
 
-// TODO: Replace redux-promise here with redux-saga
-
 export default function configureStore(initialState) {
+  const sagaMiddleware = createSagaMiddleware();
+
   const store = createStore(
     rootReducer,
     initialState,
     compose(
-      applyMiddleware(ReduxPromise),
+      applyMiddleware(sagaMiddleware),
       window.devToolsExtension ? window.devToolsExtension() : undefined,
     ),
   );
@@ -21,6 +23,8 @@ export default function configureStore(initialState) {
       store.replaceReducer(nextRootReducer);
     });
   }
+
+  sagaMiddleware.run(rootSaga);
 
   return store;
 }

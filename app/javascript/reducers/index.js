@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import SpotsReducer from './spots';
+import SpotsReducer from './spotsReducer';
 
 const rootReducer = combineReducers({
   spots: SpotsReducer,

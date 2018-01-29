@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
-import * as SpotActions from '../actions/SpotActions';
 
-import Api from 'lib/ApiUtil';
 import UrlUtil from 'lib/UrlUtil';
 import SessionCard from 'components/SessionCard';
 import Row from 'components/Row';
@@ -15,6 +13,8 @@ import Spinner from 'components/Spinner';
 import Icon from 'components/Icon';
 import GenericErrorMessage from 'components/GenericErrorMessage';
 
+import * as SpotActions from 'actions/SpotActions';
+
 class SpotsListContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +22,6 @@ class SpotsListContainer extends React.Component {
     this.state = {
       orderBy: 'current_potential',
       ascending: false,
-      isError: false,
     };
 
     this.listSpots = this.listSpots.bind(this);
@@ -35,7 +34,7 @@ class SpotsListContainer extends React.Component {
 
   componentDidMount() {
     if (!this.props.spots.length) {
-      this.props.actions.syncSpots();
+      this.props.actions.fetchSpotsRequest();
     }
   }
 
@@ -99,10 +98,6 @@ class SpotsListContainer extends React.Component {
     return undefined;
   }
 
-  handleError() {
-    this.setState({ isError: true });
-  }
-
   orderSpots(spots, orderBy) {
     const orderLevels = orderBy.split('.');
     const output = spots.sort((a, b) => {
@@ -138,7 +133,7 @@ class SpotsListContainer extends React.Component {
   }
 
   renderLoader() {
-    if (!this.props.spots && !this.state.isError) {
+    if (this.props.isSyncing) {
       return (
         <Spinner />
       );
@@ -148,7 +143,7 @@ class SpotsListContainer extends React.Component {
   }
 
   render() {
-    if (this.state.isError) {
+    if (this.props.isError) {
       return <GenericErrorMessage reload={window.location.reload.bind(window.location)} />;
     }
 
@@ -234,6 +229,8 @@ SpotsListContainer.propTypes = {
 const mapStateToProps = (state) => {
   return {
     spots: state.spots.data,
+    isError: state.spots.isError,
+    isSyncing: state.spots.isSyncing,
   };
 };
 

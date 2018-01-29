@@ -11,5 +11,5 @@ ReactDOM.render(
   <Provider store={store}>
     <AppContainer />
   </Provider>,
-  document.getElementById('poseidon-app')
+  document.getElementById('poseidon-app'),
 );
