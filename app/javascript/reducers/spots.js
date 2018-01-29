@@ -1,4 +1,4 @@
-import { SPOTS_UPDATE } from '../actions';
+import { SPOTS_UPDATE } from '../actions/SpotActions';
 
 const initialState = {
   data: [],

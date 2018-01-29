@@ -9,7 +9,7 @@ export default class SpotsService {
    * Retrieves the Spots for user's dashboard
    * @returns {Promise}
    */
-  static getSpots() {
+  static syncSpots() {
     const endpoint = `${API_BASE_URL}/spots.json`;
     return request.get(endpoint);
     // return GenericAPIService.get(endpoint);

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
-import * as Actions from '../actions';
+import * as SpotActions from '../actions/SpotActions';
 
 import Api from 'lib/ApiUtil';
 import UrlUtil from 'lib/UrlUtil';
@@ -239,7 +239,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(Actions, dispatch),
+    actions: bindActionCreators(SpotActions, dispatch),
   };
 };
 
