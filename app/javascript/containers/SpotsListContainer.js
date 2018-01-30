@@ -34,7 +34,7 @@ class SpotsListContainer extends React.Component {
 
   componentDidMount() {
     if (!this.props.spots.length) {
-      this.props.actions.fetchSpotsRequest();
+      this.props.dispatch(SpotActions.fetchSpots());
     }
   }
 
@@ -222,8 +222,8 @@ SpotsListContainer.defaultProps = {
 };
 
 SpotsListContainer.propTypes = {
-  actions: PropTypes.object.isRequired,
   spots: PropTypes.array,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -237,6 +237,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(SpotActions, dispatch),
+    dispatch,
   };
 };
 

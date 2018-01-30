@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
     case Types.FETCH_SPOTS_ERROR:
       return {
         ...state,
-        isError: action.data,
+        isError: action.error,
         isSyncing: false,
       };
     default:
