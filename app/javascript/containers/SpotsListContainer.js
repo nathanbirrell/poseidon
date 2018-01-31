@@ -166,7 +166,7 @@ class SpotsListContainer extends React.Component {
                   value={this.state.nameSearch}
                   placeholder="Search spots"
                   onChange={this.handleNameSearchChange}
-                 />
+                />
               </div>
             </Column>
 
@@ -199,7 +199,7 @@ class SpotsListContainer extends React.Component {
                   <option value="current_wind.speed">Wind speed</option>
                 </select>
               </div>
-              <button className={'btn --icon --slim ' + (this.state.ascending ? '--icon-chevron-up--white' : '--icon-chevron-down--white')} onClick={this.toggleAscDesc}>
+              <button className={`btn --icon --slim ${this.state.ascending ? '--icon-chevron-up--white' : '--icon-chevron-down--white'}`} onClick={this.toggleAscDesc}>
                 <span className="show-for-medium">{this.state.ascending ? 'Asc.' : 'Desc.'}</span>
               </button>
             </Column>
@@ -218,11 +218,12 @@ class SpotsListContainer extends React.Component {
 }
 
 SpotsListContainer.defaultProps = {
-  spots: {},
 };
 
 SpotsListContainer.propTypes = {
-  spots: PropTypes.array,
+  spots: PropTypes.array.isRequired,
+  isSyncing: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

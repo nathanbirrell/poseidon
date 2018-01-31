@@ -14,7 +14,6 @@ export default (state = initialState, action) => {
         isSyncing: true,
       };
     case Types.FETCH_SPOTS_SUCCESS:
-      console.log(action);
       return {
         ...state,
         data: action.data,
@@ -23,7 +22,7 @@ export default (state = initialState, action) => {
     case Types.FETCH_SPOTS_ERROR:
       return {
         ...state,
-        isError: action.error,
+        isError: true,
         isSyncing: false,
       };
     default:
