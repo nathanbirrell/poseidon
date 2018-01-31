@@ -6,9 +6,6 @@ import Classnames from 'classnames';
 
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
-import { Link } from 'react-router-dom';
-import Row from 'components/Row';
-import Column from 'components/Column';
 import Rating from 'components/Rating';
 import Indicator from 'components/Indicator';
 import Icon from 'components/Icon';
@@ -24,11 +21,23 @@ const SessionCardCondition = (props) => {
       <span className="session-card__condition-primary">
         {props.primary}
         {props.primaryUnit ? <span className="session-card__condition-primary-unit">{props.primaryUnit}</span> : null }
-        <Indicator rating={parseFloat(props.primaryIndicator)} />
+        <Indicator rating={props.primaryIndicator} />
       </span>
       <span className="session-card__condition-secondary">{props.secondary}</span>
     </div>
   );
+};
+
+SessionCardCondition.defaultProps = {
+  highlighted: false,
+};
+
+SessionCardCondition.propTypes = {
+  label: PropTypes.string.isRequired,
+  primary: PropTypes.node.isRequired,
+  primaryUnit: PropTypes.string.isRequired,
+  primaryIndicator: PropTypes.number.isRequired,
+  highlighted: PropTypes.bool,
 };
 
 class SessionCard extends React.Component {
@@ -37,14 +46,14 @@ class SessionCard extends React.Component {
 
     this.state = {
       dateTimeChanged: false,
-    }
+    };
 
     this.renderDateTime = this.renderDateTime.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.rating.date_time !== nextProps.rating.date_time) {
-      this._handleDateTimeChanged()
+      this._handleDateTimeChanged();
     }
   }
 
@@ -53,7 +62,7 @@ class SessionCard extends React.Component {
     // Highlight for 3 seconds
     setTimeout(
       () => { this.setState({ dateTimeChanged: false }); },
-      3000
+      3000,
     );
   }
 
@@ -70,8 +79,8 @@ class SessionCard extends React.Component {
       <SessionCardCondition
         label="Swell"
         primary={`${size}`}
-        primaryUnit={'ft'}
-        primaryIndicator={swell.rating}
+        primaryUnit="ft"
+        primaryIndicator={parseFloat(swell.rating)}
         secondary={(
           <span>
             <Icon name="navigation-2" rotate={directionIconRotate} size={Icon.Size.SMALL} color="grey" /> {directionInWords} @ {period}s <br />
@@ -97,7 +106,7 @@ class SessionCard extends React.Component {
         label="Wind"
         primary={`${direction} ${speed}`}
         primaryUnit="kt"
-        primaryIndicator={wind.rating}
+        primaryIndicator={parseFloat(wind.rating)}
         secondary={(
           <span>
             <Icon name="navigation-2" rotate={windIconRotate} size={Icon.Size.SMALL} color="grey" /> {speedInWords} <br />
@@ -141,8 +150,8 @@ class SessionCard extends React.Component {
       <SessionCardCondition
         label="Tide"
         primary={`${tide_current.height}`}
-        primaryUnit={`m`}
-        primaryIndicator={tide_current.rating}
+        primaryUnit="m"
+        primaryIndicator={parseFloat(tide_current.rating)}
         secondary={(
           <span>
             <small><Icon name="arrow-up" color="grey" rotate={stateIconRotate} />{state} {shiftRate}</small><br />
@@ -150,7 +159,7 @@ class SessionCard extends React.Component {
           </span>
         )}
       />
-    )
+    );
   }
 
   renderRating() {
@@ -169,11 +178,11 @@ class SessionCard extends React.Component {
       <div className="session-card__rating">
         <Rating rating={current_rating} />
       </div>
-    )
+    );
   }
 
   renderNameAndRegion() {
-    if (this.props.isExpanded) { return null; };
+    if (this.props.isExpanded) { return null; }
 
     return (
       <div className="session-card__name">
@@ -239,6 +248,6 @@ SessionCard.propTypes = {
   highlight: PropTypes.string,
   spot: PropTypes.object,
   id: PropTypes.string,
-}
+};
 
 export default SessionCard;
