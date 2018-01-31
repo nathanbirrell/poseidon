@@ -2,3 +2,27 @@
 @mixin no-outline {
   outline: none;
 }
+
+@mixin hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  visibility: visible;
+  white-space: nowrap;
+}
+
+@mixin focus-outline($type: 'border') {
+  @if ($type == 'border') {
+    outline: 1px solid $secondary-color;
+  }
+
+  @if ($type == 'blurred') {
+    box-shadow: 0 0 0 3px $secondary-color;
+    outline: 1px solid transparent;
+  }
+}
