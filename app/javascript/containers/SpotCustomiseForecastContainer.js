@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
+import Toggle from 'components/Toggle';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
@@ -60,36 +61,25 @@ class SpotCustomiseForecastContainer extends React.Component {
         >
           <form>
             <h5>Graphs</h5>
-            <table>
-              <tbody>
-                <tr>
-                  <td>
-                    <input className="input" type="checkbox" name="showOverallRating" checked={this.state.showOverallRating} onChange={this.handleInputChange} />
-                  </td>
-                  <td>
-                    <h6>Overall rating</h6>
-                    Show overall spot potential data
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input className="input" type="checkbox" name="showNightAndDay" checked={this.state.showNightAndDay} onChange={this.handleInputChange} />
-                  </td>
-                  <td>
-                    <h6>Night and Day</h6>
-                    Show data for night-time hours
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input className="input" type="checkbox" name="showSwellAndWind" checked={this.state.showSwellAndWind} onChange={this.handleInputChange} />
-                  </td>
-                  <td>
-                    <h6>Show swell and wind</h6>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+
+            <Toggle
+              id="showOverallRating"
+              toggled={this.state.showOverallRating}
+              onChange={this.handleInputChange}
+              description="Overall potential"
+            />
+            <Toggle
+              id="showNightAndDay"
+              toggled={this.state.showNightAndDay}
+              onChange={this.handleInputChange}
+              description="Night &amp; Day"
+            />
+            <Toggle
+              id="showSwellAndWind"
+              toggled={this.state.showSwellAndWind}
+              onChange={this.handleInputChange}
+              description="Swell &amp; Wind"
+            />
           </form>
         </Modal>
       </div>

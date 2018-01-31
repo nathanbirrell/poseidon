@@ -65,7 +65,7 @@ $spacing-md: 16px;
   margin-left: $spacing-xs;
 }
 
-.toggle:checked + .toggle__label .toggle__appearance {
+.toggle__label.--checked .toggle__appearance {
   &:before {
     background-color: $secondary-color;
   }
@@ -99,4 +99,8 @@ $spacing-md: 16px;
     cursor: not-allowed;
     transition: $transition--base $carbon--standard-easing;
   }
+}
+
+.toggle .toggle__description {
+  font-size: rem-calc(18);
 }
