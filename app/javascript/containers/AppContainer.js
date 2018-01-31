@@ -1,19 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import MomentConfig from 'config/MomentConfig';
+import { ConnectedRouter } from 'react-router-redux';
+import { Route } from 'react-router-dom';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import Row from 'components/Row';
 import HomePage from 'pages/HomePage';
 import SpotPage from 'pages/SpotPage';
 import MarketingPage from 'pages/MarketingPage';
 
-MomentConfig();
-
 class AppContainer extends React.Component {
   render() {
     return (
-      <Router>
+      <ConnectedRouter history={this.props.browserHistory}>
         <div className="app-container">
           <Header />
 
@@ -28,7 +25,7 @@ class AppContainer extends React.Component {
 
           <Footer />
         </div>
-      </Router>
+      </ConnectedRouter>
     );
   }
 }
