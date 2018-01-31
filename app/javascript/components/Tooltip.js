@@ -14,6 +14,12 @@ const Side = {
   RIGHT: 'right',
 };
 
+const Trigger = {
+  CLICK: 'click',
+  HOVER: 'hover',
+  CLICK_AND_HOVER: 'tap-hover',
+};
+
 class Tooltip extends React.PureComponent {
   static get Type() {
     return Type;
@@ -27,18 +33,77 @@ class Tooltip extends React.PureComponent {
     super(props);
 
     this.state = {
-      hidden: true,
-    }
+      visible: false,
+      hasClicked: false, // true when type=CLICK_AND_HOVER and user clicks on the tooltip
+    };
 
-    this.toggleVisible = this.toggleVisible.bind(this);
+    this._toggleVisible = this._toggleVisible.bind(this);
+    this._getTriggerAttributes = this._getTriggerAttributes.bind(this);
+    this._show = this._show.bind(this);
+    this._hide = this._hide.bind(this);
+    this._handleClick = this._handleClick.bind(this);
+    this._hideIfNotClicked = this._hideIfNotClicked.bind(this);
   }
 
   componentDidMount() {
     // TODO: bind some click event handlers here to check when user clicks away from tooltip, to close it!
   }
 
-  toggleVisible() {
-    this.setState({ hidden: !this.state.hidden });
+  _toggleVisible(visible = !this.state.visible) {
+    this.setState({ visible });
+  }
+
+  _show() {
+    this._toggleVisible(true);
+  }
+
+  _hide() {
+    this._toggleVisible(false);
+    this.setState({ hasClicked: false });
+  }
+
+  _hideIfNotClicked() {
+    if (this.state.hasClicked) { return; }
+    this._toggleVisible(false);
+  }
+
+  _getMouseoverAttributes() {
+    return {
+      onMouseEnter: this._show,
+      onMouseOver: this._show,
+      onMouseOut: this._hideIfNotClicked,
+    };
+  }
+
+  _handleClick() {
+    if (!this.state.hasClicked) {
+      this._show();
+      this.setState({ hasClicked: true });
+    } else {
+      this._hide();
+    }
+  }
+
+  _getTriggerAttributes() {
+    let triggerAttributes = {};
+
+    switch (this.props.trigger) {
+      case Trigger.CLICK:
+        triggerAttributes.onClick = this._toggleVisible;
+        break;
+
+      case Trigger.HOVER:
+        triggerAttributes = this._getMouseoverAttributes();
+        break;
+
+      case Trigger.CLICK_AND_HOVER:
+      default:
+        triggerAttributes = this._getMouseoverAttributes();
+        triggerAttributes.onClick = this._handleClick;
+        break;
+    }
+
+    return triggerAttributes;
   }
 
   render() {
@@ -52,16 +117,21 @@ class Tooltip extends React.PureComponent {
       tooltip: true,
       [`${this.props.side}`]: !!this.props.side,
       'align-center': true,
-      hide: this.state.hidden,
+      hide: !this.state.visible,
     });
+
+    const triggerAttributes = this._getTriggerAttributes();
+    const optionalAttributes = { ...triggerAttributes };
 
     return (
       <span
         data-tooltip
         aria-haspopup="true"
         className={linkClasses}
-        onClick={this.toggleVisible}
-        ref={(ref => { this.tooltipRef = ref; })}
+
+        // ref={(ref => { this.tooltipRef = ref; })}
+
+        {...optionalAttributes}
       >
         {this.props.children}
 
@@ -74,15 +144,17 @@ class Tooltip extends React.PureComponent {
 }
 
 Tooltip.defaultProps = {
+  trigger: Trigger.CLICK_AND_HOVER,
   type: Type.LINK,
   side: Side.TOP,
 };
 
-Tooltip.PropTypes = {
-  children: PropTypes.oneOf([PropTypes.node, PropTypes.string]).isRequired,
-  message: PropTypes.oneOf([PropTypes.node, PropTypes.string]).isRequired,
+Tooltip.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
+  message: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
   type: PropTypes.oneOf(Object.values(Type)),
   side: PropTypes.oneOf(Object.values(Side)),
+  trigger: PropTypes.oneOf(Object.values(Trigger)),
 };
 
 export default Tooltip;
