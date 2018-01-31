@@ -65,8 +65,7 @@ class Tooltip extends React.PureComponent {
   }
 
   _hide() {
-    this._toggleVisible(false);
-    this.setState({ hasClicked: false });
+    this.setState({ visible: false, hasClicked: false });
   }
 
   _hideIfNotClicked() {
