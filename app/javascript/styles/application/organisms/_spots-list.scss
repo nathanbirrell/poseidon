@@ -18,6 +18,8 @@
   }
 
   a {
+    width: 100%;
+
     @include breakpoint(medium up) {
       flex: 1 1 auto;
       min-width: 320px;
