@@ -32,6 +32,11 @@ module.exports = {
     "import/no-dynamic-require": "off",
     "import/prefer-default-export": "off",
     "import/no-named-as-default": "off",
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "components": [ "Link" ],
+      "specialLink": [ "hrefLeft", "hrefRight" ],
+      "aspects": ["invalidHref", "preferButton" ]
+    }]
   },
   "plugins": [
     "react",
