@@ -51,6 +51,7 @@ class SpotCustomiseForecastContainer extends React.Component {
     return (
       <div className="display-inline">
         <Button type={Button.Type.LINK} onClick={this.handleToggle} title="Customise Graph">
+          {this.props.children}
           <Icon name="edit" size={Icon.Size.MEDIUM} color="grey" />
         </Button>
 
@@ -90,11 +91,13 @@ class SpotCustomiseForecastContainer extends React.Component {
 SpotCustomiseForecastContainer.defaultProps = {
   forecastConfig: null,
   updateParent: null,
+  children: null,
 };
 
 SpotCustomiseForecastContainer.propTypes = {
   forecastConfig: PropTypes.object,
   updateParent: PropTypes.func,
+  children: PropTypes.node,
 };
 
 export default SpotCustomiseForecastContainer;

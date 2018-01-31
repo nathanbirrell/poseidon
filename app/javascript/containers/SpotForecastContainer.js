@@ -223,15 +223,15 @@ class SpotForecastContainer extends React.Component {
             title="Swell &amp; Wind"
             rightHandSide={
               <small className="forecast-graph-legend">
-                {/* // TODO: check config to confirm each is visible on graph before render*/}
-                <LegendKey backgroundColor={Colors.Rating} /> Surf Potential &nbsp;
-                <LegendKey backgroundColor={Colors.SwellSize} /> Swell &nbsp;
-                <LegendKey backgroundColor={Colors.WindSpeed} isThin /> Wind &nbsp;
-
                 <SpotCustomiseForecastContainer
                   forecastConfig={this.state.forecastConfig}
                   updateParent={this.updateForecastConfig}
-                />
+                >
+                  {/* // TODO: check config to confirm each is visible on graph before render*/}
+                  <LegendKey backgroundColor={Colors.Rating} /> Surf Potential &nbsp;
+                  <LegendKey backgroundColor={Colors.SwellSize} /> Swell &nbsp;
+                  <LegendKey backgroundColor={Colors.WindSpeed} isThin /> Wind &nbsp;
+                </SpotCustomiseForecastContainer>
               </small>
             }
             isCollapseable={false}
