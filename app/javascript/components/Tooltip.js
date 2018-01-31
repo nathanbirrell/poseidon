@@ -43,10 +43,17 @@ class Tooltip extends React.PureComponent {
     this._hide = this._hide.bind(this);
     this._handleClick = this._handleClick.bind(this);
     this._hideIfNotClicked = this._hideIfNotClicked.bind(this);
+    this._handleOutsideClick = this._handleOutsideClick.bind(this);
   }
 
   componentDidMount() {
     // TODO: bind some click event handlers here to check when user clicks away from tooltip, to close it!
+
+    document.addEventListener('click', this._handleOutsideClick);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this._handleOutsideClick);
   }
 
   _toggleVisible(visible = !this.state.visible) {
@@ -82,6 +89,12 @@ class Tooltip extends React.PureComponent {
     } else {
       this._hide();
     }
+  }
+
+  _handleOutsideClick(e) {
+    // ignore clicks on the component itself
+    if (this.node.contains(e.target)) { return; }
+    this._hide();
   }
 
   _getTriggerAttributes() {
@@ -128,8 +141,7 @@ class Tooltip extends React.PureComponent {
         data-tooltip
         aria-haspopup="true"
         className={linkClasses}
-
-        // ref={(ref => { this.tooltipRef = ref; })}
+        ref={(nodeRef => { this.node = nodeRef; })}
 
         {...optionalAttributes}
       >
