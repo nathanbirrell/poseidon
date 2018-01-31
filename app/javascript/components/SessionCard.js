@@ -35,6 +35,7 @@ SessionCardCondition.defaultProps = {
 SessionCardCondition.propTypes = {
   label: PropTypes.string.isRequired,
   primary: PropTypes.node.isRequired,
+  secondary: PropTypes.node.isRequired,
   primaryUnit: PropTypes.string.isRequired,
   primaryIndicator: PropTypes.number.isRequired,
   highlighted: PropTypes.bool,
