@@ -4,16 +4,10 @@ import String from 'string';
 import moment from 'moment';
 
 import Api from 'lib/ApiUtil';
-import MathUtil from 'lib/MathUtil';
-import SpotUtil from 'lib/SpotUtil';
 import TideUtil from 'lib/TideUtil';
-import Units from 'lib/Units';
-import {mapCodeToIcon} from 'lib/WeatherPrecisUtil';
+import { mapCodeToIcon } from 'lib/WeatherPrecisUtil';
 
-import Row from 'components/Row';
 import Icon from 'components/Icon';
-import Column from 'components/Column';
-import AreaGraph from 'components/AreaGraph';
 import Spinner from 'components/Spinner';
 import Tooltip from 'components/Tooltip';
 
@@ -27,7 +21,7 @@ class SpotForecastTideAndWeather extends React.Component {
       tidesDaily: null,
       weatherDaily: null,
       sunDaily: null,
-    }
+    };
 
     this.isDark = this.isDark.bind(this);
     this.renderTide = this.renderTide.bind(this);
@@ -40,7 +34,7 @@ class SpotForecastTideAndWeather extends React.Component {
   }
 
   fetchTides() {
-    let tides = Api.syncData(`/spots/${this.props.spot.id}/forecast/tides.json`);
+    const tides = Api.syncData(`/spots/${this.props.spot.id}/forecast/tides.json`);
 
     tides.then(tidesResponse => {
       const tidesInDays = TideUtil.splitTidesIntoDays(JSON.parse(tidesResponse));
@@ -55,7 +49,7 @@ class SpotForecastTideAndWeather extends React.Component {
   }
 
   fetchWeather() {
-    let weather = Api.syncData(`/spots/${this.props.spot.id}/forecast/weather-daily.json`);
+    const weather = Api.syncData(`/spots/${this.props.spot.id}/forecast/weather-daily.json`);
 
     weather.then(weatherResponse => {
       try {
@@ -69,7 +63,7 @@ class SpotForecastTideAndWeather extends React.Component {
   }
 
   fetchSun() {
-    let sun = Api.syncData(`/spots/${this.props.spot.id}/forecast/sun.json`);
+    const sun = Api.syncData(`/spots/${this.props.spot.id}/forecast/sun.json`);
 
     sun.then(sunResponse => {
       try {
@@ -161,7 +155,7 @@ class SpotForecastTideAndWeather extends React.Component {
 SpotForecastTideAndWeather.defaultProps = {
 };
 
-SpotForecastTideAndWeather.PropTypes = {
+SpotForecastTideAndWeather.propTypes = {
   spot: PropTypes.object.isRequired,
 };
 

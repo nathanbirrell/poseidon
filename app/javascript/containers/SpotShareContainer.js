@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-import clipboard from 'clipboard-js';
 import { Route } from 'react-router-dom';
+
+import clipboard from 'clipboard-js';
 
 import Modal from 'components/Modal';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
-import Row from 'components/Row';
 
 class SpotShareContainer extends React.Component {
   constructor(props) {
@@ -28,7 +27,7 @@ class SpotShareContainer extends React.Component {
 
   handleShareModalToggle() {
     this.setState({
-      isShareModalOpen: !this.state.isShareModalOpen
+      isShareModalOpen: !this.state.isShareModalOpen,
     });
   }
 
@@ -37,7 +36,7 @@ class SpotShareContainer extends React.Component {
   }
 
   shareUrl() {
-    const output = `${[location.protocol, '//', location.host, location.pathname].join('')}?date_time=${this.props.selectedMoment.format()}`;
+    const output = `${[window.location.protocol, '//', window.location.host, window.location.pathname].join('')}?date_time=${this.props.selectedMoment.format()}`;
     return output;
   }
 
@@ -63,9 +62,9 @@ class SpotShareContainer extends React.Component {
           <div className="share-menu">
             <p className="name"><strong>{this.props.spotName}</strong></p>
             <p className="date_time">@ {this.props.selectedMoment.format('ha, ddd D MMM')}</p>
-            <a className="btn --circle  --icon --icon-message-circle--white --messenger" href={`fb-messenger://share/?link=${encodeURIComponent(this.shareUrl())}&app_id=${this.state.appId}`}></a>
-            <a className="btn --circle  --icon --icon-facebook--white --facebook" href={`https://www.facebook.com/dialog/share?app_id=${this.state.appId}&display=popup&href=${encodeURIComponent(this.shareUrl())}&redirect_uri=${encodeURIComponent(window.location)}`}></a>
-            <a className="twitter-share-button btn --circle  --icon --icon-twitter--white --twitter" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(this.shareUrl())}&text=${this.shareText()}`}></a>
+            <a className="btn --circle  --icon --icon-message-circle--white --messenger" href={`fb-messenger://share/?link=${encodeURIComponent(this.shareUrl())}&app_id=${this.state.appId}`}> </a>
+            <a className="btn --circle  --icon --icon-facebook--white --facebook" href={`https://www.facebook.com/dialog/share?app_id=${this.state.appId}&display=popup&href=${encodeURIComponent(this.shareUrl())}&redirect_uri=${encodeURIComponent(window.location)}`}> </a>
+            <a className="twitter-share-button btn --circle  --icon --icon-twitter--white --twitter" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(this.shareUrl())}&text=${this.shareText()}`}> </a>
             <button id="copy-session-link" className="btn --secondary --icon --icon-copy--blue" onClick={this.copyToClipboard}>{this.state.copied ? 'Copied!' : 'Copy link'}</button>
           </div>
         </Modal>
@@ -76,12 +75,12 @@ class SpotShareContainer extends React.Component {
 
 SpotShareContainer.defaultProps = {
   selectedMoment: null,
-  spotName: null
+  spotName: null,
 };
 
-SpotShareContainer.PropTypes = {
+SpotShareContainer.propTypes = {
   selectedMoment: PropTypes.object,
-  spotName: PropTypes.string
+  spotName: PropTypes.string,
 };
 
 export default SpotShareContainer;
