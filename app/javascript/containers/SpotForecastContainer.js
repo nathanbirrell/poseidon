@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import moment from 'moment';
 
-import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
-import Units from 'lib/Units';
 
 import SpotForecastTideAndWeather from 'containers/SpotForecastTideAndWeather';
 import SpotCustomiseForecastContainer from 'containers/SpotCustomiseForecastContainer';
@@ -12,11 +13,8 @@ import SpotCustomiseForecastContainer from 'containers/SpotCustomiseForecastCont
 import ScrollSync from 'components/ScrollSync';
 import ScrollSyncPane from 'components/ScrollSyncPane';
 
-import Row from 'components/Row';
-import Column from 'components/Column';
 import AreaGraph from 'components/AreaGraph';
 import Spinner from 'components/Spinner';
-import Icon from 'components/Icon';
 import ExpandCollapseCard from 'components/ExpandCollapseCard';
 
 const Colors = {
@@ -34,7 +32,8 @@ const LegendKey = ({ backgroundColor, isThin }) => (
     marginBottom: isThin ? '5px' : '4px',
     borderRadius: '1px',
     backgroundColor,
-  }} />
+  }}
+  />
 );
 
 class SpotForecastContainer extends React.Component {
@@ -42,13 +41,13 @@ class SpotForecastContainer extends React.Component {
     super(props);
 
     this.state = {
-      viewing: "combined",
+      viewing: 'combined',
       forecastConfig: {
         showOverallRating: true,
         showNightAndDay: true,
         showSwellAndWind: true,
       },
-    }
+    };
 
     this.getYVals = this.getYVals.bind(this);
     this.handleViewingChange = this.handleViewingChange.bind(this);
@@ -57,7 +56,7 @@ class SpotForecastContainer extends React.Component {
   }
 
   getYVals(dataset, keys) {
-    let result = {};
+    const result = {};
     keys.forEach(k => {
       result[k] = [];
     });
@@ -69,14 +68,16 @@ class SpotForecastContainer extends React.Component {
     return result;
   }
 
-  handleViewingChange(event) {
-    this.setState({
-      viewing: event.target.value,
-    });
+  getMaxSwellHeight() {
+    const maxInDataset = Math.max(...this.swellData().size) + 2;
+    const baseline = 9; // ft
+    return Math.max.apply(Math, [maxInDataset, baseline]);
   }
 
-  overallRatings() {
-    return this.getYVals(this.props.forecasts.overall_ratings, ['rating']);
+  getMaxWindSpeed() {
+    const maxInDataset = Math.max(...this.windData().speed) + 10;
+    const baseline = 35; // knots
+    return Math.max.apply(Math, [maxInDataset, baseline]);
   }
 
   swellData() {
@@ -99,16 +100,14 @@ class SpotForecastContainer extends React.Component {
     return this.getYVals(this.props.forecasts.tides, ['rating', 'height']);
   }
 
-  getMaxSwellHeight() {
-    const maxInDataset = Math.max.apply(Math, this.swellData()['size']) + 2;
-    const baseline = 9; // ft
-    return Math.max.apply(Math, [maxInDataset, baseline]);
+  overallRatings() {
+    return this.getYVals(this.props.forecasts.overall_ratings, ['rating']);
   }
 
-  getMaxWindSpeed() {
-    const maxInDataset = Math.max.apply(Math, this.windData()['speed']) + 10;
-    const baseline = 35; // knots
-    return Math.max.apply(Math, [maxInDataset, baseline]);;
+  handleViewingChange(event) {
+    this.setState({
+      viewing: event.target.value,
+    });
   }
 
   updateParent(n) {
@@ -126,15 +125,14 @@ class SpotForecastContainer extends React.Component {
     if (!this.props.forecasts) {
       return <Spinner />;
     }
-    const selectedDateTimePosition = this.props.selectedDateTimePosition;
-    const forecastConfig = this.state.forecastConfig;
-    console.log('SPOTFORECAST WITH', this.state.forecastConfig);
+    const { selectedDateTimePosition } = this.props;
+    const { forecastConfig } = this.state;
 
     const combinedGraphs = [
       {
         label: 'Overall rating',
         name: 'rating',
-        yVals: this.overallRatings()['rating'],
+        yVals: this.overallRatings().rating,
         yMax: 110,
         line: {
           show: forecastConfig.showOverallRating,
@@ -153,9 +151,9 @@ class SpotForecastContainer extends React.Component {
       {
         label: 'Swell size',
         name: 'swell-size',
-        yVals: this.swellData()['size'],
+        yVals: this.swellData().size,
         yMax: this.getMaxSwellHeight(),
-        // directions: this.swellData()['direction'],
+        // directions: this.swellData().direction,
         axesSuffix: 'ft',
         line: {
           show: forecastConfig.showSwellAndWind,
@@ -172,9 +170,9 @@ class SpotForecastContainer extends React.Component {
       {
         label: 'Wind speed',
         name: 'wind-speed',
-        yVals: this.windData()['speed'],
+        yVals: this.windData().speed,
         yMax: this.getMaxWindSpeed(),
-        directions: forecastConfig.showSwellAndWind ? this.windData()['direction'] : null,
+        directions: forecastConfig.showSwellAndWind ? this.windData().direction : null,
         axesSuffix: 'kt',
         line: {
           show: forecastConfig.showSwellAndWind,
@@ -186,16 +184,16 @@ class SpotForecastContainer extends React.Component {
         points: {
           show: forecastConfig.showSwellAndWind,
         },
-        color: Colors.WindSpeed
-      }
+        color: Colors.WindSpeed,
+      },
     ];
 
     const tideGraphs = [
       {
         label: 'Tide height',
         name: 'tide-height',
-        yVals: this.tideData()['height'],
-        yMax: Math.max.apply(Math, this.tideData()['height']) + 0.5,
+        yVals: this.tideData().height,
+        yMax: Math.max(...this.tideData().height) + 0.5,
         line: {
           show: false,
         },
@@ -207,7 +205,7 @@ class SpotForecastContainer extends React.Component {
           show: false,
         },
         color: Colors.TideHeight,
-      }
+      },
     ];
 
     const combinedGraphConfig = {
@@ -239,8 +237,8 @@ class SpotForecastContainer extends React.Component {
               <div className="forecast-graphs-parent">
                 <AreaGraph
                   forecastConfig={combinedGraphConfig}
-                  cssSelector='forecast-graph'
-                  targetId='forecast-graph-combined'
+                  cssSelector="forecast-graph"
+                  targetId="forecast-graph-combined"
                   graphs={combinedGraphs}
                   legend={false}
                   updateParent={this.updateParent}
@@ -255,8 +253,8 @@ class SpotForecastContainer extends React.Component {
               <div className="forecast-graphs-parent">
                 <AreaGraph
                   forecastConfig={forecastConfig}
-                  cssSelector='forecast-graph'
-                  targetId='forecast-graph-tide'
+                  cssSelector="forecast-graph"
+                  targetId="forecast-graph-tide"
                   graphs={tideGraphs}
                   legend={false}
                   showAxes={false}
@@ -279,13 +277,14 @@ SpotForecastContainer.defaultProps = {
   updateParent: null,
   selectedDateTimePosition: null,
   forecastConfig: null,
+  spot: null,
 };
 
-SpotForecastContainer.PropTypes = {
+SpotForecastContainer.propTypes = {
   forecasts: PropTypes.object,
   updateParent: PropTypes.func,
   selectedDateTimePosition: PropTypes.number,
-  forecastConfig: PropTypes.object.isRequired,
+  forecastConfig: PropTypes.object,
   spot: PropTypes.object,
 };
 
