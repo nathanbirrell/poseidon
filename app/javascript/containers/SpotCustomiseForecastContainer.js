@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { Route } from 'react-router-dom';
 
 import Modal from 'components/Modal';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
-import Row from 'components/Row';''
 
 class SpotCustomiseForecastContainer extends React.Component {
   constructor(props) {
@@ -26,7 +24,7 @@ class SpotCustomiseForecastContainer extends React.Component {
       this.updateForecastConfig();
     }
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
     });
   }
 
@@ -39,12 +37,12 @@ class SpotCustomiseForecastContainer extends React.Component {
   }
 
   handleInputChange(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+    const { target } = event;
+    const { name, checked, value } = target;
+    const val = target.type === 'checkbox' ? checked : value;
 
     this.setState({
-      [name]: value
+      [name]: val,
     });
   }
 
@@ -100,11 +98,11 @@ class SpotCustomiseForecastContainer extends React.Component {
 }
 
 SpotCustomiseForecastContainer.defaultProps = {
-    showOverallRating: null,
-    showNightAndDay: null,
+  forecastConfig: null,
+  updateParent: null,
 };
 
-SpotCustomiseForecastContainer.PropTypes = {
+SpotCustomiseForecastContainer.propTypes = {
   forecastConfig: PropTypes.object,
   updateParent: PropTypes.func,
 };

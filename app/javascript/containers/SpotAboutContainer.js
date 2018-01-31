@@ -10,38 +10,36 @@ import GoogleMap from 'components/GoogleMap';
 import Button from 'components/Button';
 import Icon from 'components/Icon';
 
-import { Keys, Values } from 'lib/SpotFeatures';
-
 class SpotAboutContainer extends React.Component {
   _renderOptimals() {
     const { spot } = this.props;
-    const swell_min = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_min), 0);
-    const swell_max = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_max), 0);
-    const swell_direction = SpotUtil.degreesToText(spot.optimals.swell.direction.optimal);
-    const wind_direction = SpotUtil.degreesToText(spot.optimals.wind.direction.optimal);
-    let tide_height = `${spot.optimals.tide.height.optimal}m`;
+    const swellMin = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_min), 0);
+    const swellMax = MathUtil.round(SpotUtil.metresToFeet(spot.optimals.swell.size.optimal_max), 0);
+    const swellDirection = SpotUtil.degreesToText(spot.optimals.swell.direction.optimal);
+    const windDirection = SpotUtil.degreesToText(spot.optimals.wind.direction.optimal);
+    let tideHeight = `${spot.optimals.tide.height.optimal}m`;
 
-    if (!spot.optimals.tide.height.optimal) { tide_height = 'Any'; }
+    if (!spot.optimals.tide.height.optimal) { tideHeight = 'Any'; }
 
     return (
       <ul className="list --information-list">
         <li>
-          <span className="item__primary">{swell_min}-{swell_max}<small>ft</small> <br /></span>
+          <span className="item__primary">{swellMin}-{swellMax}<small>ft</small> <br /></span>
           <Icon name="activity" size={Icon.Size.MEDIUM} />
           Swell
         </li>
         <li>
-          <span className="item__primary">{swell_direction}<br /></span>
+          <span className="item__primary">{swellDirection}<br /></span>
           <Icon name="activity" size={Icon.Size.MEDIUM} />
           Swell direction
         </li>
         <li>
-          <span className="item__primary">{wind_direction} <br /></span>
+          <span className="item__primary">{windDirection} <br /></span>
           <Icon name="wind" size={Icon.Size.MEDIUM} />
           Wind
         </li>
         <li>
-          <span className="item__primary">{tide_height} <br /></span>
+          <span className="item__primary">{tideHeight} <br /></span>
           <Icon name="moon" size={Icon.Size.MEDIUM} />
           Tide
         </li>
@@ -94,11 +92,7 @@ class SpotAboutContainer extends React.Component {
       return null;
     }
 
-    const spot = this.props.spot;
-
-    const mapIframeStyle = {
-      border: '0'
-    };
+    const { spot } = this.props;
 
     return (
       <Row className="spot-page__about">
@@ -150,7 +144,7 @@ SpotAboutContainer.defaultProps = {
   spot: null,
 };
 
-SpotAboutContainer.PropTypes = {
+SpotAboutContainer.propTypes = {
   spot: PropTypes.object,
 };
 

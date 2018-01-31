@@ -1,9 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-
-import MathUtil from 'lib/MathUtil';
-import SpotUtil from 'lib/SpotUtil';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
@@ -19,10 +15,6 @@ class SpotDayContainer extends React.Component {
         </div>
       );
     }
-
-    const current_swell = this.props.forecasts.swells[this.props.selectedTime];
-    const current_wind = this.props.forecasts.winds[this.props.selectedTime];
-    const current_tide =  this.props.forecasts.tides[this.props.selectedTime];
 
     return (
       <Row id="today-section" className="text-center">
@@ -44,13 +36,10 @@ class SpotDayContainer extends React.Component {
 
 SpotDayContainer.defaultProps = {
   forecasts: null,
-  selectedTime: null,
-  spot: null,
 };
 
-SpotDayContainer.PropTypes = {
+SpotDayContainer.propTypes = {
   forecasts: PropTypes.object,
-  selectedTime: PropTypes.number,
   spot: PropTypes.object.isRequired,
 };
 
