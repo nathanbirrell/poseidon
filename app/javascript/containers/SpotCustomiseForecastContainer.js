@@ -60,20 +60,20 @@ class SpotCustomiseForecastContainer extends React.Component {
           header="Customise Forecasts"
         >
           <form>
-            <h5>Graphs</h5>
-
             <Toggle
               id="showOverallRating"
               toggled={this.state.showOverallRating}
               onChange={this.handleInputChange}
               description="Overall potential"
             />
+
             <Toggle
               id="showNightAndDay"
               toggled={this.state.showNightAndDay}
               onChange={this.handleInputChange}
               description="Night &amp; Day"
             />
+
             <Toggle
               id="showSwellAndWind"
               toggled={this.state.showSwellAndWind}

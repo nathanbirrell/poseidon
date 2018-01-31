@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Icon from 'components/Icon';
+
 class Modal extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -29,7 +31,7 @@ class Modal extends React.PureComponent {
         <div className="modal">
           <div className="modal__header">
             {this.props.header}
-            <a onClick={this.closeModal}>X</a>
+            <button onClick={this.closeModal} style={{margin: 0}}><Icon name="x" style={{margin: 0}} size={Icon.Size.MEDIUM} /></button>
           </div>
           <div className="modal__body">
             {this.props.children}

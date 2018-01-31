@@ -10,21 +10,22 @@
   width: 320px;
   margin-left: -160px;
   margin-top: -80px;
-  text-align: center;
+  text-align: left;
   padding-bottom: 6px;
 
   &__header {
-    background: $gainsboro;
+    // background: $gainsboro;
+    padding: 12px 18px;
     font-size: rem-calc(14);
     color: $font-dark-primary;
     font-weight: $font-weight-black;
-    height: 24px;
     width: 100%;
     text-transform: uppercase;
     line-height: 24px;
 
-    a {
+    button {
       float: right;
+      cursor: pointer;
       margin-right: 6px;
       color: $font-dark-secondary;
     }

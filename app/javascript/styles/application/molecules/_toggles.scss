@@ -29,7 +29,7 @@ $spacing-md: 16px;
     content: '';
     width: 100%;
     height: 4px;
-    top: -6px;
+    top: -4px;
     background-color: $iron;
     transition: $transition--base $carbon--standard-easing;
     cursor: pointer;
@@ -41,7 +41,7 @@ $spacing-md: 16px;
     display: block;
     border: 2px solid $iron;
     cursor: pointer;
-    top: -16px;
+    top: -14px;
     width: 24px;
     height: 24px;
     background-color: $white;
@@ -101,6 +101,8 @@ $spacing-md: 16px;
   }
 }
 
-.toggle .toggle__description {
-  font-size: rem-calc(18);
+.toggle__description {
+  font-size: rem-calc(14);
+  font-weight: 500;
+  margin-bottom: 0;
 }
