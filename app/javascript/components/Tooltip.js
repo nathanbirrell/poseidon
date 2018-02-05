@@ -88,9 +88,9 @@ class Tooltip extends React.PureComponent {
     }
   }
 
-  _handleOutsideClick(e) {
+  _handleOutsideClick(event) {
     // ignore clicks on the component itself
-    if (this.node.contains(e.target)) { return; }
+    if (this.node.contains(event.target)) { return; }
     this._hide();
   }
 
