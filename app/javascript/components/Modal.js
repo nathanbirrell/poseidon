@@ -7,7 +7,12 @@ class Modal extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.closeModal = this.closeModal.bind(this);
+    this._closeModal = this._closeModal.bind(this);
+    this._handleOnKeydown = this._handleOnKeydown.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this._handleOnKeydown);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -17,8 +22,20 @@ class Modal extends React.PureComponent {
     // }
   }
 
-  closeModal() {
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this._handleOnKeydown);
+  }
+
+  _handleOnKeydown(event) {
+    const pressedEscape = event.keyCode === 27;
+    if (pressedEscape) {
+      this._closeModal();
+    }
+  }
+
+  _closeModal() {
     // this.setState({ isOpen: false });
+    if (!this.props.isOpen) { return; }
     this.props.toggleOpen();
   }
 
@@ -27,11 +44,12 @@ class Modal extends React.PureComponent {
 
     return (
       <div>
-        <div className="curtain -light" onClick={this.closeModal}></div>
+        <span className="curtain -light" onClick={this._closeModal} role="presentation" />
+
         <div className="modal">
           <div className="modal__header">
             {this.props.header}
-            <button onClick={this.closeModal} style={{margin: 0}}><Icon name="x" style={{margin: 0}} size={Icon.Size.MEDIUM} /></button>
+            <button onClick={this._closeModal} style={{margin: 0}}><Icon name="x" style={{margin: 0}} size={Icon.Size.MEDIUM} /></button>
           </div>
           <div className="modal__body">
             {this.props.children}
@@ -42,7 +60,7 @@ class Modal extends React.PureComponent {
   }
 }
 
-Modal.PropTypes = {
+Modal.propTypes = {
   header: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
   toggleOpen: PropTypes.func.isRequired,
