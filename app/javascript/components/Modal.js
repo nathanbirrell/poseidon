@@ -13,10 +13,6 @@ class Modal extends React.PureComponent {
     this._handleOutsideClick = this._handleOutsideClick.bind(this);
   }
 
-  componentDidMount() {
-
-  }
-
   componentWillReceiveProps(nextProps) {
     const wasOpened = nextProps.isOpen && !this.props.isOpen;
     const wasClosed = !nextProps.isOpen && this.props.isOpen;
@@ -32,9 +28,6 @@ class Modal extends React.PureComponent {
     }
   }
 
-  componentWillUnmount() {
-  }
-
   _handleOnKeydown(event) {
     const pressedEscape = event.keyCode === 27;
     if (pressedEscape) {
@@ -43,7 +36,6 @@ class Modal extends React.PureComponent {
   }
 
   _handleOutsideClick(event) {
-    console.log('_handleOutsideClick');
     if (!this.props.isOpen) { return; }
 
     // ignore clicks on the component itself
@@ -69,7 +61,7 @@ class Modal extends React.PureComponent {
         <div className="modal-container" ref={(nodeRef => { this.node = nodeRef; })}>
 
           <div className="modal-header">
-            {this.props.headerLabel ? (<p className="modal-header__label">this.props.headerLabel</p>) : null}
+            {this.props.headerLabel ? (<p className="modal-header__label">{this.props.headerLabel}</p>) : null}
             <p className="modal-header__heading">{this.props.header}</p>
           </div>
 
@@ -77,9 +69,11 @@ class Modal extends React.PureComponent {
             {this.props.children}
           </div>
 
-          {this.props.footer ? (<div className="modal-footer">
-            {this.props.footer}
-          </div>) : null}
+          {this.props.footer ? (
+            <div className="modal-footer">
+              {this.props.footer}
+            </div>)
+          : null}
 
 
           <button className="modal-close" onClick={this._closeModal} style={{ margin: 0 }}><Icon name="x" style={{ margin: 0 }} size={Icon.Size.MEDIUM} className="modal-close__icon" /></button>
@@ -94,6 +88,13 @@ Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   toggleOpen: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  footer: PropTypes.node,
+  headerLabel: PropTypes.string,
+};
+
+Modal.defaultProps = {
+  footer: null,
+  headerLabel: null,
 };
 
 export default Modal;
