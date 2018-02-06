@@ -45,6 +45,10 @@ $forecast-graph-width: 960px;
       .line {
         stroke-width: 2;
       }
+      .line.rating {
+        stroke-width: 3;
+        stroke-dasharray: 6, 5;
+      }
       .line.wind-speed {
         stroke-width: 1;
       }
