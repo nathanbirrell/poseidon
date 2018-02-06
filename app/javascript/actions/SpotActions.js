@@ -1,32 +1,32 @@
 import 'regenerator-runtime/runtime'; // See https://github.com/redux-saga/redux-saga/issues/280
 
-import SpotsService from 'services/SpotsService';
+import SpotService from 'services/SpotService';
 
 import * as Types from 'types';
 
-export const fetchSpotsRequest = () => ({
-  type: Types.FETCH_SPOTS_REQUEST,
+export const fetchSpotRequest = () => ({
+  type: Types.FETCH_SPOT_REQUEST,
 });
 
-export const fetchSpotsSuccess = (data) => ({
-  type: Types.FETCH_SPOTS_SUCCESS,
+export const fetchSpotSuccess = (data) => ({
+  type: Types.FETCH_SPOT_SUCCESS,
   data,
 });
 
-export const fetchSpotsError = (error) => ({
-  type: Types.FETCH_SPOTS_ERROR,
+export const fetchSpotError = (error) => ({
+  type: Types.FETCH_SPOT_ERROR,
   error,
 });
 
-export const fetchSpots = () => {
+export const fetchSpot = (spotId) => {
   return async function (dispatch) {
-    dispatch(fetchSpotsRequest());
+    dispatch(fetchSpotRequest());
 
     try {
-      const spots = await SpotsService.fetchSpots();
-      dispatch(fetchSpotsSuccess(spots));
+      const spot = await SpotService.fetchSpot(spotId);
+      dispatch(fetchSpotSuccess(spot));
     } catch (error) {
-      dispatch(fetchSpotsError(error));
+      dispatch(fetchSpotError(error));
       console.error(error);
     }
   };

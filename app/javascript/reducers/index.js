@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import SpotsReducer from './spotsReducer';
+import SpotListReducer from './spotListReducer';
 import ForecastsReducer from './forecastsReducer';
-import SpotDetailReducer from './spotDetailReducer';
+import SpotReducer from './spotReducer';
 
 const rootReducer = combineReducers({
-  spots: SpotsReducer,
+  spots: SpotListReducer,
   forecasts: ForecastsReducer,
-  spot: SpotDetailReducer,
+  spot: SpotReducer,
 });
 
 export default rootReducer;

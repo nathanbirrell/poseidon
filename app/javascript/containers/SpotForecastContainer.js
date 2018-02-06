@@ -16,9 +16,6 @@ import ScrollSyncPane from 'components/ScrollSyncPane';
 import AreaGraph from 'components/AreaGraph';
 import Spinner from 'components/Spinner';
 import ExpandCollapseCard from 'components/ExpandCollapseCard';
-import GenericErrorMessage from 'components/GenericErrorMessage';
-
-import * as SpotActions from 'actions/SpotActions';
 
 const Colors = {
   Rating: '#9ACD32',

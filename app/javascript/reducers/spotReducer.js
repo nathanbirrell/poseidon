@@ -1,25 +1,25 @@
 import * as Types from 'types';
 
 const initialState = {
-  data: [],
+  data: {},
   isError: false,
   isSyncing: false,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case Types.FETCH_SPOTS_REQUEST:
+    case Types.FETCH_SPOT_REQUEST:
       return {
         ...state,
         isSyncing: true,
       };
-    case Types.FETCH_SPOTS_SUCCESS:
+    case Types.FETCH_SPOT_SUCCESS:
       return {
         ...state,
         data: action.data,
         isSyncing: false,
       };
-    case Types.FETCH_SPOTS_ERROR:
+    case Types.FETCH_SPOT_ERROR:
       return {
         ...state,
         isError: true,

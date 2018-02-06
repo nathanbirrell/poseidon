@@ -26,7 +26,7 @@ import SessionCard from 'components/SessionCard';
 import GenericErrorMessage from 'components/GenericErrorMessage';
 
 import * as SurfForecastActions from 'actions/ForecastActions';
-import * as SpotDetailActions from 'actions/SpotDetailActions';
+import * as SpotActions from 'actions/SpotActions';
 
 class ForecastContainer extends React.Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class ForecastContainer extends React.Component {
       this.props.dispatch(SurfForecastActions.fetchSurfForecast(this.props.match.params.spotId));
     }
     if (!this.props.spot) {
-      this.props.dispatch(SpotDetailActions.fetchSpotDetail(this.props.match.params.spotId));
+      this.props.dispatch(SpotActions.fetchSpot(this.props.match.params.spotId));
     }
   }
 
