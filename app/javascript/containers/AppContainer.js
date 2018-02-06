@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import MomentConfig from 'config/MomentConfig';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import Row from 'components/Row';
 import HomePage from 'pages/HomePage';
 import SpotPage from 'pages/SpotPage';
 import MarketingPage from 'pages/MarketingPage';
