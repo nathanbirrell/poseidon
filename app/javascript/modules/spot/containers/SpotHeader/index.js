@@ -23,7 +23,7 @@ class SpotHeader extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.spot.length) {
+    if (!this.props.spot.name) {
       this.props.dispatch(SpotActions.fetchSpot(this.props.match.params.spotId));
     }
     this.setNavItems();

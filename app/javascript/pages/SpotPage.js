@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
-import SpotAboutContainer from 'containers/SpotAboutContainer';
 import SpotDayContainer from 'containers/SpotDayContainer';
 
 import SurfForecastContainer from 'modules/forecast/containers/SurfForecast';
+import SpotAboutContainer from 'modules/about';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
@@ -58,9 +58,7 @@ class SpotPage extends React.Component {
           path={`${routeMatchUrl}/about`}
           exact
           render={() => (
-            <SpotAboutContainer
-              spot={this.state.spot}
-            />
+            <SpotAboutContainer match={this.props.match} />
           )}
         />
 

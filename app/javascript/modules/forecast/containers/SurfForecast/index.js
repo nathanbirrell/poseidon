@@ -35,7 +35,7 @@ class ForecastContainer extends React.Component {
     if (!this.props.forecasts.length) {
       this.props.dispatch(SurfForecastActions.fetchSurfForecast(this.props.match.params.spotId));
     }
-    if (!this.props.spot.length) {
+    if (!this.props.spot.name) {
       this.props.dispatch(SpotActions.fetchSpot(this.props.match.params.spotId));
     }
   }
@@ -74,16 +74,6 @@ class ForecastContainer extends React.Component {
     };
   }
 
-  renderLoader() {
-    if (this.props.isSyncing) {
-      return (
-        <Spinner />
-      );
-    }
-
-    return null;
-  }
-
   render() {
     if (this.props.isError) {
       return <GenericErrorMessage reload={window.location.reload.bind(window.location)} />;
@@ -92,7 +82,7 @@ class ForecastContainer extends React.Component {
     if (this.props.forecasts.swells === undefined || !this.props.forecasts) {
       return (
         <div>
-          {this.renderLoader}
+          <Spinner />
         </div>
       );
     }
