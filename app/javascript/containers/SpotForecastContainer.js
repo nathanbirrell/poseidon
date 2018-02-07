@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import moment from 'moment';
 
@@ -12,9 +10,9 @@ import SpotCustomiseForecastContainer from 'containers/SpotCustomiseForecastCont
 
 import ScrollSync from 'components/ScrollSync';
 import ScrollSyncPane from 'components/ScrollSyncPane';
+import Spinner from 'components/Spinner';
 
 import AreaGraph from 'components/AreaGraph';
-import Spinner from 'components/Spinner';
 import ExpandCollapseCard from 'components/ExpandCollapseCard';
 
 const Colors = {

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Route, Redirect } from 'react-router-dom';
 
 import { Element } from 'react-scroll';
 
@@ -12,11 +11,6 @@ import UrlUtil from 'lib/UrlUtil';
 
 import SpotShareContainer from 'containers/SpotShareContainer';
 import SpotForecastContainer from 'containers/SpotForecastContainer';
-import SpotForecastTideAndWeather from 'containers/SpotForecastTideAndWeather';
-import SpotCustomiseForecastContainer from 'containers/SpotCustomiseForecastContainer';
-
-import ScrollSync from 'components/ScrollSync';
-import ScrollSyncPane from 'components/ScrollSyncPane';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
