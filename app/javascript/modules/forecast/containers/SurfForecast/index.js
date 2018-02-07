@@ -9,7 +9,6 @@ import { Element } from 'react-scroll';
 import moment from 'moment';
 
 import UrlUtil from 'lib/UrlUtil';
-import SpotUtil from 'lib/SpotUtil';
 
 import SpotShareContainer from 'containers/SpotShareContainer';
 import SpotForecastContainer from 'containers/SpotForecastContainer';
@@ -42,7 +41,7 @@ class ForecastContainer extends React.Component {
     if (!this.props.forecasts.length) {
       this.props.dispatch(SurfForecastActions.fetchSurfForecast(this.props.match.params.spotId));
     }
-    if (!this.props.spot) {
+    if (!this.props.spot.length) {
       this.props.dispatch(SpotActions.fetchSpot(this.props.match.params.spotId));
     }
   }

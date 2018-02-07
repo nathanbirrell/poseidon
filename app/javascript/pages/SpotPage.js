@@ -9,8 +9,9 @@ import SurfForecastContainer from 'modules/forecast/containers/SurfForecast';
 
 import Row from 'components/Row';
 import Column from 'components/Column';
-// import SpotHeader from 'components/SpotHeader';
 import GenericErrorMessage from 'components/GenericErrorMessage';
+
+import SpotHeader from 'modules/spot/containers/SpotHeader';
 
 class SpotPage extends React.Component {
   constructor(props) {
@@ -21,30 +22,19 @@ class SpotPage extends React.Component {
   }
 
   render() {
-    console.log('rendering');  
     const routeMatchUrl = this.props.match.url;
 
     if (this.state.isError) {
       return <GenericErrorMessage reload={window.location.reload.bind(window.location)} />;
     }
 
-    // if (!this.state.spot || !this.state.forecasts) {
-    //   return (
-    //     <div>
-    //       <SpotHeader isBusy matchUrl={this.props.match.url} />
-    //     </div>
-    //   );
-    // }
-
     // TODO: refactor all these into individual components/containers
 
     return (
       <div>
-        {/* <SpotHeader
-          name={this.state.spot.name}
-          region={this.state.spot.region}
-          matchUrl={routeMatchUrl}
-        /> */}
+        <SpotHeader
+          match={this.props.match}
+        />
 
         <Route
           path={`${routeMatchUrl}/forecast`}
