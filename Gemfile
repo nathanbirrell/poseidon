@@ -23,7 +23,7 @@ gem 'high_voltage'
 gem 'countries'
 gem 'country_select'
 gem 'ruby-units'
-gem 'webpacker', '~> 2.0'
+gem 'webpacker', '~> 3.2.0'
 gem 'figaro'
 
 group :development do

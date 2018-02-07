@@ -1,5 +1,3 @@
-import 'regenerator-runtime/runtime'; // See https://github.com/redux-saga/redux-saga/issues/280
-
 import SpotService from 'services/SpotService';
 
 import * as Types from 'types';

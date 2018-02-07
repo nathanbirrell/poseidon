@@ -1,5 +1,4 @@
-import 'regenerator-runtime/runtime'; // See https://github.com/redux-saga/redux-saga/issues/280
-
+import moment from 'moment';
 import SurfForecastService from 'services/SurfForecastService';
 
 import * as Types from 'types';
@@ -16,6 +15,11 @@ export const fetchSurfForecastSuccess = (data) => ({
 export const fetchSurfForecastError = (error) => ({
   type: Types.FETCH_SURF_FORECAST_ERROR,
   error,
+});
+
+export const updateSelectedDateTime = (selectedDateTime) => ({
+  type: Types.CHANGE_SELECTED_DATETIME,
+  selectedDateTime: moment(selectedDateTime),
 });
 
 export const fetchSurfForecast = (spotId) => {

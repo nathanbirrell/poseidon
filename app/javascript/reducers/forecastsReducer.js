@@ -25,6 +25,11 @@ export default (state = initialState, action) => {
         isError: true,
         isSyncing: false,
       };
+    case Types.CHANGE_SELECTED_DATETIME:
+      return {
+        ...state,
+        selectedDateTime: action.selectedDateTime,
+      };
     default:
       return state;
   }
