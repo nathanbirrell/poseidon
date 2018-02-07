@@ -6,13 +6,13 @@ import { bindActionCreators } from 'redux';
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
 
-import Row from 'components/Row';
-import Column from 'components/Column';
-import Spinner from 'components/Spinner';
-import GoogleMap from 'components/GoogleMap';
-import Button from 'components/Button';
-import Icon from 'components/Icon';
-import GenericErrorMessage from 'components/GenericErrorMessage';
+import Row from 'core/components/Row';
+import Column from 'core/components/Column';
+import Spinner from 'core/components/Spinner';
+import GoogleMap from 'core/components/GoogleMap';
+import Button from 'core/components/Button';
+import Icon from 'core/components/Icon';
+import GenericErrorMessage from 'core/components/GenericErrorMessage';
 
 import * as SpotActions from 'actions/SpotActions';
 

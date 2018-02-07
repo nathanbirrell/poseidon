@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
 
-import Modal from 'components/Modal';
-import Button from 'components/Button';
-import Icon from 'components/Icon';
+import Modal from 'core/components/Modal';
+import Button from 'core/components/Button';
+import Icon from 'core/components/Icon';
 
 class SpotCustomiseForecastContainer extends React.Component {
   constructor(props) {
