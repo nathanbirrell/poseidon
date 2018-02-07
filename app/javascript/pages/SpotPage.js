@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
-import SpotDayContainer from 'containers/SpotDayContainer';
+import SpotDayContainer from 'core/containers/SpotDayContainer';
 
 import SurfForecastContainer from 'modules/forecast/containers/SurfForecast';
 import SpotAboutContainer from 'modules/about';
 
-import Row from 'components/Row';
-import Column from 'components/Column';
-import GenericErrorMessage from 'components/GenericErrorMessage';
+import Row from 'core/components/Row';
+import Column from 'core/components/Column';
+import GenericErrorMessage from 'core/components/GenericErrorMessage';
 
 import SpotHeader from 'modules/spot/containers/SpotHeader';
 
