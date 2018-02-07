@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Icon from 'components/Icon';
-import Button from 'components/Button';
+import Icon from 'core/components/Icon';
+import Button from 'core/components/Button';
 
 class Header extends React.Component {
   render() {

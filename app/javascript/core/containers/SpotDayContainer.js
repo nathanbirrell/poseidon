@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Row from 'components/Row';
-import Column from 'components/Column';
-import Spinner from 'components/Spinner';
-import Button from 'components/Button';
+import Row from 'core/components/Row';
+import Column from 'core/components/Column';
+import Spinner from 'core/components/Spinner';
+import Button from 'core/components/Button';
 
 class SpotDayContainer extends React.Component {
   render() {

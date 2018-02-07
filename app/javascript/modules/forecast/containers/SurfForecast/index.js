@@ -9,14 +9,14 @@ import moment from 'moment';
 
 import UrlUtil from 'lib/UrlUtil';
 
-import SpotShareContainer from 'containers/SpotShareContainer';
-import SpotForecastContainer from 'containers/SpotForecastContainer';
+import SpotShareContainer from 'core/containers/SpotShareContainer';
+import SpotForecastContainer from 'core/containers/SpotForecastContainer';
 
-import Row from 'components/Row';
-import Column from 'components/Column';
-import Spinner from 'components/Spinner';
-import SessionCard from 'components/SessionCard';
-import GenericErrorMessage from 'components/GenericErrorMessage';
+import Row from 'core/components/Row';
+import Column from 'core/components/Column';
+import Spinner from 'core/components/Spinner';
+import SessionCard from 'core/components/SessionCard';
+import GenericErrorMessage from 'core/components/GenericErrorMessage';
 
 import * as SurfForecastActions from 'actions/ForecastActions';
 import * as SpotActions from 'actions/SpotActions';

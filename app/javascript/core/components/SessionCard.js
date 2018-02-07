@@ -6,9 +6,9 @@ import Classnames from 'classnames';
 
 import MathUtil from 'lib/MathUtil';
 import SpotUtil from 'lib/SpotUtil';
-import Rating from 'components/Rating';
-import Indicator from 'components/Indicator';
-import Icon from 'components/Icon';
+import Rating from 'core/components/Rating';
+import Indicator from 'core/components/Indicator';
+import Icon from 'core/components/Icon';
 
 const SessionCardCondition = (props) => {
   const classes = Classnames({

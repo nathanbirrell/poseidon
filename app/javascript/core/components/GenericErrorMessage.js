@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from 'components/Button';
-import Row from 'components/Row';
-import Icon from 'components/Icon';
+import Button from 'core/components/Button';
+import Row from 'core/components/Row';
+import Icon from 'core/components/Icon';
 
 class GenericErrorMessage extends React.PureComponent {
   render() {
@@ -17,6 +17,6 @@ class GenericErrorMessage extends React.PureComponent {
       </Row>
     );
   }
-};
+}
 
 export default GenericErrorMessage;

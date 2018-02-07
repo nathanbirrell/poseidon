@@ -4,9 +4,9 @@ import { Route } from 'react-router-dom';
 
 import clipboard from 'clipboard-js';
 
-import Modal from 'components/Modal';
-import Button from 'components/Button';
-import Icon from 'components/Icon';
+import Modal from 'core/components/Modal';
+import Button from 'core/components/Button';
+import Icon from 'core/components/Icon';
 
 class SpotShareContainer extends React.Component {
   constructor(props) {

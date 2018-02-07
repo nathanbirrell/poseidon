@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import NavigationTabs from 'components/NavigationTabs';
-import Row from 'components/Row';
-import PlaceholderShimmer from 'components/PlaceholderShimmer';
-import GenericErrorMessage from 'components/GenericErrorMessage';
+import NavigationTabs from 'core/components/NavigationTabs';
+import Row from 'core/components/Row';
+import PlaceholderShimmer from 'core/components/PlaceholderShimmer';
+import GenericErrorMessage from 'core/components/GenericErrorMessage';
 
 import * as SpotActions from 'actions/SpotActions';
 

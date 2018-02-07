@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Classnames from 'classnames';
 
-import Column from 'components/Column';
+import Column from 'core/components/Column';
 
 const Row = (props) => {
   const { children, className, withXPadding, withYPadding, withXMargin, withYMargin } = props;

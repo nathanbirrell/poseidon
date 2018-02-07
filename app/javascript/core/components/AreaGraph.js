@@ -5,16 +5,13 @@ import moment from 'moment';
 import ResizeSensor from 'css-element-queries/src/ResizeSensor';
 import { scroller } from 'react-scroll';
 
-import Row from 'components/Row';
-import Column from 'components/Column';
-
 const isNight = (i) => {
   const modulus = i % 8;
   return modulus <= 1 || modulus >= 7;
-}
+};
 
 class AreaGraph extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {

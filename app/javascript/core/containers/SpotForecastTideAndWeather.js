@@ -7,9 +7,9 @@ import Api from 'lib/ApiUtil';
 import TideUtil from 'lib/TideUtil';
 import { mapCodeToIcon } from 'lib/WeatherPrecisUtil';
 
-import Icon from 'components/Icon';
-import Spinner from 'components/Spinner';
-import Tooltip from 'components/Tooltip';
+import Icon from 'core/components/Icon';
+import Spinner from 'core/components/Spinner';
+import Tooltip from 'core/components/Tooltip';
 
 const TIME_FORMAT = 'h:mma';
 

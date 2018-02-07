@@ -6,12 +6,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import UrlUtil from 'lib/UrlUtil';
-import SessionCard from 'components/SessionCard';
-import Row from 'components/Row';
-import Column from 'components/Column';
-import Spinner from 'components/Spinner';
-import Icon from 'components/Icon';
-import GenericErrorMessage from 'components/GenericErrorMessage';
+import SessionCard from 'core/components/SessionCard';
+import Row from 'core/components/Row';
+import Column from 'core/components/Column';
+import Spinner from 'core/components/Spinner';
+import Icon from 'core/components/Icon';
+import GenericErrorMessage from 'core/components/GenericErrorMessage';
 
 import * as SpotListActions from 'actions/SpotListActions';
 

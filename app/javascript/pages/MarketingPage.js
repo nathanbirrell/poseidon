@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Row from 'components/Row';
-import Column from 'components/Column';
-import Button from 'components/Button';
-import Icon from 'components/Icon';
+import Row from 'core/components/Row';
+import Column from 'core/components/Column';
+import Button from 'core/components/Button';
+import Icon from 'core/components/Icon';
 
 import heroImg from 'images/marketing/hero.png';
 import sourcesImg from 'images/marketing/bom-noaa.png';

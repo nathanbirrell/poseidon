@@ -1,8 +1,8 @@
 import React from 'react';
-import Row from 'components/Row';
+import Row from 'core/components/Row';
 import { Link } from 'react-router-dom';
 
-import Column from 'components/Column';
+import Column from 'core/components/Column';
 
 class Footer extends React.Component {
   render() {
