@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Classnames from 'classnames';
 
-import Icon from 'components/Icon';
+import Icon from 'core/components/Icon';
 
 class Modal extends React.PureComponent {
   constructor(props) {

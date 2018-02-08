@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Toggle from 'components/Toggle';
+import Toggle from 'core/components/Toggle';
 import Modal from 'core/components/Modal';
 import Button from 'core/components/Button';
 import Icon from 'core/components/Icon';
