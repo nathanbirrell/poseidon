@@ -47,8 +47,6 @@ class Tooltip extends React.PureComponent {
   }
 
   componentDidMount() {
-    // TODO: bind some click event handlers here to check when user clicks away from tooltip, to close it!
-
     document.addEventListener('click', this._handleOutsideClick);
   }
 
@@ -90,9 +88,9 @@ class Tooltip extends React.PureComponent {
     }
   }
 
-  _handleOutsideClick(e) {
+  _handleOutsideClick(event) {
     // ignore clicks on the component itself
-    if (this.node.contains(e.target)) { return; }
+    if (this.node.contains(event.target)) { return; }
     this._hide();
   }
 

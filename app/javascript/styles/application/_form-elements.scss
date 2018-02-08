@@ -87,6 +87,7 @@
   }
 }
 
+// TODO: change to .select
 select {
   cursor: pointer;
   border: none;
@@ -122,7 +123,7 @@ select {
   }
 }
 
-input[type="checkbox"] {
+.checkbox {
   height: auto;
   appearance: none;
   background-color: #fafafa;

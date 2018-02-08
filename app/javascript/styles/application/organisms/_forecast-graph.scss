@@ -252,5 +252,15 @@ $forecast-graph-width: 960px;
 }
 
 .forecast-graph-legend {
-  color: $font-dark-secondary;
+
+  &,
+  a,
+  .link {
+    color: $font-dark-secondary;
+  }
+
+  .modal form {
+    display: flex;
+    justify-content: space-around;
+  }
 }
