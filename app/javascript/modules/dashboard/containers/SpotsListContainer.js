@@ -22,6 +22,7 @@ class SpotsListContainer extends React.Component {
     this.state = {
       orderBy: 'current_potential',
       ascending: false,
+      selectedRegion: this.checkRegionUrlParam(),
     };
 
     this.listSpots = this.listSpots.bind(this);
@@ -52,7 +53,6 @@ class SpotsListContainer extends React.Component {
 
   listSpots() {
     if (!this.props.spots) return null;
-
     let filteredSpots = this.state.selectedRegion ?
       this.props.spots.filter(spot => {
         return spot.region_id === this.state.selectedRegion;
@@ -90,7 +90,7 @@ class SpotsListContainer extends React.Component {
   }
 
   checkRegionUrlParam() {
-    const query = UrlUtil.searchParams.get('region_id');
+    const query = +UrlUtil.searchParams.get('region_id');
     if (query !== null && query > 0) {
       return query;
     }
@@ -110,7 +110,7 @@ class SpotsListContainer extends React.Component {
 
   handleRegionChange(event) {
     this.setState({
-      selectedRegion: event.target.value,
+      selectedRegion: +event.target.value,
     });
   }
 
@@ -181,6 +181,7 @@ class SpotsListContainer extends React.Component {
                   <option value="">All regions</option>
                   <option value="1">Mornington Peninsula</option>
                   <option value="2">Surf Coast</option>
+                  <option value="3">Phillip Island</option>
                 </select>
               </div>
             </Column>
