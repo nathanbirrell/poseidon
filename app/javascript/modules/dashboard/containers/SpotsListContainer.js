@@ -116,6 +116,7 @@ class SpotsListContainer extends React.Component {
 
   handleNameSearchChange(event) {
     this.setState({
+      selectedRegion: 0,
       searchQuery: event.target.value.toLowerCase(),
     });
   }
