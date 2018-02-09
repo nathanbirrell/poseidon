@@ -5,8 +5,8 @@ import moment from 'moment';
 
 import SpotUtil from 'lib/SpotUtil';
 
-import SpotForecastTideAndWeather from 'core/containers/SpotForecastTideAndWeather';
-import SpotCustomiseForecastContainer from 'core/containers/SpotCustomiseForecastContainer';
+import SpotForecastTideAndWeather from 'modules/forecast/containers/WeatherForecast';
+import SpotCustomiseForecastContainer from 'modules/forecast/containers/CustomiseForecast';
 
 import ScrollSync from 'core/components/ScrollSync';
 import ScrollSyncPane from 'core/components/ScrollSyncPane';

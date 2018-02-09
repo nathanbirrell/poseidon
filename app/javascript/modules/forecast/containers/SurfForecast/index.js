@@ -9,7 +9,7 @@ import moment from 'moment';
 
 import UrlUtil from 'lib/UrlUtil';
 
-import SpotShareContainer from 'core/containers/SpotShareContainer';
+import ShareSession from 'core/components/ShareSession';
 
 import Row from 'core/components/Row';
 import Column from 'core/components/Column';
@@ -122,7 +122,7 @@ class ForecastContainer extends React.Component {
 
         <Row withColumn>
           <Column widthMedium={6} widthLarge={4}>
-            <SpotShareContainer
+            <ShareSession
               selectedMoment={date}
               spotName={this.props.spot.name}
             />
