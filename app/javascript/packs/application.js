@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import AppContainer from 'core/containers/AppContainer';
+import AppContainer from 'AppContainer';
 import configureStore from '../store';
 
 const store = configureStore();
