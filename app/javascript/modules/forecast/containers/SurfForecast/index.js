@@ -9,13 +9,12 @@ import moment from 'moment';
 
 import UrlUtil from 'lib/UrlUtil';
 
-import ShareSession from 'core/components/ShareSession';
-
 import Row from 'core/components/Row';
 import Column from 'core/components/Column';
 import Spinner from 'core/components/Spinner';
 import SessionCard from 'core/components/SessionCard';
 import GenericErrorMessage from 'core/components/GenericErrorMessage';
+import ShareSession from 'core/components/ShareSession';
 
 import * as SurfForecastActions from 'actions/ForecastActions';
 import * as SpotActions from 'actions/SpotActions';
