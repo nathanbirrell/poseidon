@@ -10,7 +10,6 @@ import moment from 'moment';
 import UrlUtil from 'lib/UrlUtil';
 
 import SpotShareContainer from 'core/containers/SpotShareContainer';
-import SpotForecastContainer from 'core/containers/SpotForecastContainer';
 
 import Row from 'core/components/Row';
 import Column from 'core/components/Column';
@@ -20,6 +19,8 @@ import GenericErrorMessage from 'core/components/GenericErrorMessage';
 
 import * as SurfForecastActions from 'actions/ForecastActions';
 import * as SpotActions from 'actions/SpotActions';
+
+import ForecastGraphs from '../../components/ForecastGraphs';
 
 class ForecastContainer extends React.Component {
   constructor(props) {
@@ -109,7 +110,7 @@ class ForecastContainer extends React.Component {
 
         <Column widthSmall={12} widthMedium={12} widthLarge={12}>
           <Element name="forecast-graph-card">
-            <SpotForecastContainer
+            <ForecastGraphs
               spot={this.props.spot}
               forecasts={this.props.forecasts}
               updateParent={this.updateSelectedDateTime}

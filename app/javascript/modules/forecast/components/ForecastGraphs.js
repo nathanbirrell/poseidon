@@ -12,6 +12,7 @@ import ScrollSync from 'core/components/ScrollSync';
 import ScrollSyncPane from 'core/components/ScrollSyncPane';
 import Spinner from 'core/components/Spinner';
 
+import LegendKey from 'core/components/LegendKey';
 import AreaGraph from 'core/components/AreaGraph';
 import ExpandCollapseCard from 'core/components/ExpandCollapseCard';
 
@@ -21,18 +22,6 @@ const Colors = {
   SwellSize: '#6F7C82',
   TideHeight: '#DBDBDB',
 };
-
-const LegendKey = ({ backgroundColor, isThin }) => (
-  <span style={{
-    display: 'inline-block',
-    height: isThin ? '2px' : '4px',
-    width: '12px',
-    marginBottom: isThin ? '5px' : '4px',
-    borderRadius: '1px',
-    backgroundColor,
-  }}
-  />
-);
 
 class SpotForecastContainer extends React.Component {
   constructor(props) {
@@ -115,7 +104,7 @@ class SpotForecastContainer extends React.Component {
 
   updateForecastConfig(forecastConfig) {
     this.setState({
-      forecastConfig
+      forecastConfig,
     });
   }
 
