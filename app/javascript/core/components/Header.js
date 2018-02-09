@@ -11,8 +11,8 @@ class Header extends React.Component {
           <div className="top-bar-left">
             <ul className="menu">
               <li><Link to="/">POSEIDON <sup>(BETA)</sup></Link></li>
-              <li className="show-for-medium"><Link to="/">SPOTS</Link></li>
-              <li className="show-for-medium"><a className="disabled" aria-disabled="true" title="Coming soon">SESSIONS</a></li>
+              <li className="show-for-medium"><Link to="/">SESSIONS</Link></li>
+              <li className="show-for-medium"><a className="disabled" aria-disabled="true" title="Coming soon">SPOTS</a></li>
               <li className="show-for-medium"><a className="disabled" aria-disabled="true" title="Coming soon">TRIPS</a></li>
             </ul>
           </div>
