@@ -1,18 +1,18 @@
 import SpotService from 'services/SpotService';
 
-import * as Types from 'types';
+import { FETCH_SPOT } from 'types';
 
 export const fetchSpotRequest = () => ({
-  type: Types.FETCH_SPOT_REQUEST,
+  type: FETCH_SPOT.REQUEST,
 });
 
 export const fetchSpotSuccess = (data) => ({
-  type: Types.FETCH_SPOT_SUCCESS,
+  type: FETCH_SPOT.SUCCESS,
   data,
 });
 
 export const fetchSpotError = (error) => ({
-  type: Types.FETCH_SPOT_ERROR,
+  type: FETCH_SPOT.ERROR,
   error,
 });
 

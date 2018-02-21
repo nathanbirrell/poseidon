@@ -5,7 +5,7 @@ import { apiActionTypes } from 'lib/ReduxUtils';
  *
  *    Some conventions to follow:
  *      - all caps, undercores to space words, as these are constants
- *      - group related actions in an object (ie our apiActionTypes)
+ *      - group related actions in an object (ie our apiActionTypes util)
  *      - template: {VERB}_{ITEM_NAME}.{ACTION}. For example: FETCH_SPOTS_SUCCESS
  *      - verbs: FETCH (get), SAVE (post/put)
  *      - actions: can be anything, but commonly a part of sequence in API call (REQUEST/SUCCESS/FAIL)
@@ -13,12 +13,8 @@ import { apiActionTypes } from 'lib/ReduxUtils';
 
 export const FETCH_SPOT_LIST = apiActionTypes('FETCH_SPOT_LIST');
 
-export const FETCH_SPOT_REQUEST = 'FETCH_SPOT_REQUEST';
-export const FETCH_SPOT_SUCCESS = 'FETCH_SPOT_SUCCESS';
-export const FETCH_SPOT_ERROR = 'FETCH_SPOT_ERROR';
+export const FETCH_SPOT = apiActionTypes('FETCH_SPOT');
 
-export const FETCH_SURF_FORECAST_REQUEST = 'FETCH_SURF_FORECAST_REQUEST';
-export const FETCH_SURF_FORECAST_SUCCESS = 'FETCH_SURF_FORECAST_SUCCESS';
-export const FETCH_SURF_FORECAST_ERROR = 'FETCH_SURF_FORECAST_ERROR';
+export const FETCH_SURF_FORECAST = apiActionTypes('FETCH_SURF_FORECAST');
 
 export const CHANGE_SELECTED_DATETIME = 'CHANGE_SELECTED_DATETIME';

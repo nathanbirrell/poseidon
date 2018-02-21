@@ -1,19 +1,19 @@
 import moment from 'moment';
 import SurfForecastService from 'services/SurfForecastService';
 
-import * as Types from 'types';
+import { FETCH_SURF_FORECAST } from 'types';
 
 export const fetchSurfForecastRequest = () => ({
-  type: Types.FETCH_SURF_FORECAST_REQUEST,
+  type: FETCH_SURF_FORECAST.REQUEST,
 });
 
 export const fetchSurfForecastSuccess = (data) => ({
-  type: Types.FETCH_SURF_FORECAST_SUCCESS,
+  type: FETCH_SURF_FORECAST.SUCCESS,
   data,
 });
 
 export const fetchSurfForecastError = (error) => ({
-  type: Types.FETCH_SURF_FORECAST_ERROR,
+  type: FETCH_SURF_FORECAST.ERROR,
   error,
 });
 

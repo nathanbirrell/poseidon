@@ -1,4 +1,4 @@
-import * as Types from 'types';
+import { FETCH_SPOT } from 'types';
 
 const initialState = {
   data: {},
@@ -8,18 +8,18 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case Types.FETCH_SPOT_REQUEST:
+    case FETCH_SPOT.REQUEST:
       return {
         ...state,
         isSyncing: true,
       };
-    case Types.FETCH_SPOT_SUCCESS:
+    case FETCH_SPOT.SUCCESS:
       return {
         ...state,
         data: action.data,
         isSyncing: false,
       };
-    case Types.FETCH_SPOT_ERROR:
+    case FETCH_SPOT.ERROR:
       return {
         ...state,
         isError: true,
