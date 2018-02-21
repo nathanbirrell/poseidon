@@ -85,7 +85,6 @@ class ForecastContainer extends React.Component {
       );
     }
 
-    console.log(this.props);
     const date = this.state.selectedDateTime;
     // TODO: rename to selectedForecast ?? Discuss w/ TB. ie selectedForecast.index (instead of value), etc.
     const seed = this.findForecastSeedFromTime(this.props.forecasts.swells, date);

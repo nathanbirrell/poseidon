@@ -112,7 +112,6 @@ SpotHeader.propTypes = {
 };
 
 const mapStateToProps = (store) => {
-  console.log(store);
   return {
     spot: store.spot.asyncSpot.data,
     isError: store.spot.asyncSpot.syncError,
