@@ -1,30 +1,20 @@
+import update from 'immutability-helper';
+import * as ReduxUtils from 'lib/ReduxUtils';
 import * as Types from 'types';
 
 const initialState = {
-  data: {},
-  isError: false,
-  isSyncing: false,
+  ...ReduxUtils.apiSubstore('forecasts'),
+  selectedDateTime: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case Types.FETCH_SURF_FORECAST.REQUEST:
-      return {
-        ...state,
-        isSyncing: true,
-      };
+      return update(state, ReduxUtils.apiReducerSyncRequest('forecasts'));
     case Types.FETCH_SURF_FORECAST.SUCCESS:
-      return {
-        ...state,
-        data: action.data,
-        isSyncing: false,
-      };
+      return update(state, ReduxUtils.apiReducerUpdate(action.data, 'forecasts'));
     case Types.FETCH_SURF_FORECAST.ERROR:
-      return {
-        ...state,
-        isError: true,
-        isSyncing: false,
-      };
+      return update(state, ReduxUtils.apiReducerSyncFailed(action.error, 'forecasts'));
     case Types.CHANGE_SELECTED_DATETIME:
       return {
         ...state,

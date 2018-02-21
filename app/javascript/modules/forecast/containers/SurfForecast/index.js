@@ -32,7 +32,7 @@ class ForecastContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.forecasts.length) {
+    if (!this.props.forecasts) {
       this.props.dispatch(SurfForecastActions.fetchSurfForecast(this.props.match.params.spotId));
     }
     if (!this.props.spot.name) {
@@ -79,7 +79,7 @@ class ForecastContainer extends React.Component {
       return <GenericErrorMessage reload={window.location.reload.bind(window.location)} />;
     }
 
-    if (this.props.forecasts.swells === undefined || !this.props.forecasts) {
+    if (!this.props.forecasts) {
       return (
         <div>
           <Spinner />
@@ -133,23 +133,25 @@ class ForecastContainer extends React.Component {
 }
 
 ForecastContainer.defaultProps = {
+  forecasts: null,
 };
 
 ForecastContainer.propTypes = {
   spot: PropTypes.object.isRequired,
-  forecasts: PropTypes.object.isRequired,
+  forecasts: PropTypes.object,
   isSyncing: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
+  isError: PropTypes.bool,
   dispatch: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
     spot: state.spot.data,
-    forecasts: state.forecasts.data,
-    isError: state.forecasts.isError,
-    isSyncing: state.forecasts.isSyncing,
+    forecasts: state.forecasts.asyncForecasts.data,
+    isError: state.forecasts.asyncForecasts.syncError,
+    isSyncing: state.forecasts.asyncForecasts.isSyncing,
   };
 };
 
