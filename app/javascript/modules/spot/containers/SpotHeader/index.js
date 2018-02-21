@@ -23,9 +23,8 @@ class SpotHeader extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.spot.name) {
-      this.props.dispatch(SpotActions.fetchSpot(this.props.match.params.spotId));
-    }
+    this.props.dispatch(SpotActions.fetchSpot(this.props.match.params.spotId));
+
     this.setNavItems();
   }
 
@@ -60,7 +59,7 @@ class SpotHeader extends React.Component {
   }
 
   renderDetails() {
-    if (this.props.isSyncing || !this.props.spot.name) {
+    if (this.props.isSyncing || !this.props.spot) {
       return (
         <div className="spot-header__details">
           <PlaceholderShimmer width="220px" height="16px" />
@@ -100,21 +99,24 @@ class SpotHeader extends React.Component {
 }
 
 SpotHeader.defaultProps = {
+  spot: null,
+  isError: false,
 };
 
 SpotHeader.propTypes = {
-  spot: PropTypes.object.isRequired,
+  spot: PropTypes.object,
   isSyncing: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
+  isError: PropTypes.bool,
   match: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (store) => {
+  console.log(store);
   return {
-    spot: state.spot.data,
-    isError: state.spot.isError,
-    isSyncing: state.spot.isSyncing,
+    spot: store.spot.asyncSpot.data,
+    isError: store.spot.asyncSpot.syncError,
+    isSyncing: store.spot.asyncSpot.isSyncing,
   };
 };
 

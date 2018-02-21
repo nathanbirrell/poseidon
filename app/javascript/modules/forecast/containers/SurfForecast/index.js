@@ -32,12 +32,10 @@ class ForecastContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.forecasts) {
-      this.props.dispatch(SurfForecastActions.fetchSurfForecast(this.props.match.params.spotId));
-    }
-    if (!this.props.spot.name) {
-      this.props.dispatch(SpotActions.fetchSpot(this.props.match.params.spotId));
-    }
+    // Temporarily disabling these checks because they break the navigation thru the app (FIXME)
+    // if (!this.props.forecasts) {
+    this.props.dispatch(SurfForecastActions.fetchSurfForecast(this.props.match.params.spotId));
+    this.props.dispatch(SpotActions.fetchSpot(this.props.match.params.spotId));
   }
 
   initTime() {
@@ -134,10 +132,12 @@ class ForecastContainer extends React.Component {
 
 ForecastContainer.defaultProps = {
   forecasts: null,
+  isError: false,
+  spot: null,
 };
 
 ForecastContainer.propTypes = {
-  spot: PropTypes.object.isRequired,
+  spot: PropTypes.object,
   forecasts: PropTypes.object,
   isSyncing: PropTypes.bool.isRequired,
   isError: PropTypes.bool,
@@ -145,13 +145,15 @@ ForecastContainer.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  console.log(state);
+const mapStateToProps = (store) => {
+  const forecastStore = store.forecasts.asyncForecasts;
+  const spotStore = store.forecasts.asyncForecasts;
+
   return {
-    spot: state.spot.data,
-    forecasts: state.forecasts.asyncForecasts.data,
-    isError: state.forecasts.asyncForecasts.syncError,
-    isSyncing: state.forecasts.asyncForecasts.isSyncing,
+    spot: spotStore.data,
+    forecasts: forecastStore.data,
+    isError: forecastStore.syncError || spotStore.syncError,
+    isSyncing: forecastStore.isSyncing || spotStore.isSyncing,
   };
 };
 

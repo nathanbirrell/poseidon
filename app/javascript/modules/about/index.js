@@ -18,7 +18,7 @@ import * as SpotActions from 'actions/SpotActions';
 
 class SpotAboutContainer extends React.Component {
   componentDidMount() {
-    if (!this.props.spot.name) {
+    if (!this.props.spot) {
       this.props.dispatch(SpotActions.fetchSpot(this.props.match.params.spotId));
     }
   }
@@ -165,16 +165,16 @@ SpotAboutContainer.defaultProps = {
 SpotAboutContainer.propTypes = {
   spot: PropTypes.object.isRequired,
   isSyncing: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
+  isError: PropTypes.bool,
   dispatch: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (store) => {
   return {
-    spot: state.spot.data,
-    isError: state.spot.isError,
-    isSyncing: state.spot.isSyncing,
+    spot: store.spot.asyncSpot.data,
+    isError: store.spot.asyncSpot.syncError,
+    isSyncing: store.spot.asyncSpot.isSyncing,
   };
 };
 
