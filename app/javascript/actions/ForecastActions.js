@@ -9,8 +9,9 @@ export const updateSelectedDateTime = (selectedDateTime) => ({
   selectedDateTime: moment(selectedDateTime),
 });
 
-export const fetchSurfForecast = (spotId) => (dispatch) => ReduxUtils.apiSyncAction(
+export const fetchSurfForecast = (spotId) => (dispatch, getState) => ReduxUtils.apiSyncAction(
   dispatch,
   FETCH_SURF_FORECAST,
   SpotService.fetchSurfForecast.bind(null, spotId),
+  getState().forecasts.asyncForecasts.isSyncing,
 );
