@@ -121,3 +121,14 @@ export const apiReducerSyncFailed = (error, ...args) => {
 
   return apiReducerGenerator(updateAction, ...args);
 };
+
+/*
+ * Generates an object of constants for request/success/fail states
+ * */
+export const apiActionTypes = (actionName) => {
+  return {
+    REQUEST: `${actionName.toUpperCase()}_REQUEST`,
+    SUCCESS: `${actionName.toUpperCase()}_SUCCESS`,
+    FAIL: `${actionName.toUpperCase()}_FAIL`,
+  };
+};
