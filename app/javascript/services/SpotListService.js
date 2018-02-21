@@ -9,8 +9,12 @@ export default class SpotsService {
    * @returns {Promise}
    */
   static async fetchSpots() {
-    const endpoint = `${API_BASE_URL}/spots.json`;
-    const response = await request.get(endpoint);
-    return response.body;
+    try {
+      const endpoint = `${API_BASE_URL}/spots.json`;
+      const response = await request.get(endpoint);
+      return response.body;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

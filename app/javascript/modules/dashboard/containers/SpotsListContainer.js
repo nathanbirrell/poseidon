@@ -228,7 +228,6 @@ SpotsListContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     spots: state.spotsList.asyncSpots,
   };

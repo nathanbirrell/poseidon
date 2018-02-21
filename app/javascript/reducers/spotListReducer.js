@@ -4,8 +4,6 @@ import { FETCH_SPOT_LIST } from 'types';
 
 const initialState = ReduxUtils.apiSubstore('spots');
 
-console.log(initialState);
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_SPOT_LIST.REQUEST:

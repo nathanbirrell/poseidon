@@ -22,14 +22,14 @@ export const apiSubstore = (apiName, initialData = null) => {
 export const apiSyncAction = (dispatch, constants, syncFunc, skip) => {
   if (skip) { return new Promise((resolve) => resolve(null)); }
 
-  dispatch({ type: constants.syncRequest });
+  dispatch({ type: constants.REQUEST });
 
   return new Promise((resolve, reject, onCancel) => {
     const req = syncFunc()
       .then(data => {
-        if (constants.update) {
+        if (constants.SUCCESS) {
           dispatch({
-            type: constants.update,
+            type: constants.SUCCESS,
             data,
           });
         }
@@ -38,13 +38,15 @@ export const apiSyncAction = (dispatch, constants, syncFunc, skip) => {
       })
       .catch((error) => {
         dispatch({
-          type: constants.syncFailed,
+          type: constants.FAIL,
           error,
         });
         reject(error);
         return error;
       });
 
+    // TODO: remove me, we should provide onCancel for all promises fam
+    if (!onCancel) { return; }
     onCancel(() => {
       if (req && req.cancel) { req.cancel(); }
       return null;
