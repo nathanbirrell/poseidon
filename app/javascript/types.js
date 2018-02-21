@@ -1,8 +1,17 @@
-export const spotsList = {
-  FETCH_SPOT_LIST_REQUEST: 'FETCH_SPOT_LIST_REQUEST',
-  FETCH_SPOT_LIST_SUCCESS: 'FETCH_SPOT_LIST_SUCCESS',
-  FETCH_SPOT_LIST_ERROR: 'FETCH_SPOT_LIST_ERROR',
-};
+import { apiActionTypes } from 'lib/ReduxUtils';
+
+/**
+ * Action types (WIP)
+ *
+ *    Some conventions to follow:
+ *      - all caps, undercores to space words, as these are constants
+ *      - template: {VERB}_{ITEM_NAME}.{ACTION}. For example: FETCH_SPOTS_SUCCESS
+ *      - verbs: FETCH (get), SAVE (post/put)
+ *      - actions: can be anything, but commonly a part of sequence in API call (REQUEST/SUCCESS/FAIL)
+ */
+
+export const FETCH_SPOT_LIST = apiActionTypes('FETCH_SPOT_LIST');
+console.log(FETCH_SPOT_LIST);
 
 export const FETCH_SPOT_REQUEST = 'FETCH_SPOT_REQUEST';
 export const FETCH_SPOT_SUCCESS = 'FETCH_SPOT_SUCCESS';
