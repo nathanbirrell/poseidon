@@ -24,9 +24,6 @@ import ForecastGraphs from '../../components/ForecastGraphs';
 class ForecastContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedDateTime: this.initTime(),
-    };
 
     this.findForecastSeedFromTime = this.findForecastSeedFromTime.bind(this);
   }
@@ -36,9 +33,14 @@ class ForecastContainer extends React.Component {
     // if (!this.props.forecasts) {
     this.props.dispatch(SurfForecastActions.fetchSurfForecast(this.props.match.params.spotId));
     this.props.dispatch(SpotActions.fetchSpot(this.props.match.params.spotId));
+
+    this.initTime();
   }
 
-  initTime() {
+  /**
+   * Retrieves current time, or time in URL if set
+   */
+  getTime() {
     let query = UrlUtil.searchParams.get('date_time');
     if (query !== null) {
       query = query.replace(/\s+/g, '+');
@@ -48,6 +50,13 @@ class ForecastContainer extends React.Component {
       }
     }
     return moment();
+  }
+
+  initTime() {
+    if (this.props.selectedDateTime) { return; }
+
+    const time = this.getTime();
+    this.props.actions.updateSelectedDateTime(time);
   }
 
   findForecastSeedFromTime(data, time) {
@@ -77,7 +86,9 @@ class ForecastContainer extends React.Component {
       return <GenericErrorMessage reload={window.location.reload.bind(window.location)} />;
     }
 
-    if (!this.props.forecasts) {
+    console.log(this.props);
+
+    if (!this.props.forecasts || !this.props.selectedDateTime) {
       return (
         <div>
           <Spinner />
@@ -85,7 +96,7 @@ class ForecastContainer extends React.Component {
       );
     }
 
-    const date = this.state.selectedDateTime;
+    const date = this.props.selectedDateTime;
     // TODO: rename to selectedForecast ?? Discuss w/ TB. ie selectedForecast.index (instead of value), etc.
     const seed = this.findForecastSeedFromTime(this.props.forecasts.swells, date);
 
@@ -109,7 +120,7 @@ class ForecastContainer extends React.Component {
             <ForecastGraphs
               spot={this.props.spot}
               forecasts={this.props.forecasts}
-              updateParent={this.updateSelectedDateTime}
+              updateParent={this.props.actions.updateSelectedDateTime}
               selectedDateTimePosition={seed.value}
               // forecastConfig={this.state.forecastConfig}
             />
@@ -145,12 +156,14 @@ ForecastContainer.propTypes = {
 };
 
 const mapStateToProps = (store) => {
+  const { selectedDateTime } = store.forecasts;
   const forecastStore = store.forecasts.asyncForecasts;
   const spotStore = store.forecasts.asyncForecasts;
 
   return {
     spot: spotStore.data,
     forecasts: forecastStore.data,
+    selectedDateTime,
     isError: forecastStore.syncError || spotStore.syncError,
     isSyncing: forecastStore.isSyncing || spotStore.isSyncing,
   };
