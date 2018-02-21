@@ -13,7 +13,7 @@ import Spinner from 'core/components/Spinner';
 import Icon from 'core/components/Icon';
 import GenericErrorMessage from 'core/components/GenericErrorMessage';
 
-import * as actions from 'modules/dashboard/actions/DashboardActions';
+import * as SpotListActions from 'actions/SpotListActions';
 
 class SpotsListContainer extends React.Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class SpotsListContainer extends React.Component {
 
   componentDidMount() {
     if (!this.props.spots.length) {
-      this.props.dispatch(actions.fetchSpots());
+      this.props.dispatch(SpotListActions.fetchSpots());
     }
   }
 
@@ -239,7 +239,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(actions, dispatch),
+    actions: bindActionCreators(SpotListActions, dispatch),
     dispatch,
   };
 };
