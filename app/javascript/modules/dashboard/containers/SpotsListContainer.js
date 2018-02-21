@@ -34,7 +34,7 @@ class SpotsListContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.spots.length) {
+    if (!this.props.spots.data) {
       this.props.dispatch(SpotListActions.fetchSpots());
     }
   }
@@ -52,11 +52,11 @@ class SpotsListContainer extends React.Component {
   }
 
   listSpots() {
-    if (!this.props.spots) return null;
+    if (!this.props.spots.data) return null;
     let filteredSpots = this.state.selectedRegion ?
-      this.props.spots.filter(spot => {
+      this.props.spots.data.filter(spot => {
         return spot.region_id === this.state.selectedRegion;
-      }) : this.props.spots;
+      }) : this.props.spots.data;
 
     if (this.state.searchQuery) {
       filteredSpots = filteredSpots.slice().filter(spot => {
@@ -134,7 +134,7 @@ class SpotsListContainer extends React.Component {
   }
 
   renderLoader() {
-    if (this.props.isSyncing) {
+    if (this.props.spots.isSyncing) {
       return (
         <Spinner />
       );
@@ -144,7 +144,7 @@ class SpotsListContainer extends React.Component {
   }
 
   render() {
-    if (this.props.isError) {
+    if (this.props.spots.syncError) {
       return <GenericErrorMessage reload={window.location.reload.bind(window.location)} />;
     }
 
@@ -223,17 +223,14 @@ SpotsListContainer.defaultProps = {
 };
 
 SpotsListContainer.propTypes = {
-  spots: PropTypes.array.isRequired,
-  isSyncing: PropTypes.bool.isRequired,
-  isError: PropTypes.bool.isRequired,
+  spots: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
-    spots: state.spots.data,
-    isError: state.spots.isError,
-    isSyncing: state.spots.isSyncing,
+    spots: state.spotsList.asyncSpots,
   };
 };
 

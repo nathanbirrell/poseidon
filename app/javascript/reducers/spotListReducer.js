@@ -1,30 +1,19 @@
+import update from 'immutability-helper';
+import * as ReduxUtils from 'lib/ReduxUtils';
 import * as Types from 'types';
 
-const initialState = {
-  data: [],
-  isError: false,
-  isSyncing: false,
-};
+const initialState = ReduxUtils.apiSubstore('spots');
+
+console.log(initialState);
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case Types.FETCH_SPOT_LIST_REQUEST:
-      return {
-        ...state,
-        isSyncing: true,
-      };
+      return update(state, ReduxUtils.apiReducerSyncRequest('spots'));
     case Types.FETCH_SPOT_LIST_SUCCESS:
-      return {
-        ...state,
-        data: action.data,
-        isSyncing: false,
-      };
-    case Types.FETCH_SPOT_LIST_ERROR:
-      return {
-        ...state,
-        isError: true,
-        isSyncing: false,
-      };
+      return update(state, ReduxUtils.apiReducerUpdate(action.data, 'spots'));
+    case Types.FETCH_SPOT_LIST_FAILED:
+      return update(state, ReduxUtils.apiReducerSyncFailed(action.error, 'spots'));
     default:
       return state;
   }
