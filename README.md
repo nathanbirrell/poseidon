@@ -21,17 +21,12 @@ Getting Started
 1. Run a local build with `npm start`
 1. Install Rubocop and the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide) ([Atom](https://fmcgeough.wordpress.com/2015/11/14/using-rubocop-in-atom/), [RubyMine](#TODO))
 
-LiveReload:
-
-* If you're working on the front-end, it's convenient to use [Live Reload](https://mattbrictson.com/lightning-fast-sass-reloading-in-rails). To use it, run `guard -P livereload`.
-
 Marketing site (Jekyll)
 -------------------------
 
-1. `$ cd docs`
-1. `$ gem install jekyll`
-1. `$ bundle install`
-1. `$ jekyll serve` and navigate to [http://localhost:4000/](http://localhost:4000/)
+The marketing site (surfposeidon.io) is a static rendering of `app/javascript/pages/MarketingPage.js` - basically copied and pasted out of the browser.
+
+From there, we copy the HTML to `docs/index.html` for Github Pages to serve up.
 
 Documentation and Support
 -------------------------
