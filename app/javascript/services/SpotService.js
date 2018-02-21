@@ -1,15 +1,27 @@
-import request from 'superagent';
+import GenericApiService from './GenericApiService';
 
-import { API_BASE_URL } from '../config';
+export default class SpotService {
+  /**
+   * Retrieves the Spots for user's dashboard
+   * @returns {Promise}
+   */
+  static async fetchSpots() {
+    return GenericApiService.get('/spots.json');
+  }
 
-export default class SpotsService {
   /**
    * Retrieves the Spot details for a particular spot
    * @returns {Promise}
    */
   static async fetchSpot(spotId) {
-    const endpoint = `${API_BASE_URL}/spots/${spotId}.json`;
-    const response = await request.get(endpoint);
-    return response.body;
+    return GenericApiService.get(`/spots/${spotId}.json`);
+  }
+
+  /**
+   * Retrieves the Surf Forecast for a particular spot
+   * @returns {Promise}
+   */
+  static async fetchSurfForecast(spotId) {
+    return GenericApiService.get(`/spots/${spotId}/forecast/surf.json`);
   }
 }
