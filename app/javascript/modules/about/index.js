@@ -103,7 +103,7 @@ class SpotAboutContainer extends React.Component {
       return <GenericErrorMessage reload={window.location.reload.bind(window.location)} />;
     }
 
-    if (!this.props.spot.name || this.props.isSyncing) {
+    if (this.props.isSyncing || !this.props.spot) {
       return (
         <div>
           <Spinner />
