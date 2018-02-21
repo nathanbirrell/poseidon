@@ -86,8 +86,6 @@ class ForecastContainer extends React.Component {
       return <GenericErrorMessage reload={window.location.reload.bind(window.location)} />;
     }
 
-    console.log(this.props);
-
     if (!this.props.forecasts || !this.props.selectedDateTime) {
       return (
         <div>
@@ -158,7 +156,7 @@ ForecastContainer.propTypes = {
 const mapStateToProps = (store) => {
   const { selectedDateTime } = store.forecasts;
   const forecastStore = store.forecasts.asyncForecasts;
-  const spotStore = store.forecasts.asyncForecasts;
+  const spotStore = store.spot.asyncSpot;
 
   return {
     spot: spotStore.data,
