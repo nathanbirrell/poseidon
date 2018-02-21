@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 import * as ReduxUtils from 'lib/ReduxUtils';
-import * as Types from 'types';
+import { spotsList as Types } from 'types';
 
 const initialState = ReduxUtils.apiSubstore('spots');
 

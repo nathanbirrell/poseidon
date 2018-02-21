@@ -1,6 +1,7 @@
 import SpotListService from 'services/SpotListService';
+import { spotsList as Types } from 'types';
 
-import * as Types from 'types';
+// TODO: introduce ReduxUtils.apiSyncAction() here!
 
 export const fetchSpotsRequest = () => ({
   type: Types.FETCH_SPOT_LIST_REQUEST,
