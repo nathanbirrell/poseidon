@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
-import SurfForecastContainer from 'modules/forecast/containers/SurfForecast';
+import SurfForecastContainer from 'modules/forecast/containers/ForecastContainer';
 import SpotReportsContainer from 'modules/reports';
 import SpotAboutContainer from 'modules/about';
 

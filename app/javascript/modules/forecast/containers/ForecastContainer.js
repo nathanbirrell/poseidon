@@ -19,7 +19,7 @@ import ShareSession from 'core/components/ShareSession';
 import * as SurfForecastActions from 'actions/ForecastActions';
 import * as SpotActions from 'actions/SpotActions';
 
-import ForecastGraphs from '../../components/ForecastGraphs';
+import ForecastGraphs from 'modules/forecast/components/ForecastGraphs';
 
 class ForecastContainer extends React.Component {
   constructor(props) {
