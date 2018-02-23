@@ -43,9 +43,6 @@ export const apiSyncAction = (dispatch, constants, syncFunc, skip) => {
         return error;
       });
 
-    // TODO: remove me, we should provide onCancel for all promises fam
-    if (!onCancel) { return; }
-
     onCancel(() => {
       if (req && req.cancel) { req.cancel(); }
       return null;
