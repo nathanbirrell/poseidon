@@ -13,5 +13,5 @@ export const fetchSurfForecast = (spotId) => (dispatch, getState) => ReduxUtils.
   dispatch,
   FETCH_SURF_FORECAST,
   SpotService.fetchSurfForecast.bind(null, spotId),
-  getState().forecasts.asyncForecasts.isSyncing,
+  getState().forecasts.isSyncing,
 );

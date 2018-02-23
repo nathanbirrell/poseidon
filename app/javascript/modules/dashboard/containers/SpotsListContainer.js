@@ -229,7 +229,7 @@ SpotsListContainer.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    spots: state.spotsList.asyncSpots,
+    spots: state.spotsList,
   };
 };
 

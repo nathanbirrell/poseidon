@@ -6,5 +6,5 @@ export const fetchSpot = (spotId) => (dispatch, getState) => ReduxUtils.apiSyncA
   dispatch,
   FETCH_SPOT,
   SpotService.fetchSpot.bind(null, spotId),
-  getState().spot.asyncSpot.isSyncing,
+  getState().spot.isSyncing,
 );

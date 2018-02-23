@@ -4,14 +4,12 @@ import StringUtils from 'lib/StringUtils';
 /*
  * Generates a substore for generic API sync style data
  * */
-export const apiSubstore = (apiName, initialData = null) => {
+export const apiSubstore = (initialData = null) => {
   return {
-    [`async${StringUtils.capitalise(apiName)}`]: {
-      isSyncing: false,
-      syncError: null,
-      data: initialData,
-      lastUpdated: 0,
-    },
+    isSyncing: false,
+    syncError: null,
+    data: initialData,
+    lastUpdated: 0,
   };
 };
 
@@ -47,6 +45,7 @@ export const apiSyncAction = (dispatch, constants, syncFunc, skip) => {
 
     // TODO: remove me, we should provide onCancel for all promises fam
     if (!onCancel) { return; }
+
     onCancel(() => {
       if (req && req.cancel) { req.cancel(); }
       return null;
@@ -79,12 +78,8 @@ export const apiSyncAction = (dispatch, constants, syncFunc, skip) => {
  *  ReduxUtils.apiReducerUpdate(action.data, 'vitalApi', ['apiSet1', 'apiSubset2', 'apiSubSubset1'])
  *
  * */
-const apiReducerGenerator = (_updateAction, apiName, substoreParents) => {
-  const apiNameTitle = StringUtils.capitalise(apiName);
-
-  let updateAction = {
-    [`async${apiNameTitle}`]: _updateAction,
-  };
+const apiReducerGenerator = (_updateAction, substoreParents) => {
+  let updateAction = _updateAction;
 
   // Nest the action inside its parents if any is defined
   if (substoreParents) {

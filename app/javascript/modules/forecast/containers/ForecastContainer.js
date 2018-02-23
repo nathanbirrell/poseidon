@@ -53,7 +53,7 @@ class ForecastContainer extends React.Component {
   }
 
   initTime() {
-    if (this.props.selectedDateTime) { return; }
+    if (this.props.forecasts.selectedDateTime) { return; }
 
     const time = this.getTime();
     this.props.actions.updateSelectedDateTime(time);
@@ -86,7 +86,7 @@ class ForecastContainer extends React.Component {
       return <GenericErrorMessage reload={window.location.reload.bind(window.location)} />;
     }
 
-    if (!this.props.forecasts || !this.props.selectedDateTime) {
+    if (!this.props.forecasts.data || !this.props.forecasts.selectedDateTime) {
       return (
         <div>
           <Spinner />
@@ -94,9 +94,9 @@ class ForecastContainer extends React.Component {
       );
     }
 
-    const date = this.props.selectedDateTime;
+    const date = this.props.forecasts.selectedDateTime;
     // TODO: rename to selectedForecast ?? Discuss w/ TB. ie selectedForecast.index (instead of value), etc.
-    const seed = this.findForecastSeedFromTime(this.props.forecasts.swells, date);
+    const seed = this.findForecastSeedFromTime(this.props.forecasts.data.swells, date);
 
     // Put data through time filter here
     // const filteredData = this.state.forecasts.overall_ratings.filter(item => moment(item.date_time).isBetween(moment(date).startOf('day'), moment(date).endOf('day')));
@@ -106,18 +106,18 @@ class ForecastContainer extends React.Component {
         <Column widthMedium={12} widthLarge={6}>
           <SessionCard
             isExpanded
-            rating={this.props.forecasts.overall_ratings[seed.value]}
-            swell={this.props.forecasts.swells[seed.value]}
-            wind={this.props.forecasts.winds[seed.value]}
-            tide_current={this.props.forecasts.tides[seed.value]}
+            rating={this.props.forecasts.data.overall_ratings[seed.value]}
+            swell={this.props.forecasts.data.swells[seed.value]}
+            wind={this.props.forecasts.data.winds[seed.value]}
+            tide_current={this.props.forecasts.data.tides[seed.value]}
           />
         </Column>
 
         <Column widthSmall={12} widthMedium={12} widthLarge={12}>
           <Element name="forecast-graph-card">
             <ForecastGraphs
-              spot={this.props.spot}
-              forecasts={this.props.forecasts}
+              spot={this.props.spot.data}
+              forecasts={this.props.forecasts.data}
               updateParent={this.props.actions.updateSelectedDateTime}
               selectedDateTimePosition={seed.value}
               // forecastConfig={this.state.forecastConfig}
@@ -129,7 +129,7 @@ class ForecastContainer extends React.Component {
           <Column widthMedium={6} widthLarge={4}>
             <ShareSession
               selectedMoment={date}
-              spotName={this.props.spot.name}
+              spotName={this.props.spot.data.name}
             />
           </Column>
         </Row>
@@ -154,16 +154,13 @@ ForecastContainer.propTypes = {
 };
 
 const mapStateToProps = (store) => {
-  const { selectedDateTime } = store.forecasts;
-  const forecastStore = store.forecasts.asyncForecasts;
-  const spotStore = store.spot.asyncSpot;
+  const { forecasts, spot } = store;
 
   return {
-    spot: spotStore.data,
-    forecasts: forecastStore.data,
-    selectedDateTime,
-    isError: forecastStore.syncError || spotStore.syncError,
-    isSyncing: forecastStore.isSyncing || spotStore.isSyncing,
+    spot,
+    forecasts,
+    isError: forecasts.syncError || spot.syncError,
+    isSyncing: forecasts.isSyncing || spot.isSyncing,
   };
 };
 
