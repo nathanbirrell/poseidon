@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import logoImg from 'images/brand/LOGO_TEXT-BLUE-GRADIENT.svg';
+
+const logosContext = require.context('images/brand/logo', true, /\.(png|svg)$/);
 
 /**
  * TODO:
@@ -10,8 +11,12 @@ import logoImg from 'images/brand/LOGO_TEXT-BLUE-GRADIENT.svg';
  */
 
 const Type = Object.freeze({
-  FULL: 'full',
-  ICON: 'icon',
+  TEXT: 'TEXT',
+  ICON: 'ONLY',
+});
+
+const Color = Object.freeze({
+  BLUE_GRADIENT: 'BLUE-GRADIENT',
 });
 
 const Size = Object.freeze({
@@ -29,6 +34,22 @@ export default class Logo extends React.Component {
     return Type;
   }
 
+  logoImg() {
+    let fileName = './LOGO';
+
+    if (this.props.type) {
+      fileName += `_${this.props.type}`;
+    }
+
+    if (this.props.color) {
+      fileName += `-${this.props.color}`;
+    }
+
+    fileName += '.svg';
+
+    return logosContext(fileName);
+  }
+
   render() {
     const styles = {
       width: 120,
@@ -38,7 +59,7 @@ export default class Logo extends React.Component {
     return (
       <img
         className="logo"
-        src={logoImg}
+        src={this.logoImg()}
         // title="Poseidon logo"
         alt="Poseidon logo"
         style={styles}
@@ -48,9 +69,11 @@ export default class Logo extends React.Component {
 }
 
 Logo.defaultProps = {
-  type: Type.FULL,
+  type: Type.TEXT,
+  color: Color.BLUE_GRADIENT,
 };
 
 Logo.propTypes = {
   type: PropTypes.oneOf(Object.values(Type)),
+  color: PropTypes.oneOf(Object.values(Color)),
 };
