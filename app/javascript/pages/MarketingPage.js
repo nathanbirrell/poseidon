@@ -4,6 +4,7 @@ import Row from 'core/components/Row';
 import Column from 'core/components/Column';
 import Button from 'core/components/Button';
 import Icon from 'core/components/Icon';
+import Logo from 'core/components/Logo';
 
 import heroImg from 'images/marketing/hero.png';
 import sourcesImg from 'images/marketing/bom-noaa.png';
@@ -12,11 +13,18 @@ const MarketingPageNav = (props) => (
   <header role="banner" className="header">
     <nav className="top-bar">
       <div className="top-bar-left">
-        <ul className="menu"><li><a href="/">POSEIDON<sup>(BETA)</sup></a></li></ul>
+        <ul className="menu">
+          <li>
+            <a href="/">
+              {/* POSEIDON<sup>(BETA)</sup> */}
+              <Logo />
+            </a>
+          </li>
+        </ul>
       </div>
       <div className="top-bar-right">
         <ul className="menu">
-          <li><Button href="http://app.surfposeidon.io" type={Button.Type.SECONDARY}>Sign In</Button></li>
+          <li><Button href="http://app.surfposeidon.io" type={Button.Type.LINK}>Sign In</Button></li>
           <li className="show-for-medium"><Button href="#join">Get FREE Beta Access</Button></li>
         </ul>
       </div>

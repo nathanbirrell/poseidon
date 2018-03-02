@@ -43,7 +43,8 @@ $btn-height: 44px;
 
   &.--secondary {
     background: $white;
-    color: $secondary-color;
+    // color: $secondary-color;
+    color: $font-dark-primary;
     border-top: 1px solid $smoke;
     text-shadow: none;
 
