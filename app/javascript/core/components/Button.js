@@ -66,7 +66,7 @@ Button.defaultProps = {
   type: Type.PRIMARY,
 };
 
-Button.PropTypes = {
+Button.propTypes = {
   type: PropTypes.oneOf(Object.values(Type)),
   children: PropTypes.node,
   className: PropTypes.string,

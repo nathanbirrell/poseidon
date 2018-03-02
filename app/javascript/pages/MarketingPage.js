@@ -35,22 +35,22 @@ const MarketingPageNav = (props) => (
 const MailChimpSignup = (props) => (
   <div id="mc_embed_signup">
     <form action="https://surfposeidon.us16.list-manage.com/subscribe/post?u=20c962b030d8c109b48ebb56d&amp;id=ae99fea08b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" className="validate" target="_blank" noValidate>
-        <Row id="mc_embed_signup_scroll" withXPadding={false}>
-          <Column widthSmall={12} isAutoMediumUp className="mc-field-group">
-            <label htmlFor="mce-EMAIL" className="show-for-sr">Email Address </label>
-            <div className="input-holder --icon --icon-mail">
-              <input type="email" value="" placeholder="Enter your email&hellip;" name="EMAIL" className="required email input" id="mce-EMAIL" type="text" />
-            </div>
-          </Column>
-          <Column widthSmall={12} widthMedium={5}>
-            <input type="submit" value="Get FREE Beta Access" name="subscribe" id="mc-embedded-subscribe" className="button --slim --secondary" />
-          </Column>
-          <div id="mce-responses" className="clear">
-            <div className="response" id="mce-error-response" style={{ display: 'none' }}></div>
-            <div className="response" id="mce-success-response" style={{ display: 'none' }}></div>
+      <Row id="mc_embed_signup_scroll" withXPadding={false}>
+        <Column widthSmall={12} isAutoMediumUp className="mc-field-group">
+          <label htmlFor="mce-EMAIL" className="show-for-sr">Email Address </label>
+          <div className="input-holder --icon --icon-mail">
+            <input type="email" value="" placeholder="Enter your email&hellip;" name="EMAIL" className="required email input" id="mce-EMAIL" type="text" />
           </div>
-          <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true"><input type="text" name="b_20c962b030d8c109b48ebb56d_ae99fea08b" tabIndex="-1" value="" /></div>
-        </Row>
+        </Column>
+        <Column widthSmall={12} widthMedium={5}>
+          <input type="submit" value="Get FREE Beta Access" name="subscribe" id="mc-embedded-subscribe" className="button --slim --secondary" />
+        </Column>
+        <div id="mce-responses" className="clear">
+          <div className="response" id="mce-error-response" style={{ display: 'none' }} />
+          <div className="response" id="mce-success-response" style={{ display: 'none' }} />
+        </div>
+        <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true"><input type="text" name="b_20c962b030d8c109b48ebb56d_ae99fea08b" tabIndex="-1" value="" /></div>
+      </Row>
     </form>
   </div>
 );
@@ -96,7 +96,7 @@ class MarketingPage extends React.Component {
         <Row className="cvp-container" withYPadding withXPadding>
           <Column isAutoMediumUp />
           <Column widthMedium={10} widthLarge={10}>
-            <Row style={{ padding: '22px 0'}}>
+            <Row style={{ padding: '22px 0' }}>
               <Column isAutoMediumUp>
                 {/* <img className="" src="http://placehold.it/640x640?text=CVP+Image" /> */}
                 <h3>Plan less, surf more</h3>
@@ -132,7 +132,8 @@ class MarketingPage extends React.Component {
             <p className="small"><small>
               Access to the Early Access program is <i>invitation-only</i>.<br />
               Requests accepted until <b>31st of January 2018</b>.
-            </small></p>
+                                 </small>
+            </p>
             <MailChimpSignup />
           </Column>
           <Column isAutoMediumUp />
@@ -142,7 +143,7 @@ class MarketingPage extends React.Component {
           <Column isAutoMediumUp />
           <Column widthMedium={10} widthLarge={10}>
             <h2>Poseidon on the web</h2>
-            <Row style={{ padding: '22px 0'}}>
+            <Row style={{ padding: '22px 0' }}>
               <Column isAutoMediumUp>
                 <a href="https://instagram.com/surfposeidon">
                   <Icon name="instagram" />
