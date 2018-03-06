@@ -6,6 +6,7 @@ $forecast-graph-width: 960px;
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
   width: 100%;
+  padding-left: 62px;
 }
 
 .forecast-graph-container {
@@ -263,4 +264,15 @@ $forecast-graph-width: 960px;
     display: flex;
     justify-content: space-around;
   }
+}
+
+.area-graph-readout-card {
+  position: absolute;
+  top: 36px;
+  left: 12px;
+  width: 50px;
+  // background: linear-gradient(90deg, rgba(255, 255, 255, 1) 85%, rgba(255, 255, 255, 0) 100%);
+  background: #fff;
+  padding: 6px;
+  height: calc(100% - 48px);
 }

@@ -120,6 +120,10 @@ class ForecastContainer extends React.Component {
               forecasts={this.props.forecasts.data}
               updateParent={this.props.actions.updateSelectedDateTime}
               selectedDateTimePosition={seed.value}
+              rating={this.props.forecasts.data.overall_ratings[seed.value]}
+              swell={this.props.forecasts.data.swells[seed.value]}
+              wind={this.props.forecasts.data.winds[seed.value]}
+              tide_current={this.props.forecasts.data.tides[seed.value]}
               // forecastConfig={this.state.forecastConfig}
             />
           </Element>

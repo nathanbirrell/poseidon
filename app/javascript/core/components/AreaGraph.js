@@ -212,21 +212,22 @@ class AreaGraph extends React.Component {
           .ticks(4)
           .tickSize(-dimensions.width) // Horizontal lines
           .tickFormat(function(d) {
-            return (d*graphs[1].yMax).toFixed(0) + graphs[1].axesSuffix;
+            // return (d*graphs[1].yMax).toFixed(0) + graphs[1].axesSuffix;
+            return '';
           }));
 
-      leftAxis.selectAll('.tick text')
-        .attr('class', 'label-1')
-        .attr('x', x(x.domain()[0]))
-        .attr('fill', graphs[1].color);
-      leftAxis.selectAll('.tick')
-        .append('text')
-        .attr('class', 'label-2')
-        .text(function(d) {
-          return (d*graphs[2].yMax).toFixed(0) + graphs[2].axesSuffix;
-        })
-        .attr('x', x(x.domain()[0]))
-        .attr('fill', graphs[2].color);
+    //   leftAxis.selectAll('.tick text')
+    //     .attr('class', 'label-1')
+    //     .attr('x', x(x.domain()[0]))
+    //     .attr('fill', graphs[1].color);
+    //   leftAxis.selectAll('.tick')
+    //     .append('text')
+    //     .attr('class', 'label-2')
+    //     .text(function(d) {
+    //       return (d*graphs[2].yMax).toFixed(0) + graphs[2].axesSuffix;
+    //     })
+    //     .attr('x', x(x.domain()[0]))
+    //     .attr('fill', graphs[2].color);
     }
 
 
