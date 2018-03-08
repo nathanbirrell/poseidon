@@ -110,20 +110,6 @@ class SpotForecastContainer extends React.Component {
     });
   }
 
-  renderReadoutCard(graphs, position) {
-    console.log('renderReadoutCard', graphs, position);
-    return (
-      <div className="area-graph-readout-card" >
-        { graphs.map(graph => {
-            return (
-              <p key={graph.name}>{(+graph.yVals[position]).toFixed(0)}</p>
-            );
-          })
-        }
-      </div>
-    );
-  }
-
   render() {
     if (!this.props.forecasts) {
       return <Spinner />;
@@ -249,7 +235,7 @@ class SpotForecastContainer extends React.Component {
                 />
               </div>
             </ScrollSyncPane>
-            <GraphReadout
+            {/* <GraphReadout
               rating={+this.props.rating.rating}
               values={[
                 {
@@ -262,7 +248,7 @@ class SpotForecastContainer extends React.Component {
                   name: 'wind',
                 },
               ]}
-            />
+            /> */}
           </ExpandCollapseCard>
 
           <ExpandCollapseCard title="Tide, Weather &amp; Sun">

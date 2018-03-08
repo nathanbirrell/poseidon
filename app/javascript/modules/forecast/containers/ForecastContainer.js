@@ -102,19 +102,25 @@ class ForecastContainer extends React.Component {
     // const filteredData = this.state.forecasts.overall_ratings.filter(item => moment(item.date_time).isBetween(moment(date).startOf('day'), moment(date).endOf('day')));
 
     return (
-      <Row className="spot-page__forecast" withXPadding={false}>
-        <Column widthMedium={12} widthLarge={6}>
-          <SessionCard
-            isExpanded
-            rating={this.props.forecasts.data.overall_ratings[seed.value]}
-            swell={this.props.forecasts.data.swells[seed.value]}
-            wind={this.props.forecasts.data.winds[seed.value]}
-            tide_current={this.props.forecasts.data.tides[seed.value]}
-          />
-        </Column>
+      <Row withXPadding={false}>
+        <Column className="spot-page__forecast" widthSmall={12} widthMedium={12} widthLarge={12}>
+          <Row className="spot-page__forecast-left" withColumn>
+            <SessionCard
+              isVertical
+              rating={this.props.forecasts.data.overall_ratings[seed.value]}
+              swell={this.props.forecasts.data.swells[seed.value]}
+              wind={this.props.forecasts.data.winds[seed.value]}
+              tide_current={this.props.forecasts.data.tides[seed.value]}
+            />
+            <Column widthMedium={6} widthLarge={4}>
+              <ShareSession
+                selectedMoment={date}
+                spotName={this.props.spot.data.name}
+              />
+            </Column>
+          </Row>
 
-        <Column widthSmall={12} widthMedium={12} widthLarge={12}>
-          <Element name="forecast-graph-card">
+          <Element className="spot-page__forecast-right" name="forecast-graph-card">
             <ForecastGraphs
               spot={this.props.spot.data}
               forecasts={this.props.forecasts.data}
@@ -128,15 +134,6 @@ class ForecastContainer extends React.Component {
             />
           </Element>
         </Column>
-
-        <Row withColumn>
-          <Column widthMedium={6} widthLarge={4}>
-            <ShareSession
-              selectedMoment={date}
-              spotName={this.props.spot.data.name}
-            />
-          </Column>
-        </Row>
       </Row>
     );
   }

@@ -129,14 +129,14 @@ class SessionCard extends React.Component {
 
     if (
       tide_current.shift_rate === 'medium' ||
-      !this.props.isExpanded
+      !this.props.isVertical
     ) {
       // No need to explain normal/medium shift rates
       // Don't show for condensed session card
       shiftRate = null;
     }
 
-    if (this.props.isExpanded) {
+    if (this.props.isVertical) {
       next_tide_text = moment(tide_next.date_time).format('h:mma');
     }
 
@@ -166,7 +166,7 @@ class SessionCard extends React.Component {
   renderRating() {
     const current_rating = parseFloat(this.props.rating.rating);
 
-    if (this.props.isExpanded) {
+    if (this.props.isVertical) {
       return (
         <div className="session-card__rating">
           <Rating rating={current_rating} isLarge />
@@ -183,7 +183,7 @@ class SessionCard extends React.Component {
   }
 
   renderNameAndRegion() {
-    if (this.props.isExpanded) { return null; }
+    if (this.props.isVertical) { return null; }
 
     return (
       <div className="session-card__name">
@@ -224,7 +224,7 @@ class SessionCard extends React.Component {
   render() {
     const classes = Classnames({
       'session-card': true,
-      '--expanded': this.props.isExpanded,
+      '--vertical': this.props.isVertical,
     });
 
     return (
@@ -236,7 +236,7 @@ class SessionCard extends React.Component {
 }
 
 SessionCard.defaultProps = {
-  isExpanded: false,
+  isVertical: false,
   highlight: null,
 };
 
@@ -245,7 +245,7 @@ SessionCard.propTypes = {
   swell: PropTypes.object.isRequired,
   wind: PropTypes.object.isRequired,
   tide_current: PropTypes.object.isRequired,
-  isExpanded: PropTypes.bool,
+  isVertical: PropTypes.bool,
   highlight: PropTypes.string,
   spot: PropTypes.object,
   id: PropTypes.string,

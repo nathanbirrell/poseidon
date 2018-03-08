@@ -18,14 +18,6 @@
   }
 }
 
-.session-card.--expanded {
-  box-shadow: $shadow-subtle;
-
-  .icon.--icon-navigation-2 {
-    margin-right: -4px;
-  }
-}
-
 .session-card__container {
   display: flex;
   width: 100%;
@@ -40,17 +32,6 @@
     width: auto;
     margin: 6px;
   }
-
-  @media #{$large-up} {
-    .--expanded & {
-      margin-top: 0;
-    }
-  }
-
-  .--expanded & {
-    max-height: none;
-    margin-bottom: 12px;
-  }
 }
 
 a .session-card {
@@ -60,15 +41,6 @@ a .session-card {
 .session-card__rating {
   flex: 1 1 auto;
   width: 12%;
-
-  .--expanded & {
-    width: auto;
-    display: flex;
-
-    .session-card__label {
-      padding-left: 4px;
-    }
-  }
 }
 
 .session-card__name {
@@ -102,11 +74,6 @@ a .session-card {
   font-size: rem-calc(11);
   line-height: rem-calc(11);
   color: $font-dark-secondary;
-
-  .--expanded & {
-    max-width: none;
-    margin-left: auto;
-  }
 }
 
 .session-card__conditions {
@@ -141,10 +108,6 @@ a .session-card {
   &-unit {
     font-size: 80%;
   }
-
-  .--expanded & {
-    font-size: 130%;
-  }
 }
 
 .session-card__condition-secondary {
@@ -152,8 +115,79 @@ a .session-card {
   color: $font-dark-secondary;
   font-size: 80%;
   line-height: 120%;
+}
 
-  .--expanded & {
+/**
+ * Vertical variant
+**/
+
+.spot-page__forecast {
+  display: flex;
+
+  .spot-page__forecast-left {
+    flex: 1 1 auto;
+    flex-basis: 20%;
+  }
+  .spot-page__forecast-right {
+    flex: 1 1 auto;
+    flex-basis: 80%;
+  }
+}
+
+.session-card.--vertical {
+  min-width: 132px;
+  box-shadow: $shadow-subtle;
+
+  .icon.--icon-navigation-2 {
+    margin-right: -4px;
+  }
+
+  .session-card__container {
+    max-height: none;
+    margin-bottom: 12px;
+
+    @media #{$large-up} {
+      margin-top: 0;
+    }
+  }
+
+  .session-card__rating {
+    width: auto;
+    display: flex;
+
+    .session-card__label {
+      // padding-left: 4px;
+      display: none;
+    }
+  }
+
+  .session-card__conditions {
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  .session-card__condition {
+    flex-basis: 100%;
+  }
+
+  .session-card__condition-primary {
+    display: inline-block;
+    width: 100%;
+    margin-top: -5px;
+  }
+
+  .session-card__updated {
+    max-width: none;
+    margin-right: auto;
+    text-align: left;
+    padding-top: 6px;
+  }
+
+  .session-card__condition-primary {
+    font-size: 130%;
+  }
+
+  .session-card__condition-secondary {
     font-size: 90%;
   }
 }
