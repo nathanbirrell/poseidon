@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import SurfForecastContainer from 'modules/forecast/containers/ForecastContainer';
 import SpotReportsContainer from 'modules/reports';
-import SpotAboutContainer from 'modules/about';
+import SpotAboutContainer from 'modules/about/About';
 
 import Row from 'core/components/Row';
 import Column from 'core/components/Column';

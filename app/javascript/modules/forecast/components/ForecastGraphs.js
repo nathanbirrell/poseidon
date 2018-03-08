@@ -12,7 +12,6 @@ import SpotCustomiseForecastContainer from 'modules/forecast/containers/Customis
 import ScrollSync from 'core/components/ScrollSync';
 import ScrollSyncPane from 'core/components/ScrollSyncPane';
 import Spinner from 'core/components/Spinner';
-
 import LegendKey from 'core/components/LegendKey';
 import AreaGraph from 'core/components/AreaGraph';
 import ExpandCollapseCard from 'core/components/ExpandCollapseCard';
