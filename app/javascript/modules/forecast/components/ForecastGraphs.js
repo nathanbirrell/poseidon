@@ -13,7 +13,6 @@ import ScrollSync from 'core/components/ScrollSync';
 import ScrollSyncPane from 'core/components/ScrollSyncPane';
 import Spinner from 'core/components/Spinner';
 
-import GraphReadout from 'core/components/GraphReadout';
 import LegendKey from 'core/components/LegendKey';
 import AreaGraph from 'core/components/AreaGraph';
 import ExpandCollapseCard from 'core/components/ExpandCollapseCard';
@@ -235,20 +234,6 @@ class SpotForecastContainer extends React.Component {
                 />
               </div>
             </ScrollSyncPane>
-            {/* <GraphReadout
-              rating={+this.props.rating.rating}
-              values={[
-                {
-                  value: MathUtil.round(SpotUtil.metresToFeet(this.props.swell.size), 1),
-                  unit: 'ft',
-                  name: 'swell',
-                }, {
-                  value: MathUtil.round(SpotUtil.kphToKnots(this.props.wind.speed), 0),
-                  unit: 'kts',
-                  name: 'wind',
-                },
-              ]}
-            /> */}
           </ExpandCollapseCard>
 
           <ExpandCollapseCard title="Tide, Weather &amp; Sun">
@@ -268,16 +253,6 @@ class SpotForecastContainer extends React.Component {
                 <SpotForecastTideAndWeather spot={this.props.spot} />
               </div>
             </ScrollSyncPane>
-            <GraphReadout
-              rating={+this.props.rating.rating}
-              values={[
-                {
-                  value: MathUtil.round(this.props.tide_current.height, 1),
-                  unit: 'm',
-                  name: 'tide',
-                },
-              ]}
-            />
           </ExpandCollapseCard>
         </div>
       </ScrollSync>
