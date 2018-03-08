@@ -206,7 +206,7 @@ class SpotForecastContainer extends React.Component {
       <ScrollSync>
         <div className="forecast-graph-cards">
           <ExpandCollapseCard
-            title="Swell &amp; Wind"
+            title="Surf"
             rightHandSide={
               <small className="forecast-graph-legend">
                 <SpotCustomiseForecastContainer
@@ -214,7 +214,7 @@ class SpotForecastContainer extends React.Component {
                   updateParent={this.updateForecastConfig}
                 >
                   {/* // TODO: check config to confirm each is visible on graph before render*/}
-                  <LegendKey backgroundColor={Colors.Rating} /> Surf Potential &nbsp;
+                  <LegendKey backgroundColor={Colors.Rating} /> Potential &nbsp;
                   <LegendKey backgroundColor={Colors.SwellSize} /> Swell &nbsp;
                   <LegendKey backgroundColor={Colors.WindSpeed} isThin /> Wind &nbsp;
                 </SpotCustomiseForecastContainer>
