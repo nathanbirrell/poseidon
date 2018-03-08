@@ -131,11 +131,12 @@ a .session-card {
   .spot-page__forecast-right {
     flex: 1 1 auto;
     flex-basis: 80%;
+    overflow: scroll;
   }
 }
 
 .session-card.--vertical {
-  min-width: 132px;
+  min-width: 106px;
   box-shadow: $shadow-subtle;
 
   .icon.--icon-navigation-2 {
@@ -174,6 +175,14 @@ a .session-card {
     display: inline-block;
     width: 100%;
     margin-top: -5px;
+  }
+
+  .session-card__condition-secondary {
+    display: none; // TODO: hide this info in tooltip instead of hiding altogether
+
+    @media #{$medium-up} {
+      display: inline-block;
+    }
   }
 
   .session-card__updated {
