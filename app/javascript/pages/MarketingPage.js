@@ -73,7 +73,7 @@ class MarketingPage extends React.Component {
           <Column isAutoMediumUp />
           <Column widthMedium={10} widthLarge={10}>
             <Row>
-              <Column className="text-center" widthMedium={7} widthLarge={6}>
+              <Column className="text-center" widthMedium={6}>
                 <h1>Intelligent, reliable surf forecasting built for you.</h1>
 
                 <p className="lead">
@@ -83,9 +83,9 @@ class MarketingPage extends React.Component {
                 <Button href="#join">Get FREE Beta Access</Button>
               </Column>
 
-              <Column widthLarge={6}>
+              <Column widthMedium={6}>
                 <div className="hero-image-container">
-                  <img className="hero-image" src={heroImg} />
+                  <img className="hero-image" src={heroImg} alt="Screenshots of the Poseidon surf forecasting application" />
                 </div>
               </Column>
             </Row>
