@@ -25,7 +25,7 @@ const MarketingPageNav = (props) => (
       <div className="top-bar-right">
         <ul className="menu">
           <li><Button href="http://app.surfposeidon.io" type={Button.Type.LINK}>Sign In</Button></li>
-          <li className="show-for-medium"><Button href="#join">Get FREE Beta Access</Button></li>
+          <li className="show-for-medium"><Button href="#join" type={Button.Type.LINK}>Get Access</Button></li>
         </ul>
       </div>
     </nav>
@@ -99,23 +99,30 @@ class MarketingPage extends React.Component {
             <Row style={{ padding: '22px 0' }}>
               <Column isAutoMediumUp>
                 {/* <img className="" src="http://placehold.it/640x640?text=CVP+Image" /> */}
-                <h3>Plan less, surf more</h3>
-                <p>Poseidon's <b>proprietary rating algorithm</b> tells you where&apos;s pumping, so you can forget about ideal swells, winds and tides and spend more time in the water.</p>
+
+                <h3>Find sessions faster</h3>
+
+                <p>Our <strong>forecast analysis</strong> finds you the best surf sessions at a glance, so you get more time surfing. </p>
               </Column>
               <Column isAutoMediumUp>
                 {/* <img className="" src="http://placehold.it/640x640?text=CVP+Image" /> */}
-                <h3>Built by surfers, for surfers</h3>
-                <p>We know the issues with modern-day surf forecasts, so we&apos;re building: </p>
-                <ul className="list --icon">
+
+                <h3>Share secret spots</h3>
+
+                <p>Share <strong>local spots with your mates</strong> and get <strong>notifications</strong> when it&apos;s pumping.</p>
+
+                {/* <ul className="list --icon">
                   <li><Icon name="check-square" size={Icon.Size.LARGE} /><b>mobile-first</b></li>
                   <li><Icon name="check-square" size={Icon.Size.LARGE} />local spot <b>notifications</b></li>
                   <li><Icon name="check-square" size={Icon.Size.LARGE} />private <b>secret spots</b> for you and your mates</li>
-                </ul>
+                </ul> */}
               </Column>
               <Column isAutoMediumUp>
-                <h3>Australia's top weather models</h3>
+                <h3>All in one place</h3>
+
                 <p>Powered by <b>BOM</b> and the <b>NOAA</b>, you can now access all of surfing&apos;s most reliable sources in one place.</p>
-                <img className="" src={sourcesImg} />
+
+                <img className="" src={sourcesImg} alt="BOM and NOAA's logos" />
               </Column>
             </Row>
           </Column>
