@@ -9,8 +9,8 @@
             <stop stop-color="#2F6FB6" offset="100%"></stop>
         </linearGradient>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
-            <stop stop-color="#5CA8DC" offset="0%"></stop>
-            <stop stop-color="#2F6FB6" offset="100%"></stop>
+            <stop stop-color="#535B5F" offset="0%"></stop>
+            <stop stop-color="#292E31" offset="100%"></stop>
         </linearGradient>
     </defs>
     <g id="LOGO_TEXT-BLUE-GRADIENT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
