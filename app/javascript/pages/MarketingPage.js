@@ -127,12 +127,13 @@ class MarketingPage extends React.Component {
           <Column widthSmall={12} widthMedium={8} widthLarge={6}>
             <h2>Get FREE Beta Access</h2>
             <p className="lead">
-              Surf like a God with simple spot recommendations, Australia's most trusted weather modelling and reports from local experts.
+              Surf like a God with simple spot recommendations, Australia&apos;s most trusted weather modelling and reports from local experts.
             </p>
-            <p className="small"><small>
-              Access to the Early Access program is <i>invitation-only</i>.<br />
-              Requests accepted until <b>31st of January 2018</b>.
-                                 </small>
+            <p className="small">
+              <small>
+                The Early Access program is <i>invitation-only</i>.<br />
+                Requests accepted until <b>30th of April 2018</b>.
+              </small>
             </p>
             <MailChimpSignup />
           </Column>
