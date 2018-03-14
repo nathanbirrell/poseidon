@@ -11,6 +11,7 @@
 
 .marketing-page__container {
   h1 {
+    font-size: rem-calc(28);
     color: $font-dark-primary;
     font-weight: $font-weight-bold;
 
@@ -29,8 +30,17 @@
     padding: 3rem 0 3rem 0;
   }
 
+  .callout.large.callout--hero {
+    padding-bottom: 0;
+    @include breakpoint(large) { padding-bottom: 3rem; }
+  }
+
   .hero-image-container {
+    height: 316px;
+    overflow: hidden;
+
     @include breakpoint(large) {
+      height: auto;
     }
   }
 
@@ -53,12 +63,11 @@
 
   .join {
     background: $primary-color;
+    background-image: radial-gradient(farthest-corner at 100% 0, #5CA8DC 2%, #2F6FB6 100%);
 
     p, h2 { color: $white; }
 
     .button.--secondary { color: $primary-color; }
-
-    .lead { font-weight: 300; }
   }
 
   .on-the-web {

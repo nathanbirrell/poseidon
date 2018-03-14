@@ -69,11 +69,11 @@ class MarketingPage extends React.Component {
       <div className="marketing-page__container">
         <MarketingPageNav />
 
-        <Row className="callout --hero large">
+        <Row className="callout callout--hero large">
           <Column isAutoMediumUp />
           <Column widthMedium={10} widthLarge={10}>
             <Row>
-              <Column widthMedium={7} widthLarge={6}>
+              <Column className="text-center" widthMedium={7} widthLarge={6}>
                 <h1>Intelligent, reliable surf forecasting built for you.</h1>
 
                 <p className="lead">
