@@ -1,3 +1,31 @@
+@mixin animate-slide-up {
+  animation-name: slideUp;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes slideUp {
+	0% {
+		transform: translateY(100%);
+	}
+	50%{
+		transform: translateY(-8%);
+	}
+	65%{
+		transform: translateY(4%);
+	}
+	80%{
+		transform: translateY(-4%);
+	}
+	95%{
+		transform: translateY(2%);
+	}
+	100% {
+		transform: translateY(0%);
+	}
+}
+
+
 .marketing-page {
   .main {
     max-width: none;
@@ -28,7 +56,7 @@
 
   .callout.large.callout--hero {
     padding-bottom: 0;
-    // @include breakpoint(large) { padding-bottom: 3rem; }
+    overflow: hidden;
 
     .grid-x {
       justify-content: center;
@@ -37,7 +65,6 @@
 
   .hero-image-container {
     position: relative;
-    overflow: hidden;
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-end;
@@ -63,6 +90,7 @@
   }
 
   .hero-image span {
+    @include animate-slide-up;
     height: 100%;
     width: 100%;
     background-size: cover;
@@ -79,11 +107,16 @@
     position: absolute;
     // left: 35%;
     width: 125%;
+    animation-delay: 100ms;
   }
 
   .hero-image--front {
     flex: 1 1 60%;
     z-index: 2;
+  }
+
+  .hero-image--front span {
+    animation-delay: 200ms;
   }
 
   .cvp-container {
@@ -119,27 +152,3 @@
   .button {
   }
 }
-
-
-/**
-  * TODO: Move me
-**/
-// .parallax {
-//   perspective: 1px;
-//   height: 100vh;
-//   overflow-x: hidden;
-//   overflow-y: auto;
-// }
-// .parallax__layer {
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   bottom: 0;
-//   left: 0;
-// }
-// .parallax__layer--base {
-//   transform: translateZ(0);
-// }
-// .parallax__layer--back {
-//   transform: translateZ(-1px);
-// }
