@@ -6,7 +6,8 @@ import Button from 'core/components/Button';
 import Icon from 'core/components/Icon';
 import Logo from 'core/components/Logo';
 
-import heroImg from 'images/marketing/hero.png';
+import heroImgBack from 'images/marketing/hero-mockup-back.png';
+import heroImgFront from 'images/marketing/hero-mockup-front.png';
 import sourcesImg from 'images/marketing/bom-noaa.png';
 
 const MarketingPageNav = (props) => (
@@ -83,9 +84,20 @@ class MarketingPage extends React.Component {
                 <Button href="#join">Get FREE Beta Access</Button>
               </Column>
 
-              <Column widthMedium={6}>
-                <div className="hero-image-container">
-                  <img className="hero-image" src={heroImg} alt="Screenshots of the Poseidon surf forecasting application" />
+              <Column style={{ display: 'flex', justifyContent: 'center' }} widthMedium={6}>
+                <div className="hero-image-container parallax">
+                  <div className="hero-image hero-image--back parallax__layer parallax__layer--back">
+                    <span
+                      style={{ backgroundImage: `url(${heroImgBack})` }}
+                      className=""
+                    />
+                  </div>
+                  <div className="hero-image hero-image--front parallax__layer parallax__layer--base">
+                    <span
+                      style={{ backgroundImage: `url(${heroImgFront})` }}
+                      className=""
+                    />
+                  </div>
                 </div>
               </Column>
             </Row>

@@ -36,20 +36,54 @@
   }
 
   .hero-image-container {
-    height: 270px;
+    position: relative;
     overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+
+    height: 260px;
+    min-width: 255px;
 
     @include breakpoint(medium) {
-      height: 320px;
+      align-self: flex-end;
     }
-    // @include breakpoint(large) {
-    //   height: auto;
-    // }
+
+    @include breakpoint(large) {
+      height: 320px;
+      width: 320px;
+    }
   }
 
   .hero-image {
-    @include breakpoint(large) {
-    }
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+  }
+
+  .hero-image span {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .hero-image--back {
+    flex: 1 1 40%;
+    height: 85%;
+    z-index: 1;
+  }
+
+  .hero-image--back span {
+    position: absolute;
+    // left: 35%;
+    width: 125%;
+  }
+
+  .hero-image--front {
+    flex: 1 1 60%;
+    z-index: 2;
   }
 
   .cvp-container {
@@ -85,3 +119,27 @@
   .button {
   }
 }
+
+
+/**
+  * TODO: Move me
+**/
+// .parallax {
+//   perspective: 1px;
+//   height: 100vh;
+//   overflow-x: hidden;
+//   overflow-y: auto;
+// }
+// .parallax__layer {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+//   left: 0;
+// }
+// .parallax__layer--base {
+//   transform: translateZ(0);
+// }
+// .parallax__layer--back {
+//   transform: translateZ(-1px);
+// }
