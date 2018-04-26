@@ -4,16 +4,14 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import SpotUtil from 'lib/SpotUtil';
-import MathUtil from 'lib/MathUtil';
 
-import SpotForecastTideAndWeather from 'modules/forecast/containers/WeatherForecast';
+import SpotForecastTideAndWeather from 'modules/forecast/containers/ForecastContainer';
 import SpotCustomiseForecastContainer from 'modules/forecast/containers/CustomiseForecast';
 
 import ScrollSync from 'core/components/ScrollSync';
 import ScrollSyncPane from 'core/components/ScrollSyncPane';
 import Spinner from 'core/components/Spinner';
 
-import GraphReadout from 'core/components/GraphReadout';
 import LegendKey from 'core/components/LegendKey';
 import AreaGraph from 'core/components/AreaGraph';
 import ExpandCollapseCard from 'core/components/ExpandCollapseCard';
@@ -108,20 +106,6 @@ class SpotForecastContainer extends React.Component {
     this.setState({
       forecastConfig,
     });
-  }
-
-  renderReadoutCard(graphs, position) {
-    console.log('renderReadoutCard', graphs, position);
-    return (
-      <div className="area-graph-readout-card" >
-        { graphs.map(graph => {
-            return (
-              <p key={graph.name}>{(+graph.yVals[position]).toFixed(0)}</p>
-            );
-          })
-        }
-      </div>
-    );
   }
 
   render() {
@@ -249,20 +233,6 @@ class SpotForecastContainer extends React.Component {
                 />
               </div>
             </ScrollSyncPane>
-            <GraphReadout
-              rating={+this.props.rating.rating}
-              values={[
-                {
-                  value: MathUtil.round(SpotUtil.metresToFeet(this.props.swell.size), 1),
-                  unit: 'ft',
-                  name: 'swell',
-                }, {
-                  value: MathUtil.round(SpotUtil.kphToKnots(this.props.wind.speed), 0),
-                  unit: 'kts',
-                  name: 'wind',
-                },
-              ]}
-            />
           </ExpandCollapseCard>
 
           <ExpandCollapseCard title="Tide, Weather &amp; Sun">
@@ -282,16 +252,6 @@ class SpotForecastContainer extends React.Component {
                 <SpotForecastTideAndWeather spot={this.props.spot} />
               </div>
             </ScrollSyncPane>
-            <GraphReadout
-              rating={+this.props.rating.rating}
-              values={[
-                {
-                  value: MathUtil.round(this.props.tide_current.height, 1),
-                  unit: 'm',
-                  name: 'tide',
-                },
-              ]}
-            />
           </ExpandCollapseCard>
         </div>
       </ScrollSync>
@@ -305,10 +265,6 @@ SpotForecastContainer.defaultProps = {
   selectedDateTimePosition: null,
   forecastConfig: null,
   spot: null,
-  rating: null,
-  swell: null,
-  wind: null,
-  tide_current: null,
 };
 
 SpotForecastContainer.propTypes = {
@@ -317,10 +273,6 @@ SpotForecastContainer.propTypes = {
   selectedDateTimePosition: PropTypes.number,
   forecastConfig: PropTypes.object,
   spot: PropTypes.object,
-  rating: PropTypes.object,
-  swell: PropTypes.object,
-  wind: PropTypes.object,
-  tide_current: PropTypes.object,
 };
 
 export default SpotForecastContainer;
