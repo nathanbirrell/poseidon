@@ -172,9 +172,9 @@ SpotAboutContainer.propTypes = {
 
 const mapStateToProps = (store) => {
   return {
-    spot: store.spot.asyncSpot.data,
-    isError: store.spot.asyncSpot.syncError,
-    isSyncing: store.spot.asyncSpot.isSyncing,
+    spot: store.spot.data,
+    isError: store.spot.syncError,
+    isSyncing: store.spot.isSyncing,
   };
 };
 

@@ -75,14 +75,6 @@ class SpotPage extends React.Component {
           )}
         />
 
-        <Route
-          path={`${routeMatchUrl}`}
-          exact
-          render={() => (
-            <Redirect to={`${routeMatchUrl}/forecast`} />
-          )}
-        />
-
       </div>
     );
   }
