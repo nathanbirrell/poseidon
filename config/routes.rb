@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
-  authenticated :user do
+  # authenticated :user do
     root to: 'javascript_app#index', as: :authenticated_root
 
     resources :regions
@@ -30,9 +30,9 @@ Rails.application.routes.draw do
     get 'spots/:id/history', to: 'javascript_app#index'
 
     get '*path' => 'javascript_app#index'
-  end
+  # end
 
-  root to: redirect('/users/sign_in')
+  # root to: redirect('/users/sign_in')
 
-  get '*path' => redirect('/')
+  # get '*path' => redirect('/')
 end
