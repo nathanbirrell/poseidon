@@ -20,6 +20,7 @@ const Color = Object.freeze({
 });
 
 const Size = Object.freeze({
+  XSMALL: 'xsmall',
   SMALL: 'small',
   MEDIUM: 'medium',
   LARGE: 'large',
@@ -32,6 +33,22 @@ export default class Logo extends React.Component {
 
   static get Type() {
     return Type;
+  }
+
+  getSize() {
+    console.log(this.props.size);
+    switch (this.props.size) {
+      case Size.XSMALL:
+        return {
+          width: 32,
+          height: 'auto',
+        };
+      default:
+        return {
+          width: 120,
+          height: 'auto',
+        };
+    }
   }
 
   logoImg() {
@@ -52,8 +69,7 @@ export default class Logo extends React.Component {
 
   render() {
     const styles = {
-      width: 120,
-      height: 'auto',
+      ...this.getSize(),
     };
 
     return (
@@ -71,9 +87,11 @@ export default class Logo extends React.Component {
 Logo.defaultProps = {
   type: Type.TEXT,
   color: Color.BLUE_GRADIENT,
+  size: null,
 };
 
 Logo.propTypes = {
   type: PropTypes.oneOf(Object.values(Type)),
   color: PropTypes.oneOf(Object.values(Color)),
+  size: PropTypes.oneOf(Object.values(Size)),
 };

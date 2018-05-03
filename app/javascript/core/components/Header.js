@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Icon from 'core/components/Icon';
 import Button from 'core/components/Button';
+import Logo from 'core/components/Logo';
 
 class Header extends React.Component {
   render() {
@@ -10,7 +11,7 @@ class Header extends React.Component {
         <nav className="top-bar">
           <div className="top-bar-left">
             <ul className="menu">
-              <li><Link to="/">POSEIDON <sup>(BETA)</sup></Link></li>
+              <li><Link to="/"><Logo type={Logo.Type.ICON} size={Logo.Size.XSMALL} /></Link></li>
               <li className="show-for-medium"><Link to="/">SESSIONS</Link></li>
               <li className="show-for-medium"><a className="disabled" aria-disabled="true" title="Coming soon">SPOTS</a></li>
               <li className="show-for-medium"><a className="disabled" aria-disabled="true" title="Coming soon">TRIPS</a></li>
