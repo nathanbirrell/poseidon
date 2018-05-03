@@ -17,6 +17,7 @@ const Type = Object.freeze({
 
 const Color = Object.freeze({
   BLUE_GRADIENT: 'BLUE-GRADIENT',
+  BLACK: 'BLACK',
 });
 
 const Size = Object.freeze({
@@ -33,6 +34,10 @@ export default class Logo extends React.Component {
 
   static get Type() {
     return Type;
+  }
+
+  static get Color() {
+    return Color;
   }
 
   getSize() {
