@@ -23,7 +23,7 @@ class PoseidonMath
   def get_h_k_a(data={})
     return nil unless data
     maximum_rating = 100.0
-    opt_rating = 75.0
+    opt_rating = 60.0
     # use vertex quad formula y = a(x-h)^2 + k
     # a = stretch coefficient, h = x coord of vertex, k = y coord of vertex
     k_var = maximum_rating

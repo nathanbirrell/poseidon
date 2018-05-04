@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppContainer from '../AppContainer';
+import { Provider } from 'react-redux';
 
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <AppContainer />,
-    document.getElementById('poseidon-app'),
-  );
-})
+import AppContainer from 'AppContainer';
+import configureStore from '../store';
+
+const store = configureStore();
+
+ReactDOM.render(
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
+  document.getElementById('poseidon-app'),
+);

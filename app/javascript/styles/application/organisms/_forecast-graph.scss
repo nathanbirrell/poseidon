@@ -45,6 +45,10 @@ $forecast-graph-width: 960px;
       .line {
         stroke-width: 2;
       }
+      .line.rating {
+        stroke-width: 3;
+        stroke-dasharray: 6, 5;
+      }
       .line.wind-speed {
         stroke-width: 1;
       }
@@ -244,5 +248,19 @@ $forecast-graph-width: 960px;
     padding: 8px;
     max-width: 90px;
     right: -100px;
+  }
+}
+
+.forecast-graph-legend {
+
+  &,
+  a,
+  .link {
+    color: $font-dark-secondary;
+  }
+
+  .modal form {
+    display: flex;
+    justify-content: space-around;
   }
 }

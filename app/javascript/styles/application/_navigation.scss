@@ -3,6 +3,10 @@ header {
 }
 
 nav.top-bar {
+  .menu {
+    align-items: center;
+  }
+
   .menu-text { color: $font-dark-secondary; }
 
   li a:not(.disabled) {
@@ -17,12 +21,9 @@ nav.top-bar {
   li a.btn {
     color: $white;
   }
-
-  li a.btn.--secondary {
-    color: $secondary-color;
-  }
 }
 
 .menu a {
   line-height: 1.5;
+  padding: 0.5rem 1rem;
 }

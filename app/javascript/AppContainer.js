@@ -1,14 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import MomentConfig from 'config/MomentConfig';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
-import Row from 'components/Row';
+import initConfig from 'config';
+import Header from 'core/components/Header';
+import Footer from 'core/components/Footer';
 import HomePage from 'pages/HomePage';
 import SpotPage from 'pages/SpotPage';
 import MarketingPage from 'pages/MarketingPage';
 
-MomentConfig();
+initConfig();
 
 class AppContainer extends React.Component {
   render() {

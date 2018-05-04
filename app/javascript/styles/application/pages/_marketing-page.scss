@@ -1,3 +1,31 @@
+@mixin animate-slide-up {
+  animation-name: slideUp;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes slideUp {
+	0% {
+		transform: translateY(100%);
+	}
+	50%{
+		transform: translateY(-8%);
+	}
+	65%{
+		transform: translateY(4%);
+	}
+	80%{
+		transform: translateY(-4%);
+	}
+	95%{
+		transform: translateY(2%);
+	}
+	100% {
+		transform: translateY(0%);
+	}
+}
+
+
 .marketing-page {
   .main {
     max-width: none;
@@ -11,12 +39,9 @@
 
 .marketing-page__container {
   h1 {
+    font-size: rem-calc(28);
     color: $font-dark-primary;
     font-weight: $font-weight-bold;
-
-    @include breakpoint(large) {
-      padding-right: 5rem;
-    }
   }
 
   h3 {
@@ -29,16 +54,69 @@
     padding: 3rem 0 3rem 0;
   }
 
+  .callout.large.callout--hero {
+    padding-bottom: 0;
+    overflow: hidden;
+
+    .grid-x {
+      justify-content: center;
+    }
+  }
+
   .hero-image-container {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+
+    height: 260px;
+    min-width: 255px;
+
+    @include breakpoint(medium) {
+      align-self: flex-end;
+    }
+
     @include breakpoint(large) {
+      height: 320px;
+      width: 320px;
     }
   }
 
   .hero-image {
-    @include breakpoint(large) {
-      max-width: 115%;
-      margin-left: -15%;
-    }
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+  }
+
+  .hero-image span {
+    @include animate-slide-up;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .hero-image--back {
+    flex: 1 1 40%;
+    height: 85%;
+    z-index: 1;
+  }
+
+  .hero-image--back span {
+    position: absolute;
+    // left: 35%;
+    width: 125%;
+    animation-delay: 100ms;
+  }
+
+  .hero-image--front {
+    flex: 1 1 60%;
+    z-index: 2;
+  }
+
+  .hero-image--front span {
+    animation-delay: 200ms;
   }
 
   .cvp-container {
@@ -53,12 +131,11 @@
 
   .join {
     background: $primary-color;
+    background-image: radial-gradient(ellipse at top right, #5CA8DC 2%, #2F6FB6 100%);
 
     p, h2 { color: $white; }
 
     .button.--secondary { color: $primary-color; }
-
-    .lead { font-weight: 300; }
   }
 
   .on-the-web {

@@ -55,6 +55,7 @@ a,
   &:hover,
   &:focus {
     color: $secondary-color;
+    cursor: pointer;
   }
 
   &.disabled,
@@ -70,10 +71,19 @@ a,
   }
 }
 
-// A link-looking button
+// A link-looking button (TODO: move to buttons.scss?)
 .link {
   display: inline-block;
   height: 44px; // Same as .btn
   line-height: 44px; // Same as .btn
   padding: 0 12px;
+
+  small & {
+    height: 22px;
+    line-height: 22px;
+  }
+}
+
+.lead {
+  font-weight: 300;
 }
