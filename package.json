@@ -11,7 +11,7 @@
     "lint": "NODE_ENV=development node_modules/eslint/bin/eslint.js app/javascript"
   },
   "engines": {
-    "node": "7.9.0"
+    "node": "8.6.0"
   },
   "dependencies": {
     "@rails/webpacker": "^3.0.1",
